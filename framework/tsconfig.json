@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"module": "commonjs",
+		"module": "none",
 		// "noImplicitAny": true,
 		// "removeComments": true,
 		"target": "es6",
