@@ -4,10 +4,6 @@ namespace WechatGDK {
 		api?: GDK.UserAPI
 		server: WXServer
 
-		init() {
-			this.api.settings.clientSystemInfo = wx.getSystemInfoSync()
-		}
-
 		login(params?: GDK.LoginParams) {
 			const obj = new RLoginPromise<wx.LoginResult>({ okmsg: '登录成功', failmsg: '登录失败' })
 			wx.login({
