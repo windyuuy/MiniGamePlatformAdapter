@@ -16,7 +16,7 @@ declare namespace GDK {
         login(params: LoginParams): MyPromise<LoginResult, LoginError>;
         support(): void;
         platform: string | "oppo" | "qqplay";
-        settings: ISettings;
+        settings: ISystemSettings;
         userdata: IUserData;
     }
     const api: UserAPI;
@@ -198,7 +198,7 @@ declare namespace GDK {
     }
 }
 declare namespace GDK {
-    interface ISettings {
+    interface ISystemSettings {
         system: number;
         channelId: number;
         clientSystemInfo: any;

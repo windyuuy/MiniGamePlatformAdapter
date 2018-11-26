@@ -4,6 +4,9 @@ namespace GDK {
 			return null;
 		}
 		Login: new () => ILogin;
+		User: new () => IUserData;
 	}
+
+	const cc = new RegisterListTemp()
 
 }
