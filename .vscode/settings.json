@@ -1,0 +1,6 @@
+{
+	"editor.formatOnSave": true,
+	"files.autoSave": "afterDelay",
+	"editor.renderWhitespace": "boundary",
+	"editor.insertSpaces": false
+}

@@ -1,0 +1,13 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		// "noImplicitAny": true,
+		// "removeComments": true,
+		"target": "es6",
+		"preserveConstEnums": true,
+		"sourceMap": true
+	},
+	"globFiles": [
+		"./**/*.ts"
+	]
+}
