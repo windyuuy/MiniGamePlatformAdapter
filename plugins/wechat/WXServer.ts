@@ -1,5 +1,4 @@
-import { APIServer } from "../../frame/APIServer";
-namespace WechatAPI {
+namespace WechatGDK {
 	export class WXServer extends GDK.APIServer {
 		static get inst(): WXServer { return null }
 
@@ -45,7 +44,7 @@ namespace WechatAPI {
 				}
 			}) => void,
 			errorCallback: (error: any, retry: () => void) => void = null) {
-			this.gameClient.request("user/login", data, (data) => {
+			this['gameClient'].request("user/login", data, (data) => {
 				callback(data);
 			}, { errorCallback: errorCallback })
 		}

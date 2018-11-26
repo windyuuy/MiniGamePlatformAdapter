@@ -5,9 +5,13 @@
 		// "removeComments": true,
 		"target": "es6",
 		"preserveConstEnums": true,
-		"sourceMap": true
+		"sourceMap": true,
+		"outFile": "../plugins/wechat/gdk.js",
+		"emitDeclarationOnly": true,
+		"declaration": true,
+		"composite": true,
 	},
 	"globFiles": [
 		"./**/*.ts"
-	]
+	],
 }
