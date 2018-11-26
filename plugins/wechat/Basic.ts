@@ -1,5 +1,5 @@
 
-namespace WechatAPI {
+namespace WechatGDK {
 	export class RReqPromise<T, F=undefined> extends GDK.YmPromise<GDK.ReqResult, GDK.ReqError>{
 		success: (value: T) => void
 		fail: (value?: F) => void

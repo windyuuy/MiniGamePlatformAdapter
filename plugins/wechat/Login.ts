@@ -1,5 +1,5 @@
 
-namespace WechatAPI {
+namespace WechatGDK {
 	export class Login implements GDK.ILogin {
 		api?: GDK.UserAPI
 		server: WXServer
