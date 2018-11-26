@@ -7,7 +7,7 @@ namespace GDK {
 		support() { }
 		platform: string | "oppo" | "qqplay"
 		settings: ISettings
-		userdata: UserData
+		userdata: IUserData
 	}
 
 	export const api = new UserAPI

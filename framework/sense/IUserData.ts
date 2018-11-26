@@ -1,5 +1,5 @@
 namespace GDK {
-	export class UserData {
+	export interface IUserData {
 		openId: string
 		openKey: string
 		password?: string
