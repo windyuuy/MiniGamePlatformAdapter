@@ -33,7 +33,7 @@ namespace WechatGDK {
 			return obj.promise
 		}
 
-		checkSession(params?: GDK.LoginParams) {
+		checkSession() {
 			return wrapReq(wx.checkSession, wx, {
 				okmsg: "session_key 未过期，并且在本生命周期一直有效",
 				failmsg: "session_key 已经失效，需要重新执行登录流程"

@@ -144,7 +144,7 @@ declare namespace GDK {
         api?: GDK.UserAPI;
         init?(): any;
         login(params?: LoginParams): MyPromise<LoginResult, LoginError>;
-        checkSession?(params?: LoginParams): any;
+        checkSession?(params?: ReqParams): any;
     }
 }
 declare namespace GDK {
