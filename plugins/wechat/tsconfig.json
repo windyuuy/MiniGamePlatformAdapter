@@ -1,13 +1,18 @@
 {
 	"compilerOptions": {
 		"module": "none",
-		// "noImplicitAny": true,
-		// "removeComments": true,
 		"target": "es6",
 		"preserveConstEnums": true,
-		"sourceMap": true
+		"sourceMap": true,
+		"outFile": "../../dist/wechat.js"
 	},
-	"globFiles": [
+	"include": [
 		"./**/*.ts"
+	],
+	"typeAcquisition": {},
+	"references": [
+		{
+			"path": "../../framework"
+		}
 	]
 }

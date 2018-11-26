@@ -1,5 +1,5 @@
 
-namespace GDK {
+namespace WechatGDK {
 	export class Settings implements GDK.ISettings {
 		system: number
 		channelId: number

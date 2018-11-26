@@ -6,7 +6,7 @@
 		"target": "es6",
 		"preserveConstEnums": true,
 		"sourceMap": true,
-		"outFile": "../plugins/wechat/gdk.js",
+		"outFile": "../dist/gdk.js",
 		"emitDeclarationOnly": true,
 		"declaration": true,
 		"composite": true,
