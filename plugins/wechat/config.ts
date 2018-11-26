@@ -1,8 +1,8 @@
-import { PackConfig } from "../../frame/PackConfig";
-import { RegisterList } from "./RegisterList";
 
-// default config
-export const qqplay: PackConfig = {
-	platform: 'wechat',
-	register: RegisterList,
+namespace WechatAPI {
+	// default config
+	export const qqplay: GDK.PackConfig = {
+		platform: 'wechat',
+		register: RegisterList,
+	}
 }

@@ -1,4 +1,5 @@
+namespace GDK {
+	export interface IShare {
 
-export interface IShare {
-
+	}
 }

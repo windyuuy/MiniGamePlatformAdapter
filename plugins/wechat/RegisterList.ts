@@ -1,4 +1,4 @@
-import { RegisterListTemp } from "../../frame/RegisterListTemp";
-
-export class RegisterList extends RegisterListTemp {
+namespace WechatAPI {
+	export class RegisterList extends GDK.RegisterListTemp {
+	}
 }
