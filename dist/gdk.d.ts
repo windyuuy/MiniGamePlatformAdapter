@@ -1,25 +1,26 @@
 declare namespace GDK {
-    class PackConfig {
-        platform: string;
-        register: new () => RegisterListTemp;
+    class ModuleClassMap {
+        Login: new () => ILogin;
+        User: new () => IUserData;
     }
 }
 declare namespace GDK {
-    class RegisterListTemp {
-        static init(temp: new () => RegisterListTemp): UserAPI;
-        Login: new () => ILogin;
+    class PackConfig {
+        platform: string;
+        register: new () => ModuleClassMap;
     }
 }
 declare namespace GDK {
     class UserAPI {
-        private _login;
+        private _m;
+        constructor(moduleMap: IModuleMap);
         login(params: LoginParams): MyPromise<LoginResult, LoginError>;
         support(): void;
         platform: string | "oppo" | "qqplay";
-        settings: ISystemSettings;
+        settings: ISettings;
         userdata: IUserData;
     }
-    const api: UserAPI;
+    function genGdk(temp: ModuleClassMap): UserAPI;
 }
 declare namespace GDK {
     abstract class APIServer {
@@ -144,7 +145,15 @@ declare namespace GDK {
         api?: GDK.UserAPI;
         init?(): any;
         login(params?: LoginParams): MyPromise<LoginResult, LoginError>;
-        checkSession?(params?: ReqParams): any;
+        checkSession?(params?: LoginParams): any;
+    }
+}
+declare namespace GDK {
+    interface IModuleMap {
+        login: ILogin;
+        pay: IPay;
+        share: IShare;
+        ad: IAd;
     }
 }
 declare namespace GDK {
@@ -198,7 +207,7 @@ declare namespace GDK {
     }
 }
 declare namespace GDK {
-    interface ISystemSettings {
+    interface ISettings {
         system: number;
         channelId: number;
         clientSystemInfo: any;

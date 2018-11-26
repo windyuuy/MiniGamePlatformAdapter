@@ -1,4 +1,4 @@
 namespace WechatGDK {
-	export class RegisterList extends GDK.RegisterListTemp {
+	export class RegisterList extends GDK.ModuleClassMap {
 	}
 }
