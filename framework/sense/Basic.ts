@@ -8,52 +8,59 @@ namespace GDK {
 	export type TSeconds = number
 	// export type senconds=number
 
-	/** 基本请求错误码 */
-	export const ReqErrorCode = {
-		/** 请求成功 */
-		SUCCESS: 0,
-		/** 未知错误 */
-		UNKNOWN: 100,
-		/** 请求超时 */
-		TIMEOUT: 101,
-	}
+	// /** 基本请求错误码 */
+	// export const ReqErrorCode = {
+	// 	/** 请求成功 */
+	// 	SUCCESS: 0,
+	// 	/** 未知错误 */
+	// 	UNKNOWN: 100,
+	// 	/** 请求超时 */
+	// 	TIMEOUT: 101,
+	// }
 
-	/** 请求错误扩展参数 */
-	export class ExtraReqError {
-		errcode?: number
-		msg?: string
-		reason?: string
-		data?: any
-	}
+	// /** 请求错误扩展参数 */
+	// export class ExtraReqError {
+	// 	errcode?: number
+	// 	msg?: string
+	// 	reason?: string
+	// 	data?: any
+	// }
 
-	/** 请求错误结果 */
-	export class ReqError extends ExtraReqError {
-		errcode: number
-		msg: string
-		reason: string
-		data?: any
-	}
+	// /** 请求错误结果 */
+	// export class ReqError extends Error {
+	// 	errcode: number
+	// 	msg: string
+	// 	reason: string
+	// 	data?: any
 
-	/** 请求结果 */
-	export class ReqResult extends ReqError { }
+	// 	constructor(errcode: number, msg: string, reason: string, data?: any) {
+	// 		super(msg)
+	// 		this.errcode = errcode
+	// 		this.reason = reason;
+	// 		this.data = data;
+	// 	}
+	// }
 
-	/** 请求结果模板生成器 */
-	export class ResultTemplatesExtractor<T extends ReqError> {
-		protected _temps: T[] = []
-		get temps() { return this._temps }
+	// /** 请求结果 */
+	// export class ReqResult extends ReqError { }
 
-		constructor(temps: T[]) {
-			this._temps = temps
-		}
+	// /** 请求结果模板生成器 */
+	// export class ResultTemplatesExtractor<T extends ReqError> {
+	// 	protected _temps: T[] = []
+	// 	get temps() { return this._temps }
+
+	// 	constructor(temps: T[]) {
+	// 		this._temps = temps
+	// 	}
 
 
-		/**
-		 * 根据错误码和扩展参数构造请求结果
-		 */
-		make<F extends ExtraReqError>(errcode: number, extra?: F): T {
-			return null
-		}
-	}
+	// 	/**
+	// 	 * 根据错误码和扩展参数构造请求结果
+	// 	 */
+	// 	make<F extends ExtraReqError>(errcode: number, extra?: F): T {
+	// 		return null
+	// 	}
+	// }
 
 	/**
 	 * 请求结果模板，用于生成请求结果
@@ -65,11 +72,11 @@ namespace GDK {
 	])
 	```
 	 **/
-	export const ReqResultTemplates = new ResultTemplatesExtractor<ReqError>([
-		{ errcode: ReqErrorCode.SUCCESS, msg: '请求成功', reason: '请求成功', data: null },
-		{ errcode: ReqErrorCode.UNKNOWN, msg: '请求失败', reason: '未知错误' },
-		{ errcode: ReqErrorCode.TIMEOUT, msg: '请求超时', reason: '请求超时' },
-	])
+	// export const ReqResultTemplates = new ResultTemplatesExtractor<ReqError>([
+	// 	{ errcode: ReqErrorCode.SUCCESS, msg: '请求成功', reason: '请求成功', data: null },
+	// 	{ errcode: ReqErrorCode.UNKNOWN, msg: '请求失败', reason: '未知错误' },
+	// 	{ errcode: ReqErrorCode.TIMEOUT, msg: '请求超时', reason: '请求超时' },
+	// ])
 
 	// export class ReqCallbacks {
 	// 	success?: (params: ReqResult) => void
