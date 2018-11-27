@@ -19,16 +19,24 @@ namespace WechatGDK {
 								userId: data.userId,
 								avatarUrl: data.profileImg,
 								nickName: data.nickname,
+								backupTime: data.backupTime,
+								channelId: data.channelId,
+								createTime: data.createTime,
+								followGzh: data.followGzh,
+								gameToken: data.gameToken,
+								token: data.token,
 							}
-							obj.success(obj.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN, {
+							obj.success(obj.success(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.SUCCESS, {
 								message: '登录成功',
 								data: data,
 							})))
 						} else {
-							obj.fail(obj.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN)))
+							obj.fail(obj.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN, {
+								data: resp
+							})))
 						}
 					}, () => {
-						obj.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN))
+						obj.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.NETWORK_ERROR))
 					})
 				},
 				fail: () => {

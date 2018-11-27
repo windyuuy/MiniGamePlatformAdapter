@@ -28,12 +28,15 @@ declare namespace GDK {
 declare namespace GDK {
     /** 基本请求错误码 */
     const GDKErrorCode: {
+        /** Normal Error */
         /** 请求成功 */
         SUCCESS: number;
         /** 未知错误 */
         UNKNOWN: number;
         /** 请求超时 */
         TIMEOUT: number;
+        /** 网络错误 */
+        NETWORK_ERROR: number;
         /** GameHttpClient Error */
         /** 无效的OPENID */
         INVALID_OPENID: number;
@@ -240,7 +243,18 @@ declare namespace GDK {
         password?: string;
         nickName: string;
         userId: number;
+        /** 是否新用户 */
         isNewUser: boolean;
         avatarUrl: string;
+        /** 上传存档时间(秒) */
+        backupTime: number;
+        /** 0 未关注,1 已关注 */
+        followGzh: number;
+        token: string;
+        gameToken: string;
+        /** 渠道id */
+        channelId: number;
+        /** 创建时间 */
+        createTime: string;
     }
 }
