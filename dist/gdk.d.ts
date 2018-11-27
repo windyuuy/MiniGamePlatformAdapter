@@ -34,8 +34,12 @@ declare namespace GDK {
         UNKNOWN: number;
         /** 请求超时 */
         TIMEOUT: number;
+        /** GameHttpClient Error */
         /** 无效的OPENID */
         INVALID_OPENID: number;
+        /** API Error */
+        /** API 登录失败 */
+        API_LOGIN_FAILED: number;
     };
     /**
      * 请求结果模板，用于生成错误结果
@@ -95,9 +99,6 @@ declare namespace GDK {
      * @param T - resolve 参数类型
      * @param F - reject 参数类型
      */
-    class MyPromise<T, F> extends Promise<T> {
-        constructor(executor: (resolve: (value?: T | PromiseLike<T>) => void, reject: (reason?: F) => void) => void);
-    }
     /**
      * 反转 MyPromise
      * - 外部调用 success时相当于调用了 resolve
@@ -105,14 +106,14 @@ declare namespace GDK {
      * @param T - resolve 参数类型
      * @param F - reject 参数类型
      */
-    class YmPromise<T, F=any> {
+    class YmPromise<T, F = any> {
         success: Function;
         fail: Function;
         promise: Promise<T>;
         constructor(params?: any);
         protected init(params?: any): void;
     }
-    class RPromise<T, F> extends YmPromise<T, F> {
+    class RPromise<T, F = any> extends YmPromise<T, F> {
         success: (value: T) => void;
         fail: (value?: F) => void;
     }

@@ -10,8 +10,13 @@ namespace GDK {
 		/** 请求超时 */
 		TIMEOUT: 101,
 
+		/** GameHttpClient Error */
 		/** 无效的OPENID */
-		INVALID_OPENID: 10001,
+		INVALID_OPENID: 2001,
+
+		/** API Error */
+		/** API 登录失败 */
+		API_LOGIN_FAILED: 30001,
 	}
 
 	/**
@@ -23,6 +28,8 @@ namespace GDK {
 		{ errcode: GDKErrorCode.TIMEOUT, message: '请求超时', reason: '请求超时' },
 
 		{ errcode: GDKErrorCode.INVALID_OPENID, message: '登录失败', reason: 'openId验证失败' },
+
+		{ errcode: GDKErrorCode.API_LOGIN_FAILED, message: 'Api登录失败', reason: 'Api登录失败' },
 	])
 
 
