@@ -11,5 +11,6 @@ namespace GDK {
 		Customer?: new () => ICustomer
 		Widgets?: new () => IWidgets
 		SubContext?: new () => ISubContext
+		Support?: new () => ISupport
 	}
 }

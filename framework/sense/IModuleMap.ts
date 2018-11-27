@@ -10,5 +10,6 @@ namespace GDK {
 		customer: ICustomer
 		widgets: IWidgets
 		subContext: ISubContext
+		support: ISupport
 	}
 }
