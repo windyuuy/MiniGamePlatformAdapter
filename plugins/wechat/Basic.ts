@@ -1,4 +1,3 @@
-/// <reference path="../../framework/sense/Basic.ts" />
 namespace WechatGDK {
 	type ReqResult = any
 

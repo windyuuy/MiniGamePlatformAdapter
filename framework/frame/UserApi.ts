@@ -10,12 +10,9 @@ namespace GDK {
 		support() { }
 		/** 当前实际平台 */
 		platform: string | "oppo" | "qqplay"
-		userdata: IUserData
-		gameInfo: IGameInfo
-		systemInfo: ISystemInfo
-		share: IShare
-		pay: IPay
-		adver: IAdvert
+		get userdata(): IUserData { return this._m.userdata }
+		get gameInfo(): IGameInfo { return this._m.gameInfo }
+		get systemInfo(): ISystemInfo { return this._m.systemInfo }
 
 		/**
 		 * 获取当前服务器时间

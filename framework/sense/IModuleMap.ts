@@ -1,8 +1,14 @@
 namespace GDK {
 	export interface IModuleMap {
 		login: ILogin
-		pay: IPay
+		userdata: IUserData
+		gameInfo: IGameInfo
+		systemInfo: ISystemInfo
 		share: IShare
-		ad: IAdvert
+		pay: IPay
+		advert: IAdvert
+		customer: ICustomer
+		widgets: IWidgets
+		subContext: ISubContext
 	}
 }

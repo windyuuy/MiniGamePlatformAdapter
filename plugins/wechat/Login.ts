@@ -13,8 +13,7 @@ namespace WechatGDK {
 					this.server.userLogin({ code: res.code, system: system, clientSystemInfo: this.api.gameInfo.clientSystemInfo }, (resp) => {
 						const data = resp.data
 						if (resp.succeed) {
-							this.api.userdata = {
-								...this.api.userdata,
+							const newdata = {
 								openId: data.openId,
 								isNewUser: data.userNew,
 								userId: data.userId,
@@ -26,6 +25,9 @@ namespace WechatGDK {
 								followGzh: data.followGzh,
 								gameToken: data.gameToken,
 								token: data.token,
+							}
+							for (let key in newdata) {
+								this.api.userdata[key] = newdata[key]
 							}
 							ret.success({
 								extra: data,
