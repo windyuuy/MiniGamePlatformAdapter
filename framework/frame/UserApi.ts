@@ -16,6 +16,11 @@ namespace GDK {
 		share: IShare
 		pay: IPay
 		adver: IAdvert
+
+		/**
+		 * 获取当前服务器时间
+		 */
+		getServerTime: () => Date;
 	}
 
 	export function genGdk(temp: ModuleClassMap) {

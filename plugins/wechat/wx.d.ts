@@ -1924,6 +1924,10 @@ declare namespace wx {
 
 	export interface GetUserInfoOptions extends BaseOptions {
 
+		openIdList?: string[]
+
+		lang?: "en" | "zh_CN" | "zh_TW"
+
 		/**
 		 * 接口调用成功的回调函数
 		 */
@@ -2159,4 +2163,15 @@ declare namespace wx {
 	 * @param obj 
 	 */
 	export function createUserInfoButton(obj: IUserInfoButton): UserInfoButton
+
+
+	/**
+	 * 监听小游戏回到前台的事件
+	 * https://developers.weixin.qq.com/minigame/dev/document/system/life-cycle/wx.onShow.html
+	 */
+	export function onShow(callback: (res: { scene: string, query: any, shareTicket: string }) => void);
+	export function onHide(callback: Function);
+	export function offHide(callback: Function);
+	export function offShow(callback: Function);
+
 }
