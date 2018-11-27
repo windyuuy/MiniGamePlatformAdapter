@@ -2051,4 +2051,26 @@ declare namespace wx {
 	}
 
 	export function createUserInfoButton(obj: IUserInfoButton): UserInfoButton
+
+	export class OpenDataContext {
+			
+
+        /**
+         * 向开放数据域发送消息
+         * @param message 要发送的消息，message 中及嵌套对象中 key 的 value 只能是 primitive value。即 number、string、boolean、null、undefined。
+         */
+		postMessage(message);
+	}
+
+	/**
+	 * 获取开放数据域
+	 */
+	export function getOpenDataContext(): OpenDataContext;
+
+	/**
+	 * 监听主域发送的消息
+	 * @param callback 
+	 */
+	export function onMessage(callback)
+
 }
