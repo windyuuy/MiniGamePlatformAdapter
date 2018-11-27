@@ -5,11 +5,12 @@ namespace WechatGDK {
 		server: WXServer
 
 		login(params?: GDK.LoginParams) {
-			const obj = new GDK.YmPromise<GDK.LoginResult>()
+			const ret = new GDK.YmPromise<GDK.LoginResult>()
 			wx.login({
 				success: (res) => {
 					// 解密数据
-					this.server.userLogin({ code: res.code, system: this.api.settings.system, clientSystemInfo: this.api.settings.clientSystemInfo }, (resp) => {
+					const system = this.api.settings.system == "android" ? 0 : 1
+					this.server.userLogin({ code: res.code, system: system, clientSystemInfo: this.api.settings.clientSystemInfo }, (resp) => {
 						const data = resp.data
 						if (resp.succeed) {
 							this.api.userdata = {
@@ -26,28 +27,27 @@ namespace WechatGDK {
 								gameToken: data.gameToken,
 								token: data.token,
 							}
-							obj.success(obj.success(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.SUCCESS, {
-								message: '登录成功',
+							ret.success({
 								data: {
 									extra: data,
 								}
-							})))
+							})
 						} else {
-							obj.fail(obj.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN, {
+							ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN, {
 								data: {
 									extra: resp,
 								}
-							})))
+							}))
 						}
 					}, () => {
-						obj.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.NETWORK_ERROR))
+						ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.NETWORK_ERROR))
 					})
 				},
 				fail: () => {
-					obj.fail(obj.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_LOGIN_FAILED)))
+					ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_LOGIN_FAILED))
 				}
 			})
-			return obj.promise
+			return ret.promise
 		}
 
 		checkSession() {
