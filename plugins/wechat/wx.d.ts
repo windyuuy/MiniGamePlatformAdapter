@@ -1198,7 +1198,7 @@ declare namespace wx {
 	/**
 	 * 隐藏消息提示框
 	 */
-	export function hideToast(): void;
+	export function hideToast(object: Object): void;
 
 	export interface ShowModalResult {
 
@@ -2102,4 +2102,21 @@ declare namespace wx {
 		 * complete	function	    接口调用结束的回调函数（调用成功、失败都会执行）
 		 */
 	export function getFriendCloudStorage(obj: { keyList: string[], success?: (res: { data: UserGameData[] }) => void, fail?: Function, complete?: Function }): void;
+
+	export function openCustomerServiceConversation(object: Object)
+
+	export class ShowLoadingParams {
+		/** 提示的内容 */
+		title: string
+		/** 是否显示透明蒙层，防止触摸穿透 */
+		mask?: boolean
+		/**  接口调用成功的回调函数 */
+		success?: Function
+		/**  接口调用失败的回调函数 */
+		fail?: Function
+		/**  接口调用结束的回调函数（调用成功、失败都会执行） */
+		complete?: Function
+	}
+	export function showLoading(object: Object)
+	export function hideLoading(object: Object)
 }
