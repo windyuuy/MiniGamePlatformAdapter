@@ -1,3 +1,4 @@
+/// <reference path="Log.ts" />
 namespace GDKLIB {
     type ResponseData = { succeed: boolean, code: 0 | number, message: "success" | string, data: any }
     type RequestData = { appId: any, role: any, index: number, retry: number, data: any }
