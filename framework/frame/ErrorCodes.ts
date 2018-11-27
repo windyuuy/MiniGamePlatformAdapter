@@ -42,6 +42,8 @@ namespace GDK {
 		API_HIDE_TOAST_FAILED: 30134,
 		API_SHOW_MODAL_FAILED: 30135,
 
+		API_HIDE_KEYBOARD_FAILED: 30141,
+
 
 		/**
 		 * 分享不被支持
@@ -82,6 +84,7 @@ namespace GDK {
 		{ errcode: GDKErrorCode.API_SHOW_TOAST_FAILED, message: '显示 toast 失败' },
 		{ errcode: GDKErrorCode.API_HIDE_TOAST_FAILED, message: '隐藏 toast 失败' },
 		{ errcode: GDKErrorCode.API_SHOW_MODAL_FAILED, message: '显示 modal 失败' },
+		{ errcode: GDKErrorCode.API_HIDE_KEYBOARD_FAILED, message: '隐藏 键盘 失败' },
 
 		{ errcode: GDKErrorCode.API_SHARE_UNSUPPORTED, message: '分享不被支持' },
 		{ errcode: GDKErrorCode.API_SHARE_UNSUPPORTED_PLATFORM, message: '不支持的平台' },

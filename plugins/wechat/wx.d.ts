@@ -1843,7 +1843,7 @@ declare namespace wx {
 	/**
 	 * 收起键盘。
 	 */
-	export function hideKeyboard(): void;
+	export function hideKeyboard(object: Object): void;
 
 	/**
 	 * 停止当前页面下拉刷新。

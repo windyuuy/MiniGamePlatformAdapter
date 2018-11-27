@@ -9,7 +9,15 @@ namespace WechatGDK {
 		fun(object)
 		return ret.promise
 	}
+
+	class KeyBoard implements GDK.IKeyBoard {
+		hideKeyboard(object: Object): Promise<null> {
+			return wrapReq((obj) => { return wx.hideKeyboard(obj) }, object, GDK.GDKErrorCode.API_HIDE_KEYBOARD_FAILED)
+		}
+	}
+
 	export class Widgets implements GDK.IWidgets {
+		keyboard = new KeyBoard()
 		showLoading(object) {
 			return wrapReq((obj) => { return wx.showLoading(obj) }, object, GDK.GDKErrorCode.API_SHOW_LOADING_FAILED)
 		}

@@ -96,11 +96,16 @@ namespace GDK {
 		success?: (res?: ShowModalResult) => void;
 	}
 
+	export interface IKeyBoard {
+		hideKeyboard(object: Object): Promise<null>
+	}
 	export interface IWidgets {
-		showLoading(object: ShowLoadingParams)
-		hideLoading(object: Object)
-		showToast(options: ShowToastOptions): void;
-		hideToast(object: Object): void;
-		showModal(options: ShowModalOptions): void;
+		readonly keyboard: IKeyBoard
+
+		showLoading(object: ShowLoadingParams): Promise<null>
+		hideLoading(object: Object): Promise<null>
+		showToast(object: ShowToastOptions): Promise<null>
+		hideToast(object: Object): Promise<null>
+		showModal(object: ShowModalOptions): Promise<null>
 	}
 }
