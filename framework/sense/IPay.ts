@@ -48,10 +48,10 @@ namespace GDK {
 	}
 
 	export class PayResult {
-		data?: {
-			errCode: number,
-			extra?: any
+		result: {
+			errCode: number
 		}
+		extra?: any
 	}
 
 	export interface IPay extends IModule {

@@ -1,4 +1,9 @@
 namespace GDK {
+	/** 登录请求结果 */
+	export class UserDataUpdateResult {
+		extra?: any
+	}
+
 	export interface IUserData {
 		openId: string
 		openKey: string
@@ -18,5 +23,7 @@ namespace GDK {
 		channelId: number
 		/** 创建时间 */
 		createTime: string
+
+		update(): Promise<{}>
 	}
 }
