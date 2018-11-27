@@ -1927,4 +1927,58 @@ declare namespace wx {
 		fail?: (res: { errMsg: string, errCode: number }) => void//		否	接口调用失败的回调函数	
 		complete?: Function//		否	接口调用结束的回调函数（调用成功、失败都会执行）
 	});
+
+	//激励视频广告
+	export class RewardedVideoAd {
+		//属性
+		adUnitId: string
+		//方法
+		load();//隐藏激励视频广告
+		show();//显示激励视频广告。激励视频广告将从屏幕下方推入。
+		destroy();//销毁 banner 广告
+		onResize(callback: Function);//监听隐藏 banner 广告
+		offResize(callback: Function);//取消监听隐藏 banner 广告
+		onLoad(callback: Function);//监听激励视频广告加载事件
+		offLoad(callback: Function);//取消监听激励视频广告加载事件
+		onError(callback: Function);//监听激励视频错误事件
+		offError(callback: Function);//取消监听激励视频错误事件
+		onClose(callback: Function);//监听用户点击 关闭广告 按钮的事件
+		offClose(callback: Function);//取消监听用户点击 关闭广告 按钮的事件
+	}
+	//Banner 广告
+	export class BannerAd {
+		//属性
+		adUnitId: string
+		style: {
+			left: number//		banner 广告组件的左上角横坐标	
+			top: number//		banner 广告组件的左上角纵坐标	
+			width: number//		banner 广告组件的宽度。最小 300，最大至 屏幕宽度（屏幕宽度可以通过 wx.getSystemInfoSync() 获取）。
+			height: number//		banner 广告组件的高度
+			realWidth: number//		banner 广告组件经过缩放后真实的宽度
+			realHeight: number//		banner 广告组件经过缩放后真实的高度
+		};
+		//方法
+		show();//显示 banner 广告
+		hide();//隐藏 banner 广告
+		destroy();//销毁 banner 广告
+		onResize(callback: Function);//监听隐藏 banner 广告
+		offResize(callback: Function);//取消监听隐藏 banner 广告
+		onLoad(callback: Function);//监听banner 广告加载事件
+		offLoad(callback: Function);//取消监听banner 广告加载事件
+		onError(callback: Function);//监听banner 广告错误事件
+		offError(callback: Function);//取消监听banner 广告错误事件
+	}
+	/**
+     * 创建Banner 广告组件
+     * @param obj 
+     * @param adUnitId
+     * @param style
+     */
+	export function createBannerAd(obj: { adUnitId: string, style: { left?: number, top?: number, width?: number, height?: number } }): BannerAd;
+	/**
+     * 创建激励视频广告组件
+     * @param obj 
+     */
+	export function createRewardedVideoAd(obj: { adUnitId: string }): RewardedVideoAd;
+
 }

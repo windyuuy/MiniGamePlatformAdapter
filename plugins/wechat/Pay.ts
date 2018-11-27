@@ -9,6 +9,7 @@ namespace WechatGDK {
 
 			const info = this.api.systemInfo
 			const env = info.isPayInSandbox ? 1 : 0
+			const successCode = 999999
 			wx.requestMidasPayment({
 				mode: "game",
 				env: env,
@@ -21,8 +22,8 @@ namespace WechatGDK {
 					log.info("微信充值成功", config)
 					ret.success({
 						data: {
-							errCode: 999999,
-							extra: { errCode: 999999, state: GDK.OrderState.ok },
+							errCode: successCode,
+							extra: { errCode: successCode, state: GDK.OrderState.ok },
 						}
 					})
 				},
