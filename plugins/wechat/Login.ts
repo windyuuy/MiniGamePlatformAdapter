@@ -28,11 +28,15 @@ namespace WechatGDK {
 							}
 							obj.success(obj.success(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.SUCCESS, {
 								message: '登录成功',
-								data: data,
+								data: {
+									extra: data,
+								}
 							})))
 						} else {
 							obj.fail(obj.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN, {
-								data: resp
+								data: {
+									extra: resp,
+								}
 							})))
 						}
 					}, () => {
