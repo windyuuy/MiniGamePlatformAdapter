@@ -28,7 +28,10 @@ namespace GDK {
 		API_PAY_CANCEL: 30013,
 
 		/** API 更新用户数据 */
-		API_UPDATE_USERDATA_ERROR: 30102,
+		API_UPDATE_USERDATA_FAILED: 30102,
+
+		/** 获取好友排行数据 */
+		API_GET_FRIEND_CLOUD_STORAGE_FAILED: 30112,
 	}
 
 	/**
@@ -49,7 +52,9 @@ namespace GDK {
 		{ errcode: GDKErrorCode.API_PAY_FAILED, message: 'Api支付失败', reason: 'Api支付失败' },
 		{ errcode: GDKErrorCode.API_PAY_CANCEL, message: 'Api支付取消', reason: 'Api支付取消' },
 
-		{ errcode: GDKErrorCode.API_UPDATE_USERDATA_ERROR, message: 'Api更新用户数据失败', reason: 'Api更新用户数据失败' },
+		{ errcode: GDKErrorCode.API_UPDATE_USERDATA_FAILED, message: 'Api更新用户数据失败', reason: 'Api更新用户数据失败' },
+
+		{ errcode: GDKErrorCode.API_GET_FRIEND_CLOUD_STORAGE_FAILED, message: '获取好友排行数据失败' },
 	])
 
 

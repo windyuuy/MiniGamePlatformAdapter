@@ -2053,7 +2053,7 @@ declare namespace wx {
 	export function createUserInfoButton(obj: IUserInfoButton): UserInfoButton
 
 	export class OpenDataContext {
-			
+
 
         /**
          * 向开放数据域发送消息
@@ -2073,4 +2073,33 @@ declare namespace wx {
 	 */
 	export function onMessage(callback)
 
+	//https://developers.weixin.qq.com/minigame/dev/document/open-api/data/KVData.html
+	export class KVData {
+		key: string
+		value: string
+	}
+	//https://developers.weixin.qq.com/minigame/dev/document/open-api/data/UserGameData.html
+	export class UserGameData {
+		//用户的微信头像 url
+		avatarUrl: string
+
+		//用户的微信昵称
+		nickname: string
+
+		//用户的 openid
+		openid: string
+
+		//用户的托管 KV 数据列表
+		KVDataList: KVData[]
+	}
+	/**
+		 * https://developers.weixin.qq.com/minigame/dev/document/open-api/data/wx.getFriendCloudStorage.html
+		 * 拉取当前用户所有同玩好友的托管数据。该接口只可在开放数据域下使用
+		 * @param obj 
+		 * keyList	Array.<string>	要拉取的 key 列表	
+		 * success	function		接口调用成功的回调函数	
+		 * fail	    function		接口调用失败的回调函数	
+		 * complete	function	    接口调用结束的回调函数（调用成功、失败都会执行）
+		 */
+	export function getFriendCloudStorage(obj: { keyList: string[], success?: (res: { data: UserGameData[] }) => void, fail?: Function, complete?: Function }): void;
 }
