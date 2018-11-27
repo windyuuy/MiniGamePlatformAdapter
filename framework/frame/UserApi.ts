@@ -16,7 +16,7 @@ namespace GDK {
 		systemInfo: ISystemInfo
 		share: IShare
 		pay: IPay
-		adver: IAdver
+		adver: IAdvert
 	}
 
 	export function genGdk(temp: ModuleClassMap) {
