@@ -5,13 +5,13 @@ namespace WechatGDK {
 	export class RReqPromise<T, F=undefined> extends GDK.YmPromise<ReqResult, GDK.GDKError>{
 		success: (value: T) => void
 		fail: (value?: F) => void
-		promise: GDK.MyPromise<ReqResult, GDK.GDKError>
+		promise: Promise<ReqResult>
 
 		constructor(params: { okmsg?: string, failmsg?: string, okreason?: string, failreason?: string }) {
 			super(params)
 		}
 		protected init(params?: { okmsg?: string, failmsg?: string, okreason?: string, failreason?: string }) {
-			this.promise = new GDK.MyPromise((resolve, reject) => {
+			this.promise = new Promise<ReqResult>((resolve, reject) => {
 				this.success = (data) => {
 					const data1 = data == undefined ? {} : data
 
