@@ -5,8 +5,7 @@ namespace GDK {
 	/** 登录请求结果 */
 	export class LoginResult {
 		data?: {
-			openid: string,
-			sessionKey: string,
+			extra?: any
 		}
 	}
 

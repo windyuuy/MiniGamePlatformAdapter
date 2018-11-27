@@ -11,6 +11,7 @@
 		"declaration": true,
 		"composite": true,
 	},
+	"compileOnSave": true,
 	"globFiles": [
 		"./**/*.ts"
 	],

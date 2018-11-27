@@ -72,9 +72,15 @@ declare namespace GDK {
         constructor(moduleMap: IModuleMap);
         login(params: LoginParams): Promise<LoginResult>;
         support(): void;
+        /** 当前实际平台 */
         platform: string | "oppo" | "qqplay";
         settings: ISystemInfo;
         userdata: IUserData;
+        gameInfo: IGameInfo;
+        systemInfo: ISystemInfo;
+        share: IShare;
+        pay: IPay;
+        adver: IAdver;
     }
     function genGdk(temp: ModuleClassMap): UserAPI;
 }
@@ -173,16 +179,23 @@ declare namespace GDK {
     }
 }
 declare namespace GDK {
+    /** 订单状态 */
     enum OrderState {
         fail = 2,
         ok = 1,
         unknown = 0
     }
-    class RechargeConfig {
+    class PayItemInfo {
+        /** 商品ID */
         id?: number;
+        /** 支付金额 */
         money?: number;
+        /** 购买商品数量 */
         amount?: number;
+        /** 商品名称/标题 */
         title?: string;
+        /** 支付货币单位 */
+        currencyUnit: "CNY" | "Dollor";
     }
     type OrderInfo = {
         outTradeNo: string;
@@ -198,28 +211,10 @@ declare namespace GDK {
      */
     type ApplyOrderInfo = {
         orderInfo: OrderInfo;
-        config: RechargeConfig;
+        config: PayItemInfo;
         isDelayedApply: boolean;
     };
-    interface IPay {
-        /**
-         * 支付
-         * @param config 配置信息
-         * @param success 支付成功回调
-         * @param fail 支付失败回调
-         */
-        pay(config: RechargeConfig, success: Function, fail?: Function): any;
-        /**
-         * 检查充值是否已经购买过一次
-         * @param config 配置信息
-         * @returns
-         */
-        isBoughtOnce(config: RechargeConfig): boolean;
-        /**
-         * 校验补发订单
-         * @returns
-         */
-        pullDiffOrders(successCallback: Function, failCallback: Function): any;
+    interface IPay extends IModule {
     }
 }
 declare namespace GDK {
@@ -228,11 +223,15 @@ declare namespace GDK {
 }
 declare namespace GDK {
     interface ISystemInfo {
-        system: number;
+        system: "android" | "ios" | "devtools";
         channelId: number;
         clientSystemInfo: any;
         launchOptionsPath: any;
         launchOptionsQuery: any;
+        /** 沙盒模式支付 */
+        isPayInSandbox: boolean;
+        /** 支付侧应用id */
+        offerId: string;
         init?(): any;
     }
 }

@@ -18,8 +18,14 @@ namespace GDK {
 		INVALID_OPENID: 2001,
 
 		/** API Error */
-		/** API 登录失败 */
-		API_LOGIN_FAILED: 30001,
+		/** API 登录 */
+		API_LOGIN_SUCCESS: 30001,
+		API_LOGIN_FAILED: 30002,
+
+		/** API 支付 */
+		API_PAY_SUCCESS: 30101,
+		API_PAY_FAILED: 30102,
+		API_PAY_CANCEL: 30103,
 	}
 
 	/**
@@ -33,7 +39,12 @@ namespace GDK {
 
 		{ errcode: GDKErrorCode.INVALID_OPENID, message: '登录失败', reason: 'openId验证失败' },
 
+		{ errcode: GDKErrorCode.API_LOGIN_SUCCESS, message: 'Api登录成功', reason: 'Api登录成功' },
 		{ errcode: GDKErrorCode.API_LOGIN_FAILED, message: 'Api登录失败', reason: 'Api登录失败' },
+
+		{ errcode: GDKErrorCode.API_PAY_SUCCESS, message: 'Api支付失败', reason: 'Api支付失败' },
+		{ errcode: GDKErrorCode.API_PAY_FAILED, message: 'Api支付失败', reason: 'Api支付失败' },
+		{ errcode: GDKErrorCode.API_PAY_CANCEL, message: 'Api支付取消', reason: 'Api支付取消' },
 	])
 
 

@@ -1,15 +1,22 @@
 namespace GDK {
+	/** 订单状态 */
 	export enum OrderState {
 		fail = 2,
 		ok = 1,
 		unknown = 0,
 	}
 
-	export class RechargeConfig {
-		id?: number = 0	//Id
-		money?: number = 0	//金额
-		amount?: number = 0	//精灵石数量
-		title?: string = ''	//商品名称
+	export class PayItemInfo {
+		/** 商品ID */
+		id?: number = 0
+		/** 支付金额 */
+		money?: number = 0
+		/** 购买商品数量 */
+		amount?: number = 0
+		/** 商品名称/标题 */
+		title?: string = ''
+		/** 支付货币单位 */
+		currencyUnit: "CNY" | "Dollor" = "CNY"
 	}
 
 	// 订单信息
@@ -28,31 +35,26 @@ namespace GDK {
 	 */
 	export type ApplyOrderInfo = {
 		orderInfo: OrderInfo, //订单信息
-		config: RechargeConfig, //购买项
+		config: PayItemInfo, //购买项
 		isDelayedApply: boolean, //是否延后补发的订单
 	}
 
-	export interface IPay {
-		/**
-		 * 支付
-		 * @param config 配置信息
-		 * @param success 支付成功回调
-		 * @param fail 支付失败回调
-		 */
-		pay(config: RechargeConfig, success: Function, fail?: Function);
+	export class PayError extends GDKError {
+		data?: {
+			extra?: {
+				errCode?: number
+			}
+		}
+	}
 
-		/**
-		 * 检查充值是否已经购买过一次
-		 * @param config 配置信息
-		 * @returns
-		 */
-		isBoughtOnce(config: RechargeConfig): boolean;
+	export class PayResult {
+		data?: {
+			errCode: number,
+			extra?: any
+		}
+	}
 
-		/**
-		 * 校验补发订单
-		 * @returns
-		 */
-		pullDiffOrders(successCallback: Function, failCallback: Function): any;
+	export interface IPay extends IModule {
 	}
 
 }
