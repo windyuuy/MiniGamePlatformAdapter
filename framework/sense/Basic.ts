@@ -88,11 +88,11 @@ namespace GDK {
 	 * @param T - resolve 参数类型
 	 * @param F - reject 参数类型
 	 */
-	export class MyPromise<T, F> extends Promise<T>{
-		constructor(executor: (resolve: (value?: T | PromiseLike<T>) => void, reject: (reason?: F) => void) => void) {
-			super(executor)
-		}
-	}
+	// export class MyPromise<T, F> extends Promise<T>{
+	// 	constructor(executor: (resolve: (value?: T | PromiseLike<T>) => void, reject: (reason?: F) => void) => void) {
+	// 		super(executor)
+	// 	}
+	// }
 
 	/**
 	 * 反转 MyPromise
@@ -101,23 +101,23 @@ namespace GDK {
 	 * @param T - resolve 参数类型
 	 * @param F - reject 参数类型
 	 */
-	export class YmPromise<T, F> {
+	export class YmPromise<T, F=any> {
 		success: Function
 		fail: Function
-		promise: MyPromise<T, F>
+		promise: Promise<T>
 		constructor(params?: any) {
 			this.init(params)
 		}
 
 		protected init(params?: any) {
-			this.promise = new MyPromise((resolve, reject) => {
+			this.promise = new Promise((resolve, reject) => {
 				this.success = resolve
 				this.fail = reject
 			})
 		}
 	}
 
-	export class RPromise<T, F> extends YmPromise<T, F>{
+	export class RPromise<T, F=any> extends YmPromise<T, F>{
 		success: (value: T) => void
 		fail: (value?: F) => void
 	}

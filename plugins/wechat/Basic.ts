@@ -1,9 +1,11 @@
 
 namespace WechatGDK {
-	export class RReqPromise<T, F=undefined> extends GDK.YmPromise<GDK.ReqResult, GDK.ReqError>{
+	type ReqResult = any
+
+	export class RReqPromise<T, F=undefined> extends GDK.YmPromise<ReqResult, GDK.GDKError>{
 		success: (value: T) => void
 		fail: (value?: F) => void
-		promise: GDK.MyPromise<GDK.ReqResult, GDK.ReqError>
+		promise: GDK.MyPromise<ReqResult, GDK.GDKError>
 
 		constructor(params: { okmsg?: string, failmsg?: string, okreason?: string, failreason?: string }) {
 			super(params)
@@ -13,14 +15,14 @@ namespace WechatGDK {
 				this.success = (data) => {
 					const data1 = data == undefined ? {} : data
 
-					resolve(GDK.ReqResultTemplates.make(GDK.ReqErrorCode.SUCCESS, {
+					resolve(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.SUCCESS, {
 						msg: params.okmsg || undefined,
 						reason: params.okreason || data1['errMsg'] || undefined,
 						data: data1
 					}))
 				}
 				this.fail = () => {
-					reject(GDK.ReqResultTemplates.make(GDK.ReqErrorCode.UNKNOWN, {
+					reject(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN, {
 						msg: params.failmsg || undefined,
 						reason: params.failreason || undefined
 					}))

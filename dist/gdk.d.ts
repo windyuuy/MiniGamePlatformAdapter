@@ -1,15 +1,4 @@
 declare namespace GDK {
-    /** 基本请求错误码 */
-    const GDKErrorCode: {
-        /** 请求成功 */
-        SUCCESS: number;
-        /** 未知错误 */
-        UNKNOWN: number;
-        /** 请求超时 */
-        TIMEOUT: number;
-        /** 无效的OPENID */
-        INVALID_OPENID: number;
-    };
     /** 请求错误扩展参数 */
     class GDKErrorExtra {
         errcode?: number;
@@ -35,6 +24,19 @@ declare namespace GDK {
          */
         make<F extends GDKErrorExtra>(errcode: number, extra?: F): GDKError;
     }
+}
+declare namespace GDK {
+    /** 基本请求错误码 */
+    const GDKErrorCode: {
+        /** 请求成功 */
+        SUCCESS: number;
+        /** 未知错误 */
+        UNKNOWN: number;
+        /** 请求超时 */
+        TIMEOUT: number;
+        /** 无效的OPENID */
+        INVALID_OPENID: number;
+    };
     /**
      * 请求结果模板，用于生成错误结果
      **/
@@ -103,10 +105,10 @@ declare namespace GDK {
      * @param T - resolve 参数类型
      * @param F - reject 参数类型
      */
-    class YmPromise<T, F> {
+    class YmPromise<T, F=any> {
         success: Function;
         fail: Function;
-        promise: MyPromise<T, F>;
+        promise: Promise<T>;
         constructor(params?: any);
         protected init(params?: any): void;
     }
