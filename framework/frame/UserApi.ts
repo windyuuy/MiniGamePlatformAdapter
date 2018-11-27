@@ -29,4 +29,3 @@ namespace GDK {
 	}
 
 }
-window["genGdk"] = GDK.genGdk;

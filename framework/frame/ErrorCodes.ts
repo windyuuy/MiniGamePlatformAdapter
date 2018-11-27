@@ -41,6 +41,18 @@ namespace GDK {
 		API_SHOW_TOAST_FAILED: 3013,
 		API_HIDE_TOAST_FAILED: 30134,
 		API_SHOW_MODAL_FAILED: 30135,
+
+
+		/**
+		 * 分享不被支持
+		 */
+		API_SHARE_UNSUPPORTED: 30201,
+
+		/**
+		 * 不支持的平台
+		 */
+		API_SHARE_UNSUPPORTED_PLATFORM: 30202,
+
 	}
 
 	/**
@@ -64,6 +76,15 @@ namespace GDK {
 		{ errcode: GDKErrorCode.API_UPDATE_USERDATA_FAILED, message: 'Api更新用户数据失败', reason: 'Api更新用户数据失败' },
 
 		{ errcode: GDKErrorCode.API_GET_FRIEND_CLOUD_STORAGE_FAILED, message: '获取好友排行数据失败' },
+
+		{ errcode: GDKErrorCode.API_SHOW_LOADING_FAILED, message: '显示 loading 失败' },
+		{ errcode: GDKErrorCode.API_HIDE_LOADING_FAILED, message: '隐藏 loading 失败' },
+		{ errcode: GDKErrorCode.API_SHOW_TOAST_FAILED, message: '显示 toast 失败' },
+		{ errcode: GDKErrorCode.API_HIDE_TOAST_FAILED, message: '隐藏 toast 失败' },
+		{ errcode: GDKErrorCode.API_SHOW_MODAL_FAILED, message: '显示 modal 失败' },
+
+		{ errcode: GDKErrorCode.API_SHARE_UNSUPPORTED, message: '分享不被支持' },
+		{ errcode: GDKErrorCode.API_SHARE_UNSUPPORTED_PLATFORM, message: '不支持的平台' },
 	])
 
 
