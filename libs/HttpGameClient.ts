@@ -142,7 +142,7 @@ namespace GDKLIB {
                 if (token != null) {
                     sign = token.substr(token.length / 2) + data
                 }
-                sign = MD5.hex(sign);
+                sign = tlib.MD5.hex(sign);
                 headMap["sign"] = sign;
                 console.log("sign", sign)
 
