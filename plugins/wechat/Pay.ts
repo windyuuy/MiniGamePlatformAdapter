@@ -1,0 +1,46 @@
+
+namespace WechatGDK {
+	const log = new GDKLIB.Log({ tags: ['api'] })
+	export class Pay implements GDK.IPay {
+		api?: GDK.UserAPI
+
+		payPurchase(config: GDK.PayItemInfo) {
+			const ret = new GDK.RPromise<GDK.PayResult>()
+
+			const info = this.api.systemInfo
+			const env = info.isPayInSandbox ? 1 : 0
+			wx.requestMidasPayment({
+				mode: "game",
+				env: env,
+				offerId: info.offerId,
+				currencyType: config.currencyUnit || "CNY",
+				platform: info.system,
+				zoneId: "1",
+				buyQuantity: config.money * 10,
+				success: () => {
+					log.info("微信充值成功", config)
+					ret.success({
+						data: {
+							errCode: 999999,
+							extra: { errCode: 999999, state: GDK.OrderState.ok },
+						}
+					})
+				},
+				fail: (res: { errCode: number }) => {
+					if (res.errCode == 1) {
+						log.info("微信充值取消", res, config)
+						ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_PAY_CANCEL))
+					} else {
+						log.warn("微信充值失败", res, config)
+						ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_PAY_FAILED, {
+							data: {
+								extra: res
+							}
+						}))
+					}
+				}
+			})
+		}
+
+	}
+}

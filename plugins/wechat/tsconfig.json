@@ -6,13 +6,11 @@
 		"sourceMap": true,
 		"outFile": "../../dist/wechat.js"
 	},
+	"compileOnSave": true,
 	"include": [
-		"./**/*.ts"
+		"../../libs/**.ts",
+		"./**/*.ts",
+		"../../framework"
 	],
-	"typeAcquisition": {},
-	"references": [
-		{
-			"path": "../../framework"
-		}
-	]
+	"typeAcquisition": {}
 }

@@ -1911,4 +1911,20 @@ declare namespace wx {
 	 * 发起微信支付。
 	 */
 	export function requestPayment(options: RequestPaymentOptions): void;
+
+	/**
+	 * [发起米大师支付](https://developers.weixin.qq.com/minigame/dev/document/midas-payment/wx.requestMidasPayment.html)
+	 */
+	export function requestMidasPayment(req: {
+		mode: string//		是	支付的类型，不同的支付类型有各自额外要传的附加参数。	
+		env?: number//	0	否	环境配置	
+		offerId: string//		是	在米大师侧申请的应用 id	
+		currencyType: string//		是	币种	
+		platform?: string//		否	申请接入时的平台，platform 与应用id有关。	
+		buyQuantity?: number//		否	购买数量。mode=game 时必填。购买数量。详见 buyQuantity 限制说明。	
+		zoneId?: string//	1	否	分区 ID	
+		success?: Function//		否	接口调用成功的回调函数	
+		fail?: (res: { errMsg: string, errCode: number }) => void//		否	接口调用失败的回调函数	
+		complete?: Function//		否	接口调用结束的回调函数（调用成功、失败都会执行）
+	});
 }
