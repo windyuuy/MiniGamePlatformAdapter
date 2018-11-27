@@ -6,10 +6,10 @@ namespace GDK {
 		constructor(moduleMap: IModuleMap) {
 			this._m = moduleMap;
 		}
-		login(params: LoginParams): MyPromise<LoginResult, LoginError> { return this._m.login.login(params) }
+		login(params: LoginParams): Promise<LoginResult> { return this._m.login.login(params) }
 		support() { }
 		platform: string | "oppo" | "qqplay"
-		settings: ISettings
+		settings: ISystemInfo
 		userdata: IUserData
 	}
 

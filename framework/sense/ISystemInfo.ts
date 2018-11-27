@@ -1,5 +1,5 @@
 namespace GDK {
-	export interface ISettings {
+	export interface ISystemInfo {
 		system: number
 		channelId: number
 		clientSystemInfo: any

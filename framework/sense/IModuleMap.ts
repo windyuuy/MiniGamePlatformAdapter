@@ -3,6 +3,6 @@ namespace GDK {
 		login: ILogin
 		pay: IPay
 		share: IShare
-		ad: IAd
+		ad: IAdver
 	}
 }

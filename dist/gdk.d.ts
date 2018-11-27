@@ -1,6 +1,53 @@
 declare namespace GDK {
+    /** 基本请求错误码 */
+    const GDKErrorCode: {
+        /** 请求成功 */
+        SUCCESS: number;
+        /** 未知错误 */
+        UNKNOWN: number;
+        /** 请求超时 */
+        TIMEOUT: number;
+        /** 无效的OPENID */
+        INVALID_OPENID: number;
+    };
+    /** 请求错误扩展参数 */
+    class GDKErrorExtra {
+        errcode?: number;
+        message?: string;
+        reason?: string;
+        data?: any;
+    }
+    /** 请求错误结果 */
+    class GDKError extends Error {
+        errcode: number;
+        reason: string;
+        data?: any;
+        constructor();
+        toString(): string;
+    }
+    /** 请求结果模板生成器 */
+    class ResultTemplatesExtractor {
+        protected _temps: GDKErrorExtra[];
+        readonly temps: GDKErrorExtra[];
+        constructor(temps: GDKErrorExtra[]);
+        /**
+         * 根据错误码和扩展参数构造请求结果
+         */
+        make<F extends GDKErrorExtra>(errcode: number, extra?: F): GDKError;
+    }
+    /**
+     * 请求结果模板，用于生成错误结果
+     **/
+    const GDKResultTemplates: ResultTemplatesExtractor;
+}
+declare namespace GDK {
     class ModuleClassMap {
+        Adver: new () => IAdver;
+        GameInfo: new () => IGameInfo;
         Login: new () => ILogin;
+        Pay: new () => IPay;
+        Share: new () => IShare;
+        SystemInfo: new () => ISystemInfo;
         User: new () => IUserData;
     }
 }
@@ -14,10 +61,10 @@ declare namespace GDK {
     class UserAPI {
         private _m;
         constructor(moduleMap: IModuleMap);
-        login(params: LoginParams): MyPromise<LoginResult, LoginError>;
+        login(params: LoginParams): Promise<LoginResult>;
         support(): void;
         platform: string | "oppo" | "qqplay";
-        settings: ISettings;
+        settings: ISystemInfo;
         userdata: IUserData;
     }
     function genGdk(temp: ModuleClassMap): UserAPI;
@@ -31,42 +78,6 @@ declare namespace GDK {
     type TMilliSeconds = number;
     /** 秒 */
     type TSeconds = number;
-    /** 基本请求错误码 */
-    const ReqErrorCode: {
-        /** 请求成功 */
-        SUCCESS: number;
-        /** 未知错误 */
-        UNKNOWN: number;
-        /** 请求超时 */
-        TIMEOUT: number;
-    };
-    /** 请求错误扩展参数 */
-    class ExtraReqError {
-        errcode?: number;
-        msg?: string;
-        reason?: string;
-        data?: any;
-    }
-    /** 请求错误结果 */
-    class ReqError extends ExtraReqError {
-        errcode: number;
-        msg: string;
-        reason: string;
-        data?: any;
-    }
-    /** 请求结果 */
-    class ReqResult extends ReqError {
-    }
-    /** 请求结果模板生成器 */
-    class ResultTemplatesExtractor<T extends ReqError> {
-        protected _temps: T[];
-        readonly temps: T[];
-        constructor(temps: T[]);
-        /**
-         * 根据错误码和扩展参数构造请求结果
-         */
-        make<F extends ExtraReqError>(errcode: number, extra?: F): T;
-    }
     /**
      * 请求结果模板，用于生成请求结果
      * 用法示例：
@@ -77,7 +88,6 @@ declare namespace GDK {
     ])
     ```
      **/
-    const ReqResultTemplates: ResultTemplatesExtractor<ReqError>;
     /**
      * 增强类型限定的Promise
      * @param T - resolve 参数类型
@@ -113,39 +123,39 @@ declare namespace GDK {
     }
 }
 declare namespace GDK {
-    interface IAd {
+    interface IAdver {
     }
 }
 declare namespace GDK {
-    class LoginError extends ReqError {
+    interface IGameInfo {
+        init?(): any;
     }
+}
+declare namespace GDK {
     /** 登录请求结果 */
-    class LoginResult extends ReqError {
+    class LoginResult {
         data?: {
             openid: string;
             sessionKey: string;
         };
     }
     /** 登录错误码 */
-    const LoginErrorCode: {
-        INVALID_OPENID: number;
-        SUCCESS: number;
-        UNKNOWN: number;
-        TIMEOUT: number;
-    };
     /** 登录结果模板 */
-    const LoginResultTemplates: ResultTemplatesExtractor<ReqError>;
     /** 登录请求参数 */
     class LoginParams extends ReqParams {
     }
-    class LoginPromise extends MyPromise<LoginResult, LoginError> {
+    class LoginPromise extends Promise<LoginResult> {
     }
     /** 登录接口 */
-    interface ILogin {
+    interface ILogin extends IModule {
+        login(params?: LoginParams): Promise<LoginResult>;
+        checkSession?(params?: LoginParams): any;
+    }
+}
+declare namespace GDK {
+    interface IModule {
         api?: GDK.UserAPI;
         init?(): any;
-        login(params?: LoginParams): MyPromise<LoginResult, LoginError>;
-        checkSession?(params?: LoginParams): any;
     }
 }
 declare namespace GDK {
@@ -153,7 +163,7 @@ declare namespace GDK {
         login: ILogin;
         pay: IPay;
         share: IShare;
-        ad: IAd;
+        ad: IAdver;
     }
 }
 declare namespace GDK {
@@ -207,17 +217,17 @@ declare namespace GDK {
     }
 }
 declare namespace GDK {
-    interface ISettings {
+    interface IShare {
+    }
+}
+declare namespace GDK {
+    interface ISystemInfo {
         system: number;
         channelId: number;
         clientSystemInfo: any;
         launchOptionsPath: any;
         launchOptionsQuery: any;
         init?(): any;
-    }
-}
-declare namespace GDK {
-    interface IShare {
     }
 }
 declare namespace GDK {
