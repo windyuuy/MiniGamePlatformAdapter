@@ -1,5 +1,8 @@
 namespace GDK {
 	export interface IGameInfo {
+
+		appId: string
+
 		channelId: number
 		clientSystemInfo: any
 		launchOptionsPath: any

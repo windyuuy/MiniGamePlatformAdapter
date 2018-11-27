@@ -59,6 +59,11 @@ namespace GDK {
 		result: number
 
 		/**
+		 * 返回信息，如果失败可以弹出对话框让玩家确定
+		 */
+		message?: string
+
+		/**
 		 * 原生返回数据
 		 */
 		extra?: any
