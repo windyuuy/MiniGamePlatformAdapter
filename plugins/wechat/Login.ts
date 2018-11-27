@@ -5,7 +5,7 @@ namespace WechatGDK {
 		server: WXServer
 
 		login(params?: GDK.LoginParams) {
-			const obj = new RLoginPromise<wx.LoginResult>({ okmsg: '登录成功', failmsg: '登录失败' })
+			const obj = new GDK.YmPromise<GDK.LoginResult>()
 			wx.login({
 				success: (res) => {
 					// 解密数据
@@ -19,16 +19,29 @@ namespace WechatGDK {
 								userId: data.userId,
 								avatarUrl: data.profileImg,
 								nickName: data.nickname,
+								backupTime: data.backupTime,
+								channelId: data.channelId,
+								createTime: data.createTime,
+								followGzh: data.followGzh,
+								gameToken: data.gameToken,
+								token: data.token,
 							}
-							obj.success(res)
+							obj.success(obj.success(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.SUCCESS, {
+								message: '登录成功',
+								data: data,
+							})))
 						} else {
-							obj.fail()
+							obj.fail(obj.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN, {
+								data: resp
+							})))
 						}
 					}, () => {
-						obj.fail()
+						obj.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.NETWORK_ERROR))
 					})
 				},
-				fail: obj.fail,
+				fail: () => {
+					obj.fail(obj.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_LOGIN_FAILED)))
+				}
 			})
 			return obj.promise
 		}
