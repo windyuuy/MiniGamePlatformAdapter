@@ -95,5 +95,24 @@ namespace GDK {
 		 */
 		shareUrl(data: ShareUrlData): Promise<ShareResult>
 
+
+		/**
+		 * 显示分享菜单
+		 * * 微信平台必须调用该函数才会显示转发按钮
+		 * * QQ平台默认就有转发按钮
+		 */
+		showShareMenu(): Promise<void>
+
+		/**
+		 * 隐藏分享菜单
+		 */
+		hideShareMenu(): Promise<void>
+
+		/**
+		 * 在某些平台可以设置分享按钮所分享的内容
+		 * * 微信支持
+		 * * QQplay 无效
+		 */
+		setShareMenuData(data: ShareData): Promise<void>
 	}
 }

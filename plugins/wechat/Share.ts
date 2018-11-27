@@ -160,5 +160,45 @@ namespace WechatGDK {
 			})
 		}
 
+		async showShareMenu(): Promise<void> {
+			wx.showShareMenu({ withShareTicket: true })
+		}
+
+		async hideShareMenu(): Promise<void> {
+			wx.hideShareMenu({});
+		}
+
+		/**
+		 * 分享菜单数据回调接口
+		 */
+		protected _shareMenuDataCallback: (res: { title?: string, imageUrl?: string, query?: string }) => { title?: string, imageUrl?: string, query?: string } = null;
+
+		protected _shareMenuData: GDK.ShareData = null;
+
+		async setShareMenuData(data: GDK.ShareData): Promise<void> {
+			this._shareMenuData = data;
+			if (this._shareMenuDataCallback == null) {
+				this._shareMenuDataCallback = (res) => {
+					if (res == null) {
+						res = {}
+					}
+					let query = "";
+					if (this._shareMenuData.data) {
+						for (let k in this._shareMenuData.data) {
+							query += `${k}=${this._shareMenuData.data[k]}&`
+						}
+						query = query.substr(0, query.length - 1)//去除结尾&符号
+					}
+
+					res.title = this._shareMenuData.title
+					res.imageUrl = this._shareMenuData.imageUrl
+					res.query = query
+
+					return res;
+				}
+				wx.onShareAppMessage(this._shareMenuDataCallback)
+			}
+		}
+
 	}
 }

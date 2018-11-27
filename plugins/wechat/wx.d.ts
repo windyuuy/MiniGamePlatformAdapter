@@ -2137,7 +2137,7 @@ declare namespace wx {
      * @param callback 
      * 返回值 ShareOption
      */
-	export function onShareAppMessage(callback: () => { title?: string, imageUrl?: string, query?: string });
+	export function onShareAppMessage(callback: (obj: { title?: string, imageUrl?: string, query?: string }) => { title?: string, imageUrl?: string, query?: string });
 
 	/**
      * 主动拉起转发，进入选择通讯录界面。
