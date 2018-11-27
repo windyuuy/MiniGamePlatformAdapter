@@ -23,9 +23,12 @@ namespace GDK {
 		API_LOGIN_FAILED: 30002,
 
 		/** API 支付 */
-		API_PAY_SUCCESS: 30101,
-		API_PAY_FAILED: 30102,
-		API_PAY_CANCEL: 30103,
+		API_PAY_SUCCESS: 30011,
+		API_PAY_FAILED: 30012,
+		API_PAY_CANCEL: 30013,
+
+		/** API 更新用户数据 */
+		API_UPDATE_USERDATA_ERROR: 30102,
 	}
 
 	/**
@@ -45,6 +48,8 @@ namespace GDK {
 		{ errcode: GDKErrorCode.API_PAY_SUCCESS, message: 'Api支付失败', reason: 'Api支付失败' },
 		{ errcode: GDKErrorCode.API_PAY_FAILED, message: 'Api支付失败', reason: 'Api支付失败' },
 		{ errcode: GDKErrorCode.API_PAY_CANCEL, message: 'Api支付取消', reason: 'Api支付取消' },
+
+		{ errcode: GDKErrorCode.API_UPDATE_USERDATA_ERROR, message: 'Api更新用户数据失败', reason: 'Api更新用户数据失败' },
 	])
 
 
