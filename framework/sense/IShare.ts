@@ -64,6 +64,11 @@ namespace GDK {
 		message?: string
 
 		/**
+		 * 是否是群或讨论组
+		 */
+		isGroup?: boolean = false
+
+		/**
 		 * 原生返回数据
 		 */
 		extra?: any
