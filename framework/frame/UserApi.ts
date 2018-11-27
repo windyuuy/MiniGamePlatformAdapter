@@ -10,7 +10,6 @@ namespace GDK {
 		support() { }
 		/** 当前实际平台 */
 		platform: string | "oppo" | "qqplay"
-		settings: ISystemInfo
 		userdata: IUserData
 		gameInfo: IGameInfo
 		systemInfo: ISystemInfo

@@ -4,9 +4,7 @@ namespace GDK {
 
 	/** 登录请求结果 */
 	export class LoginResult {
-		data?: {
-			extra?: any
-		}
+		extra?: any
 	}
 
 	/** 登录错误码 */

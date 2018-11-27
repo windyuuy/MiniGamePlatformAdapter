@@ -7,7 +7,7 @@ namespace WechatGDK {
 		payPurchase(config: GDK.PayItemInfo) {
 			const ret = new GDK.RPromise<GDK.PayResult>()
 
-			const info = this.api.systemInfo
+			const info = this.api.gameInfo
 			const env = info.isPayInSandbox ? 1 : 0
 			const successCode = 999999
 			wx.requestMidasPayment({
@@ -15,16 +15,16 @@ namespace WechatGDK {
 				env: env,
 				offerId: info.offerId,
 				currencyType: config.currencyUnit || "CNY",
-				platform: info.system,
+				platform: this.api.systemInfo.system,
 				zoneId: "1",
 				buyQuantity: config.money * 10,
 				success: () => {
 					log.info("微信充值成功", config)
 					ret.success({
-						data: {
+						result: {
 							errCode: successCode,
-							extra: { errCode: successCode, state: GDK.OrderState.ok },
-						}
+						},
+						extra: { errCode: successCode, state: GDK.OrderState.ok },
 					})
 				},
 				fail: (res: { errCode: number }) => {

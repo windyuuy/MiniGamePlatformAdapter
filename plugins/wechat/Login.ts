@@ -5,12 +5,12 @@ namespace WechatGDK {
 		server: WXServer
 
 		login(params?: GDK.LoginParams) {
-			const ret = new GDK.YmPromise<GDK.LoginResult>()
+			const ret = new GDK.RPromise<GDK.LoginResult>()
 			wx.login({
 				success: (res) => {
 					// 解密数据
-					const system = this.api.settings.system == "android" ? 0 : 1
-					this.server.userLogin({ code: res.code, system: system, clientSystemInfo: this.api.settings.clientSystemInfo }, (resp) => {
+					const system = this.api.systemInfo.system == "android" ? 0 : 1
+					this.server.userLogin({ code: res.code, system: system, clientSystemInfo: this.api.gameInfo.clientSystemInfo }, (resp) => {
 						const data = resp.data
 						if (resp.succeed) {
 							this.api.userdata = {
@@ -28,9 +28,7 @@ namespace WechatGDK {
 								token: data.token,
 							}
 							ret.success({
-								data: {
-									extra: data,
-								}
+								extra: data,
 							})
 						} else {
 							ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN, {
