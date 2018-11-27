@@ -1,8 +1,8 @@
-
+/// <reference path="../../framework/sense/Basic.ts" />
 namespace WechatGDK {
 	type ReqResult = any
 
-	export class RReqPromise<T, F=undefined> extends GDK.YmPromise<ReqResult, GDK.GDKError>{
+	export class RReqPromise<T, F=undefined> extends GDK.RPromise<ReqResult>{
 		success: (value: T) => void
 		fail: (value?: F) => void
 		promise: Promise<ReqResult>
