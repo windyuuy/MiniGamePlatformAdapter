@@ -1073,6 +1073,11 @@ declare namespace wx {
 	export interface GetSystemInfoResult {
 
 		/**
+		 * 手机品牌
+		 */
+		brand: string;
+
+		/**
 		 * 手机型号
 		 */
 		model: string;
@@ -1080,7 +1085,17 @@ declare namespace wx {
 		/**
 		 * 设备像素比
 		 */
-		pixelRadio: string;
+		pixelRatio: string;
+
+		/**
+		 * 屏幕宽度
+		 */
+		screenWidth: number;
+
+		/**
+		 * 屏幕高度
+		 */
+		screenHeight: number;
 
 		/**
 		 * 窗口宽度
@@ -1093,6 +1108,11 @@ declare namespace wx {
 		windowHeight: number;
 
 		/**
+		 * 状态栏的高度	
+		 */
+		statusBarHeight: number;
+
+		/**
 		 * 微信设置的语言
 		 */
 		language: string;
@@ -1101,6 +1121,31 @@ declare namespace wx {
 		 * 微信版本号
 		 */
 		version: string;
+
+		/**
+		 * 操作系统版本
+		 */
+		system: string;
+
+		/**
+		 * 客户端平台
+		 */
+		platform: string;
+
+		/**
+		 * 用户字体大小设置。以“我-设置-通用-字体大小”中的设置为准，单位 px。	
+		 */
+		fontSizeSetting: number;
+
+		/**
+		 * 客户端基础库版本	
+		 */
+		SDKVersion: number;
+
+		/**
+		 * (仅Android小游戏) 性能等级，-2 或 0：该设备无法运行小游戏，-1：性能未知，>=1 设备性能值，该值越高，设备性能越好 (目前设备最高不到50)	
+		 */
+		benchmarkLevel: number;
 	}
 
 	export interface GetSystemInfoOptions extends BaseOptions {
@@ -1980,5 +2025,64 @@ declare namespace wx {
      * @param obj 
      */
 	export function createRewardedVideoAd(obj: { adUnitId: string }): RewardedVideoAd;
+
+
+	/**
+     * 获取转发详细信息
+     * 
+     * @param obj 
+     *   shareTicket		shareTicket	
+     *   success	    	接口调用成功的回调函数	
+     *   fail				接口调用失败的回调函数	
+     *   complete		    接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+	export function getShareInfo(obj: { shareTicket: string, success?: (res: { errMsg: string, encryptedData: string, iv: string }) => void, fail?: Function, complete?: Function });
+
+	/**
+     * 显示当前页面的转发按钮
+     * @param obj 
+     *  withShareTicket	boolean		是	是否使用带 shareTicket 若为false 通讯录界面不可多选 转发后长按没有反应
+        success	        function		    否	接口调用成功的回调函数	
+        fail	        unction		    否	接口调用失败的回调函数	
+        complete	    function		否	接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+	export function showShareMenu(obj: { withShareTicket: boolean, success?: Function, fail?: Function, complete?: Function });
+
+    /**
+     * 隐藏转发按钮
+     */
+	export function hideShareMenu(obj: { success?: Function, fail?: Function, complete?: Function });
+
+	/**
+     * 取消监听用户点击右上角菜单的“转发”按钮时触发的事件
+     * @param callback 
+     */
+	export function offShareAppMessage(callback);
+
+	/**
+     * 监听用户点击右上角菜单的“转发”按钮时触发的事件
+     * @param callback 
+     * 返回值 ShareOption
+     */
+	export function onShareAppMessage(callback: () => { title?: string, imageUrl?: string, query?: string });
+
+	/**
+     * 主动拉起转发，进入选择通讯录界面。
+     * @param obj 
+     *  title	string		否	转发标题，不传则默认使用当前小游戏的昵称。	
+        imageUrl	string		否	转发显示图片的链接，可以是网络图片路径或本地图片文件路径或相对代码包根目录的图片文件路径。	
+        query	string		否	查询字符串，从这条转发消息进入后，可通过 wx.onLaunch() 或 wx.onShow 获取启动参数中的 query。必须是 key1=val1&key2=val2 的格式。
+     */
+	export function shareAppMessage(obj?: { title?: string, imageUrl?: string, query?: string, success?: Function, fail?: Function, complete?: Function });
+
+	/**
+     * 更新转发属性
+     * @param obj 
+     *  withShareTicket	boolean		是	是否使用带 shareTicket 若为false 通讯录界面不可多选 转发后长按没有反应
+        success	function		否	接口调用成功的回调函数	
+        fail	function		否	接口调用失败的回调函数	
+        complete	function		否	接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+	export function updateShareMenu(obj: { withShareTicket: boolean, success?: Function, fail?: Function, complete?: Function });
 
 }

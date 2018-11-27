@@ -26,6 +26,16 @@ namespace GDK {
 		API_PAY_SUCCESS: 30101,
 		API_PAY_FAILED: 30102,
 		API_PAY_CANCEL: 30103,
+
+		/**
+		 * 分享不被支持
+		 */
+		API_SHARE_UNSUPPORTED: 30201,
+
+		/**
+		 * 不支持的平台
+		 */
+		API_SHARE_UNSUPPORTED_PLATFORM: 30202,
 	}
 
 	/**
@@ -45,6 +55,9 @@ namespace GDK {
 		{ errcode: GDKErrorCode.API_PAY_SUCCESS, message: 'Api支付失败', reason: 'Api支付失败' },
 		{ errcode: GDKErrorCode.API_PAY_FAILED, message: 'Api支付失败', reason: 'Api支付失败' },
 		{ errcode: GDKErrorCode.API_PAY_CANCEL, message: 'Api支付取消', reason: 'Api支付取消' },
+
+		{ errcode: GDKErrorCode.API_SHARE_UNSUPPORTED, message: '分享不被支持' },
+		{ errcode: GDKErrorCode.API_SHARE_UNSUPPORTED_PLATFORM, message: '不支持的平台' },
 	])
 
 
