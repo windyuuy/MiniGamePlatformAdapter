@@ -64,26 +64,26 @@ namespace QQPlayGDK {
 				}
 
 				if (data.socialPicUrl) {
-					let httpReq = new BK.HttpUtil(data.socialPicUrl);
-					httpReq.setHttpMethod('get');
 					console.log("开始下载社会化分享图片", data.socialPicUrl)
 					console.log(data.socialPicUrl)
-					httpReq.requestAsync(function (buffer, status) {
-
-						// if (status >= 400 && status <= 417 || status >= 500 && status <= 505) {
-						if (status !== 200) {
-							console.log("社会化分享图片下载失败")
-							console.log(status)
+					BK.Http.request({
+						url: data.socialPicUrl,
+						method: "GET",
+						success: (data) => {
+							if (data.statusCode !== 200) {
+								console.log("社会化分享图片下载失败")
+								console.log(data.statusCode)
+								shareLogic(false);
+								return;
+							}
+							console.log("社会化分享图片下载成功")
+							//buffer
+							BK.fileSystem.writeFileSync("GameSandBox://share/socialpic.png", data.arrayBuffer());
+							shareLogic(true);
+						},
+						fail: (err) => {
 							shareLogic(false);
-							return;
 						}
-						console.log("社会化分享图片下载成功")
-						//buffer
-						if (!BK.FileUtil.isFileExist("GameSandBox://share")) {
-							BK.FileUtil.makeDir("GameSandBox://share");
-						}
-						BK.FileUtil.writeBufferToFile("GameSandBox://share/socialpic.png", buffer);
-						shareLogic(true);
 					});
 				} else {
 					shareLogic(false);
