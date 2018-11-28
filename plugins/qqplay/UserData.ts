@@ -2,9 +2,6 @@
 namespace QQPlayGDK {
 
 	export class UserData implements GDK.IUserData {
-		api?: GDK.UserAPI
-		server: QQServer
-
 		get openId() { return GameStatusInfo.openId }
 		openKey: string
 		password?: string
