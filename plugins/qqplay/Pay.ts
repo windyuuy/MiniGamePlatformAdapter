@@ -54,13 +54,13 @@ namespace QQPlayGDK {
 		/**
 		 * 使用二级货币购买
 		 */
-		payPurchase(item: GDK.PayItemInfo, options?: { gameOrientation?: BK.WebViewOrientation }): Promise<GDK.PayResult> {
+		payPurchase(item: GDK.PayItemInfo, options?: { gameOrientation?: GDK.WebViewOrientation }): Promise<GDK.PayResult> {
 			const ret = new GDK.RPromise<GDK.PayResult>()
 
 			const items: BK.PayItemInfo[] = [
 				{ itemId: item.id, itemNum: item.money * 10 }
 			]
-			this._payPurchase(items, options || {}, (errCode, data) => {
+			this._payPurchase(items, { gameOrientation: <number>options.gameOrientation || undefined }, (errCode, data) => {
 				if (errCode == 0) {
 					ret.success({
 						result: {

@@ -1,10 +1,10 @@
 
 namespace DevelopGDK {
 	export class Support implements GDK.ISupport {
-		supportShareTickets: boolean = true
-		requireSubDomainRank: boolean = true
-		apiPlatform = "wechatgame"
-		requireAuthorize: boolean = true
-		apiNameLocale: string = "微信"
+		supportShareTickets: boolean = false
+		requireSubDomainRank: boolean = false
+		apiPlatform = "develop"
+		requireAuthorize: boolean = false
+		apiNameLocale: string = "开发模式"
 	}
 }
