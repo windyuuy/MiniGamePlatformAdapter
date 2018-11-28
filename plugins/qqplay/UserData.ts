@@ -1,5 +1,5 @@
 
-namespace QQPlay {
+namespace QQPlayGDK {
 
 	export class UserData implements GDK.IUserData {
 		api?: GDK.UserAPI

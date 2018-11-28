@@ -1,4 +1,4 @@
-namespace QQPlay {
+namespace QQPlayGDK {
 	export let consumePromise = (promiseGenerators, callback: ((res?) => void) = null, index = 0) => {
 		let pgen = promiseGenerators[index]
 		if (!pgen) {

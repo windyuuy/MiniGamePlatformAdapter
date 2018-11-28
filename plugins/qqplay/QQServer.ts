@@ -1,4 +1,4 @@
-namespace QQPlay {
+namespace QQPlayGDK {
 
 	export type UserLoginData = {
 		succeed: boolean,
