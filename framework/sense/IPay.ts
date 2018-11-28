@@ -54,8 +54,14 @@ namespace GDK {
 		extra?: any
 	}
 
+	export const enum WebViewOrientation {
+		portrait = 1,
+		landscapeLeft = 2,
+		landscapeRight = 3
+	}
+
 	export interface IPay extends IModule {
-		payPurchase(item: GDK.PayItemInfo, options?: { gameOrientation?: BK.WebViewOrientation }): Promise<PayResult>
+		payPurchase(item: GDK.PayItemInfo, options?: { gameOrientation?: WebViewOrientation }): Promise<PayResult>
 	}
 
 }
