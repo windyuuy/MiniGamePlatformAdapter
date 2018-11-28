@@ -44,7 +44,6 @@ namespace WechatGDK {
 
 	export class Share implements GDK.IShare {
 		api?: GDK.UserAPI
-		server: WXServer
 
 		/**
 		 * 判断今天是否分享过。这里未实现。

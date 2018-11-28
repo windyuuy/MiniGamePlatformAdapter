@@ -1,13 +1,16 @@
 {
 	"compilerOptions": {
 		"module": "none",
-		// "noImplicitAny": true,
-		// "removeComments": true,
 		"target": "es6",
 		"preserveConstEnums": true,
-		"sourceMap": true
+		"sourceMap": true,
+		"outFile": "../../dist/qqplay.js",
+		"declaration": true,
 	},
-	"globFiles": [
-		"./**/*.ts"
-	]
+	"compileOnSave": true,
+	"include": [
+		"../../framework",
+		"../../libs/**.ts",
+		"./**/*.ts",
+	],
 }

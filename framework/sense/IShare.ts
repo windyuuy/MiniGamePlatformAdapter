@@ -20,6 +20,11 @@ namespace GDK {
 		imageUrl: string
 
 		/**
+		 * 社会化分享所使用的网络图片
+		 */
+		socialPicUrl?: string
+
+		/**
 		 * 分享的数据
 		 */
 		data: { [key: string]: string }
@@ -62,6 +67,11 @@ namespace GDK {
 		 * 返回信息，如果失败可以弹出对话框让玩家确定
 		 */
 		message?: string
+
+		/**
+		 * 是否是群或讨论组
+		 */
+		isGroup?: boolean = false
 
 		/**
 		 * 原生返回数据
