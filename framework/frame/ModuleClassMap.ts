@@ -1,13 +1,12 @@
 namespace GDK {
 	export class ModuleClassMap {
-		Adver?: new () => IAdvert
+		Advert?: new () => IAdvert
 		GameInfo?: new () => IGameInfo
-		Login?: new () => IUser
+		User?: new () => IUser
 		Pay?: new () => IPay
 		Share?: new () => IShare
 		SystemInfo?: new () => ISystemInfo
-		User?: new () => IUserData
-		IAdvert?: new () => IAdvert
+		UserData?: new () => IUserData
 		Customer?: new () => ICustomer
 		Widgets?: new () => IWidgets
 		SubContext?: new () => ISubContext
