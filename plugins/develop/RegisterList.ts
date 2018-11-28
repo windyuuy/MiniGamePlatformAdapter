@@ -11,5 +11,6 @@ namespace DevelopGDK {
 		Widgets = Widgets
 		SubContext = SubContext
 		Support = Support
+		Except = Except
 	}
 }

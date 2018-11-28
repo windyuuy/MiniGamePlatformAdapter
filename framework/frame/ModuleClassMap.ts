@@ -11,5 +11,6 @@ namespace GDK {
 		Widgets?: new () => IWidgets
 		SubContext?: new () => ISubContext
 		Support?: new () => ISupport
+		Except?: new () => IExcept
 	}
 }

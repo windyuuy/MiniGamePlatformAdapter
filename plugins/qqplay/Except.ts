@@ -1,5 +1,5 @@
-namespace DevelopGDK {
-	export class Error implements GDK.IError {
+namespace QQPlayGDK {
+	export class Except implements GDK.IExcept {
 		protected _errorCallback: (err: { message: string, stack: string }) => void
 		protected _isListener: boolean = false;
 
@@ -9,10 +9,10 @@ namespace DevelopGDK {
 			if (!this._isListener) {
 				this._isListener = true;
 
-				wx.onError(res => {
+				BK.Script.onerror = message => {
 					//检查该错误是否提交过
-					this._errorCallback(res);
-				})
+					this._errorCallback({ message: message, stack: null });
+				}
 			}
 		}
 	}

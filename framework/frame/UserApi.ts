@@ -26,7 +26,7 @@ namespace GDK {
 		 * @param callback 
 		 */
 		setErrorCallback(callback: (err: { message: string, stack: string }) => void) {
-			this._m.error.setErrorCallback(callback)
+			this._m.except.setErrorCallback(callback)
 		}
 
 

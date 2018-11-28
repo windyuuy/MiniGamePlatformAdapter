@@ -9,5 +9,6 @@ namespace QQPlayGDK {
 		Widgets = Widgets
 		Support = Support
 		SubContext = SubContext
+		Except = Except
 	}
 }

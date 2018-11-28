@@ -1,5 +1,5 @@
-namespace QQPlayGDK {
-	export class Error implements GDK.IError {
+namespace DevelopGDK {
+	export class Except implements GDK.IExcept {
 		protected _errorCallback: (err: { message: string, stack: string }) => void
 		protected _isListener: boolean = false;
 
@@ -9,9 +9,9 @@ namespace QQPlayGDK {
 			if (!this._isListener) {
 				this._isListener = true;
 
-				BK.Script.onerror = message => {
+				window.onerror = (res) => {
 					//检查该错误是否提交过
-					this._errorCallback({ message: message, stack: null });
+					this._errorCallback({ message: res.toString(), stack: new Error().stack });
 				}
 			}
 		}

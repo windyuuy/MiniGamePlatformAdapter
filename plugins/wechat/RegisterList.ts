@@ -11,5 +11,6 @@ namespace WechatGDK {
 		Widgets = Widgets
 		SubContext = SubContext
 		Support = Support
+		Except = Except
 	}
 }
