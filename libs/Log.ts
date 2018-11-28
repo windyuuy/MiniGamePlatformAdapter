@@ -31,7 +31,7 @@ namespace GDKLIB {
             if (this.time) {
                 args.push(new Date().getTime())
             }
-            console.log(' ', ...args);
+            console.log(' -', ...args);
         }
 
         /**
@@ -44,7 +44,7 @@ namespace GDKLIB {
             if (this.time) {
                 args.push(new Date().getTime())
             }
-            console.warn(' ', ...args);
+            console.warn(' -', ...args);
         }
 
         /**
@@ -57,7 +57,7 @@ namespace GDKLIB {
             if (this.time) {
                 args.push(new Date().getTime())
             }
-            console.error(' ', ...args);
+            console.error(' -', ...args);
         }
 
     }
