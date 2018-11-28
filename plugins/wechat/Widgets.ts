@@ -11,8 +11,8 @@ namespace WechatGDK {
 	}
 
 	class KeyBoard implements GDK.IKeyBoard {
-		hideKeyboard(object: Object): Promise<null> {
-			return wrapReq((obj) => { return wx.hideKeyboard(obj) }, object, GDK.GDKErrorCode.API_HIDE_KEYBOARD_FAILED)
+		hideKeyboard(): Promise<void> {
+			return wrapReq((obj) => { return wx.hideKeyboard(obj) }, {}, GDK.GDKErrorCode.API_HIDE_KEYBOARD_FAILED)
 		}
 	}
 
