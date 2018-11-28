@@ -1,8 +1,9 @@
-import { RegisterList } from "./RegisterList";
-import { PackConfig } from "../../frame/PackConfig";
 
-// default config
-export const qqplay: PackConfig = {
-	platform: 'qqplay',
-	register: RegisterList,
+namespace QQPlayGDK {
+	// default config
+	export const qqplay: GDK.PackConfig = {
+		platform: 'qqplay',
+		version: '1.0.0',
+		register: RegisterList,
+	}
 }
