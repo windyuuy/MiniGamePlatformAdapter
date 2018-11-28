@@ -9,7 +9,7 @@ declare interface Map<T> {
 declare const enum BK_NET_STATE {
     UNCONNECT = 0,
     CONNECTING = 1,
-    CONNECTED  = 2,
+    CONNECTED = 2,
     DISCONNECTED = 3,
     SSL_SHAKEHANDING = 4,
     SSL_SHAKEHAND_DONE = 5,
@@ -17,7 +17,7 @@ declare const enum BK_NET_STATE {
 }
 
 
-declare const enum BK_TCP_CONNECTION_EVENT{
+declare const enum BK_TCP_CONNECTION_EVENT {
     CLOSED = 0,//连接已关闭
     CLOSING = 1,//连接关闭中
     CONNECTING = 2,//连接中
@@ -29,7 +29,7 @@ declare const enum BK_TCP_CONNECTION_EVENT{
     REQ_TIMEOUT = 8,//请求超时
     CONN_ERROR = 9,//连接错误
     CODEC_ERROR = 10,//编解码错误
-    TRACE_RTT   = 11,//trace RTT
+    TRACE_RTT = 11,//trace RTT
 }
 declare const enum BK_SOCKET_STATE {
     FAIL = -1,
@@ -217,10 +217,10 @@ declare interface GAMESTATUSINFO {
     "avGameId": number,
     "avAccountType": number,
     "avRoomId": number,
-    "sessionId"?:number,
+    "sessionId"?: number,
     "devPlatform"?: string, //仅在开发环境下可以，手q环境下无该字段
-    "avAppId"?:number,
-    "src":number
+    "avAppId"?: number,
+    "src": number
 }
 
 /**
@@ -256,7 +256,7 @@ declare function disposeNodeTree(node: BK.Node): void;
 declare function nodeTreeHittest(node: BK.Node, pt: BK.Position): BK.Node;
 
 declare namespace BK {
-    var isBrowser:boolean; //是否为浏览器
+    var isBrowser: boolean; //是否为浏览器
     export interface Position {
         x: number;
         y: number;
@@ -283,7 +283,7 @@ declare namespace BK {
     export interface Scale {
         x: number;
         y: number;
-        z?:number;
+        z?: number;
     }
 
     export interface Size {
@@ -353,7 +353,7 @@ declare namespace BK {
         /**
          * 指针
          */
-        pointer:number;
+        pointer: number;
 
         /**
          * 
@@ -459,7 +459,7 @@ declare namespace BK {
          * 扩展
          * @param num 
          */
-        expandToBytes(num:number):void;
+        expandToBytes(num: number): void;
     }
 
 
@@ -497,7 +497,7 @@ declare namespace BK {
 
         static setErrorObserver(callback: (message, stacktrace) => void);
 
-        static getTouchModeAll:number;
+        static getTouchModeAll: number;
     }
 
     export class Director {
@@ -855,7 +855,7 @@ declare namespace BK {
          */
         setUVFlip(u: number, v: number): void;
 
-        __nativeObj:Node;
+        __nativeObj: Node;
 
         /**
          * 
@@ -1276,7 +1276,7 @@ declare namespace BK {
          * 新建文件夹
          * @param path 
          */
-        static makeDir(path:string);
+        static makeDir(path: string);
 
         /**
          * 写文件
@@ -1304,14 +1304,14 @@ declare namespace BK {
 
         static uploadFromBuff(buff, callback): void;
 
-        static base64ToUint8Array(data:any):Uint8Array;
+        static base64ToUint8Array(data: any): Uint8Array;
 
         /**
          * 写入buffer
          * @param path 
          * @param buff 
          */
-        static writeBufferToFile(path:string,buff:BK.Buffer);
+        static writeBufferToFile(path: string, buff: BK.Buffer);
     }
 
 
@@ -1385,7 +1385,7 @@ declare namespace BK {
         shadowColor: number;  //阴影颜色
         shadowRadius: number; //阴影圆角
         shadowOffset: BK.Offset;//阴影偏移
-        textAlign:number; // 0左对齐，1居中对齐，2右对齐
+        textAlign: number; // 0左对齐，1居中对齐，2右对齐
 
         /**
          * get Text real size;
@@ -1418,14 +1418,14 @@ declare namespace BK {
              * 监听已打开webview的消息
              * @param callback 
              */
-            static onMessageHandle(callback:(cmd:string, data:any)=>void);
+            static onMessageHandle(callback: (cmd: string, data: any) => void);
 
             /**
              * 打开透明webview
              * @param url 
              * @param gameOrientation 
              */
-            static openTransparent(url:string, gameOrientation:number);
+            static openTransparent(url: string, gameOrientation: number);
         }
 
         export class SsoRequest {
@@ -1440,15 +1440,15 @@ declare namespace BK {
              */
             static send(obj: object, cmd: string);
 
-             /**
-             * H5 与终端通信
-             * 
-             * @static
-             * @param {object} obj 请求的数据
-             * @param {string} cmd 命令字
-             * 
-             * @memberof SsoRequest
-             */
+            /**
+            * H5 与终端通信
+            * 
+            * @static
+            * @param {object} obj 请求的数据
+            * @param {string} cmd 命令字
+            * 
+            * @memberof SsoRequest
+            */
             static sendTo(obj: object, cmd: string);
 
             /**
@@ -1485,14 +1485,14 @@ declare namespace BK {
              */
             static removeListener(cmd: string, targer: Object);
 
-            static listenerInfos:Array<any>;
+            static listenerInfos: Array<any>;
 
             /**
              * 终端->js回调
              * 
              * @memberof SsoRequest
              */
-            static callback(errCode:number,cmd:string,data:any);
+            static callback(errCode: number, cmd: string, data: any);
 
             //
 
@@ -1558,13 +1558,13 @@ declare namespace BK {
          * @memberof Button
          */
         setTouchInsideCallback(callback: (node: BK.Node) => void);
-        
+
         /**
          * 设置默认纹理
          * @param {Texture} tex 
          * @memberof Button
          */
-        setNormalTexture(tex:Texture);
+        setNormalTexture(tex: Texture);
 
         /**
          * 设置点击态纹理
@@ -1572,7 +1572,7 @@ declare namespace BK {
          * @param {Texture} tex 
          * @memberof Button
          */
-        setPressTexture(tex:Texture);
+        setPressTexture(tex: Texture);
 
         /**
          * 设置禁止态度纹理
@@ -1580,7 +1580,7 @@ declare namespace BK {
          * @param {Texture} tex 
          * @memberof Button
          */
-        setDisableTexture(tex:Texture);
+        setDisableTexture(tex: Texture);
 
         /**
          * 
@@ -1595,7 +1595,7 @@ declare namespace BK {
          * @param {(statusCode)=>void} [complteCallback] 加载结果回调。statusCode为http状态码
          * @memberof Button
          */
-        setNormalTextureFromUrl(imgUrl:string,complteCallback?:(btn:Button,statusCode:number)=>void);
+        setNormalTextureFromUrl(imgUrl: string, complteCallback?: (btn: Button, statusCode: number) => void);
 
         /**
          * 
@@ -1604,16 +1604,16 @@ declare namespace BK {
          * @param {(statusCode)=>void} [complteCallback] 加载结果回调。statusCode为http状态码
          * @memberof Button
          */
-        setPressTextureFromUrl(imgUrl:string,complteCallback?:(btn:Button,statusCode:number)=>void);
+        setPressTextureFromUrl(imgUrl: string, complteCallback?: (btn: Button, statusCode: number) => void);
 
-         /**
-         * 
-         * 
-         * @param {string} imgUrl 
-         * @param {(statusCode)=>void} [complteCallback] 加载结果回调。statusCode为http状态码
-         * @memberof Button
-         */
-        setDisableTextureFromUrl(imgUrl:string,complteCallback?:(btn:Button,statusCode:number)=>void);
+        /**
+        * 
+        * 
+        * @param {string} imgUrl 
+        * @param {(statusCode)=>void} [complteCallback] 加载结果回调。statusCode为http状态码
+        * @memberof Button
+        */
+        setDisableTextureFromUrl(imgUrl: string, complteCallback?: (btn: Button, statusCode: number) => void);
     }
     export namespace Physics {
         /**
@@ -1697,7 +1697,7 @@ declare namespace BK {
 
         setSSLEnable(enable: boolean): void;
 
-        receiveNotRemove():BK.Buffer;
+        receiveNotRemove(): BK.Buffer;
     }
 
     export namespace Misc {
@@ -1772,8 +1772,8 @@ declare namespace BK {
          */
         export function queryIPAddress(hostname: string, callback: any, af: number, timeout: number);
 
-        
-        export function compQQVersion(ver1:string,ver2:string):boolean;
+
+        export function compQQVersion(ver1: string, ver2: string): boolean;
     }
 
     export function URL(cfg: string, url: string): any;
@@ -2230,22 +2230,21 @@ declare namespace BK {
         tag201: any;
     }
 
-    export const enum  QQGetUserInfoMask{
-        nick=1,
-        head= 2
+    export const enum QQGetUserInfoMask {
+        nick = 1,
+        head = 2
     }
-    export interface QQUserInfoHeadBufferInfo
-    {
-        buffer:BK.Buffer;
-        width:number;
-        height:number;
+    export interface QQUserInfoHeadBufferInfo {
+        buffer: BK.Buffer;
+        width: number;
+        height: number;
     }
-    export interface QQUserInfo{
-        openId:string;
-        nick:string;
-        headInfo:QQUserInfoHeadBufferInfo;
+    export interface QQUserInfo {
+        openId: string;
+        nick: string;
+        headInfo: QQUserInfoHeadBufferInfo;
     }
-   
+
     //手Q相关
     export class QQ {
 
@@ -2255,8 +2254,8 @@ declare namespace BK {
          * @param openIdList 
          * @param callback 
          */
-        static getUserInfo(mask:BK.QQGetUserInfoMask,openIdList:Array<string>,callback:(errCode:number,userInfos:Array<BK.QQUserInfo>)=>void);
-       
+        static getUserInfo(mask: BK.QQGetUserInfoMask, openIdList: Array<string>, callback: (errCode: number, userInfos: Array<BK.QQUserInfo>) => void);
+
         /**
          * 通知手q,用户点击了缩小按钮
          * 
@@ -2394,7 +2393,7 @@ declare namespace BK {
          * @param {any} param3 
          * @memberof QQ
          */
-        static uploadData(action:string, enter:string, result:string, param1:string, param2:string, param3)
+        static uploadData(action: string, enter: string, result: string, param1: string, param2: string, param3)
 
         /**
          * 游戏内主动分享
@@ -2404,10 +2403,10 @@ declare namespace BK {
          * @param {(retCode:number,shareType:BK.ShareDest,isFirstShare:boolean)=>void} callback 回调
          * @memberof QQ
          */
-        static share(shareInfo:ShareReturnInfo,callback:(retCode:number,shareDest:BK.ShareDest,isFirstShare:boolean)=>void);
+        static share(shareInfo: ShareReturnInfo, callback: (retCode: number, shareDest: BK.ShareDest, isFirstShare: boolean) => void);
 
-        static shareToArk(roomId, summary, picUrl, isSelectFriend, extendInfo, callback?:any): void;
-    
+        static shareToArk(roomId, summary, picUrl, isSelectFriend, extendInfo, callback?: any): void;
+
         static queryCloudSignature(callback): void;
     }
 
@@ -2469,28 +2468,28 @@ declare namespace BK {
         PushFrame = 1006, //下行帧
         SendOptResp = 1007, //上行帧同步请求成功与否
     }
-    export const enum RoomLeaveReason{
+    export const enum RoomLeaveReason {
         disconnected = 0,
         selfLeave = 1,
         other = 2
     }
 
-    export class Room{
+    export class Room {
 
-        gameId:number;//游戏id
-        roomId:number;//房间id
-        mId:string;//当前用户的openId
-        ownerId:string;//房主的openId
-        status:number;//房间状态 1 已创建房间,2 游戏中房间
-        environment:number;//网络环境 NETWORK_ENVIRONMENT_QQ_RELEASE /0 手Q环境正式发布、NETWORK_ENVIRONMENT_QQ_DEBUG /1 手Q环境调试环境、NETWORK_ENVIRONMENT_DEMO_DEV/2 demo工程开发环境
-        currentPlayers:Array<RoomPlayer>; //房间现有的人
-        lastFrame:number;  //收到的最后一帧序列号
+        gameId: number;//游戏id
+        roomId: number;//房间id
+        mId: string;//当前用户的openId
+        ownerId: string;//房主的openId
+        status: number;//房间状态 1 已创建房间,2 游戏中房间
+        environment: number;//网络环境 NETWORK_ENVIRONMENT_QQ_RELEASE /0 手Q环境正式发布、NETWORK_ENVIRONMENT_QQ_DEBUG /1 手Q环境调试环境、NETWORK_ENVIRONMENT_DEMO_DEV/2 demo工程开发环境
+        currentPlayers: Array<RoomPlayer>; //房间现有的人
+        lastFrame: number;  //收到的最后一帧序列号
 
         /**
          * 
          * @param options 
          */
-        constructor(options?:any);
+        constructor(options?: any);
 
         /**
          * 普通创建房间
@@ -2500,7 +2499,7 @@ declare namespace BK {
          * @param {(statusCode:RoomErrorCode,room:BK.Room)=>void} callback 
          * @memberof Room
          */
-        createAndJoinRoom(gameId:number,masterOpenId:string,callback:(statusCode:RoomErrorCode,room:BK.Room)=>void);
+        createAndJoinRoom(gameId: number, masterOpenId: string, callback: (statusCode: RoomErrorCode, room: BK.Room) => void);
 
         /**
          * 使用固定房间号创建房间。 
@@ -2512,8 +2511,8 @@ declare namespace BK {
          * @param {(statusCode:RoomErrorCode,room:BK.Room)=>void} callback 
          * @memberof Room
          */
-        createAndJoinFixedRoom(gameId:number,masterOpenId:string,fixedRoomId:number,callback:(statusCode:RoomErrorCode,room:BK.Room)=>void)
-                
+        createAndJoinFixedRoom(gameId: number, masterOpenId: string, fixedRoomId: number, callback: (statusCode: RoomErrorCode, room: BK.Room) => void)
+
         /**
          * 查询并且加房间
          * 
@@ -2523,13 +2522,13 @@ declare namespace BK {
          * @param {(statusCode:number,room:BK.Room)=>void} callback 
          * @memberof Room
          */
-        queryAndJoinRoom(gameId:number,roomId:number,joinerOpenId:string,callback:(statusCode:RoomErrorCode,room:BK.Room)=>void);
+        queryAndJoinRoom(gameId: number, roomId: number, joinerOpenId: string, callback: (statusCode: RoomErrorCode, room: BK.Room) => void);
 
         /**
          * 开始游戏
          * @param callback 
          */
-        startGame(callback:(retCode:RoomErrorCode)=>void);
+        startGame(callback: (retCode: RoomErrorCode) => void);
 
         /**
          * 设置开始游戏回调
@@ -2537,7 +2536,7 @@ declare namespace BK {
          * @param {(retCode:RoomErrorCode)=>void} callback 
          * @memberof Room
          */
-        setStartGameCallback(callback:(retCode:RoomErrorCode)=>void);
+        setStartGameCallback(callback: (retCode: RoomErrorCode) => void);
 
         /**
          * 
@@ -2547,7 +2546,7 @@ declare namespace BK {
          * @param {(retCode:number)=>void} callback 
          * @memberof Room
          */
-        matchGame(gameId:number,openId:string,callback:(retCode:RoomErrorCode)=>void);
+        matchGame(gameId: number, openId: string, callback: (retCode: RoomErrorCode) => void);
 
         /**
          * 查询匹配
@@ -2557,8 +2556,8 @@ declare namespace BK {
          * @param {(retCode:RoomErrorCode)=>void} callBack 
          * @memberof Room
          */
-        queryMatchGame(gameId:number,openId:string,callBack:(retCode:RoomErrorCode)=>void);
-        
+        queryMatchGame(gameId: number, openId: string, callBack: (retCode: RoomErrorCode) => void);
+
         /**
          * 
          * 
@@ -2566,7 +2565,7 @@ declare namespace BK {
          * @param {string} openId 
          * @memberof Room
          */
-        requestQueryMatch(gameId:number,openId:string):void;
+        requestQueryMatch(gameId: number, openId: string): void;
 
         /**
          * 离开房间
@@ -2574,7 +2573,7 @@ declare namespace BK {
          * @param {(retCode:number)=>void} callback 
          * @memberof Room
          */
-        leaveRoom(callback:(retCode:RoomErrorCode,leaveInfo:BK.RoomLeaveInfo)=>void);
+        leaveRoom(callback: (retCode: RoomErrorCode, leaveInfo: BK.RoomLeaveInfo) => void);
 
         /**
          * 设置离开房间回调
@@ -2582,8 +2581,8 @@ declare namespace BK {
          * @param {(retCode:RoomErrorCode)=>void} callback 
          * @memberof Room
          */
-        setLeaveRoomCallback(callback:(retCode:RoomErrorCode,leaveInfo:BK.RoomLeaveInfo)=>void);
-        
+        setLeaveRoomCallback(callback: (retCode: RoomErrorCode, leaveInfo: BK.RoomLeaveInfo) => void);
+
         /**
          * 强制离开房间
          * 
@@ -2591,8 +2590,8 @@ declare namespace BK {
          * @param {number} reason 
          * @memberof Room
          */
-        forceLeaveRoom(callback:(retCode:RoomErrorCode)=>void,reason:number):void;
-        
+        forceLeaveRoom(callback: (retCode: RoomErrorCode) => void, reason: number): void;
+
         /**
          * 设置当前游戏云端存储
          * 
@@ -2600,7 +2599,7 @@ declare namespace BK {
          * @param {(retCode:RoomErrorCode)=>void} callback 
          * @memberof Room
          */
-        setUserData(buff:BK.Buffer,callback:(retCode:RoomErrorCode)=>void):void;
+        setUserData(buff: BK.Buffer, callback: (retCode: RoomErrorCode) => void): void;
 
         /**
          * 获取当前游戏云端存储
@@ -2609,26 +2608,26 @@ declare namespace BK {
          * @param {(retCode:RoomErrorCode,buff:BK.Buffer)=>void} callback 
          * @memberof Room
          */
-        getUserData(roomId,callback:(retCode:RoomErrorCode,buff:BK.Buffer)=>void);
-        
+        getUserData(roomId, callback: (retCode: RoomErrorCode, buff: BK.Buffer) => void);
+
 
         //消息协议
-        
+
         /**
          * 发送广播消息
          * 
          * @param {BK.Buffer} buff 
          * @memberof Room
          */
-        sendBroadcastData(buff:BK.Buffer):void;
-        
+        sendBroadcastData(buff: BK.Buffer): void;
+
         /**
          * 设置广播消息监听
          * 
          * @param {any} callback 
          * @memberof Room
          */
-        setBroadcastDataCallBack(callback:(fromOpenId:string,buff:BK.Buffer)=>void):void;
+        setBroadcastDataCallBack(callback: (fromOpenId: string, buff: BK.Buffer) => void): void;
 
         /**
          * 发送帧同步消息
@@ -2640,7 +2639,7 @@ declare namespace BK {
          * @param {any} callback 回调
          * @memberof Room
          */
-        syncOpt(statusBuf:BK.Buffer,optBuf:BK.Buffer,extendBuf:BK.Buffer,itemListBuf:BK.Buffer,callback)
+        syncOpt(statusBuf: BK.Buffer, optBuf: BK.Buffer, extendBuf: BK.Buffer, itemListBuf: BK.Buffer, callback)
 
         /**
          * 设置帧同步回调
@@ -2648,7 +2647,7 @@ declare namespace BK {
          * @param {(frameDataArr:Array<BK.RoomPlayerFrameData>)=>void} listener 
          * @memberof Room
          */
-        setFrameSyncListener(listener:(frameDataArr:Array<Array<BK.RoomPlayerFrameData>>)=>void);
+        setFrameSyncListener(listener: (frameDataArr: Array<Array<BK.RoomPlayerFrameData>>) => void);
 
         /**
          * 发送心跳
@@ -2670,28 +2669,28 @@ declare namespace BK {
          * @param {()=>void} callback 
          * @memberof Room
          */
-        setDisconnectNetCallBack(callback:()=>void);
+        setDisconnectNetCallBack(callback: () => void);
 
     }
 
 
-    export interface SheetRect{
-        x:number,
-        y:number,
-        w:number,
-        h:number
+    export interface SheetRect {
+        x: number,
+        y: number,
+        w: number,
+        h: number
     }
 
-    export interface SheetSize{
-        w:number,h:number
+    export interface SheetSize {
+        w: number, h: number
     }
 
-    export interface SheetPoint{
-        x:number,y:number
+    export interface SheetPoint {
+        x: number, y: number
     }
 
-    export interface SheetFrameInfo{
-        filename:string,
+    export interface SheetFrameInfo {
+        filename: string,
         frame: SheetRect,
         rotated: boolean,
         trimmed: boolean,
@@ -2699,12 +2698,11 @@ declare namespace BK {
         sourceSize: SheetSize,
         pivot: SheetPoint
     }
-    
-    export interface SheetTextureInfo
-    {
-        texturePath:string,
-        frameInfo:SheetFrameInfo,
-        texture:BK.Texture,
+
+    export interface SheetTextureInfo {
+        texturePath: string,
+        frameInfo: SheetFrameInfo,
+        texture: BK.Texture,
     }
 
     /**
@@ -2712,7 +2710,7 @@ declare namespace BK {
      * 
      * @class SpriteSheetCache
      */
-    export class SpriteSheetCache{
+    export class SpriteSheetCache {
         /**
          * 加载图集
          * 
@@ -2721,8 +2719,8 @@ declare namespace BK {
          * @param {string} pngPath  图集png文件路径	
          * @memberof SpriteSheetCache
          */
-        static loadSheet(jsonPath:string,pngPath:string);
-        
+        static loadSheet(jsonPath: string, pngPath: string);
+
         /**
          * 移除图集
          * 
@@ -2731,8 +2729,8 @@ declare namespace BK {
          * @param {string} pngPath  图集png文件路径	
          * @memberof SpriteSheetCache
          */
-        static removeSheet(jsonPath:string,pngPath:string);
-                
+        static removeSheet(jsonPath: string, pngPath: string);
+
         /**
          * 根据图集文件中某个文件的名字获取纹理
          * 
@@ -2741,8 +2739,8 @@ declare namespace BK {
          * @returns {BK.Texture} 
          * @memberof SpriteSheetCache
          */
-        static getTextureByFilename(filename:string):BK.Texture;
-                
+        static getTextureByFilename(filename: string): BK.Texture;
+
         /**
          * 根据图集文件中小图名称，获取小图的位置信息
          * 
@@ -2751,7 +2749,7 @@ declare namespace BK {
          * @returns {SheetTextureInfo} 
          * @memberof SpriteSheetCache
          */
-        static getFrameInfoByFilename(filename:string):SheetTextureInfo;
+        static getFrameInfoByFilename(filename: string): SheetTextureInfo;
 
         /**
          * 根据图集文件中小图名称，获取小图的位置信息和纹理对象
@@ -2760,8 +2758,8 @@ declare namespace BK {
          * @returns {SheetTextureInfo} 
          * @memberof SpriteSheetCache
          */
-        static getTextureFrameInfoByFileName(filename:string):SheetTextureInfo;
-        
+        static getTextureFrameInfoByFileName(filename: string): SheetTextureInfo;
+
         /**
          * 根据图集文件中小图名称，获取纹理路径名称
          * 
@@ -2769,7 +2767,7 @@ declare namespace BK {
          * @returns {string} 
          * @memberof SpriteSheetCache
          */
-        getTexturePathByFilename(filename:string):string;
+        getTexturePathByFilename(filename: string): string;
 
         /**
          * 根据小图名称创建一个精灵
@@ -2780,7 +2778,7 @@ declare namespace BK {
          * @returns {BK.Sprite} 
          * @memberof SpriteSheetCache
          */
-        getSprite(filename:string, width:number, height:number):BK.Sprite;
+        getSprite(filename: string, width: number, height: number): BK.Sprite;
     }
     /**
      * 帧动画
@@ -2846,7 +2844,7 @@ declare namespace BK {
 
         readonly size: BK.Size;
 
-        saveTo(path:string);
+        saveTo(path: string);
     }
 
     export class Graphics {
@@ -3069,33 +3067,32 @@ declare namespace BK {
     export class Game {
         constructor(cfg: GameCfg);
         //分享成功回调
-        public confirmShare(shareInfo?:ShareReturnInfo);
+        public confirmShare(shareInfo?: ShareReturnInfo);
     }
-    const enum ShareSrc{
+    const enum ShareSrc {
         shell = 0,
         innerGame = 1
     }
     //分享结果类型
-    const enum ShareDest{
-        QQ=0,    //聊天窗
-        QZone=1, //空间
-        WX=2,    //微信
-        WXCircle=3 //朋友圈
+    const enum ShareDest {
+        QQ = 0,    //聊天窗
+        QZone = 1, //空间
+        WX = 2,    //微信
+        WXCircle = 3 //朋友圈
     }
-    interface ShareReturnInfo{
+    interface ShareReturnInfo {
         summary?: string,
         extendInfo?: string,
-        localPicPath?:string,
-        picUrl?:string,
-        activityId?:number, //活动id，用于记录该分享的用途
-        reqCode?:ShareSrc,  //用于标记标识分享发起的位置，0统一框架分享，1游戏内分享
+        localPicPath?: string,
+        picUrl?: string,
+        activityId?: number, //活动id，用于记录该分享的用途
+        reqCode?: ShareSrc,  //用于标记标识分享发起的位置，0统一框架分享，1游戏内分享
     }
 
-    const enum NetworkChangeState
-    {
+    const enum NetworkChangeState {
         // 无网络到234G：1, 无网络到wifi：2, 234G到wifi：3, 234G到无网络：4, wifi到无网络：5, wifi网络到234G：6
-        UnreachableToCellular = 1 ,//无网络到234G：1
-        UnreachableToWifi = 2 ,//无网络到wifi：2
+        UnreachableToCellular = 1,//无网络到234G：1
+        UnreachableToWifi = 2,//无网络到wifi：2
         CellularToWifi = 3, //234G到wifi：3
         CellularToUnreachable = 4, //234G到无网络：4
         WifiToUnreachable = 5, //wifi到无网络：5
@@ -3103,16 +3100,16 @@ declare namespace BK {
     }
 
     export interface GameCfg {
-        onLoad?:(app:BK.Game)=>void,
-        onMaximize?:(app:BK.Game)=>void,
-        onMinimize?:(app:BK.Game)=>void,
-        onEnterBackground?:(app:BK.Game)=>void,
-        onEnterForeground?:(app:BK.Game)=>void,
+        onLoad?: (app: BK.Game) => void,
+        onMaximize?: (app: BK.Game) => void,
+        onMinimize?: (app: BK.Game) => void,
+        onEnterBackground?: (app: BK.Game) => void,
+        onEnterForeground?: (app: BK.Game) => void,
 
-        onShare?:(app:BK.Game)=>BK.ShareReturnInfo,
-        onShareComplete?:(app:BK.Game,retCode:number,shareDest:BK.ShareDest,isFirstShare:boolean)=>void,
-        onClose?:(app:BK.Game)=>void,
-        onNetworkChange?:(app:BK.Game,state:NetworkChangeState)=>void
+        onShare?: (app: BK.Game) => BK.ShareReturnInfo,
+        onShareComplete?: (app: BK.Game, retCode: number, shareDest: BK.ShareDest, isFirstShare: boolean) => void,
+        onClose?: (app: BK.Game) => void,
+        onNetworkChange?: (app: BK.Game, state: NetworkChangeState) => void
     }
 
 
@@ -3147,18 +3144,17 @@ declare namespace BK {
         emitOnce(event: any, extras?: any): void;
     }
 
-    declare var Notification:Emitter;
+    declare var Notification: Emitter;
 
-    export class Editor
-    {
-       /**
-        * 拉起输入框
-        * @param onClickConfirm 
-        * @param onTextChange 
-        */
-       static showKeyBoard(onClickConfirm:(text:string)=>void,onTextChange:(text:string)=>void);
+    export class Editor {
+        /**
+         * 拉起输入框
+         * @param onClickConfirm 
+         * @param onTextChange 
+         */
+        static showKeyBoard(onClickConfirm: (text: string) => void, onTextChange: (text: string) => void);
     }
-    
+
     export class SocketManager {
         static Instance: BK.SocketManager;
         runLoop(): void;
@@ -3170,14 +3166,14 @@ declare namespace BK {
         private __run();
         private __stop();
         private __indexOf(so);
-    } 
+    }
 
-    export class ImageSelector{
+    export class ImageSelector {
         constructor();
-        resultCode:number; 
-        imageformat:number;
-        type:number;
-        callback:(selector:BK.ImageSelector)=>void;
+        resultCode: number;
+        imageformat: number;
+        type: number;
+        callback: (selector: BK.ImageSelector) => void;
         /**
          * 打开图片选择器
          */
@@ -3192,239 +3188,235 @@ declare namespace BK {
         getTextureData();
     }
 
-    export class Image{
-        static loadImage(path:string,format?:number);
-        static saveImage(buffer:BK.Buffer, width:number, height:number, filePath:string,subfix:string);
+    export class Image {
+        static loadImage(path: string, format?: number);
+        static saveImage(buffer: BK.Buffer, width: number, height: number, filePath: string, subfix: string);
     }
 
-    export class QAVView{
+    export class QAVView {
 
     }
-    interface QRCodeConfig{
-        width?:number;//像素宽度，默认256
-        height?:number;//像素高度,默认256
-        colorDark?:Color;//暗部颜色 --对应普通二维码的黑色部分。默认{r:0.0,g:0.0,b:0.0,a:1.0},黑色
-        colorLight?:Color;//亮部颜色 --对应普通二维码的白色部分。默认{r:1.0,g:1.0,b:1.0,a:1.0},白色
-        correctLevel?:number;//纠错等级 L: 1, M: 0, Q: 3, H: 2
+    interface QRCodeConfig {
+        width?: number;//像素宽度，默认256
+        height?: number;//像素高度,默认256
+        colorDark?: Color;//暗部颜色 --对应普通二维码的黑色部分。默认{r:0.0,g:0.0,b:0.0,a:1.0},黑色
+        colorLight?: Color;//亮部颜色 --对应普通二维码的白色部分。默认{r:1.0,g:1.0,b:1.0,a:1.0},白色
+        correctLevel?: number;//纠错等级 L: 1, M: 0, Q: 3, H: 2
     }
-    export class QRCode{
-        static createQportraitRCodeNode(cfg:QRCodeConfig);
-        static createQRCodeToFile(path:string,content:string,cfg:QRCodeConfig);
+    export class QRCode {
+        static createQportraitRCodeNode(cfg: QRCodeConfig);
+        static createQRCodeToFile(path: string, content: string, cfg: QRCodeConfig);
     }
 
-    export class Canvas extends BK.Sprite{
-        globalAlpha:number;
-        fillColor:Color;
-        strokeColor:Color;
-        lineWidth:number;
-        lineCap:number;
-        lineJoin:number;
-        miterLimit:number;
-        drawStyle:number;
-        fontPath:string;
-        constructor(width:number,height:number);
+    export class Canvas extends BK.Sprite {
+        globalAlpha: number;
+        fillColor: Color;
+        strokeColor: Color;
+        lineWidth: number;
+        lineCap: number;
+        lineJoin: number;
+        miterLimit: number;
+        drawStyle: number;
+        fontPath: string;
+        constructor(width: number, height: number);
     }
 
 
     //
-    namespace AD{
+    namespace AD {
 
-    interface baBasicInfo {
-        img:string;  // 广告相关大图
-        img_s:string;  // 广告相关小图
-        txt:string;  // 广告素材的标题
-        desc:string;  // 广告的详细描述
-      }
-      interface MutiPicTextInfo {
-        txt:Array<string>;  // 文案
-        image:Array<string>;  // 图片
-        url:Array<string>;  // 链接
-      }
-      
-      interface AdvertiserInfo {
-        corporation_name:string;  // 广告主名称
-        corporate_image_name:string;  // 广告主logo文案
-        corporate_logo:string;  // 广告主logo
-      }
-      
-      interface VideoInfo {
-        video_url?:string;  // video 视频url
-        media_duration?:number;  // 视频时长, 单位s
-        tencent_video_id?:string; //腾讯视频vid
-      }
-        
-      interface ButtonInfo {
-        txt:string;  // 按钮文字
-        url:string;  // button 指向的落地页
-        pos:number;  // button位置信息
-        // enum ButtonPos {
-        //     BUTTON_POS_LEFT_BOTTOM_CORNER = 1;
-        // }
-      }
-      //广告形态
-      const enum AdPattenType
-      {
-          banner = 14,   
-          video  = 3
-      }
-      interface DisplayInfo {
-        pattern_type?:AdPattenType;  // 广告形态
-        creative_size?:number;  // 素材规格id
-        animation_effect?:number;  // 动画效果 滑动广告动画效果, 1: 水平；2：圆圈；3：透明
-        basic_info?:BasicInfo;  // 广告基本信息
-        button_info?:Array<ButtonInfo>;  // 按钮信息
-        muti_pic_text_info?:MutiPicTextInfo;  // 多图文信息
-        advertiser_info?:AdvertiserInfo;  // 广告主信息
-        video_info?:VideoInfo;  // 视频信息
-      }
-      interface TraceInfo {
-        aid:number;  // 广告id，number
-        traceid:string;  // 曝光的id
-        via:string;  // 罗盘跟踪应用表示串
-        view_id:string;  // 加密串
-      }
-      interface ReportInfo {
-        exposure_url:string;  // 曝光请求url
-        click_url:string;  // 广告点击的跳转地址
-        effect_url:string;  // 效果上报地址
-        landing_page_report_url:string;  // 落地页相关明细数据上报url
-        negative_feedback_url:string;  // 负反馈上报地址
-        trace_info:TraceInfo;  // 广告跟踪信息     
-      }
-      
-      interface DestInfo {
-        dest_url_display_type:number;  // 落地页展示效果 ref:qzap_common.proto--DestUrlDisplayType
-        landing_page:string;  // 落地url
-        canvas_json:string;  // canvas json数据串,包含了canvas和native落地页需要的数据
-        dest_type:number;  // 落地页类型
-      }
-      
-      interface AppInfo {
-        app_name:string;  // app名称
-        app_score:string;  // app评分
-        app_package_name:string;  // Android应用包名
-        app_package_size:number;  // Android应用包大小
-        app_package_version:string;  // Android版本号
-        app_logo_url:string;  // icon地址, 呈现在广告中的应用logo
-        pkg_url:string;  // app下载链接
-        ios_app_id:number;  // ios appid
-        android_app_id:number;  // 开平安卓应用id
-        pkg_download_schema:string;  // app 下载schema，七巧板用
-        customized_invoke_url:string;  // 应用直达url, 默认不传，表示该广告不支持应用直达广告
-      }
-      
-      interface AdInfo {
-        product_type?:number;  // 商品类型
-        display_info?:DisplayInfo;  // 广告展示信息
-        report_info?:ReportInfo;  // 上报回流信息，比如曝光，点击等
-        dest_info?:DestInfo;  // 落地页信息
-        app_info?:AppInfo;    // App广告app信息
-      }
-      
-      interface PosAdInfo {
-        ret?:number;  // 每个广告位上具体的返回，0. 成功; other. fail
-        msg?:string;  // 返回码描述
-        pos_id?:string;  // 该广告位id
-        ads_info?:Array<AdInfo>;  // 广告位上对应的广告
-       // extensions 500 to 999;  // 广点通内部使用的与正常拉取广告无关的调试字段
-      }
-      
-      // 广告返回
-      interface QQAdGetRsp {
-       ret?:number;  // 返回码，0. success; [1 格式错误 2 广告位信息错误] other. fail
-       msg?:string;  // 返回码信息
-       pos_ads_info?:Array<PosAdInfo>;  // 每个请求广告位对应的广告信息
-       gdt_cookie?:string;  // 广点通后台设置的cookie，由广点通后台决定
-       busi_cookie?:string;  // 流量方前台和后台调试通信字段，由业务前台和业务后台约定
-      }
+        interface baBasicInfo {
+            img: string;  // 广告相关大图
+            img_s: string;  // 广告相关小图
+            txt: string;  // 广告素材的标题
+            desc: string;  // 广告的详细描述
+        }
+        interface MutiPicTextInfo {
+            txt: Array<string>;  // 文案
+            image: Array<string>;  // 图片
+            url: Array<string>;  // 链接
+        }
 
-      //传输给前端的视频播放组件需要单独挑选数据
-      interface BKAdVideoData
-      {
-        pos_id?:string;  // 该广告位id
-        tencent_video_id?:string;
-        creative_size?:number;  // 素材规格id
-        dest_info?:DestInfo;  // 落地页信息
-        buttonInfo_txt?:string;     //按钮文字
-        buttonInfo_pos?:number;   //按钮位置
-        corporation_name?:string;
-        corporate_image_name?:string;
-        corporate_logo?:string;
-        base_info?:string;
-        product_type?:number;  // 商品类型
-        exposure_url?:string;
-        click_url?:string;
-        video_preview_url?:string; 
-        pkg_download_schema?:string;
-      }
-      const enum BKAdVideoType
-      {
-          notification = 0,//游戏通知视频广告
-          resultPage,  //游戏结果页视频广告
-          recover,    //游戏体力恢复
-          relive     //游戏复活
-      }
+        interface AdvertiserInfo {
+            corporation_name: string;  // 广告主名称
+            corporate_image_name: string;  // 广告主logo文案
+            corporate_logo: string;  // 广告主logo
+        }
+
+        interface VideoInfo {
+            video_url?: string;  // video 视频url
+            media_duration?: number;  // 视频时长, 单位s
+            tencent_video_id?: string; //腾讯视频vid
+        }
+
+        interface ButtonInfo {
+            txt: string;  // 按钮文字
+            url: string;  // button 指向的落地页
+            pos: number;  // button位置信息
+            // enum ButtonPos {
+            //     BUTTON_POS_LEFT_BOTTOM_CORNER = 1;
+            // }
+        }
+        //广告形态
+        const enum AdPattenType {
+            banner = 14,
+            video = 3
+        }
+        interface DisplayInfo {
+            pattern_type?: AdPattenType;  // 广告形态
+            creative_size?: number;  // 素材规格id
+            animation_effect?: number;  // 动画效果 滑动广告动画效果, 1: 水平；2：圆圈；3：透明
+            basic_info?: BasicInfo;  // 广告基本信息
+            button_info?: Array<ButtonInfo>;  // 按钮信息
+            muti_pic_text_info?: MutiPicTextInfo;  // 多图文信息
+            advertiser_info?: AdvertiserInfo;  // 广告主信息
+            video_info?: VideoInfo;  // 视频信息
+        }
+        interface TraceInfo {
+            aid: number;  // 广告id，number
+            traceid: string;  // 曝光的id
+            via: string;  // 罗盘跟踪应用表示串
+            view_id: string;  // 加密串
+        }
+        interface ReportInfo {
+            exposure_url: string;  // 曝光请求url
+            click_url: string;  // 广告点击的跳转地址
+            effect_url: string;  // 效果上报地址
+            landing_page_report_url: string;  // 落地页相关明细数据上报url
+            negative_feedback_url: string;  // 负反馈上报地址
+            trace_info: TraceInfo;  // 广告跟踪信息     
+        }
+
+        interface DestInfo {
+            dest_url_display_type: number;  // 落地页展示效果 ref:qzap_common.proto--DestUrlDisplayType
+            landing_page: string;  // 落地url
+            canvas_json: string;  // canvas json数据串,包含了canvas和native落地页需要的数据
+            dest_type: number;  // 落地页类型
+        }
+
+        interface AppInfo {
+            app_name: string;  // app名称
+            app_score: string;  // app评分
+            app_package_name: string;  // Android应用包名
+            app_package_size: number;  // Android应用包大小
+            app_package_version: string;  // Android版本号
+            app_logo_url: string;  // icon地址, 呈现在广告中的应用logo
+            pkg_url: string;  // app下载链接
+            ios_app_id: number;  // ios appid
+            android_app_id: number;  // 开平安卓应用id
+            pkg_download_schema: string;  // app 下载schema，七巧板用
+            customized_invoke_url: string;  // 应用直达url, 默认不传，表示该广告不支持应用直达广告
+        }
+
+        interface AdInfo {
+            product_type?: number;  // 商品类型
+            display_info?: DisplayInfo;  // 广告展示信息
+            report_info?: ReportInfo;  // 上报回流信息，比如曝光，点击等
+            dest_info?: DestInfo;  // 落地页信息
+            app_info?: AppInfo;    // App广告app信息
+        }
+
+        interface PosAdInfo {
+            ret?: number;  // 每个广告位上具体的返回，0. 成功; other. fail
+            msg?: string;  // 返回码描述
+            pos_id?: string;  // 该广告位id
+            ads_info?: Array<AdInfo>;  // 广告位上对应的广告
+            // extensions 500 to 999;  // 广点通内部使用的与正常拉取广告无关的调试字段
+        }
+
+        // 广告返回
+        interface QQAdGetRsp {
+            ret?: number;  // 返回码，0. success; [1 格式错误 2 广告位信息错误] other. fail
+            msg?: string;  // 返回码信息
+            pos_ads_info?: Array<PosAdInfo>;  // 每个请求广告位对应的广告信息
+            gdt_cookie?: string;  // 广点通后台设置的cookie，由广点通后台决定
+            busi_cookie?: string;  // 流量方前台和后台调试通信字段，由业务前台和业务后台约定
+        }
+
+        //传输给前端的视频播放组件需要单独挑选数据
+        interface BKAdVideoData {
+            pos_id?: string;  // 该广告位id
+            tencent_video_id?: string;
+            creative_size?: number;  // 素材规格id
+            dest_info?: DestInfo;  // 落地页信息
+            buttonInfo_txt?: string;     //按钮文字
+            buttonInfo_pos?: number;   //按钮位置
+            corporation_name?: string;
+            corporate_image_name?: string;
+            corporate_logo?: string;
+            base_info?: string;
+            product_type?: number;  // 商品类型
+            exposure_url?: string;
+            click_url?: string;
+            video_preview_url?: string;
+            pkg_download_schema?: string;
+        }
+        const enum BKAdVideoType {
+            notification = 0,//游戏通知视频广告
+            resultPage,  //游戏结果页视频广告
+            recover,    //游戏体力恢复
+            relive     //游戏复活
+        }
     }
 
-    export class Advertisement{
-        static ggspd:number;
-        static fetch(posid:string,callback:(data:QQAdGetRsp)=>void):void;
-        static fetchVideoAd(adVideoType:BK.AD.BKAdVideoType,callback:(retCode:number,msg:string,adVideoHandle:BK.AdVideoHandler)=>void)
-        static fetchBannerAd(callback:(retCode:number,msg:string,adVideoHandle:BK.AdBannerHandler)=>void);
+    export class Advertisement {
+        static ggspd: number;
+        static fetch(posid: string, callback: (data: QQAdGetRsp) => void): void;
+        static fetchVideoAd(adVideoType: BK.AD.BKAdVideoType, callback: (retCode: number, msg: string, adVideoHandle: BK.AdVideoHandler) => void)
+        static fetchBannerAd(callback: (retCode: number, msg: string, adVideoHandle: BK.AdBannerHandler) => void);
         static createAdNode(adData);
-        static videoCMReport(videoType:BK.AD.BKAdVideoType,env:number);
+        static videoCMReport(videoType: BK.AD.BKAdVideoType, env: number);
         /**
          * 过滤用于webview视频广告的数据
          * @param pos_id 
          * @param adInfo 
          */
-        static filterWebViewVideo(pos_id:string,adInfo:BK.AD.AdInfo):BK.AD.BKAdVideoData;
+        static filterWebViewVideo(pos_id: string, adInfo: BK.AD.AdInfo): BK.AD.BKAdVideoData;
     }
 
-    export class AdNode{
-        constructor(adInfo:AD.AdInfo);
-        rootNode : BK.Node;
-        backgound:BK.Button;
-        title:BK.Sprite;
-        closeBtn:BK.Button;
+    export class AdNode {
+        constructor(adInfo: AD.AdInfo);
+        rootNode: BK.Node;
+        backgound: BK.Button;
+        title: BK.Sprite;
+        closeBtn: BK.Button;
     }
-    const enum WebViewOrientation
-    {
+    const enum WebViewOrientation {
         portrait = 1,
         landscapeLeft = 2,
         landscapeRight = 3
     }
-    export class AdVideoBaseHandler{
-        constructor(videoType: BK.AD.BKAdVideoType,posid:string,adInfo:BK.AD.AdInfo,gameOrientation:WebViewOrientation);
-        setEventCallack( onCloseGame:(code:number,msg:string)=>void,
-                         onEnd:(code:number,msg:string)=>void,
-                         onCloseWebView:(code:number,msg:string)=>void,
-                         onStartPlay:()=>void,)
+    export class AdVideoBaseHandler {
+        constructor(videoType: BK.AD.BKAdVideoType, posid: string, adInfo: BK.AD.AdInfo, gameOrientation: WebViewOrientation);
+        setEventCallack(onCloseGame: (code: number, msg: string) => void,
+            onEnd: (code: number, msg: string) => void,
+            onCloseWebView: (code: number, msg: string) => void,
+            onStartPlay: () => void, )
         jump();
         public videoType: BK.AD.BKAdVideoType; //广告场景
     }
-    export class AdVideoHandler{
-        constructor(videoType: BK.AD.BKAdVideoType,posid:string,adInfo:BK.AD.AdInfo,gameOrientation:WebViewOrientation);
-        setEventCallack( onCloseGame:(code:number,msg:string)=>void,
-                         onEnd:(code:number,msg:string)=>void,
-                         onCloseWebView:(code:number,msg:string)=>void,
-                         onStartPlay:()=>void,)
+    export class AdVideoHandler {
+        constructor(videoType: BK.AD.BKAdVideoType, posid: string, adInfo: BK.AD.AdInfo, gameOrientation: WebViewOrientation);
+        setEventCallack(onCloseGame: (code: number, msg: string) => void,
+            onEnd: (code: number, msg: string) => void,
+            onCloseWebView: (code: number, msg: string) => void,
+            onStartPlay: () => void, )
         jump();
         public videoType: BK.AD.BKAdVideoType; //广告场景
     }
-    export class AdVideoHandlerNative extends AdVideoHandler{
-        constructor(videoType: BK.AD.BKAdVideoType,posid:string,adInfo:BK.AD.AdInfo,gameOrientation:WebViewOrientation);
+    export class AdVideoHandlerNative extends AdVideoHandler {
+        constructor(videoType: BK.AD.BKAdVideoType, posid: string, adInfo: BK.AD.AdInfo, gameOrientation: WebViewOrientation);
         close();
     }
-    export class AdBannerHandler{
-        constructor(pos_id:string,adInfo:BK.AD.AdInfo);
+    export class AdBannerHandler {
+        constructor(pos_id: string, adInfo: BK.AD.AdInfo);
         /**
          * 展示banner
          * 
          * @param {(succCode:number,msg:string,handle:BK.AdBannerHandler)=>void} callback 
          * @memberof AdBannerHandler
          */
-        show(callback:(succCode:number,msg:string,handle:BK.AdBannerHandler)=>void);
+        show(callback: (succCode: number, msg: string, handle: BK.AdBannerHandler) => void);
         /**
          * 关闭
          * 
@@ -3438,22 +3430,21 @@ declare namespace BK {
          * @param {()=>void} callback 
          * @memberof AdBannerHandler
          */
-        onClickContent(callback:()=>void);
+        onClickContent(callback: () => void);
         /**
          * 监听用户点击X关闭按钮
          * 
          * @param {()=>void} callback 
          * @memberof AdBannerHandler
          */
-        onClickClose(callback:()=>void);
+        onClickClose(callback: () => void);
     }
 
-    export class TouchEventDispatch
-    {
-        static listenAllTouch(obj:any,callback:(touches:any)=>void);
+    export class TouchEventDispatch {
+        static listenAllTouch(obj: any, callback: (touches: any) => void);
         static remove(obj);
         static dispatch(touches);
-        static getCurrentTouches():any;
+        static getCurrentTouches(): any;
         static updateTouchStatus();
         static getTouchEvent(): any[];
         static getAllTouchEvent(): any[];
@@ -3461,71 +3452,71 @@ declare namespace BK {
     }
 
     //
-    export class JSMatrix{
+    export class JSMatrix {
         public data: Float32Array;
         constructor(...param);
         public clone(): JSMatrix;
         public mul(mat: Matrix): JSMatrix;
-        public mulPoint(pt:BK.Point):BK.Point;
-        public inverse(): JSMatrix ;
+        public mulPoint(pt: BK.Point): BK.Point;
+        public inverse(): JSMatrix;
         public scale(x: number, y: number, z: number): JSMatrix;
         public rotate(x: number, y: number, z: number): JSMatrix;
-        public translate(x: number, y: number, z: number): JSMatrix ;
+        public translate(x: number, y: number, z: number): JSMatrix;
         public transform(x: number, y: number, z: number): any;
-        public toEulerAngle(): Float32Array ;
-        static fromScale(x: number, y: number, z: number): JSMatrix ;
+        public toEulerAngle(): Float32Array;
+        static fromScale(x: number, y: number, z: number): JSMatrix;
         static fromOrthographic(left, right, bottom, top, near_plane, far_plane): JSMatrix;
         static fromViewport(left, right, bottom, top, ns, fs): JSMatrix;
         static fromEulerAngle(x: number, y: number, z: number): JSMatrix;
     }
 
-    export class JSTransform{
+    export class JSTransform {
         public transform: Float32Array;
         public matrix: {};
         constructor(transform?: JSTransform);
-        scale:BK.Scale;
-        rotation:BK.Rotation;
-        position:BK.Position;
-        getContentSize():BK.Size;
-        setContentSize(w:number,h:number);
-        getNeedUpdate():boolean;
-        contentSize:BK.Size;
-        localAnchor:BK.Point;
-        localPivot:BK.Point;
-        pivotParent:BK.Point;
-        anchorParent:BK.Point;
+        scale: BK.Scale;
+        rotation: BK.Rotation;
+        position: BK.Position;
+        getContentSize(): BK.Size;
+        setContentSize(w: number, h: number);
+        getNeedUpdate(): boolean;
+        contentSize: BK.Size;
+        localAnchor: BK.Point;
+        localPivot: BK.Point;
+        pivotParent: BK.Point;
+        anchorParent: BK.Point;
         public getNeedUpdate(): boolean;
         public setNeedUpdate(needUpdate: boolean);
         public update(width: number, height: number): Float32Array;
     }
 
-    export class GLRenderContext{
+    export class GLRenderContext {
         constructor();
-        public gl:any;
+        public gl: any;
         public dispose();
         public save();
         public restore();
         public setProjection(prjMat: JSMatrix);
-        public getProjection():JSMatrix;
-        public getProgram():number;
+        public getProjection(): JSMatrix;
+        public getProgram(): number;
         public drawMesh(vertices: Float32Array, indices: Uint16Array, worldMatrix: any, textureID: number);
         public dispose();
 
-        static hookGLCommit(updateCb:(gl:any)=>void)
+        static hookGLCommit(updateCb: (gl: any) => void)
         static exit();
         //
-        static  __updataCallback;
+        static __updataCallback;
     }
-    export class GLRenderNode{
-        constructor(ctx:GLRenderContext);
-        path:string;
-        contentSize:BK.Size;
-        anchorParent:BK.Point;
-        position:BK.Point;
+    export class GLRenderNode {
+        constructor(ctx: GLRenderContext);
+        path: string;
+        contentSize: BK.Size;
+        anchorParent: BK.Point;
+        position: BK.Point;
         canUserInteract: boolean;
         hidden: boolean;
-        setUrlPath(url:string,completeCB?:(node:GLRenderNode,code:number)=>void);
-        addChild(node:GLRenderNode);
+        setUrlPath(url: string, completeCB?: (node: GLRenderNode, code: number) => void);
+        addChild(node: GLRenderNode);
         render();
         /**
          * 判断当前节点是否被点击
@@ -3539,31 +3530,39 @@ declare namespace BK {
         dispose();
     }
 
-    export class GLRenderButton extends GLRenderNode{
-        public canClick:boolean;
-        constructor(ctx:BK.GLRenderContext,width:number,height:number);
-        public setTouchInsideCallback(callback:(btn:GLRenderButton)=>void);
+    export class GLRenderButton extends GLRenderNode {
+        public canClick: boolean;
+        constructor(ctx: BK.GLRenderContext, width: number, height: number);
+        public setTouchInsideCallback(callback: (btn: GLRenderButton) => void);
     }
 
-    class Crypt{
-        static core_md5(tmp:any,length:number):Array;
-        static bin2hex(binarray:Array):string;
-        static hex_sha1(formatStr:string):string;
-        static hex_hmac_sha1(signKey:string, stringToSign:string):string;
+    class Crypt {
+        static core_md5(tmp: any, length: number): Array;
+        static bin2hex(binarray: Array): string;
+        static hex_sha1(formatStr: string): string;
+        static hex_hmac_sha1(signKey: string, stringToSign: string): string;
     }
-    
+
+    export class Share {
+        /**
+         * 详见 https://hudong.qq.com/docs/engine/api-new/mqq/share/share.html
+         * @param options 
+         */
+        static share(options);
+    }
+
 }
 
 
-const enum UINodeTouchEvent{
+const enum UINodeTouchEvent {
     Begin = 1,
     Move = 2,
     End = 3
 }
-class UIEventHandler{
-   static setRootNode(node:any);
-   static addNodeEvent(node:any, event:UINodeTouchEvent, callbackFunc:(node:any,evt:UINodeTouchEvent,x:number,y:number)=>void) 
-   static removeNodeEvent (node:any, event:UINodeTouchEvent);
+class UIEventHandler {
+    static setRootNode(node: any);
+    static addNodeEvent(node: any, event: UINodeTouchEvent, callbackFunc: (node: any, evt: UINodeTouchEvent, x: number, y: number) => void)
+    static removeNodeEvent(node: any, event: UINodeTouchEvent);
 }
 
 //预留的AMD与CMD模块
@@ -3574,7 +3573,7 @@ declare var define = undefined;
 declare var _tickerCallback_ = undefined;
 //第三方引擎
 declare var cc = undefined;
-declare var laya =undefined;
-declare var egret =undefined;
-declare var __browserMsg : any;
-declare var isBrowser:boolean;
+declare var laya = undefined;
+declare var egret = undefined;
+declare var __browserMsg: any;
+declare var isBrowser: boolean;
