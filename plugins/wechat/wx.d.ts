@@ -2002,7 +2002,7 @@ declare namespace wx {
 		offLoad(callback: Function);//取消监听激励视频广告加载事件
 		onError(callback: Function);//监听激励视频错误事件
 		offError(callback: Function);//取消监听激励视频错误事件
-		onClose(callback: Function);//监听用户点击 关闭广告 按钮的事件
+		onClose(callback: (params: { isEnded: boolean }) => void);//监听用户点击 关闭广告 按钮的事件
 		offClose(callback: Function);//取消监听用户点击 关闭广告 按钮的事件
 	}
 	//Banner 广告
