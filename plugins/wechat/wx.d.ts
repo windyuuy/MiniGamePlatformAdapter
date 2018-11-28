@@ -2248,4 +2248,6 @@ declare namespace wx {
 	 */
 	export function getLaunchOptionsSync(): { scene: string, query: any, path?: string, isSticky: boolean, shareTicket: string, referrerInfo: { appId: string, extraData: any } }
 
+	//全局错误捕获
+	export function onError(callback: (res: { message: string, stack: string }) => void);
 }

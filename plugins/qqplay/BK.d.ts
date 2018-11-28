@@ -152,4 +152,12 @@ declare namespace BK {
 
     }
 
+    export class Script {
+
+        /**
+         * 错误侦听函数
+         */
+        static onerror: (msg: string) => void
+    }
+
 }
