@@ -26,7 +26,10 @@ namespace GDK {
 		/** 取消监听 激励视频 广告错误事件 */
 		offError(callback: Function)
 		/** 监听用户点击 关闭广告 按钮的事件 */
-		onClose(callback: (params: { isEnded: boolean }) => void)
+		onClose(callback: (params: {
+			/** 视频是否是在用户完整观看的情况下被关闭的 */
+			isEnded: boolean
+		}) => void)
 		/** 取消监听用户点击 关闭广告 按钮的事件 */
 		offClose(callback: Function)
 	}
