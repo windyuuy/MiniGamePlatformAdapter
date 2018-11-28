@@ -124,5 +124,10 @@ namespace GDK {
 		 * * QQplay 无效
 		 */
 		setShareMenuData(data: ShareData): Promise<void>
+
+		/**
+		 * 获取通过点击分享链接时或传递的参数
+		 */
+		getShareParam(): Promise<{ [key: string]: string }>
 	}
 }

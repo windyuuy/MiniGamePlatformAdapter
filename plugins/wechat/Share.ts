@@ -46,6 +46,18 @@ namespace WechatGDK {
 		api?: GDK.UserAPI
 
 		/**
+		 * 分享的启动参数
+		 */
+		protected _shareParam: { [key: string]: string } = {}
+
+		init() {
+			wx.onShow((res) => {
+				//获取对应的分享启动参数
+				this._shareParam = res.query
+			})
+		}
+
+		/**
 		 * 判断今天是否分享过。这里未实现。
 		 */
 		protected _isLastTimeYeasterDay: boolean = false;
@@ -197,6 +209,16 @@ namespace WechatGDK {
 				}
 				wx.onShareAppMessage(this._shareMenuDataCallback)
 			}
+		}
+
+		async getShareParam(): Promise<{ [key: string]: string }> {
+
+			if (this._shareParam) {
+				return this._shareParam;
+			}
+
+			let data = wx.getLaunchOptionsSync()
+			return data.query;
 		}
 
 	}

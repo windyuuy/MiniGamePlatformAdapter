@@ -1,4 +1,4 @@
-declare module BK {
+declare namespace BK {
     export class Share {
         /**
          * 详见 https://hudong.qq.com/docs/engine/api-new/mqq/share/share.html

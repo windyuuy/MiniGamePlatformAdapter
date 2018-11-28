@@ -118,5 +118,18 @@ namespace QQPlayGDK {
 			//QQ平台什么也不用做
 		}
 
+		async getShareParam(): Promise<{ [key: string]: string }> {
+			let data = window['GameStatusInfo'].gameParam
+			if (typeof data == "string") {
+				try {
+					return JSON.parse(data)
+				} catch{
+					return null;
+				}
+			}
+			return null;
+		}
+
+
 	}
 }

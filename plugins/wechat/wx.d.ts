@@ -2241,4 +2241,11 @@ declare namespace wx {
 	export function offHide(callback: Function);
 	export function offShow(callback: Function);
 
+
+	/**
+	 * 返回小程序启动参数
+	 * https://developers.weixin.qq.com/minigame/dev/document/system/life-cycle/wx.getLaunchOptionsSync.html
+	 */
+	export function getLaunchOptionsSync(): { scene: string, query: any, path?: string, isSticky: boolean, shareTicket: string, referrerInfo: { appId: string, extraData: any } }
+
 }
