@@ -11,5 +11,6 @@ namespace GDK {
 		widgets: IWidgets
 		subContext: ISubContext
 		support: ISupport
+		error: IError
 	}
 }
