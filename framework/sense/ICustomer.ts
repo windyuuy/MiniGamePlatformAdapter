@@ -20,7 +20,7 @@ namespace GDK {
 		complete?: Function
 	}
 
-	/** 客服 */
+	/** 在线服务、客服 */
 	export interface ICustomer {
 		openCustomerServiceConversation(params: OpenParam)
 	}
