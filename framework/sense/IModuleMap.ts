@@ -1,6 +1,6 @@
 namespace GDK {
 	export interface IModuleMap {
-		login: ILogin
+		user: IUser
 		userdata: IUserData
 		gameInfo: IGameInfo
 		systemInfo: ISystemInfo

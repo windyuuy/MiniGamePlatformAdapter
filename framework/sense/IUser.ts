@@ -36,8 +36,11 @@ namespace GDK {
 
 	// 自动生成
 	/** 登录接口 */
-	export interface ILogin extends IModule {
+	export interface IUser extends IModule {
 		login(params?: LoginParams): Promise<LoginResult>
 		checkSession?(params?: LoginParams)
+
+		update(): Promise<{}>
+		getFriendCloudStorage(obj: { keyList: string[] }): Promise<{ data: UserGameData[] }>;
 	}
 }

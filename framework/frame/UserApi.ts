@@ -6,7 +6,8 @@ namespace GDK {
 		constructor(moduleMap: IModuleMap) {
 			this._m = moduleMap;
 		}
-		login(params: LoginParams): Promise<LoginResult> { return this._m.login.login(params) }
+		login(params: LoginParams): Promise<LoginResult> { return this._m.user.login(params) }
+		showModal(object: ShowModalOptions): Promise<null> { return this._m.widgets.showModal(object) }
 		support() { }
 		/** 当前实际平台 */
 		platform: string | "oppo" | "qqplay"

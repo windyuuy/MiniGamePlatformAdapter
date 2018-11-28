@@ -1,6 +1,6 @@
 
 namespace WechatGDK {
-	export class Login implements GDK.ILogin {
+	export class User implements GDK.IUser {
 		api?: GDK.UserAPI
 		server: WXServer
 
@@ -55,6 +55,41 @@ namespace WechatGDK {
 				okmsg: "session_key 未过期，并且在本生命周期一直有效",
 				failmsg: "session_key 已经失效，需要重新执行登录流程"
 			})
+		}
+
+		update(): Promise<{}> {
+			const ret = new GDK.RPromise<GDK.UserDataUpdateResult>()
+			wx.getUserInfo({
+				success: (params) => {
+					const { userInfo, rawData, signature, encryptData } = params
+
+					for (let key in userInfo) {
+						this[key] = userInfo[key]
+					}
+
+					ret.success({
+						extra: params
+					})
+				},
+				fail: () => {
+					ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_UPDATE_USERDATA_FAILED))
+				}
+			})
+			return ret.promise
+		}
+
+		getFriendCloudStorage(obj: { keyList: string[] }): Promise<{ data: GDK.UserGameData[] }> {
+			const ret = new GDK.RPromise<{ data: GDK.UserGameData[] }>()
+			wx.getFriendCloudStorage({
+				keyList: obj.keyList,
+				success: (res) => {
+					ret.success(res)
+				},
+				fail: () => {
+					ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_GET_FRIEND_CLOUD_STORAGE_FAILED))
+				}
+			})
+			return ret.promise
 		}
 	}
 }

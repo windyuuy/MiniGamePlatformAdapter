@@ -2,7 +2,7 @@ namespace GDK {
 	export class ModuleClassMap {
 		Adver?: new () => IAdvert
 		GameInfo?: new () => IGameInfo
-		Login?: new () => ILogin
+		Login?: new () => IUser
 		Pay?: new () => IPay
 		Share?: new () => IShare
 		SystemInfo?: new () => ISystemInfo

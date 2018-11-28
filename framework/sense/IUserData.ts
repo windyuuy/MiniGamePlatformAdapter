@@ -25,7 +25,7 @@ namespace GDK {
 		KVDataList: KVData[]
 	}
 
-	export interface IUserData {
+	export interface IUserData extends IModule {
 		openId: string
 		openKey: string
 		password?: string
@@ -44,8 +44,8 @@ namespace GDK {
 		channelId: number
 		/** 创建时间 */
 		createTime: string
+		/** 0 未知 1 男 2 女 */
+		sex: number
 
-		update(): Promise<{}>
-		getFriendCloudStorage(obj: { keyList: string[] }): Promise<{ data: UserGameData[] }>;
 	}
 }
