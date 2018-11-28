@@ -1,8 +1,6 @@
 
 namespace WechatGDK {
 	export class UserData implements GDK.IUserData {
-		server: WXServer
-
 		openId: string
 		openKey: string
 		password?: string
