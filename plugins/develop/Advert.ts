@@ -65,14 +65,14 @@ namespace DevelopGDK {
 			this._errorFuncList.push(callback)
 		}
 		offError(callback: Function) {
-			this._errorFuncList.splice(this._loadFuncList.indexOf(callback), 1)
+			this._errorFuncList.splice(this._errorFuncList.indexOf(callback), 1)
 		}
 
 		onClose(callback: Function) {
 			this._closeFuncList.push(callback)
 		}
 		offClose(callback: Function) {
-			this._closeFuncList.splice(this._loadFuncList.indexOf(callback), 1)
+			this._closeFuncList.splice(this._closeFuncList.indexOf(callback), 1)
 		}
 	}
 
@@ -80,41 +80,70 @@ namespace DevelopGDK {
 		adUnitId?: string
 		viewId?: number
 
-		protected _advertObj: BK.Advertisement.BannerAd
+		protected _loadFuncList: Function[] = []
+		protected _errorFuncList: Function[] = []
+		protected _resizeFuncList: Function[] = []
+
+		protected _destroy: boolean = false;
+
+		protected _ad: HTMLImageElement = null;//假装的广告
+
 		constructor(params: { viewId: number, style?: { x: number, y: number } }) {
-			this._advertObj = BK.Advertisement.createBannerAd(params)
+			setTimeout(() => {
+				for (let f of this._loadFuncList) {
+					f();
+				}
+			}, 1000)
 		}
 
-		show(): Promise<void> {
+		async show(): Promise<void> {
+			if (this._ad) {
+				return;
+			}
 			const ret = new GDK.RPromise<void>()
-			this._advertObj.show()
-			ret.success(undefined)
+			if (this._destroy) {
+				ret.fail("已经调用过destroy")
+			} else {
+
+				//假装显示一个广告
+				this._ad = document.createElement("img")
+				this._ad.style.position = "absolute"
+				this._ad.style.bottom = "0px"
+				this._ad.src = "https://www.baidu.com/img/bd_logo1.png"
+
+				document.body.appendChild(this._ad)
+
+				ret.success(undefined)
+			}
 			return ret.promise
 		}
 		hide(): void {
-			this._advertObj.hide()
+			if (this._ad) {
+				this._ad.remove();
+				this._ad = null;
+			}
 		}
 		destroy(): void {
-			this._advertObj.destory()
+			this._destroy = true;
 		}
 		onResize(callback: Function) {
-			console.warn('qqplay bannerAd dose not support resize')
+			this._resizeFuncList.push(callback)
 		}
 		offResize(callback: Function) {
-			console.warn('qqplay bannerAd dose not support resize')
+			this._resizeFuncList.splice(this._resizeFuncList.indexOf(callback), 1)
 		}
 		onLoad(callback: Function) {
-			this._advertObj.onLoad(callback)
+			this._loadFuncList.push(callback)
 		}
 
 		offLoad(callback: Function) {
-			this._advertObj.offLoad(callback)
+			this._loadFuncList.splice(this._loadFuncList.indexOf(callback), 1)
 		}
 		onError(callback: (code: number, msg: string) => void) {
-			this._advertObj.onError(callback)
+			this._errorFuncList.push(callback)
 		}
 		offError(callback: Function) {
-			this._advertObj.offError(callback)
+			this._errorFuncList.splice(this._errorFuncList.indexOf(callback), 1)
 		}
 	}
 
