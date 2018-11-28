@@ -1,0 +1,17 @@
+{
+	"compilerOptions": {
+		"module": "none",
+		"target": "es6",
+		"preserveConstEnums": true,
+		"sourceMap": true,
+		"outFile": "../../dist/develop.js",
+		"declaration": true,
+	},
+	"compileOnSave": true,
+	"include": [
+		"../../framework",
+		"../../libs/**.ts",
+		"./**/*.ts",
+	],
+	"typeAcquisition": {}
+}
