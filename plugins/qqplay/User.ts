@@ -97,11 +97,9 @@ namespace QQPlayGDK {
 						log.warn(`use local stored openkey`, openKey)
 						onDone({ openKey: openKey })
 					} else {
-						this.api.showDialog({
+						this.api.showAlert({
 							title: "提示",
 							content: "获取QQ游戏平台openkey失败,请退出重进游戏~",
-							confirmText: "确定",
-							showCancel: false,
 						})
 						onFail(-1, '获取openkey失败', {})
 						this.fetchOpenKey(onDone, onFail)
