@@ -2,7 +2,8 @@
 namespace DevelopGDK {
 	export class Auth implements GDK.IAuth {
 		createUserInfoButton(obj: GDK.IUserInfoButton): GDK.UserInfoButton {
-			return wx.createUserInfoButton(obj)
+			devlog.info("createUserInfoButton")
+			return null;
 		}
 	}
 }
