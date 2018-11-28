@@ -1,51 +1,46 @@
 
 namespace DevelopGDK {
-	function wrapReq(fun: Function, object, code: number) {
-		const ret = new GDK.RPromise<any>()
-		object.success = ret.success
-		object.fail = () => {
-			ret.fail(GDK.GDKResultTemplates.make(code))
-		}
-		fun(object)
-		return ret.promise
-	}
-
 	class KeyBoard implements GDK.IKeyBoard {
-		hideKeyboard(): Promise<void> {
-			return wrapReq((obj) => { return wx.hideKeyboard(obj) }, {}, GDK.GDKErrorCode.API_HIDE_KEYBOARD_FAILED)
+		async hideKeyboard(): Promise<void> {
+			devlog.info("hideKeyboard")
 		}
 	}
 
 	export class Widgets implements GDK.IWidgets {
 		keyboard = new KeyBoard()
-		showLoading(object: GDK.ShowLoadingParams) {
-			return wrapReq((obj) => { return wx.showLoading(obj) }, object, GDK.GDKErrorCode.API_SHOW_LOADING_FAILED)
+		async showLoading(object: GDK.ShowLoadingParams) {
+			devlog.info("showLoading")
 		}
-		hideLoading() {
-			return wrapReq((obj) => { return wx.hideLoading(obj) }, {}, GDK.GDKErrorCode.API_HIDE_LOADING_FAILED)
+		async hideLoading() {
+			devlog.info("hideLoading")
 		}
-		showToast(object) {
-			return wrapReq((obj) => { return wx.showToast(obj) }, object, GDK.GDKErrorCode.API_SHOW_TOAST_FAILED)
+		async showToast(object) {
+			devlog.info("showToast")
 		}
-		hideToast() {
-			return wrapReq((obj) => { return wx.hideToast(obj) }, {}, GDK.GDKErrorCode.API_HIDE_TOAST_FAILED)
+		async hideToast() {
+			devlog.info("hideToast")
 		}
-		showConfirm(object): Promise<GDK.ShowConfirmResult> {
+		showConfirm(object: GDK.ShowConfirmOptions): Promise<GDK.ShowConfirmResult> {
+			return new Promise<GDK.ShowConfirmResult>((resolve, reject) => {
+				setTimeout(() => {
+					let result = confirm(object.title + ";" + object.content)
+					let r = new GDK.ShowConfirmResult()
+					r.confirm = result == true
+					r.cancel = result == false
+					resolve(r);
+				}, 1000)
+			})
+		}
 
-			const ret = new GDK.RPromise<GDK.ShowConfirmResult>()
-			object.success = (data) => {
-				var result = new GDK.ShowConfirmResult()
-				result.confirm = data.confirm
-				result.cancel = data.confirm
-				ret.success(result)
-			}
-			object.fail = () => {
-				ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_SHOW_MODAL_FAILED))
-			}
-			wx.showModal(object)
-
-			return ret.promise
-
+		showAlert(object: GDK.ShowAlertOptions): Promise<GDK.ShowAlertResult> {
+			return new Promise<GDK.ShowAlertResult>((resolve, reject) => {
+				setTimeout(() => {
+					alert(object.title + ";" + object.content)
+					let r = new GDK.ShowAlertResult()
+					resolve(r);
+				}, 1000)
+			})
 		}
+
 	}
 }
