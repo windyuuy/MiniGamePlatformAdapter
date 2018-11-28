@@ -51,6 +51,9 @@ namespace QQPlayGDK {
 			})
 		}
 
+		/**
+		 * 使用二级货币购买
+		 */
 		payPurchase(item: GDK.PayItemInfo, options?: { gameOrientation?: BK.WebViewOrientation }): Promise<GDK.PayResult> {
 			const ret = new GDK.RPromise<GDK.PayResult>()
 
