@@ -26,13 +26,27 @@ namespace QQPlayGDK {
 		hideToast() {
 			return wrapReq((obj) => { return BK.UI.hideToast(obj) }, {}, GDK.GDKErrorCode.API_HIDE_TOAST_FAILED)
 		}
-		showDialog(object): Promise<GDK.ShowDialogResult> {
+		showConfirm(object): Promise<GDK.ShowConfirmResult> {
 
-			const ret = new GDK.RPromise<GDK.ShowDialogResult>()
+			const ret = new GDK.RPromise<GDK.ShowConfirmResult>()
 			object.success = (data) => {
-				var result = new GDK.ShowDialogResult()
+				var result = new GDK.ShowConfirmResult()
 				result.confirm = data.confirm
 				result.cancel = data.confirm
+				result.extra = data
+				ret.success(result)
+			}
+			BK.UI.showAlert(object)
+
+			return ret.promise
+
+		}
+		showAlert(object): Promise<GDK.ShowAlertResult> {
+
+			const ret = new GDK.RPromise<GDK.ShowAlertResult>()
+			object.success = (data) => {
+				var result = new GDK.ShowAlertResult()
+				result.extra = data
 				ret.success(result)
 			}
 			BK.UI.showAlert(object)

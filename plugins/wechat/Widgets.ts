@@ -30,13 +30,14 @@ namespace WechatGDK {
 		hideToast() {
 			return wrapReq((obj) => { return wx.hideToast(obj) }, {}, GDK.GDKErrorCode.API_HIDE_TOAST_FAILED)
 		}
-		showDialog(object): Promise<GDK.ShowDialogResult> {
+		showConfirm(object): Promise<GDK.ShowConfirmResult> {
 
-			const ret = new GDK.RPromise<GDK.ShowDialogResult>()
+			const ret = new GDK.RPromise<GDK.ShowConfirmResult>()
 			object.success = (data) => {
-				var result = new GDK.ShowDialogResult()
+				var result = new GDK.ShowConfirmResult()
 				result.confirm = data.confirm
 				result.cancel = data.confirm
+				result.extra = data;
 				ret.success(result)
 			}
 			object.fail = () => {
@@ -46,6 +47,21 @@ namespace WechatGDK {
 
 			return ret.promise
 
+		}
+
+		showAlert(object): Promise<GDK.ShowAlertResult> {
+			const ret = new GDK.RPromise<GDK.ShowAlertResult>()
+			object.success = (data) => {
+				var result = new GDK.ShowAlertResult()
+				result.extra = data;
+				ret.success(result)
+			}
+			object.fail = () => {
+				ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_SHOW_MODAL_FAILED))
+			}
+			wx.showModal({ title: object.title, showCancel: false, content: object.content })
+
+			return ret.promise
 		}
 	}
 }

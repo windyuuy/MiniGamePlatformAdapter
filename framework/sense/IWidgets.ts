@@ -1,7 +1,7 @@
 
 namespace GDK {
 
-	export class ShowDialogResult {
+	export class ShowConfirmResult {
 		/**
 		 * 点击了确定按钮
 		 */
@@ -11,6 +11,13 @@ namespace GDK {
 		 */
 		cancel: boolean
 
+		/**
+		 * 原始数据
+		 */
+		extra?: any
+	}
+
+	export class ShowAlertResult {
 		/**
 		 * 原始数据
 		 */
@@ -40,7 +47,20 @@ namespace GDK {
 		 */
 		confirm: number;
 	}
-	export interface ShowDialogOptions {
+	export interface ShowConfirmOptions {
+
+		/**
+		 * 提示的标题
+		 */
+		title: string;
+
+		/**
+		 * 提示的内容
+		 */
+		content: string;
+	}
+
+	export interface ShowAlertOptions {
 
 		/**
 		 * 提示的标题
@@ -63,6 +83,7 @@ namespace GDK {
 		hideLoading(): Promise<void>
 		showToast(object: ShowToastOptions): Promise<void>
 		hideToast(): Promise<void>
-		showDialog(object: ShowDialogOptions): Promise<ShowDialogResult>
+		showConfirm(object: ShowConfirmOptions): Promise<ShowConfirmResult>
+		showAlert(object: ShowAlertOptions): Promise<ShowAlertResult>
 	}
 }

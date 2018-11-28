@@ -7,7 +7,7 @@ namespace GDK {
 			this._m = moduleMap;
 		}
 		login(params: LoginParams): Promise<LoginResult> { return this._m.user.login(params) }
-		showDialog(object: ShowDialogOptions): Promise<ShowDialogResult> { return this._m.widgets.showDialog(object) }
+		showDialog(object: ShowConfirmOptions): Promise<ShowConfirmResult> { return this._m.widgets.showConfirm(object) }
 		support() { }
 		/** 当前实际平台 */
 		platform: string | "oppo" | "qqplay"
