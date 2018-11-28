@@ -93,5 +93,63 @@ declare namespace BK {
         static getFileInfoSync(path: string): { size: number }
     }
 
+    export class UI {
+
+        /**
+         * 显示toast
+         * @param data 
+         */
+        static showToast(data: {
+            title: string,
+            duration: number,
+            complete: () => void
+        });
+
+
+        /**
+         * 隐藏toast
+         * @param data 
+         */
+        static hideToast(data: {
+            complete: () => void
+        });
+
+        /**
+         * 显示loading
+         * @param data 
+         */
+        static showLoading(data: {
+            title: string,
+            complete: () => void
+        });
+
+        /**
+         * 隐藏loading
+         * @param data 
+         */
+        static hideLoading(data: {
+            complete: () => void
+        });
+
+        /**
+         * 显示对话框
+         * @param data 
+         */
+        static showAlert(data: {
+            title: string,
+            content: string,
+            success: (data: { confirm: boolean, cancel: boolean }) => void,
+            complete: () => void
+        });
+
+        /**
+         * 隐藏键盘
+         * @param data 
+         */
+        static hideKeyboard(data: {
+            complete: () => void
+        })
+
+    }
 
 }
