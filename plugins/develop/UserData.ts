@@ -1,7 +1,12 @@
 
 namespace DevelopGDK {
 	export class UserData implements GDK.IUserData {
-		openId: string
+		get openId(): string {
+			return '0999999'
+		}
+		get gameId(): number {
+			return -1
+		}
 		openKey: string
 		password?: string
 		nickName: string

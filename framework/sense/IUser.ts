@@ -42,5 +42,6 @@ namespace GDK {
 
 		update(): Promise<{}>
 		getFriendCloudStorage(obj: { keyList: string[] }): Promise<{ data: UserGameData[] }>;
+		setUserCloudStorage(obj: { KVDataList: wx.KVData[] }): Promise<void>
 	}
 }

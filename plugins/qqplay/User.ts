@@ -380,5 +380,158 @@ namespace QQPlayGDK {
 			})
 			return ret.promise
 		}
+
+		getTime(): number {
+			console.warn("需要改为使用服务器时间")
+			return new Date().getTime()
+		}
+
+		protected loginTime = null
+		protected uploadingUserScore = false
+		_setUserCloudStorage(obj: { KVDataList: wx.KVData[], success?: Function, fail?: Function, complete?: Function }) {
+			const { success, fail } = obj
+			const rankLog = new GDKLIB.Log({ tags: ['[UserCloudStorage]'] })
+			if (this.loginTime == null) {
+				rankLog.info('-[UserCloudStorage] 未登录,不提交成绩数据', obj.KVDataList)
+				fail && fail()
+				return
+			}
+			if (this.uploadingUserScore) {
+				rankLog.info('-[UserCloudStorage] 刚提交过用户成绩,不重复提交', obj.KVDataList)
+				fail && fail()
+				return
+			}
+			this.uploadingUserScore = true
+			setTimeout(() => {
+				this.uploadingUserScore = false
+			}, 3000)
+
+			rankLog.info('-[UserCloudStorage] 提交用户成绩', obj.KVDataList)
+
+			let commitTime = this.getTime()
+			let data: BK.QQRankData = {
+				userData: [
+					{
+						openId: GameStatusInfo.openId,
+						startMs: '' + this.loginTime,
+						endMs: '' + commitTime,
+						scoreInfo: {
+							score: 0, //分数，类型必须是整型数
+						},
+					},
+				],
+				attr: {
+					score: {
+						type: 'rank',
+						order: 1,
+					}
+				},
+			}
+
+			let selfScoreInfo = data.userData[0].scoreInfo
+			let attr = data.attr
+			for (let item of obj.KVDataList) {
+				let ss = item.value
+				let unitA: any = ss.match(/[a-zA-Z]+/)
+				if (unitA) unitA = unitA[0];
+				let numA = parseFloat(ss)
+				let expA = unitNum.indexOf(unitA)
+				let intA = Math.floor(numA * 1000)
+				let intS = Math.pow(10, expNum) * expA + intA
+				let keyIndex = typeIndex.indexOf(item.key)
+
+				if (keyIndex <= 0) {
+					rankLog.info(`-[UserCloudStorage] 不正确的keyIndex: ${keyIndex} ${item.key}`)
+					continue
+				}
+
+				let orderKey = 'a' + keyIndex
+				selfScoreInfo[orderKey] = intS
+
+				attr[orderKey] = {
+					type: item.key,
+					order: 4,
+				}
+			}
+
+
+			rankLog.info('-[UserCloudStorage] 提交用户成绩数据: ' + JSON.stringify(data))
+			// gameMode: 游戏模式，如果没有模式区分，直接填 1
+			// 必须配置好周期规则后，才能使用数据上报和排行榜功能
+			BK.QQ.uploadScoreWithoutRoom(1, data, (errCode, cmd, data) => {
+				// 返回错误码信息
+				if (errCode !== 0) {
+					rankLog.info(`-[UserCloudStorage] 上传成绩失败!错误码：${errCode} cmd: ${cmd} data: ${data}`);
+					fail && fail()
+				} else {
+					rankLog.info('-[UserCloudStorage] 上传成绩成功!');
+					this.loginTime = commitTime;
+					success && success()
+				}
+				this.uploadBusinessData(obj);
+			});
+		}
+
+		uploadBusinessData(obj: { KVDataList: wx.KVData[], success?: Function, fail?: Function, complete?: Function }) {
+			const rankLog = new GDKLIB.Log({ tags: ['[BusinessData]'] })
+			// 上报游戏运营数据
+			let gameTime = this.getTime() - this.loginTime
+			let gameResultData = {
+				"infoList": [              //通用数据上报列表
+					{
+						"type": 1,         //必选。数据类型。
+						"op": 2,           //必选。运营类型。1表示增量，2表示存量。
+						"num": 1,          //必选。数目。不超过32位有符号数。
+						"extId": 1         //可选。扩展Id。用于特殊数据的上报，如果要填，不能是0。
+					}
+				],
+			};
+
+			let infoList = gameResultData.infoList
+			for (let item of obj.KVDataList) {
+				let ss = item.value
+				let unitA: any = ss.match(/[a-zA-Z]+/)
+				if (unitA) unitA = unitA[0];
+				let numA = parseFloat(ss)
+				let expA = unitNum.indexOf(unitA)
+				let intA = Math.floor(numA * 1000)
+				let intS = Math.pow(10, expNum) * expA + intA
+				let keyIndex = typeIndex.indexOf(item.key)
+				if (keyIndex <= 0) {
+					rankLog.info(`-[BusinessData] 不正确的keyIndex: ${keyIndex} ${item.key}`)
+					continue
+				}
+				infoList.push({
+					type: keyIndex,
+					op: 2,
+					num: intS,
+					extId: expNum,
+				})
+			}
+
+			rankLog.info('-[BusinessData] 提交运营数据: ' + JSON.stringify(gameResultData))
+			BK.QQ.reportGameResult(gameResultData, function (errCode, cmd, data) {
+				if (errCode !== 0) {
+					//上报运营结果失败
+					rankLog.info(`-[BusinessData] 上报运营结果失败: code: ${errCode} cmd: ${cmd} data:${data}`)
+				} else {
+					//上报运营结果成功
+					rankLog.info('-[BusinessData] 上报运营结果成功')
+				}
+			});
+		}
+
+		setUserCloudStorage(obj: { KVDataList: wx.KVData[] }): Promise<void> {
+			const ret = new GDK.RPromise<void>()
+			this._setUserCloudStorage({
+				KVDataList: obj.KVDataList, success: () => {
+					ret.success(undefined)
+				},
+				fail: () => {
+					ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_SET_USER_CLOUD_STORAGE_FAILED))
+				}
+			})
+			return ret.promise
+		}
 	}
 }

@@ -91,5 +91,19 @@ namespace WechatGDK {
 			})
 			return ret.promise
 		}
+
+		setUserCloudStorage(obj: { KVDataList: wx.KVData[] }): Promise<void> {
+			const ret = new GDK.RPromise<void>()
+			wx.setUserCloudStorage({
+				KVDataList: obj.KVDataList,
+				success: () => {
+					ret.success(undefined)
+				},
+				fail: () => {
+					ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_SET_USER_CLOUD_STORAGE_FAILED))
+				}
+			})
+			return ret.promise
+		}
 	}
 }

@@ -8,9 +8,6 @@
 		"declaration": true,
 	},
 	"compileOnSave": true,
-	"files": [
-		"../qqplay/SubContext.ts"
-	],
 	"include": [
 		"../../framework",
 		"../../libs/**.ts",

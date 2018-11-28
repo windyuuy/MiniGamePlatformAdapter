@@ -116,3 +116,30 @@ declare namespace wx {
 	}
 
 }
+
+declare namespace BK {
+
+	export type QQRankData = {
+		userData: {
+			openId: string,
+			startMs: string,    //必填。 游戏开始时间。单位为毫秒，<font color=#ff0000>类型必须是字符串</font>
+			endMs: string,  //必填。 游戏结束时间。单位为毫秒，<font color=#ff0000>类型必须是字符串</font>
+			scoreInfo: { [key: string]: number, },
+		}[],
+        /**
+        - type 描述附加属性的用途
+        - order 排序的方式，
+        - 1: 从大到小，即每次上报的分数都会与本周期的最高得分比较，如果大于最高得分则覆盖，否则忽略
+        - 2: 从小到大，即每次上报的分数都会与本周期的最低得分比较，如果低于最低得分则覆盖，否则忽略（比如酷跑类游戏的耗时，时间越短越好）
+        - 3: 累积，即每次上报的积分都会累积到本周期已上报过的积分上
+        - 4: 直接覆盖，每次上报的积分都会将本周期的得分覆盖，不管大小
+        - 如score字段对应，上个属性.
+        */
+		attr: {
+			[key: string]: {
+				type: string,
+				order: number,
+			}
+		}
+	}
+}

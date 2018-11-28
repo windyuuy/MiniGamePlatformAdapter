@@ -2215,6 +2215,13 @@ declare namespace wx {
 		 */
 	export function getFriendCloudStorage(obj: { keyList: string[], success?: (res: { data: UserGameData[] }) => void, fail?: Function, complete?: Function }): void;
 
+	/**
+		 * https://developers.weixin.qq.com/minigame/dev/tutorial/open-ability/open-data.html
+		 * https://developers.weixin.qq.com/minigame/dev/document/open-api/data/wx.setUserCloudStorage.html
+		 * 对用户托管数据进行写数据操作，允许同时写多组 KV 数据。
+		 */
+	export function setUserCloudStorage(obj: { KVDataList: KVData[], success?: Function, fail?: Function, complete?: Function })
+
 	export function openCustomerServiceConversation(object: Object)
 
 	export class ShowLoadingParams {

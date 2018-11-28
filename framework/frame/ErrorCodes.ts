@@ -32,6 +32,7 @@ namespace GDK {
 
 		/** 获取好友排行数据 */
 		API_GET_FRIEND_CLOUD_STORAGE_FAILED: 30112,
+		API_SET_USER_CLOUD_STORAGE_FAILED: 30113,
 
 		/** 打开客服反馈界面失败 */
 		API_OPEN_FEEDBACK_FAILED: 30122,

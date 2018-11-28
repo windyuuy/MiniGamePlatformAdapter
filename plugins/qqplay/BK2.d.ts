@@ -166,10 +166,42 @@ declare namespace BK {
 		DiscussionGroupRank = 2,
 	}
 
+	export type GameResultData = {
+		"infoList":               //通用数据上报列表
+		{
+			"type": number,         //必选。数据类型。
+			"op": number,           //必选。运营类型。1表示增量，2表示存量。
+			"num": number,          //必选。数目。不超过32位有符号数。
+			"extId"?: number         //可选。扩展Id。用于特殊数据的上报，如果要填，不能是0。
+		}[],
+
+		//以下字段为兼容历史，优先使用上面的“通用数据上报”。
+		"baseInfo"?: {              //基本信息
+			"score": number,           //分数
+			"gameMode": number,         //游戏模式。1：普通，2：挑战
+			"playWay": number,          //互动方式。1：单人，2：邀请好友，3：被好友邀请，4：匹配赛
+		},
+		"playerAttr"?: {            //玩家属性（可选）
+			"level": number,            //玩家的经验等级（时间积累）
+			"danLevel": number,         //玩家的战力等级（游戏技能）
+			"power": number           //玩家战斗力
+		},
+		"passInfo"?: {              //过关信息（可选）
+			"passNum": number,          //本局游戏通过的最高关卡数，比如本局游戏通过了8,9,10关，上报10（不关注以前是否通过第10关）
+			"passList": {         //本局游戏通过的关卡列表
+				"index": number,        //第几关
+			}[],
+			"upPassNum": number         //本局游戏新通过关卡数，比如通过了8,9,10关,9,10是以前没有通过的，上报2
+		}
+	}
+
 	//手Q相关
 	export class QQ {
 		static fetchOpenKey(callback: (errCode: number, cmd: string, data: any) => void): void;
 		static getRankListWithoutRoom(attr: string, order: number, rankType: RankType, callback: (errCode, cmd, data) => void);
+		static uploadScoreWithoutRoom(gameMode: number, data: QQRankData, callback: (errCode: number, cmd: string, data: any) => void): void;
+		static uploadScoreWithoutRoom(gameMode: number, data: QQRankData, callback: (errCode: number, cmd: string, data: any) => void): void;
+		static reportGameResult(gameResultData: GameResultData, callback: (errCode, cmd, data) => void): void;
 
         /**
          * - gameOrientation  //1（默认，竖屏）2.横屏（home键在左边）3.横屏 （home键在右边）

@@ -30,7 +30,7 @@ namespace DevelopGDK {
 		}
 	}
 
-	export function wrapReq<T>(fun: (p: wx.BaseOptions) => void, calller?: object, params?: { okmsg?: string, failmsg?: string }) {
+	export function wrapReq<T>(fun: (p: { success: Function, fail: Function }) => void, calller?: object, params?: { okmsg?: string, failmsg?: string }) {
 		const obj = new RReqPromise<T>(params)
 		fun.call(calller, obj)
 		return obj.promise
