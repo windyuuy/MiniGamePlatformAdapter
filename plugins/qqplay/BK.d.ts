@@ -93,25 +93,5 @@ declare module BK {
         static getFileInfoSync(path: string): { size: number }
     }
 
-    export class Http {
-        static request(data: {
-            url: string,
-            method?: "GET" | "POST",
-            headers?: { [key: string]: string },
-            body?: string | ArrayBuffer,
-            success?: (data: {
-                statusCode: number,//	响应码
-                headers: object,//	响应头，字符串键值对
-                text: () => string,//	以字符串形式读取响应体
-                arrayBuffer: () => ArrayBuffer,//	以ArrayBuffer形式读取响应体, 请求发生错误时返回大小为0的ArrayBuffer
-                jsonObject: () => any//	以JSON对象形式读取响应体,已经经过JSON.parse解析, 请求发生错误或响应体为空时返回null
-            }) => void,
-            fail?: (data: { msg: string }) => void,
-            complete?: () => void,
-            uploadProgress?: (data: { curr: number, total: number }) => void,
-            downloadProgress?: (data: { curr: number, total: number }) => void,
-        });
-    }
-
 
 }
