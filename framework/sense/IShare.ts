@@ -20,6 +20,11 @@ namespace GDK {
 		imageUrl: string
 
 		/**
+		 * 社会化分享所使用的网络图片
+		 */
+		socialPicUrl?: string
+
+		/**
 		 * 分享的数据
 		 */
 		data: { [key: string]: string }
