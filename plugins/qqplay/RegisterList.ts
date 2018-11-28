@@ -8,5 +8,6 @@ namespace QQPlayGDK {
 		UserData = UserData
 		Widgets = Widgets
 		Support = Support
+		SubContext = SubContext
 	}
 }
