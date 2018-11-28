@@ -1,3 +1,43 @@
+
+declare interface GAMESTATUSINFO_DRESSINFO {
+	"atlas": string,
+	"json": string
+}
+
+declare interface GAMESTATUSINFO {
+	"svrIp": string,       //游戏推荐ip。开发者可忽略
+	"gameVersion": string, //游戏版本号
+	"isMaster": number,    //是否房主，1房主，0参加者
+	"dressPath": Array<GAMESTATUSINFO_DRESSINFO>,//厘米秀衣服路径
+	"gameId": number,      //游戏id
+	"networkType": number,      //网络类型 1 电信 ，2 联通 ，3 移动  0: wifi或未知
+	"roomId": number,               //房间号
+	"platform": string,
+	"openId": string, //当前用户的标识
+	"spriteDesignHeight": number,//厘米秀小人spine动画的设计高度
+	"QQVer": string, //手机qq版本
+	"isFirstPlay": number,                 //是否第一次玩 1.第一次玩，0非第一次玩
+	"skltPath": GAMESTATUSINFO_DRESSINFO, //厘米秀小人spine骨骼
+	"port": number,  //推荐端口 开发者可忽略,
+	"gameMode": number,
+	"aioType": number,
+	"avGameId": number,
+	"avAccountType": number,
+	"avRoomId": number,
+	"sessionId"?: number,
+	"devPlatform"?: string, //仅在开发环境下可以，手q环境下无该字段
+	"avAppId"?: number,
+	"src": number
+	"sex": number //1 男 2 女
+	gameParam: string //当使用其他玩家使用BK.QQ.shareToArk分享至手Q,并且填充扩展字段时，当前玩家就能从此处获取该数据。[详情](http://hudong.qq.com/docs/engine/engine/native/engine-server.html)
+}
+
+/**
+ * 全局变量
+ */
+declare var GameStatusInfo: GAMESTATUSINFO;
+
+
 declare namespace BK {
 	export type HttpSuccObj = {
 		statusCode: number	//	响应码
@@ -87,4 +127,283 @@ declare namespace BK {
 		clear(): void
 	}
 	export var sessionStorage: SessionStorage
+
+
+    /**
+     * 要查询的排行榜类型，0: 好友排行榜，1: 群排行榜，2: 讨论组排行榜，3: C2C二人转 (手Q 7.6.0以上支持)
+     */
+	export enum RankType {
+		FriendsRank = 0,
+		GroupRank = 1,
+		DiscussionGroupRank = 2,
+	}
+
+	//手Q相关
+	export class QQ {
+		static fetchOpenKey(callback: (errCode: number, cmd: string, data: any) => void): void;
+		static getRankListWithoutRoom(attr: string, order: number, rankType: RankType, callback: (errCode, cmd, data) => void);
+	}
+
+	export class Buffer {
+		/**
+		 * 表示游标pointer是否到达Buffer末尾
+		 */
+		eof: boolean;
+
+		/**
+		 * 已写入的最大数据量
+		 */
+		length: number;
+
+		/**
+		 * 预分配的缓存容量
+		 */
+		capacity: number;
+
+		/**
+		 * 是否以网络序写入数据
+		 */
+		netOrder: boolean;
+
+		/**
+		 * 指针
+		 */
+		pointer: number;
+
+		/**
+		 * 
+		 * @param length buffer长度
+		 * @param netOrder 是否为网络字节序 1为网络序，0非网络序
+		 */
+		constructor(length?: number, netOrder?: number);
+
+		/**
+		 * 
+		 * @param length 
+		 * @param netOrder 是否为网络字节序  true为网络序，false非网络序
+		 */
+		constructor(length: number, netOrder?: boolean);
+
+		rewind(): void;
+
+		jumpBytes(n: number): void;
+
+		readStringBuffer(): string;
+
+		readUint8Buffer(): number;
+
+		readUint16Buffer(): number;
+
+		readUint32Buffer(): number;
+
+		readInt8Buffer(): number;
+
+		readInt16Buffer(): number;
+
+		readInt32Buffer(): number;
+
+		readFloatBuffer(): number;
+
+		readDoubleBuffer(): number;
+
+		readBuffer(length: number): BK.Buffer;
+
+		readAsString(needTerminal?: boolean): string;
+
+		readUint64Buffer(): number;
+
+		writeBuffer(buf: BK.Buffer): void;
+
+		writeUint8Buffer(num: number): void;
+
+		writeUint16Buffer(num: number): void;
+
+		writeUint32Buffer(num: number): void;
+
+		writeInt8Buffer(num: number): void;
+
+		writeInt16Buffer(num: number): void;
+
+		writeInt32Buffer(num: number): void;
+
+		writeFloatBuffer(num: number): void;
+
+		writeDoubleBuffer(num: number): void;
+
+		writeStringBuffer(str: string): void;
+
+		writeUint64Buffer(num: number): void;
+
+
+		writeAsString(s: string, needTerminal?: boolean): void;
+		/**
+		 * 返回buffer长度
+		 * 单位为:字节
+		 * @returns {number} 
+		 * 
+		 * @memberof Buffer
+		 */
+		bufferLength(): number;
+
+		/**
+		 * 销毁
+		 * 
+		 * @memberof Buffer
+		 */
+		releaseBuffer(): void;
+
+		/**
+		 * 将游标pointer重置为0
+		 */
+		rewind(): void;
+
+		/**
+		 * 将游标pointer移动bytes字节
+		 * @param {number} bytes 
+		 */
+		jumpBytes(bytes: number): void;
+
+		/**
+		 * 截断已写入的数据缓存
+		 * @param {number} bytes 想要截断的数据量
+		 * @e.g. Buf.length = 512; Buf.truncateBytes(50); 那么Buf剩余已写入数据量为462
+		 */
+		truncateBytes(bytes: number): void;
+
+		/**
+		 * 扩展
+		 * @param num 
+		 */
+		expandToBytes(num: number): void;
+	}
+
+	export interface HeadBufferInfo {
+		buffer: BK.Buffer,
+		width: number,
+		height: number
+	}
+
+	export namespace MQQ {
+
+		export class Webview {
+            /**
+             * 打开一个webview
+             * 
+             * @static
+             * @param {string} url 
+             * 
+             * @memberof Webview
+             */
+			static open(url: string): void;
+
+            /**
+             * 监听已打开webview的消息
+             * @param callback 
+             */
+			static onMessageHandle(callback: (cmd: string, data: any) => void);
+
+            /**
+             * 打开透明webview
+             * @param url 
+             * @param gameOrientation 
+             */
+			static openTransparent(url: string, gameOrientation: number);
+		}
+
+		export class SsoRequest {
+            /**
+             * 发送SSO消息
+             * 
+             * @static
+             * @param {object} obj 请求的数据
+             * @param {string} cmd 命令字
+             * 
+             * @memberof SsoRequest
+             */
+			static send(obj: object, cmd: string);
+
+			/**
+			* H5 与终端通信
+			* 
+			* @static
+			* @param {object} obj 请求的数据
+			* @param {string} cmd 命令字
+			* 
+			* @memberof SsoRequest
+			*/
+			static sendTo(obj: object, cmd: string);
+
+            /**
+             * H5 与终端通信
+             * 
+             * @static
+             * @param {object} obj 请求的数据
+             * @param {string} cmd 命令字
+             * 
+             * @memberof SsoRequest
+             */
+			static sendSSO(obj: object, cmd: string);
+
+
+
+            /**
+             * 添加某个对象监听某个命令
+             *
+             * @static
+             * @param cmd  命令字
+             * @param target 绑定的对象
+             * @param callback 回调函数
+             */
+			static addListener(cmd: string, target: Object, callback: (errCode: number, cmd: string, data: any) => void);
+
+            /**
+             * 移除某个对象对某个命令的事件监听
+             * 
+             * @static
+             * @param {string} cmd 命令字
+             * @param {Object} targer 待解除绑定的对象
+             * 
+             * @memberof SsoRequest
+             */
+			static removeListener(cmd: string, targer: Object);
+
+			static listenerInfos: Array<any>;
+
+            /**
+             * 终端->js回调
+             * 
+             * @memberof SsoRequest
+             */
+			static callback(errCode: number, cmd: string, data: any);
+
+			//
+
+		}
+
+		export class Account {
+            /**
+             * 获取头像信息
+             * 
+             * @static
+             * @param {string} openId 
+             * @param {(openId:string,BuffInfo:HeadBufferInfo)=>void} callback 
+             * 
+             * @memberof Account
+             */
+			static getHead(openId: string, callback: (openId: string, BuffInfo: HeadBufferInfo) => void)
+
+            /**
+             * 获取昵称
+             * 
+             * @static
+             * @param {string} openId 
+             * @param {(openId:string,nick:string)=>void} callback 
+             * 
+             * @memberof Account
+             */
+			static getNick(openId: string, callback: (openId: string, nick: string) => void)
+
+			static getHeadEx(openId: string, callback: (openId: string, imgUrl: string) => void);
+		}
+	}
 }

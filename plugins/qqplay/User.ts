@@ -23,7 +23,7 @@ namespace QQPlay {
 				uploadData['skltPath'] = undefined
 				uploadData['dressPath'] = undefined
 				uploadData['cpuType'] = undefined
-				cc.log(`-[QQPlayLogin] upload data: `, uploadData)
+				log.info(`-[QQPlayLogin] upload data: `, uploadData)
 
 				this.server.userLoginQQPlay(uploadData, (resp) => {
 					if (resp.succeed) {
@@ -205,7 +205,7 @@ namespace QQPlay {
 					roleData.nickName = nick || '未设置QQ昵称'
 					this.getHeadEx(({ avatarUrl }) => {
 						roleData.avatarUrl = avatarUrl || '未设置QQ头像'
-						console.log(`get userinfo timespend`)
+						log.info(`get userinfo timespend`)
 						onDone()
 					})
 				})
@@ -215,21 +215,23 @@ namespace QQPlay {
 			return ret.promise
 		}
 
-		_getFriendCloudStorage({ keyList, success, complete, fail }: { keyList: string[], success?: (res: { data: wx.UserGameData[] }) => void, fail?: Function, complete?: Function }): void {
+		_getFriendCloudStorage({ keyList, success, complete, fail }:
+			{ keyList: string[], success?: (res: { data: wx.UserGameData[] }) => void, fail?: Function, complete?: Function }): void {
 			// 当前不支持一次同时拉取多个排行榜，需要拉取多次，而且必须等上一个拉取回来后才能拉取另外一个排行榜
 			// 先拉 score 排行榜
-			console.log("-[FriendRank] getFriendCloudStorage")
+			const rankLog = new GDKLIB.Log({ tags: ['[FriendRank]'] })
+			rankLog.info("-[FriendRank] getFriendCloudStorage")
 			let temp = {}
 			let pullAttrRank = (attr, resolve, reject) => {
-				console.log(`-[FriendRank] req getRankListWithoutRoom ${attr}`)
+				rankLog.info(`-[FriendRank] req getRankListWithoutRoom ${attr}`)
 				let order = 1;     //排序的方法：[ 1: 从大到小(单局)，2: 从小到大(单局)，3: 由大到小(累积)]
 				let rankType = 0
 				// 必须配置好周期规则后，才能使用数据上报和排行榜功能
 				BK.QQ.getRankListWithoutRoom(attr, order, rankType, function (errCode, cmd, data) {
-					console.log("-[FriendRank] getRankListWithoutRoom callback  cmd" + cmd + " errCode:" + errCode + "  data:" + JSON.stringify(data));
+					rankLog.info("-[FriendRank] getRankListWithoutRoom callback  cmd" + cmd + " errCode:" + errCode + "  data:" + JSON.stringify(data));
 					// 返回错误码信息
 					if (errCode !== 0) {
-						BK.Script.log(1, 1, '获取排行榜数据失败!错误码：' + errCode);
+						log.info(1, 1, '获取排行榜数据失败!错误码：' + errCode);
 						reject()
 						return;
 					}
@@ -307,7 +309,7 @@ namespace QQPlay {
 			let promises = []
 			for (let key of keyList) {
 				let keyIndex = typeIndex.indexOf(key)
-				cc.assert(!isNaN(keyIndex), '-[FriendRank] invalid key for rank : ' + key)
+				GDKLIB.assert(!isNaN(keyIndex), '-[FriendRank] invalid key for rank : ' + key)
 				let attr = 'a' + keyIndex
 				promises.push(() => {
 					return new Promise((resolve, reject) => {
@@ -323,20 +325,20 @@ namespace QQPlay {
 					fail && fail();
 					complete && complete();
 				} else {
-					console.log(`-[FriendRank] temp result: ${JSON.stringify(temp)}`)
+					rankLog.info(`-[FriendRank] temp result: ${JSON.stringify(temp)}`)
 					let result = convertResult(temp)
-					console.log(`-[FriendRank] result: ${JSON.stringify(result)}`)
+					rankLog.info(`-[FriendRank] result: ${JSON.stringify(result)}`)
 
 					try {
 						let resultString = JSON.stringify(result)
 						this.setStorageSync('frank-data', resultString)
 					} catch (e) {
-						console.log(`-[FriendRank] save local rank data failed`, e.toString())
+						rankLog.info(`-[FriendRank] save local rank data failed`, e.toString())
 					}
 
 					// 如果已经使用本地缓存刷新过,那么仅仅更新本地缓存
 					if (rankFetched) {
-						console.log(`-[FriendRank] fetch rank data too late`)
+						rankLog.info(`-[FriendRank] fetch rank data too late`)
 						return
 					}
 					rankFetched = true
@@ -361,7 +363,7 @@ namespace QQPlay {
 						complete && complete();
 					}
 				} catch (e) {
-					console.log(`-[FriendRank] load local rank data failed`, e.toString())
+					rankLog.info(`-[FriendRank] load local rank data failed`, e.toString())
 				}
 			})
 
