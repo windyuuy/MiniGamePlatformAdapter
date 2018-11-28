@@ -39,6 +39,23 @@ declare var GameStatusInfo: GAMESTATUSINFO;
 
 
 declare namespace BK {
+
+	export function onEnterForeground(callback: Function);
+	export function onEnterBackground(callback: Function);
+	export function onGameClose(callback: Function);
+	export function onMaximize(callback: Function);
+	export function onMinimize(callback: Function);
+	export function onNetworkChange(callback: (obj: Object) => void);
+	export function onGameShareComplete(callback: Function);
+	export function onGameShare(callback: (obj: Object) => void);
+	export function offEnterForeground(callback: Function);
+	export function offGameClose(callback: Function);
+	export function offMaximize(callback: Function);
+	export function offMinimize(callback: Function);
+	export function offNetworkChange(callback: (obj: Object) => void);
+	export function offGameShareComplete(callback: (obj: Object) => void);
+	export function offGameShare(callback: Function);
+
 	export type HttpSuccObj = {
 		statusCode: number	//	响应码
 		headers: { [key: string]: string }		//	响应头，字符串键值对
@@ -129,6 +146,17 @@ declare namespace BK {
 	export var sessionStorage: SessionStorage
 
 
+	const enum WebViewOrientation {
+		portrait = 1,
+		landscapeLeft = 2,
+		landscapeRight = 3
+	}
+
+	export type PayItemInfo = {
+		itemId: number,
+		itemNum: number,
+	}
+
     /**
      * 要查询的排行榜类型，0: 好友排行榜，1: 群排行榜，2: 讨论组排行榜，3: C2C二人转 (手Q 7.6.0以上支持)
      */
@@ -142,6 +170,28 @@ declare namespace BK {
 	export class QQ {
 		static fetchOpenKey(callback: (errCode: number, cmd: string, data: any) => void): void;
 		static getRankListWithoutRoom(attr: string, order: number, rankType: RankType, callback: (errCode, cmd, data) => void);
+
+        /**
+         * - gameOrientation  //1（默认，竖屏）2.横屏（home键在左边）3.横屏 （home键在右边）
+         * - transparent 是否透明
+         * - itemList 道具列表
+         * - callback 形如 function(errCode,data)
+         *  - errCode
+         *      - errCode == 0 代表购买成功
+         *      - errCode != 0代表购买失败
+         *      - 35308	道具没有配置
+         *      - 35311	道具已下架
+         *      - 35312	绝版道具已过期
+         *      - 35313	用户已经拥有该道具
+         *      - 35315	所选的道具有多种货货类型
+         *      - 35316	用户货币余额不足
+         */
+		static qPayPurchase(gameOrientation: WebViewOrientation, transparent: boolean, itemList: Array<PayItemInfo>, callback: (errCode: number, data: {
+			code: number,
+			success: boolean,
+			itemList: PayItemInfo[],
+			gameId: number,
+		}) => void): void;
 	}
 
 	export class Buffer {

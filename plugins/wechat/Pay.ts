@@ -4,7 +4,7 @@ namespace WechatGDK {
 	export class Pay implements GDK.IPay {
 		api?: GDK.UserAPI
 
-		payPurchase(config: GDK.PayItemInfo) {
+		payPurchase(config: GDK.PayItemInfo): Promise<GDK.PayResult> {
 			const ret = new GDK.RPromise<GDK.PayResult>()
 
 			const info = this.api.gameInfo
@@ -41,6 +41,8 @@ namespace WechatGDK {
 					}
 				}
 			})
+
+			return ret.promise
 		}
 
 	}

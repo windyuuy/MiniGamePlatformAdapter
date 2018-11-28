@@ -55,6 +55,7 @@ namespace GDK {
 	}
 
 	export interface IPay extends IModule {
+		payPurchase(item: GDK.PayItemInfo, options?: { gameOrientation?: BK.WebViewOrientation }): Promise<PayResult>
 	}
 
 }
