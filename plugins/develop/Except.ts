@@ -9,10 +9,10 @@ namespace DevelopGDK {
 			if (!this._isListener) {
 				this._isListener = true;
 
-				window.onerror = (res) => {
-					//检查该错误是否提交过
-					this._errorCallback({ message: res.toString(), stack: new Error().stack });
-				}
+				// window.onerror = (res) => {
+				// 	//检查该错误是否提交过
+				// 	this._errorCallback({ message: res.toString(), stack: new Error().stack });
+				// }
 			}
 		}
 	}
