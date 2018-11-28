@@ -456,4 +456,77 @@ declare namespace BK {
 			static getHeadEx(openId: string, callback: (openId: string, imgUrl: string) => void);
 		}
 	}
+
+	export namespace Advertisement {
+		export enum AdvertErrorCode {
+			/** 成功 */
+			SUCCESS = 0,
+			/** 其它错误 */
+			UNKNOWN = 1,
+			/** 请求过于频繁（每分钟最多30次请求） */
+			TOO_FREEQUENT = 2,
+			/** 网络错误 */
+			NETWORK_ERROR = 3,
+			/** 请求广告参数错误 */
+			INVALID_PARAMS = 4,
+			/** 没有广告 */
+			INVALID_ADVERT = 5,
+			/** 服务器错误 */
+			SERVER_ERROR = 6,
+			/** 广告数据规格与指定样式不匹配 */
+			INVALID_PARAMS_SPEC = 7,
+		}
+		/**
+		 * 视频广告对象
+		 */
+		export class VideoAd {
+			/** 展示 */
+			show(): void
+			/** 监听加载成功回调 */
+			onLoad(callback)
+			/** 取消监听加载成功回调 */
+			offLoad(callback): void
+			/** 监听拉取失败事件 */
+			onError(callback: (code: AdvertErrorCode, msg: string) => void)
+			/** 移除拉取失败事件 */
+			offError(callback): void
+			/** 监听视频开始播放事件 */
+			onPlayStart(callback)
+			/** 取消视频开始播放事件 */
+			offPlayStart(callback): void
+			/** 监听视频结束播放事件 */
+			onPlayFinish(callback)
+			/** 取消监听视频结束播放事件 */
+			offPlayFinish(callback): void
+			/** 监听视频界面关闭事件 */
+			onClose(callback)
+			/** 取消监听视频界面关闭事件 */
+			offClose(callback): void
+		}
+
+		export class BannerAd {
+			/** 展示 */
+			show(): void
+			/** 隐藏 */
+			hide(): void
+			/** 销毁 */
+			destory(): void
+			/** 监听加载成功回调 */
+			onLoad(callback)
+			/** 取消监听加载成功回调 */
+			offLoad(callback): void
+			/** 监听拉取失败事件 */
+			onError(callback: (code: AdvertErrorCode, msg: string) => void)
+			/** 移除拉取失败事件 */
+			offError(callback): void
+		}
+
+		/**
+		 * - 创建一个视频广告
+		 * - 手Q版本:7.6.5
+		 */
+		export function createVideoAd(): VideoAd
+		export function createBannerAd(params: { viewId: number, style?: { x: number, y: number } }): BannerAd
+	}
+
 }

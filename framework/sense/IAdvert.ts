@@ -1,9 +1,9 @@
 namespace GDK {
 	export class BannerStyle {
-		/** banner 广告组件的左上角横坐标 */
-		left: number
-		/** banner 广告组件的左上角纵坐标 */
-		top: number
+		/** banner 广告组件的左下角横坐标 */
+		x: number
+		/** banner 广告组件的左下角纵坐标 */
+		y: number
 		/** banner 广告组件的宽度 */
 		width: number
 		/** banner 广告组件的高度 */
@@ -14,9 +14,9 @@ namespace GDK {
 		//属性
 		adUnitId: string
 		/** 隐藏 激励视频 广告 */
-		load(): Promise<{}>
+		load(): Promise<void>
 		/** 显示 激励视频 广告 */
-		show(): Promise<{}>
+		show(): Promise<void>
 		/** 隐藏 激励视频 广告 */
 		onLoad(callback: Function)
 		/** 取消监听 激励视频 广告加载事件 */
@@ -33,17 +33,17 @@ namespace GDK {
 
 	export interface IBannerAd {
 		//属性
-		adUnitId: string
-		style: {
-			left: number//		banner 广告组件的左上角横坐标	
-			top: number//		banner 广告组件的左上角纵坐标	
-			width: number//		banner 广告组件的宽度。最小 300，最大至 屏幕宽度（屏幕宽度可以通过 wx.getSystemInfoSync() 获取）。
-			height: number//		banner 广告组件的高度
-			realWidth: number//		banner 广告组件经过缩放后真实的宽度
-			realHeight: number//		banner 广告组件经过缩放后真实的高度
-		};
+		/** 微信，广告单元ID，用于后台配置统计相关 */
+		adUnitId?: string
+		/**
+		 * - QQ玩一玩 必填。1001静态banner，1002动态banner，1003 广点通banner(7.8.0)
+		 * 	- viewId 1001、1002 手机qq 7.6.5 支持原生游戏（cocos/laya/ergret），不支持H5游戏（使用DOM的游戏）
+		 * 	- viewId 1003 仅在手机qq 7.8.5支持。 支持原生游戏（cocos/laya/ergret），支持H5游戏（使用DOM的游戏）
+		 **/
+		viewId?: number
+
 		/** 显示 banner 广告。 banner 广告将从屏幕下方推入。 */
-		show(): Promise<{}>
+		show(): Promise<void>
 		/** 隐藏 banner 广告。 banner 广告将从屏幕下方推入。 */
 		hide(): void
 		/** 销毁 banner 广告 */
@@ -71,6 +71,8 @@ namespace GDK {
 		createBannerAd(params: {
 			/** 广告单元 id */
 			adUnitId: string,
+			/** QQ玩一玩 必填。1001静态banner，1002动态banner，1003 广点通banner(7.8.0) */
+			viewId: number,
 			/** banner 广告组件的样式 */
 			style: BannerStyle
 		}): IBannerAd
