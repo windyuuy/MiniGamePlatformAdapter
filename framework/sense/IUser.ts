@@ -4,7 +4,31 @@ namespace GDK {
 
 	/** 登录请求结果 */
 	export class LoginResult {
-		extra?: any
+		extra?: {
+			userId: number,
+			openId?: string,
+			serviceTimestamp: number
+			dataTimestamp: number
+			nickname: string,
+			profileImg: string,
+			backupTime: number,
+			userNew: false,
+			shareSwitch: {
+
+			},
+			gameCurrency: {
+				gold: string,
+				diamond: string,
+				seed: string
+			},
+			createTime: string,
+			channelId: number,
+
+			encryptKey: string,
+			token: string,
+
+			gametoken: string
+		}
 	}
 
 	/** 登录错误码 */
