@@ -47,7 +47,7 @@ gulp.task("updateSLIB", function () {
 
 })
 
-gulp.task("comp", () => {
+gulp.task("comp", async () => {
 
 	execon(".", () => {
 		execon("./framework", () => exec("tsc"))
