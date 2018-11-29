@@ -1,6 +1,6 @@
 
 namespace GDK {
-	const devlog = new SLIB.Log({ tags: ["DEVELOP"] })
+	const devlog = new slib.Log({ tags: ["DEVELOP"] })
 	export abstract class APISystemBase implements IAPISystem {
 		abstract init?()
 		async navigateToApp?(params: GDK.AppCallUpParams): Promise<GDK.AppCallUpResult> {

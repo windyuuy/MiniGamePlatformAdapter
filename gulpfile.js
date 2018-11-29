@@ -8,18 +8,20 @@ const path = require("path")
 
 const execon = (dir, fn) => {
 	const pwd = path.resolve(process.cwd())
-	try {
-		process.chdir(dir)
-		fn()
-	} catch (e) {
-		console.error(e)
-	} finally {
-		process.chdir(pwd)
-	}
+	// try {
+	process.chdir(dir)
+	fn()
+	// } catch (e) {
+	// 	console.error(e)
+	// } finally {
+	process.chdir(pwd)
+	// }
 }
 const exec = (cmd) => {
 	console.log(`-[exec] ${process.cwd()}$ ${cmd}`)
-	child_process.execSync(cmd)
+	let buf = child_process.spawnSync(cmd)
+	console.log(buf.stdout.toString())
+	console.log(buf.stderr.toString())
 }
 
 function getOssClient() {
