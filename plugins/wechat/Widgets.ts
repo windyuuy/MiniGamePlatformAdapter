@@ -1,14 +1,5 @@
 
 namespace WechatGDK {
-	function wrapReq(fun: Function, object, code: number) {
-		const ret = new GDK.RPromise<any>()
-		object.success = ret.success
-		object.fail = () => {
-			ret.fail(GDK.GDKResultTemplates.make(code))
-		}
-		fun(object)
-		return ret.promise
-	}
 
 	class KeyBoard implements GDK.IKeyBoard {
 		hideKeyboard(): Promise<void> {
@@ -19,7 +10,7 @@ namespace WechatGDK {
 	export class Widgets implements GDK.IWidgets {
 		keyboard = new KeyBoard()
 		showLoading(object: GDK.ShowLoadingParams) {
-			return wrapReq((obj) => { return wx.showLoading(obj) }, object, GDK.GDKErrorCode.API_SHOW_LOADING_FAILED)
+			return wrapReq<void>((obj) => { return wx.showLoading(obj) }, object, GDK.GDKErrorCode.API_SHOW_LOADING_FAILED)
 		}
 		hideLoading() {
 			return wrapReq((obj) => { return wx.hideLoading(obj) }, {}, GDK.GDKErrorCode.API_HIDE_LOADING_FAILED)

@@ -30,10 +30,14 @@ namespace DevelopGDK {
 		}
 	}
 
-	export function wrapReq<T>(fun: (p: { success: Function, fail: Function }) => void, calller?: object, params?: { okmsg?: string, failmsg?: string }) {
-		const obj = new RReqPromise<T>(params)
-		fun.call(calller, obj)
-		return obj.promise
+	export function wrapReq<T=void, I extends { success?: (p: T) => void, fail?: Function }={}>(fun: (p: I) => void, object: I, code: number) {
+		const ret = new GDK.RPromise<T>()
+		object.success = ret.success
+		object.fail = () => {
+			ret.fail(GDK.GDKResultTemplates.make(code))
+		}
+		fun(object)
+		return ret.promise
 	}
 
 	export class RLoginPromise<T> extends RReqPromise<T>{ }

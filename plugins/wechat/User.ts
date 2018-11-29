@@ -51,10 +51,9 @@ namespace WechatGDK {
 		}
 
 		checkSession() {
-			return wrapReq(wx.checkSession, wx, {
-				okmsg: "session_key 未过期，并且在本生命周期一直有效",
-				failmsg: "session_key 已经失效，需要重新执行登录流程"
-			})
+			return wrapReq((obj: wx.CheckSessionOptions) => {
+				return wx.checkSession(obj)
+			}, {}, GDK.GDKErrorCode.API_CHECK_SESSION_FAILED)
 		}
 
 		update(): Promise<{}> {

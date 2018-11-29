@@ -45,6 +45,8 @@ namespace GDK {
 
 		API_HIDE_KEYBOARD_FAILED: 30141,
 
+		API_CHECK_SESSION_FAILED: 30151,
+
 
 		/**
 		 * 分享不被支持
