@@ -1,6 +1,6 @@
 
 namespace QQPlayGDK {
-	const log = new SLIB.Log({ tags: ['[QQPlayAPI]'] })
+	const log = new slib.Log({ tags: ['[QQPlayAPI]'] })
 
 	const unitNum = [null, 'K', 'M', 'B', 'T', 'aa', 'bb', 'cc', 'dd', 'ee', 'ff', 'gg', 'hh', 'ii', 'jj', 'kk', 'll', 'mm', 'nn', 'oo', 'pp', 'qq', 'rr', 'ss', 'tt', 'uu', 'vv', 'ww', 'xx', 'yy', 'zz', 'Aa', 'Bb', 'Cc', 'Dd', 'Ee', 'Ff', 'Gg', 'Hh', 'Ii', 'Jj', 'Kk', 'Ll', 'Mm', 'Nn', 'Oo', 'Pp', 'Qq', 'Rr', 'Ss', 'Tt', 'Uu', 'Vv', 'Ww', 'Xx', 'Yy', 'Zz', 'AA', 'BB', 'CC', 'DD', 'EE', 'FF', 'GG', 'HH', 'II', 'JJ', 'KK', 'LL', 'MM', 'NN', 'OO', 'PP', 'QQ', 'RR', 'SS', 'TT', 'UU', 'VV', 'WW', 'XX', 'YY', 'ZZ']
 	const typeIndex = [null, 'goldRank', 'seedRank', 'unlockRank', 'sceneRank',]
@@ -228,7 +228,7 @@ namespace QQPlayGDK {
 			{ keyList: string[], success?: (res: { data: wx.UserGameData[] }) => void, fail?: Function, complete?: Function }): void {
 			// 当前不支持一次同时拉取多个排行榜，需要拉取多次，而且必须等上一个拉取回来后才能拉取另外一个排行榜
 			// 先拉 score 排行榜
-			const rankLog = new SLIB.Log({ tags: ['[FriendRank]'] })
+			const rankLog = new slib.Log({ tags: ['[FriendRank]'] })
 			rankLog.info("-[FriendRank] getFriendCloudStorage")
 			let temp = {}
 			let pullAttrRank = (attr, resolve, reject) => {
@@ -318,7 +318,7 @@ namespace QQPlayGDK {
 			let promises = []
 			for (let key of keyList) {
 				let keyIndex = typeIndex.indexOf(key)
-				SLIB.assert(!isNaN(keyIndex), '-[FriendRank] invalid key for rank : ' + key)
+				slib.assert(!isNaN(keyIndex), '-[FriendRank] invalid key for rank : ' + key)
 				let attr = 'a' + keyIndex
 				promises.push(() => {
 					return new Promise((resolve, reject) => {
@@ -401,7 +401,7 @@ namespace QQPlayGDK {
 		protected uploadingUserScore = false
 		_setUserCloudStorage(obj: { KVDataList: wx.KVData[], success?: Function, fail?: Function, complete?: Function }) {
 			const { success, fail } = obj
-			const rankLog = new SLIB.Log({ tags: ['[UserCloudStorage]'] })
+			const rankLog = new slib.Log({ tags: ['[UserCloudStorage]'] })
 			if (this.loginTime == null) {
 				rankLog.info('-[UserCloudStorage] 未登录,不提交成绩数据', obj.KVDataList)
 				fail && fail()
@@ -484,7 +484,7 @@ namespace QQPlayGDK {
 		}
 
 		uploadBusinessData(obj: { KVDataList: wx.KVData[], success?: Function, fail?: Function, complete?: Function }) {
-			const rankLog = new SLIB.Log({ tags: ['[BusinessData]'] })
+			const rankLog = new slib.Log({ tags: ['[BusinessData]'] })
 			// 上报游戏运营数据
 			let gameTime = this.getTime() - this.loginTime
 			let gameResultData = {

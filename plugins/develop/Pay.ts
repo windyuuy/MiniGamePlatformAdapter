@@ -1,6 +1,6 @@
 
 namespace DevelopGDK {
-	const log = new SLIB.Log({ tags: ['DevelopPay'] })
+	const log = new slib.Log({ tags: ['DevelopPay'] })
 	export class Pay extends GDK.PayBase {
 
 		payPurchase(config: GDK.PayItemInfo): Promise<GDK.PayResult> {
