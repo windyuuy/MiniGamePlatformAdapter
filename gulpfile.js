@@ -22,9 +22,7 @@ gulp.task("updateSLIB", function () {
 		bucket: bucket
 	})
 
-	client.get(osspath + "slib.d.ts")
-
-	client.put(osspath + "slib.d.ts", "./libs/slib.d.ts").then(() => {
+	client.get(osspath + "slib.d.ts", "./libs/slib.d.ts").then(() => {
 		console.log("更新完成 slib.d.ts")
 	}).catch((err) => {
 		console.error(err)
