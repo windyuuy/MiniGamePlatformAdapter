@@ -1,7 +1,7 @@
 
 namespace QQPlayGDK {
 
-	export class Pay implements GDK.IPay {
+	export class Pay extends GDK.PayBase {
 		api?: GDK.UserAPI
 		server: QQServer
 

@@ -4,7 +4,7 @@ namespace DevelopGDK {
 	const typeIndex = [null, 'goldRank', 'seedRank', 'unlockRank', 'sceneRank',]
 	const expNum = 7
 
-	export class User implements GDK.IUser {
+	export class User extends GDK.UserBase {
 		api?: GDK.UserAPI
 
 		login(params?: GDK.LoginParams) {
