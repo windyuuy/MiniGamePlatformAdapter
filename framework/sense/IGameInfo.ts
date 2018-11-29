@@ -82,7 +82,6 @@ namespace GDK {
 		appId: string
 
 		channelId: number
-		clientSystemInfo: GetSystemInfoResult
 		launchOptionsPath: any
 		launchOptionsQuery: any
 
@@ -96,6 +95,20 @@ namespace GDK {
 		 * * 仅微信使用
 		 */
 		shareProxyUrl: string;
+
+
+		/**
+		 * 游戏版本号
+		 **/
+		gameVersion?: string
+		/**
+		 * 游戏id
+		 **/
+		gameId?: number
+		/**
+		 * 游戏类型(手Q7.6.5及以上支持) 0: 普通游戏 1：红包游戏
+		 **/
+		gameType: number
 
 		init?()
 	}

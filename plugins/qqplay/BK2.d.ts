@@ -29,6 +29,13 @@ declare interface GAMESTATUSINFO {
 	"avAppId"?: number,
 	"src": number
 	"sex": number //1 男 2 女
+	/**
+	 * 具体机型	(手Q7.6.3及以上支持) 形如 "PRO 6 Plus"
+	 */
+	"model": string
+	osVersion: string
+	/** 是否首次安装	1为首次安装 0非首次安装 */
+	isFirstInstall: number
 	gameParam: string //当使用其他玩家使用BK.QQ.shareToArk分享至手Q,并且填充扩展字段时，当前玩家就能从此处获取该数据。[详情](http://hudong.qq.com/docs/engine/engine/native/engine-server.html)
 }
 
@@ -39,6 +46,78 @@ declare var GameStatusInfo: GAMESTATUSINFO;
 
 
 declare namespace BK {
+
+	export interface SystemInfoSync {
+		/**
+		 * 游戏版本号
+		 **/
+		gameVersion: string
+		/**
+		 * 是否房主，1房主，0参加者
+		 **/
+		isMaster: number
+		/**
+		 * 房间号
+		 **/
+		roomId: number
+		/**
+		 * 游戏id
+		 **/
+		gameId: number
+		/**
+		 * 系统版本 10.3
+		 **/
+		osVersion: string
+		/**
+		 * 网络类型 1 电信 ，2 联通 ，3 移动 0: wifi或未知
+		 **/
+		networkType: number
+		/**
+		 * 取值为 ios或android
+		 **/
+		platform: string
+		/**
+		 * 当前用户的标识
+		 **/
+		openId: string
+		/**
+		 * 手机qq版本
+		 **/
+		QQVer: string
+		/**
+		 * 是否首次安装 1为首次安装 0非首次安装
+		 **/
+		isFirstInstall: number
+		/**
+		 * 当前聊天窗类型 1.双人聊天 4.群 5.讨论组
+		 **/
+		aioType: number
+		/**
+		 * 游戏启动入口 100:实时PK，200:聊天窗游戏消息
+		 **/
+		src: number
+		/**
+		 * 是否为该游戏管理账号用户，1是，0否
+		 **/
+		isWhiteUser: number
+		/**
+		 * 游戏类型 (手Q7.6.5及以上支持) 0: 普通游戏 1：红包游戏
+		 **/
+		gameType: number
+		/**
+		 * 具体机型 (手Q7.6.3及以上支持) 形如 "PRO 6 Plus"
+		 **/
+		model: string
+		/**
+		 * 性别 1 男 2 女
+		 **/
+		sex: number
+		/**
+		 * 仅在开发环境下可以，手q环境下无该字段
+		 **/
+		devPlatform: string
+	}
+	export function getSystemInfoSync()
 
 	export function onEnterForeground(callback: Function);
 	export function onEnterBackground(callback: Function);

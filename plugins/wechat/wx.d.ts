@@ -1070,6 +1070,8 @@ declare namespace wx {
 	 */
 	export function getNetworkType(options: GetNetworkTypeOptions): void;
 
+	export function onNetworkStatusChange(callback: (res: { isConnected: boolean, networkType: string }) => void)
+
 	export interface GetSystemInfoResult {
 
 		/**

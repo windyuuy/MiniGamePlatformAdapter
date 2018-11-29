@@ -47,5 +47,17 @@ namespace GDK {
 		/** 0 未知 1 男 2 女 */
 		sex: number
 
+		/**
+		 * 是否为该游戏管理账号用户，1是，0否
+		 **/
+		isWhiteUser?: number
+		/**
+		 * 是否房主，1房主，0参加者
+		 **/
+		isMaster?: number
+		/**
+		 * 房间号
+		 **/
+		roomId?: number
 	}
 }

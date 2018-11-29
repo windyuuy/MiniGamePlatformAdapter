@@ -43,12 +43,12 @@ namespace WechatGDK {
 		 **/
 		version: string
 		/**
-		 * 操作系统版本
-		 * - "android" | "ios" | "devtools" | ...
+		 * 操作系统版本号
 		 **/
 		system: string
 		/**
 		 * 客户端平台
+		 * - "android" | "ios" | "devtools" | ...
 		 **/
 		platform: string
 		/**
@@ -64,9 +64,45 @@ namespace WechatGDK {
 		 **/
 		benchmarkLevel: number
 
+		networkType: string
+		networkClass: number
+
+		async fetchNetworkInfo() {
+			const ret = new GDK.RPromise<void>()
+			wx.getNetworkType({
+				success: (res) => {
+					this.networkType = res.networkType
+					ret.success(undefined)
+				},
+				fail: () => {
+					ret.fail()
+				}
+			})
+			return ret.promise
+		}
+
+		protected updateNetworkInfo(networkType: string, isConnected: boolean = null) {
+			this.networkType = networkType
+			if (this.networkType == 'wifi') {
+				this.networkClass = 0
+			} else if (this.networkType == '2g' || this.networkType == '3g' || this.networkType == '4g') {
+				this.networkClass = -2
+			} else if (this.networkType == 'none') {
+				this.networkClass = -1
+			} else {
+				this.networkClass = 0
+			}
+		}
+
 		init() {
 			const info = wx.getSystemInfoSync()
 			slib.JSHelper.merge(info, this)
+			this.fetchNetworkInfo()
+			this.updateNetworkInfo(this.networkType)
+
+			wx.onNetworkStatusChange((res) => {
+				this.updateNetworkInfo(res.networkType, res.isConnected)
+			})
 		}
 	}
 }

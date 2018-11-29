@@ -17,5 +17,8 @@ namespace QQPlayGDK {
 		createTime: string
 		get sex(): number { return GameStatusInfo.sex }
 
+		get isWhiteUser(): number { return BK.getSystemInfoSync().isWhiteUser }
+		get isMaster(): number { return BK.getSystemInfoSync().isWhiteUser }
+		get roomId(): number { return BK.getSystemInfoSync().roomId }
 	}
 }

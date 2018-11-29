@@ -10,7 +10,7 @@ namespace WechatGDK {
 				success: (res) => {
 					// 解密数据
 					const system = this.api.systemInfo.system == "android" ? 0 : 1
-					this.server.userLogin({ code: res.code, system: system, clientSystemInfo: this.api.gameInfo.clientSystemInfo }, (resp) => {
+					this.server.userLogin({ code: res.code, system: system, clientSystemInfo: wx.getSystemInfoSync() }, (resp) => {
 						const data = resp.data
 						if (resp.succeed) {
 							const newdata = {

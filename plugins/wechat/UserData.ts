@@ -15,6 +15,5 @@ namespace WechatGDK {
 		channelId: number
 		createTime: string
 		sex: number
-
 	}
 }
