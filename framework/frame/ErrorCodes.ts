@@ -3,7 +3,7 @@ namespace GDK {
 
 	/** 基本请求错误码 */
 	export const GDKErrorCode = {
-		/** Normal Error */
+		// /** -----------Normal Error----------- */
 		/** 请求成功 */
 		SUCCESS: 0,
 		/** 未知错误 */
@@ -13,39 +13,54 @@ namespace GDK {
 		/** 网络错误 */
 		NETWORK_ERROR: 102,
 
-		/** GameHttpClient Error */
+		// /** -----------GameHttpClient Error----------- */
 		/** 无效的OPENID */
 		INVALID_OPENID: 2001,
 
-		/** API Error */
+		// /** -----------API Error----------- */
+
 		/** API 登录 */
 		API_LOGIN_SUCCESS: 30001,
+		/** API 失败 */
 		API_LOGIN_FAILED: 30002,
 
-		/** API 支付 */
+		// /** API 支付 */
+		/** API 支付成功 */
 		API_PAY_SUCCESS: 30011,
+		/** API 支付失败 */
 		API_PAY_FAILED: 30012,
+		/** API 取消支付 */
 		API_PAY_CANCEL: 30013,
 
-		/** API 更新用户数据 */
+		// /** API 更新用户数据 */
+		/** API 更新用户数据失败 */
 		API_UPDATE_USERDATA_FAILED: 30102,
 
-		/** 获取好友排行数据 */
+		// /** 排行数据 */
+		/** 获取好友排行数据失败 */
 		API_GET_FRIEND_CLOUD_STORAGE_FAILED: 30112,
+		/** 上传用户数据失败 */
 		API_SET_USER_CLOUD_STORAGE_FAILED: 30113,
 
 		/** 打开客服反馈界面失败 */
 		API_OPEN_FEEDBACK_FAILED: 30122,
 
+		/** 显示 loading 失败 */
 		API_SHOW_LOADING_FAILED: 30131,
+		/** 隐藏 loading 失败 */
 		API_HIDE_LOADING_FAILED: 30132,
+		/** 显示 toast 失败 */
 		API_SHOW_TOAST_FAILED: 3013,
+		/** 隐藏 toast 失败 */
 		API_HIDE_TOAST_FAILED: 30134,
+		/** 显示 model 失败 */
 		API_SHOW_MODAL_FAILED: 30135,
 
+		/** 隐藏 键盘 失败 */
 		API_HIDE_KEYBOARD_FAILED: 30141,
 
-		API_CHECK_SESSION_FAILED: 30151,
+		/** 登录态过期 */
+		API_CHECK_SESSION_OUTDATE: 30151,
 
 
 		/**
@@ -81,13 +96,16 @@ namespace GDK {
 		{ errcode: GDKErrorCode.API_UPDATE_USERDATA_FAILED, message: 'Api更新用户数据失败', reason: 'Api更新用户数据失败' },
 
 		{ errcode: GDKErrorCode.API_GET_FRIEND_CLOUD_STORAGE_FAILED, message: '获取好友排行数据失败' },
+		{ errcode: GDKErrorCode.API_SET_USER_CLOUD_STORAGE_FAILED, message: '上传用户数据失败' },
 
 		{ errcode: GDKErrorCode.API_SHOW_LOADING_FAILED, message: '显示 loading 失败' },
 		{ errcode: GDKErrorCode.API_HIDE_LOADING_FAILED, message: '隐藏 loading 失败' },
 		{ errcode: GDKErrorCode.API_SHOW_TOAST_FAILED, message: '显示 toast 失败' },
 		{ errcode: GDKErrorCode.API_HIDE_TOAST_FAILED, message: '隐藏 toast 失败' },
 		{ errcode: GDKErrorCode.API_SHOW_MODAL_FAILED, message: '显示 modal 失败' },
-		{ errcode: GDKErrorCode.API_HIDE_KEYBOARD_FAILED, message: '隐藏 键盘 失败' },
+		{ errcode: GDKErrorCode.API_HIDE_KEYBOARD_FAILED, message: '登录态过期' },
+
+		{ errcode: GDKErrorCode.API_CHECK_SESSION_OUTDATE, message: '隐藏键盘失败' },
 
 		{ errcode: GDKErrorCode.API_SHARE_UNSUPPORTED, message: '分享不被支持' },
 		{ errcode: GDKErrorCode.API_SHARE_UNSUPPORTED_PLATFORM, message: '不支持的平台' },
