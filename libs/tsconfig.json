@@ -1,18 +1,18 @@
 {
 	"compilerOptions": {
 		"module": "none",
+		// "noImplicitAny": true,
+		// "removeComments": true,
 		"target": "es6",
 		"preserveConstEnums": true,
 		"sourceMap": true,
-		"outFile": "../../dist/wechat.js",
+		"outFile": "../dist/lib.js",
+		"emitDeclarationOnly": true,
 		"declaration": true,
-		"composite": true
+		"composite": true,
 	},
 	"compileOnSave": true,
 	"include": [
-		"../../libs/**.ts",
-		"../../framework",
-		"./**/*.ts",
+		"./*.ts"
 	],
-	"typeAcquisition": {}
 }

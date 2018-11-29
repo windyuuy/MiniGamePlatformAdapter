@@ -6,6 +6,7 @@
 		"sourceMap": true,
 		"outFile": "../../dist/qqplay.js",
 		"declaration": true,
+		"composite": true
 	},
 	"compileOnSave": true,
 	"include": [
