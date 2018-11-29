@@ -9,8 +9,8 @@
 	},
 	"compileOnSave": true,
 	"include": [
-		"../../framework",
 		"../../libs/**.ts",
+		"../../framework",
 		"./**/*.ts",
 	],
 	"typeAcquisition": {}
