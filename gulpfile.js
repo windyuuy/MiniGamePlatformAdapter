@@ -20,8 +20,9 @@ const execon = (dir, fn) => {
 const exec = (cmd) => {
 	console.log(`-[exec] ${process.cwd()}$ ${cmd}`)
 	let buf = child_process.spawnSync(cmd)
-	console.log(buf.stdout.toString())
-	console.log(buf.stderr.toString())
+	if (buf.stdout) {
+		console.log(buf.stdout.toString())
+	}
 }
 
 function getOssClient() {
