@@ -23,7 +23,7 @@ namespace WechatGDK {
 								channelId: data.channelId,
 								createTime: data.createTime,
 								followGzh: data.followGzh,
-								gameToken: data.gameToken,
+								gameToken: data.gametoken,
 								token: data.token,
 							}
 							for (let key in newdata) {
