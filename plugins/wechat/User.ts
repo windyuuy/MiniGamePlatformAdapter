@@ -1,6 +1,6 @@
 
 namespace WechatGDK {
-	export class User implements GDK.IUser {
+	export class User extends GDK.UserBase {
 		api?: GDK.UserAPI
 		server: WXServer
 

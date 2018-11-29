@@ -1,7 +1,7 @@
 
 namespace DevelopGDK {
 	const log = new GDKLIB.Log({ tags: ['DevelopPay'] })
-	export class Pay implements GDK.IPay {
+	export class Pay extends GDK.PayBase {
 
 		payPurchase(config: GDK.PayItemInfo): Promise<GDK.PayResult> {
 			const ret = new GDK.RPromise<GDK.PayResult>()
