@@ -10,5 +10,6 @@ namespace QQPlayGDK {
 		Support = Support
 		SubContext = SubContext
 		Except = Except
+		SystemInfo = SystemInfo
 	}
 }

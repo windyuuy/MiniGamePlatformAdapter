@@ -64,6 +64,11 @@ namespace GDK {
 		/** 更新登录态失败 */
 		API_UPDATE_LOGIN_SESSION_FAILED: 30152,
 
+		/** 跳转小程序失败 */
+		API_CALL_UP_MINI_PROGRAM_FAILED: 30161,
+		/** 跳转原生app失败 */
+		API_CALL_UP_NATIVE_APP_FAILED: 30161,
+
 
 		/**
 		 * 分享不被支持
@@ -109,6 +114,9 @@ namespace GDK {
 
 		{ errcode: GDKErrorCode.API_LOGIN_SESSION_OUTDATE, message: '登录态过期' },
 		{ errcode: GDKErrorCode.API_UPDATE_LOGIN_SESSION_FAILED, message: '更新登录态失败' },
+
+		{ errcode: GDKErrorCode.API_CALL_UP_MINI_PROGRAM_FAILED, message: '跳转小程序失败' },
+		{ errcode: GDKErrorCode.API_CALL_UP_NATIVE_APP_FAILED, message: '跳转原生app失败' },
 
 		{ errcode: GDKErrorCode.API_SHARE_UNSUPPORTED, message: '分享不被支持' },
 		{ errcode: GDKErrorCode.API_SHARE_UNSUPPORTED_PLATFORM, message: '不支持的平台' },

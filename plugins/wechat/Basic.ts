@@ -30,7 +30,7 @@ namespace WechatGDK {
 		}
 	}
 
-	export function wrapReq<T=void, I extends { success?: (p: T) => void, fail?: Function }={}>(fun: (p: I) => void, object: I, code: number) {
+	export function wrapReq</** result type */T=void,/** params type */ I extends { success?: (p: T) => void, fail?: Function }={}>(fun: (p: I) => void, object: I, code: number) {
 		const ret = new GDK.RPromise<T>()
 		object.success = ret.success
 		object.fail = () => {

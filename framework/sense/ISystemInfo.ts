@@ -1,6 +1,7 @@
 namespace GDK {
 	export interface ISystemInfo {
-		system: "android" | "ios" | "devtools"
+		/** "android" | "ios" | "devtools" */
+		system: string
 
 		init?()
 	}
