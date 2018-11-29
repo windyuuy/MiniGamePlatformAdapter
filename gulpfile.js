@@ -53,7 +53,7 @@ gulp.task("comp", async () => {
 	execon(".", () => {
 		execon("./framework", () => exec("tsc"))
 		let gdk = fs.readFileSync("./dist/gdk.d.ts", "utf8")
-		gdk += "\nexport var gdk: GDK.UserAPI;"
+		gdk += "\ndeclare var gdk: GDK.UserAPI;"
 		fs.writeFileSync("./dist/gdk.d.ts", gdk)
 
 		execon("./plugins/wechat", () => exec("tsc"))
