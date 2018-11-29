@@ -40,7 +40,14 @@ namespace GDK {
 		 * 根据错误码和扩展参数构造请求结果
 		 */
 		make<F extends GDKErrorExtra>(errcode: number, extra?: F): GDKError {
-			return null
+			const err = new GDKError()
+			// 待优化
+			const item = this._temps.find((item) => item.errcode == errcode)
+			err.errcode = item.errcode
+			err.message = item.message
+			err.reason = item.reason
+			err.data = item.data
+			return err
 		}
 	}
 
