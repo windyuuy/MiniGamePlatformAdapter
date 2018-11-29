@@ -4,7 +4,7 @@ namespace GDKLIB {
 		if (!!cond) {
 			return cond
 		} else {
-			console.error(tip)
+			throw new Error(tip)
 		}
 	}
 }
