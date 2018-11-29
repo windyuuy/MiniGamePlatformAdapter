@@ -41,7 +41,7 @@ namespace WechatGDK {
 					encryptKey: string,//存档加密key
 					token: string,//登陆token
 					heart: number,//心数量
-					gameToken: string,
+					gametoken: string,
 				}
 			}) => void,
 			errorCallback: (error: any, retry: () => void) => void = null) {

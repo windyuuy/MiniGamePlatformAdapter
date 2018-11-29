@@ -5,7 +5,7 @@ namespace QQPlayGDK {
 		code: 0 | number,
 		message: "success" | string,
 		data: {
-			userId: string,
+			userId: number,
 			openId?: string,
 			serviceTimestamp: number
 			dataTimestamp: number//上次存档的时间戳
@@ -29,7 +29,7 @@ namespace QQPlayGDK {
 			encryptKey: string,//存档加密key
 			token: string,//登陆token
 			heart: number,//心数量
-			noticeSign: number,
+			gametoken: string,
 		}
 	}
 
