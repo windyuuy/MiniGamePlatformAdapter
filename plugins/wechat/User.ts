@@ -53,7 +53,7 @@ namespace WechatGDK {
 		checkSession() {
 			return wrapReq((obj: wx.CheckSessionOptions) => {
 				return wx.checkSession(obj)
-			}, {}, GDK.GDKErrorCode.API_CHECK_SESSION_OUTDATE)
+			}, {}, GDK.GDKErrorCode.API_LOGIN_SESSION_OUTDATE)
 		}
 
 		update(): Promise<{}> {

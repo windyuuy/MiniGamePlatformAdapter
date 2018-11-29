@@ -108,6 +108,17 @@ namespace QQPlayGDK {
 			}, 3000)
 		}
 
+		checkSession() {
+			const ret = new GDK.RPromise<void>()
+			this.fetchOpenKey((params) => {
+				this.api.userdata.openKey = params.openKey
+				ret.success(undefined)
+			}, () => {
+				ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_UPDATE_LOGIN_SESSION_FAILED))
+			})
+			return ret.promise
+		}
+
 		getHeadEx(onDone: (params: { avatarUrl: string }) => void) {
 			log.info('to getHeadEx')
 			let fetchHeadExReturn = false

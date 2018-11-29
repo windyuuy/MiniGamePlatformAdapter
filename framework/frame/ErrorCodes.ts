@@ -60,7 +60,9 @@ namespace GDK {
 		API_HIDE_KEYBOARD_FAILED: 30141,
 
 		/** 登录态过期 */
-		API_CHECK_SESSION_OUTDATE: 30151,
+		API_LOGIN_SESSION_OUTDATE: 30151,
+		/** 更新登录态失败 */
+		API_UPDATE_LOGIN_SESSION_FAILED: 30152,
 
 
 		/**
@@ -105,7 +107,8 @@ namespace GDK {
 		{ errcode: GDKErrorCode.API_SHOW_MODAL_FAILED, message: '显示 modal 失败' },
 		{ errcode: GDKErrorCode.API_HIDE_KEYBOARD_FAILED, message: '登录态过期' },
 
-		{ errcode: GDKErrorCode.API_CHECK_SESSION_OUTDATE, message: '隐藏键盘失败' },
+		{ errcode: GDKErrorCode.API_LOGIN_SESSION_OUTDATE, message: '登录态过期' },
+		{ errcode: GDKErrorCode.API_UPDATE_LOGIN_SESSION_FAILED, message: '更新登录态失败' },
 
 		{ errcode: GDKErrorCode.API_SHARE_UNSUPPORTED, message: '分享不被支持' },
 		{ errcode: GDKErrorCode.API_SHARE_UNSUPPORTED_PLATFORM, message: '不支持的平台' },

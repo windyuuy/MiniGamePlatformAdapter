@@ -38,7 +38,7 @@ namespace GDK {
 	/** 登录接口 */
 	export interface IUser extends IModule {
 		login(params?: LoginParams): Promise<LoginResult>
-		checkSession?(params?: LoginParams)
+		checkSession?(params?: ReqParams)
 
 		update(): Promise<{}>
 		getFriendCloudStorage(obj: { keyList: string[] }): Promise<{ data: UserGameData[] }>;
