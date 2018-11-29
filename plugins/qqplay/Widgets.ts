@@ -9,7 +9,7 @@ namespace QQPlayGDK {
 	export class Widgets implements GDK.IWidgets {
 		keyboard = new KeyBoard()
 		showLoading(object: GDK.ShowLoadingParams) {
-			return wrapReq(() => { return BK.UI.showLoading(undefined) }, object, GDK.GDKErrorCode.API_SHOW_LOADING_FAILED)
+			return wrapReq((obj) => { return BK.UI.showLoading(obj) }, object, GDK.GDKErrorCode.API_SHOW_LOADING_FAILED)
 		}
 		hideLoading() {
 			return wrapReq(() => { return BK.UI.hideLoading(undefined) }, {}, GDK.GDKErrorCode.API_HIDE_LOADING_FAILED)
