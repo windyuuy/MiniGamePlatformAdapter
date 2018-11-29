@@ -8,21 +8,18 @@ const path = require("path")
 
 const execon = (dir, fn) => {
 	const pwd = path.resolve(process.cwd())
-	// try {
-	process.chdir(dir)
-	fn()
-	// } catch (e) {
-	// 	console.error(e)
-	// } finally {
-	process.chdir(pwd)
-	// }
+	try {
+		process.chdir(dir)
+		fn()
+	} catch (e) {
+		console.error(e.toString())
+	} finally {
+		process.chdir(pwd)
+	}
 }
 const exec = (cmd) => {
 	console.log(`-[exec] ${process.cwd()}$ ${cmd}`)
-	let buf = child_process.spawnSync(cmd)
-	if (buf.stdout) {
-		console.log(buf.stdout.toString())
-	}
+	child_process.execSync(cmd, { stdio: [0, process.stdout, process.stderr] })
 }
 
 function getOssClient() {
@@ -55,10 +52,6 @@ gulp.task("comp", async () => {
 
 	execon(".", () => {
 		execon("./framework", () => exec("tsc"))
-		// let gdk = fs.readFileSync("./dist/gdk.d.ts", "utf8")
-		// gdk += "\ndeclare var gdk: GDK.UserAPI;"
-		// fs.writeFileSync("./dist/gdk.d.ts", gdk)
-
 		execon("./plugins/wechat", () => exec("tsc"))
 		execon("./plugins/qqplay", () => exec("tsc"))
 		execon("./plugins/develop", () => exec("tsc"))
