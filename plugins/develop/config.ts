@@ -1,7 +1,7 @@
 
 namespace DevelopGDK {
 
-	export let devlog = new GDKLIB.Log({ tags: ["DEVELOP"] })
+	export let devlog = new SLIB.Log({ tags: ["DEVELOP"] })
 
 	// default config
 	export const qqplay: GDK.PackConfig = {

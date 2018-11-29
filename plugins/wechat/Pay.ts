@@ -1,6 +1,6 @@
 
 namespace WechatGDK {
-	const log = new GDKLIB.Log({ tags: ['api'] })
+	const log = new SLIB.Log({ tags: ['api'] })
 	export class Pay extends GDK.PayBase {
 		api?: GDK.UserAPI
 

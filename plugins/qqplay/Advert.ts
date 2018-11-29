@@ -45,7 +45,7 @@ namespace QQPlayGDK {
 		isShowing: boolean = false
 		protected _showPromise: Promise<void> = null
 		show(): Promise<void> {
-			GDKLIB.assert(this._advertObj)
+			SLIB.assert(this._advertObj)
 
 			if (this.isShowing) {
 				// 不重复show
@@ -84,31 +84,31 @@ namespace QQPlayGDK {
 		}
 
 		onLoad(callback: Function) {
-			GDKLIB.assert(this._advertObj)
+			SLIB.assert(this._advertObj)
 			this._advertObj.onLoad(callback)
 		}
 		offLoad(callback: Function) {
-			GDKLIB.assert(this._advertObj)
+			SLIB.assert(this._advertObj)
 			this._advertObj.offLoad(callback)
 		}
 
 		onError(callback: (code: number, msg: string) => void) {
-			GDKLIB.assert(this._advertObj)
+			SLIB.assert(this._advertObj)
 			this._advertObj.onError(callback)
 		}
 		offError(callback: Function) {
-			GDKLIB.assert(this._advertObj)
+			SLIB.assert(this._advertObj)
 			this._advertObj.offError(callback)
 		}
 
 		onClose(callback: (params: { isEnded: boolean }) => void) {
-			GDKLIB.assert(this._advertObj)
+			SLIB.assert(this._advertObj)
 			this._advertObj.onClose(() => {
 				callback({ isEnded: this.isEnded })
 			})
 		}
 		offClose(callback: Function) {
-			GDKLIB.assert(this._advertObj)
+			SLIB.assert(this._advertObj)
 			this._advertObj.offClose(callback)
 		}
 	}
