@@ -106,4 +106,3 @@ namespace GDK {
 	}
 
 }
-export var gdk: GDK.UserAPI;
