@@ -1,8 +1,6 @@
 
 namespace DevelopGDK {
 
-	export let devlog = new SLIB.Log({ tags: ["DEVELOP"] })
-
 	// default config
 	export const qqplay: GDK.PackConfig = {
 		platform: 'develp',

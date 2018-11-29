@@ -5,7 +5,7 @@ namespace WechatGDK {
 		User = User
 		Pay = Pay
 		Share = Share
-		// SystemInfo = SystemInfo
+		SystemInfo = SystemInfo
 		UserData = UserData
 		Customer = Customer
 		Widgets = Widgets
