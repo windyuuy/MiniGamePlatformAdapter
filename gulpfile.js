@@ -22,13 +22,11 @@ const exec = (cmd) => {
 	child_process.execSync(cmd)
 }
 
-gulp.task("updateSLIB", function () {
-	//将刚刚发布的版本上传到oss
+function getOssClient() {
 	let accessKeyId = "LTAIkAAYUCjCkAzb"
 	let accessKeySecret = "fAmMWBJ85tt2DoWpIfuovPLQj8ZIGJ"
 	let bucket = "mrglee-it"
 	let region = "oss-cn-hangzhou"
-	let osspath = "libs/"
 
 	console.log(OSS)
 	let client = new OSS({
@@ -38,8 +36,14 @@ gulp.task("updateSLIB", function () {
 		accessKeySecret: accessKeySecret,
 		bucket: bucket
 	})
+	return client;
+}
 
-	client.get(osspath + "slib.d.ts", "./libs/slib.d.ts").then(() => {
+gulp.task("updateSLIB", function () {
+
+	let client = getOssClient();
+
+	client.put("libs/slib.d.ts", "./libs/slib.d.ts").then(() => {
 		console.log("更新完成 slib.d.ts")
 	}).catch((err) => {
 		console.error(err)
@@ -56,3 +60,17 @@ gulp.task("comp", async () => {
 		execon("./plugins/develop", () => exec("tsc"))
 	})
 })
+
+
+gulp.task("uploadVersion", async () => {
+	let client = getOssClient();
+
+	let list = fs.readdirSync("./dist")
+	for (let n of list) {
+		await client.put("libs/" + n, "./dist/" + n)
+		console.log("上传完成", "./dist/" + n)
+	}
+
+})
+
+gulp.task("publish", gulp.series("comp", "uploadVersion"));
