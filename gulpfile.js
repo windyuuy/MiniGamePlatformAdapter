@@ -39,15 +39,12 @@ function getOssClient() {
 	return client;
 }
 
-gulp.task("updateSLIB", function () {
+gulp.task("updateSLIB", async function () {
 
 	let client = getOssClient();
 
-	client.put("libs/slib.d.ts", "./libs/slib.d.ts").then(() => {
-		console.log("更新完成 slib.d.ts")
-	}).catch((err) => {
-		console.error(err)
-	})
+	await client.get("libs/slib.d.ts", "./libs/slib.d.ts")
+	console.log("更新完成 slib.d.ts")
 
 })
 
