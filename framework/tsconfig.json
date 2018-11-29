@@ -12,7 +12,8 @@
 		"composite": true,
 	},
 	"compileOnSave": true,
-	"globFiles": [
+	"include": [
+		"../libs/*.ts",
 		"./**/*.ts"
 	],
 }
