@@ -4,6 +4,23 @@ var gulp = require('gulp');
 var fs = require("fs")
 var child_process = require("child_process")
 const OSS = require("ali-oss");
+const path = require("path")
+
+const execon = (dir, fn) => {
+	const pwd = path.resolve(process.cwd())
+	try {
+		process.chdir(dir)
+		fn()
+	} catch (e) {
+		console.error(e)
+	} finally {
+		process.chdir(pwd)
+	}
+}
+const exec = (cmd) => {
+	console.log(`-[exec] ${process.cwd()}$ ${cmd}`)
+	child_process.execSync(cmd)
+}
 
 gulp.task("updateSLIB", function () {
 	//将刚刚发布的版本上传到oss
@@ -30,3 +47,12 @@ gulp.task("updateSLIB", function () {
 
 })
 
+gulp.task("comp", () => {
+
+	execon(".", () => {
+		execon("./framework", () => exec("tsc"))
+		execon("./plugins/wechat", () => exec("tsc"))
+		execon("./plugins/qqplay", () => exec("tsc"))
+		execon("./plugins/develop", () => exec("tsc"))
+	})
+})
