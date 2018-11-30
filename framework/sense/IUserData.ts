@@ -38,8 +38,6 @@ namespace GDK {
 		backupTime: number
 		/** 0 未关注,1 已关注 */
 		followGzh: number
-		token: string
-		gameToken: string
 		/** 渠道id */
 		channelId: number
 		/** 创建时间 */

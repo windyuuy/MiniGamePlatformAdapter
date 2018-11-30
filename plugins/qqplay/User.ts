@@ -27,6 +27,22 @@ namespace QQPlayGDK {
 
 				this.server.userLoginQQPlay(uploadData, (resp) => {
 					if (resp.succeed) {
+						const data = resp.data
+						const newdata = {
+							isNewUser: data.userNew,
+							userId: data.userId,
+							avatarUrl: data.profileImg,
+							nickName: data.nickname,
+							backupTime: data.backupTime,
+							channelId: data.channelId,
+							createTime: data.createTime,
+							followGzh: data.followGzh,
+							gameToken: data.gametoken,
+						}
+						const userdata = this.api.userdata
+						for (let key in newdata) {
+							userdata[key] = newdata[key]
+						}
 						ret.success({
 							extra: resp.data,
 						})

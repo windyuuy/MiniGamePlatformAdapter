@@ -6,10 +6,44 @@ namespace DevelopGDK {
 
 	export class User extends GDK.UserBase {
 		api?: GDK.UserAPI
+		server?: NMServer
 
 		login(params?: GDK.LoginParams) {
 			const ret = new GDK.RPromise<GDK.LoginResult>()
-			ret.success({})
+
+			let userId = localStorage.getItem('sdk_glee_userId')
+			let nUserId = parseInt(userId)
+			if (isNaN(nUserId)) {
+				nUserId = undefined
+			}
+
+			this.server.loginTest({ userId: nUserId }, (resp) => {
+				//玩家数据
+				if (resp.succeed) {
+					const data = resp.data
+					const userdata = this.api.userdata
+					userdata.channelId = data.channelId
+					userdata.createTime = data.createTime
+					userdata.userId = data.userId
+					localStorage.setItem('sdk_glee_userId', `${data.userId}`)
+					userdata.followGzh = data.followGzh
+					userdata.nickName = data.nickname
+					userdata.isNewUser = data.userNew
+
+					ret.success({
+						extra: data,
+					})
+				} else {
+					ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN, {
+						data: {
+							extra: resp,
+						}
+					}))
+				}
+			}, () => {
+				ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.NETWORK_ERROR))
+			})
+
 			return ret.promise
 		}
 

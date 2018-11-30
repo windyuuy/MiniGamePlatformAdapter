@@ -11,8 +11,8 @@ namespace WechatGDK {
 					// 解密数据
 					const system = this.api.systemInfo.system == "android" ? 0 : 1
 					this.server.userLogin({ code: res.code, system: system, clientSystemInfo: wx.getSystemInfoSync() }, (resp) => {
-						const data = resp.data
 						if (resp.succeed) {
+							const data = resp.data
 							const newdata = {
 								openId: data.openId,
 								isNewUser: data.userNew,
@@ -24,10 +24,10 @@ namespace WechatGDK {
 								createTime: data.createTime,
 								followGzh: data.followGzh,
 								gameToken: data.gametoken,
-								token: data.token,
 							}
+							const userdata = this.api.userdata
 							for (let key in newdata) {
-								this.api.userdata[key] = newdata[key]
+								userdata[key] = newdata[key]
 							}
 							ret.success({
 								extra: data,
