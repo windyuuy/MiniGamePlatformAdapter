@@ -36,6 +36,10 @@ declare interface GAMESTATUSINFO {
 	osVersion: string
 	/** 是否首次安装	1为首次安装 0非首次安装 */
 	isFirstInstall: number
+	/**
+	 * 游戏类型(手Q7.6.5及以上支持) 0: 普通游戏 1：红包游戏
+	 **/
+	gameType: number
 	gameParam: string //当使用其他玩家使用BK.QQ.shareToArk分享至手Q,并且填充扩展字段时，当前玩家就能从此处获取该数据。[详情](http://hudong.qq.com/docs/engine/engine/native/engine-server.html)
 }
 

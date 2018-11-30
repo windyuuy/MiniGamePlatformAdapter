@@ -2255,7 +2255,7 @@ declare namespace wx {
 	 * 返回小程序启动参数
 	 * https://developers.weixin.qq.com/minigame/dev/document/system/life-cycle/wx.getLaunchOptionsSync.html
 	 */
-	export function getLaunchOptionsSync(): { scene: string, query: any, path?: string, isSticky: boolean, shareTicket: string, referrerInfo: { appId: string, extraData: any } }
+	export function getLaunchOptionsSync(): { scene: number, query: any, path?: string, isSticky: boolean, shareTicket: string, referrerInfo: { appId: string, extraData: any } }
 
 	//全局错误捕获
 	export function onError(callback: (res: { message: string, stack: string }) => void);
