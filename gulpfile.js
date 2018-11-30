@@ -39,7 +39,7 @@ function getOssClient() {
 	return client;
 }
 
-gulp.task("updateSLIB", async function () {
+gulp.task("updateLibs", async function () {
 
 	let client = getOssClient();
 
