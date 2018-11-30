@@ -14,6 +14,11 @@ namespace GDK {
 		login(params: LoginParams): Promise<LoginResult> { return this._m.user.login(params) }
 		showConfirm(object: ShowConfirmOptions): Promise<ShowConfirmResult> { return this._m.widgets.showConfirm(object) }
 		showAlert(object: ShowAlertOptions): Promise<ShowAlertResult> { return this._m.widgets.showAlert(object) }
+		showToast(object: ShowToastOptions): Promise<void> { return this._m.widgets.showToast(object) }
+		payPurchase(item: GDK.PayItemInfo, options?: PayOptions): Promise<PayResult> {
+			return this._m.pay.payPurchase(item, options)
+		}
+
 		support() { }
 		/** 当前实际平台 */
 		platform: string | "oppo" | "qqplay"

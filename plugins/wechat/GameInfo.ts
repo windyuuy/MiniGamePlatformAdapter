@@ -1,6 +1,6 @@
 
 namespace WechatGDK {
-	export class GameInfo implements GDK.IGameInfo {
+	export class GameInfo extends GDK.GameInfoBase {
 
 		mode: "develop" | "test" | "release"
 

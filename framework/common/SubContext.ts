@@ -1,6 +1,6 @@
 
 namespace GDK {
-	class SimpleEvent<T> extends GDKLIB.SimpleEvent<T> { }
+	class SimpleEvent<T> extends slib.SimpleEvent<T> { }
 
 	class OpenDataContext implements IOpenDataContext {
 		protected _event: SimpleEvent<PrimitiveMap> = null

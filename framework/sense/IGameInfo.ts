@@ -145,6 +145,9 @@ namespace GDK {
 		 **/
 		gameType: number
 
+		/** 只启用小程序跳转支付 */
+		requireMiniAppPay: boolean
+
 		init?()
 		setGameInfo(info: GDKConfig)
 	}

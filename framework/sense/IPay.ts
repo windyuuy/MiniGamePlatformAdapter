@@ -7,8 +7,8 @@ namespace GDK {
 	}
 
 	export class PayItemInfo {
-		/** 商品ID */
-		id?: number = 0
+		/** 后台商品ID */
+		goodId?: number = 0
 		/** 支付金额 */
 		money?: number = 0
 		/** 购买商品数量 */
@@ -16,7 +16,7 @@ namespace GDK {
 		/** 商品名称/标题 */
 		title?: string = ''
 		/** 支付货币单位 */
-		currencyUnit: "CNY" | "Dollor" = "CNY"
+		currencyUnit?: "CNY" | "Dollor" = "CNY"
 	}
 
 	// 订单信息
