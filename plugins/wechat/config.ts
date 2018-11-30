@@ -7,3 +7,4 @@ namespace WechatGDK {
 		register: RegisterList,
 	}
 }
+GDK.setDefaultGdk(GDK.genGdk(new WechatGDK.wechat.register))

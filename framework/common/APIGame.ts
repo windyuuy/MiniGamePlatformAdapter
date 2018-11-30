@@ -1,6 +1,8 @@
 
 namespace GDK {
 	export abstract class GameInfoBase implements IGameInfo {
+		mode: "develop" | "test" | "release"
+
 		abstract appId: string
 		abstract channelId: number
 		/** 沙盒模式支付 */
@@ -29,16 +31,19 @@ namespace GDK {
 		abstract gameType: number
 
 		abstract init?()
-		setGameInfo(info: IGameInfo) {
-			this.appId = info.appId
-			this.channelId = info.channelId
-			this.isPayInSandbox = info.isPayInSandbox
-			this.offerId = info.offerId
 
-			this.gameVersion = info.gameVersion
-			this.gameId = info.gameId
-			this.gameType = info.gameType
+		abstract setGameInfo(info: GDKConfig)
 
-		}
+		// setGameInfo(info: IGameInfo) {
+		// 	this.appId = info.appId
+		// 	this.channelId = info.channelId
+		// 	this.isPayInSandbox = info.isPayInSandbox
+		// 	this.offerId = info.offerId
+
+		// 	this.gameVersion = info.gameVersion
+		// 	this.gameId = info.gameId
+		// 	this.gameType = info.gameType
+
+		// }
 	}
 }

@@ -97,18 +97,33 @@ namespace GDK {
 			appId: string
 		}
 	}
-	export interface IGameInfo {
+	export interface IGameInfo extends IModule {
+		/**
+         * 游戏的启动模式。
+         * 可以是 开发、测试、发布
+		 */
+		mode: "develop" | "test" | "release"
+
+		/**
+		 * 程序appid
+		 */
 		appId: string
+
+		/**
+		 * 游戏启动的渠道id
+		 */
 		channelId: number
+
 		/** 沙盒模式支付 */
 		isPayInSandbox: boolean
+
 		/** 支付侧应用id */
 		offerId: string
 		/**
 		 * 分享结果检测的代理网址
 		 * * 仅微信使用
 		 */
-		shareProxyUrl: string;
+		shareProxyUrl?: string;
 
 		/** 小游戏启动时的参数。 */
 		launchOptions: LaunchOptions
@@ -126,7 +141,7 @@ namespace GDK {
 		gameType: number
 
 		init?()
-		setGameInfo(info: IGameInfo)
+		setGameInfo(info: GDKConfig)
 	}
 
 }

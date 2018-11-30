@@ -128,7 +128,7 @@ namespace WechatGDK {
 						resolve(result)
 					}
 
-					let ec = (this.api.getServerTime().getTime() - beginShareTime) / 1000
+					let ec = (Common.getServerTime().getTime() - beginShareTime) / 1000
 					if (ec > shareInvaterl) {
 
 						//安卓平台使用

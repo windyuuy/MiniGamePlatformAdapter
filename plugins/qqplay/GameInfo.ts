@@ -1,6 +1,7 @@
 
-namespace WechatGDK {
-	export class GameInfo extends GDK.GameInfoBase {
+namespace QQPlayGDK {
+	export class GameInfo implements GDK.IGameInfo {
+		mode: "develop" | "test" | "release"
 		appId: string
 		channelId: number
 		launchOptions: GDK.LaunchOptions
@@ -35,11 +36,14 @@ namespace WechatGDK {
 		init() {
 		}
 
-		setGameInfo(info) {
-			this.appId = info.appId
-			this.channelId = info.channelId
-			this.isPayInSandbox = info.isPayInSandbox
-			this.offerId = info.offerId
+		setGameInfo(info: GDK.GDKConfig) {
+			for (let k in info.wechat) {
+				this[k] = info.wechat[k]
+			}
+
+			Common.getServerTime = info.wechat.getServerTime
+			Common.httpClient = info.wechat.httpClient
 		}
+
 	}
 }
