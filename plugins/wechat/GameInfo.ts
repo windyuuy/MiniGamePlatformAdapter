@@ -1,6 +1,9 @@
 
 namespace WechatGDK {
-	export class GameInfo extends GDK.GameInfoBase {
+	export class GameInfo implements GDK.IGameInfo {
+
+		mode: "develop" | "test" | "release"
+
 		appId: string
 		channelId: number
 		/** 沙盒模式支付 */
@@ -27,6 +30,14 @@ namespace WechatGDK {
 		 **/
 		gameType: number
 
+		setGameInfo(info: GDK.GDKConfig) {
+			for (let k in info.wechat) {
+				this[k] = info.wechat[k]
+			}
+
+			Common.getServerTime = info.wechat.getServerTime
+			Common.httpClient = info.wechat.httpClient
+		}
 		init() {
 		}
 	}

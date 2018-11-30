@@ -6,6 +6,11 @@ namespace GDK {
 		constructor(moduleMap: IModuleMap) {
 			this._m = moduleMap;
 		}
+
+		initConfig(config: GDKConfig) {
+			this._m.gameInfo.setGameInfo(config)
+		}
+
 		login(params: LoginParams): Promise<LoginResult> { return this._m.user.login(params) }
 		showConfirm(object: ShowConfirmOptions): Promise<ShowConfirmResult> { return this._m.widgets.showConfirm(object) }
 		showAlert(object: ShowAlertOptions): Promise<ShowAlertResult> { return this._m.widgets.showAlert(object) }
@@ -15,11 +20,6 @@ namespace GDK {
 		get userdata(): IUserData { return this._m.userdata }
 		get gameInfo(): IGameInfo { return this._m.gameInfo }
 		get systemInfo(): ISystemInfo { return this._m.systemInfo }
-
-		/**
-		 * 获取当前服务器时间
-		 */
-		getServerTime: () => Date;
 
 		/**
 		 * 注册全局的错误回调函数

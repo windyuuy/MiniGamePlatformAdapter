@@ -45,7 +45,7 @@ namespace WechatGDK {
 				}
 			}) => void,
 			errorCallback: (error: any, retry: () => void) => void = null) {
-			this['gameClient'].request("user/login", data, (data) => {
+			Common.httpClient.request("user/login", data, (data) => {
 				callback(data);
 			}, { errorCallback: errorCallback })
 		}

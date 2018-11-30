@@ -79,7 +79,7 @@ namespace QQPlayGDK {
 				}
 			}) => void,
 			errorCallback: (error: any, retry: () => void) => void = null) {
-			this['gameClient'].request("user/login", data, (data) => {
+			Common.httpClient.request("user/login", data, (data) => {
 				callback(data);
 			}, { errorCallback: errorCallback })
 		}
@@ -92,7 +92,7 @@ namespace QQPlayGDK {
 			data: object, //GAMESTATUSINFO&wx.UserInfo
 			callback: (data: UserLoginData) => void,
 			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
-			this['gameClient'].request("user/loginQQ", data, (data) => {
+			Common.httpClient.request("user/loginQQ", data, (data) => {
 				callback(data);
 			}, { modal: modal, errorCallback: errorCallback })
 		}
