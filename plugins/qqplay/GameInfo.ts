@@ -37,12 +37,12 @@ namespace QQPlayGDK {
 		}
 
 		setGameInfo(info: GDK.GDKConfig) {
-			for (let k in info.wechat) {
-				this[k] = info.wechat[k]
+			for (let k in info.qqplay) {
+				this[k] = info.qqplay[k]
 			}
 
-			Common.getServerTime = info.wechat.getServerTime
-			Common.httpClient = info.wechat.httpClient
+			Common.getServerTime = info.qqplay.getServerTime
+			Common.httpClient = info.qqplay.httpClient
 		}
 
 	}
