@@ -105,6 +105,11 @@ namespace GDK {
 		/** 支付侧应用id */
 		offerId: string
 		/**
+		 * 跳转小程序支付offerid
+		 * - 填对方小程序appid
+		 **/
+		miniAppOfferId?: string
+		/**
 		 * 分享结果检测的代理网址
 		 * * 仅微信使用
 		 */

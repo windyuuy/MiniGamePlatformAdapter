@@ -60,8 +60,19 @@ namespace GDK {
 		landscapeRight = 3
 	}
 
+	export class PayOptions {
+		/** 屏幕方向 */
+		gameOrientation?: WebViewOrientation
+		/**
+		 * 渠道
+		 * - 平台自带支付 'origion'
+		 * - 跳转小程序支付 'miniapp'
+		 **/
+		channelType?: 'miniapp' | 'origion'
+	}
+
 	export interface IPay extends IModule {
-		payPurchase(item: GDK.PayItemInfo, options?: { gameOrientation?: WebViewOrientation }): Promise<PayResult>
+		payPurchase(item: GDK.PayItemInfo, options?: PayOptions): Promise<PayResult>
 	}
 
 }
