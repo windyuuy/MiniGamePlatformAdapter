@@ -2,8 +2,8 @@ declare let gdk: GDK.UserAPI
 namespace GDK {
 
 	export class GDKManager {
-		protected _configMap = {}
-		protected _pluginMap = {}
+		protected _configMap: { [key: string]: PackConfig } = {}
+		protected _pluginMap: { [key: string]: UserAPI } = {}
 
 		registPluginConfig(name: string, config: PackConfig) {
 			slib.assert(!this._configMap[name], `config name ${name} exists already!`)
@@ -44,7 +44,7 @@ namespace GDK {
 
 		initializeGDKInstance() {
 			for (let k in this._configMap) {
-				const plugin = this.genGdk(this._configMap[k])
+				const plugin = this.genGdk(new this._configMap[k].register)
 				this._pluginMap[k] = plugin
 			}
 		}
