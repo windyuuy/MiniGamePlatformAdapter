@@ -28,6 +28,10 @@ namespace GDK {
 		getServerTime: () => Date;
 	}
 
+	export class GDKDevelopConfig extends GDKConfigBase {
+
+	}
+
 	export class GDKWechatConfig extends GDKConfigBase {
 
         /**
@@ -58,6 +62,7 @@ namespace GDK {
 
 	export class GDKConfig {
 
+		develop: GDKDevelopConfig
 
 		wechat: GDKWechatConfig
 
