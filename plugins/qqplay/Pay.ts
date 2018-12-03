@@ -58,7 +58,7 @@ namespace QQPlayGDK {
 			const ret = new GDK.RPromise<GDK.PayResult>()
 
 			const items: BK.PayItemInfo[] = [
-				{ itemId: item.goodId, itemNum: item.money * 10 }
+				{ itemId: item.goodsId, itemNum: item.money * 10 }
 			]
 			this._payPurchase(items, { gameOrientation: <number>options.gameOrientation || undefined }, (errCode, data) => {
 				if (errCode == 0) {

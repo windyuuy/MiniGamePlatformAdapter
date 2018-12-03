@@ -8,7 +8,7 @@ namespace GDK {
 
 	export class PayItemInfo {
 		/** 后台商品ID */
-		goodId?: number = 0
+		goodsId?: number = 0
 		/** 支付金额 */
 		money?: number = 0
 		/** 购买商品数量 */
