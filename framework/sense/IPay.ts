@@ -7,14 +7,16 @@ namespace GDK {
 	}
 
 	export class PayItemInfo {
-		/** 后台商品ID */
-		goodsId?: number = 0
+		/** 我们的商品ID */
+		goodsId: number = 0
+		/** 后台二级货币ID */
+		coinId?: number = 0
 		/** 支付金额 */
-		money?: number = 0
+		money: number = 0
 		/** 购买商品数量 */
-		amount?: number = 0
+		amount: number = 0
 		/** 商品名称/标题 */
-		title?: string = ''
+		title: string = ''
 		/** 支付货币单位 */
 		currencyUnit?: "CNY" | "Dollor" = "CNY"
 	}
