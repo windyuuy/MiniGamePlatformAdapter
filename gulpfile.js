@@ -48,7 +48,7 @@ gulp.task("updateLibs", async function () {
 
 })
 
-gulp.task("comp", async () => {
+gulp.task("compile", async () => {
 
 	execon(".", () => {
 		execon("./framework", () => exec("tsc"))
@@ -222,5 +222,7 @@ gulp.task('buildUserAPI', async () => {
 	const output = temp
 	fs.writeFileSync(destfile, output, { encoding: 'utf-8' })
 })
+
+gulp.task("comp", gulp.series("buildUserAPI", "compile"));
 
 gulp.task("publish", gulp.series("comp", "uploadVersion"));
