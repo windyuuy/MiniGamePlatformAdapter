@@ -25,7 +25,7 @@ namespace WechatGDK {
 								followGzh: data.followGzh,
 								gameToken: data.gametoken,
 							}
-							const userdata = this.api.userdata
+							const userdata = this.api.userData
 							for (let key in newdata) {
 								userdata[key] = newdata[key]
 							}

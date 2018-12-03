@@ -51,7 +51,7 @@ namespace WechatGDK {
 
 			const successCode = 0
 			const appid = this.api.gameInfo.appId
-			const userId = this.api.userdata.userId
+			const userId = this.api.userData.userId
 			const jpPath = `pages/payment/payment?appId=${appid}&userId=${userId}&goodsId=${config.goodsId}&quantity=${config.amount}&title=${config.title}`
 			const miniAppOfferId = this.api.gameInfo.miniAppOfferId
 

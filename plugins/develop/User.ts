@@ -21,7 +21,7 @@ namespace DevelopGDK {
 				//玩家数据
 				if (resp.succeed) {
 					const data = resp.data
-					const userdata = this.api.userdata
+					const userdata = this.api.userData
 					userdata.channelId = data.channelId
 					userdata.createTime = data.createTime
 					userdata.userId = data.userId
