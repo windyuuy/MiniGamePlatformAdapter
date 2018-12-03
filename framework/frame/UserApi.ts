@@ -6,7 +6,9 @@ namespace GDK {
       this._m = moduleMap;
     }
 
-    initConfig(config: GDKConfig) {}
+    initConfig(config: GDKConfig) {
+      console.warn("redundant init for gdk, ignored");
+    }
 
     protected _initWithConfig(info: GDKConfig) {
       for (let key in this._m) {

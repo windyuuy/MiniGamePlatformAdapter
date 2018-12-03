@@ -23,7 +23,10 @@ namespace GDK {
 
 		setDefaultGdk(name: string) {
 			const api: UserAPI = this._pluginMap[name]
-			slib.assert(!gdk, '-[GDK] default gdk instance shall not be set twice')
+			slib.assert(!!api, `invalid api instance [${name}]`)
+			if (gdk instanceof UserAPI) {
+				slib.assert(!gdk, '-[GDK] default gdk instance shall not be set twice')
+			}
 			gdk = api
 			window["gdk"] = api
 		}
@@ -48,4 +51,14 @@ namespace GDK {
 	}
 
 	export const gdkManager = new GDKManager()
+
+	class FakeUserApi {
+		initConfig(config: GDKConfig) {
+			gdkManager.initializeGDKInstance()
+			gdkManager.setDefaultGdk(defaultGDKName)
+			gdkManager.initWithGDKConfig(config)
+		}
+	}
+
+	window['gdk'] = new FakeUserApi()
 }
