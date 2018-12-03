@@ -62,11 +62,11 @@ namespace GDK {
 
 	export class GDKConfig {
 
-		develop: GDKDevelopConfig
+		develop?: GDKDevelopConfig
 
-		wechat: GDKWechatConfig
+		wechat?: GDKWechatConfig
 
-		qqplay: GDKQQPlayConfig
+		qqplay?: GDKQQPlayConfig
 
 	}
 
