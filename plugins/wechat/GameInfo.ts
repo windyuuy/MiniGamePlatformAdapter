@@ -30,7 +30,7 @@ namespace WechatGDK {
 		 **/
 		gameType: number
 
-		setGameInfo(info: GDK.GDKConfig) {
+		initWithConfig(info: GDK.GDKConfig) {
 			for (let k in info.wechat) {
 				this[k] = info.wechat[k]
 			}

@@ -2,9 +2,9 @@
 namespace DevelopGDK {
 
 	// default config
-	export const qqplay: GDK.PackConfig = {
+	GDK.gdkManager.registPluginConfig('develop', {
 		platform: 'develp',
 		version: '1.0.0',
 		register: RegisterList,
-	}
+	})
 }

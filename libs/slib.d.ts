@@ -1900,6 +1900,12 @@ interface Array<T> {
     unpack(): T;
 }
 
+
+interface Date{
+	format(format:string):string;
+	rawformat(format:string):string;
+}
+
 declare namespace slib {
 }
 declare namespace slib {
@@ -1938,10 +1944,6 @@ declare namespace slib {
         }): string;
     }
     var i18n: I18N;
-}
-declare namespace slib.JSHelper {
-    function clone<T extends Object>(srcObj: T): T;
-    function merge<T extends Object>(srcObj: Object, destObj: T): T;
 }
 declare namespace slib {
     type LogParam = {
@@ -2061,11 +2063,32 @@ declare namespace slib {
     }
 }
 declare namespace slib {
+    type EventHandler<T> = (message: T) => void;
+    class SimpleEvent<T> {
+        protected _callbacks: EventHandler<T>[];
+        on(callback: EventHandler<T>): void;
+        off(callback: EventHandler<T>): void;
+        emit(value: T): void;
+    }
+    class SEvent<T> {
+        protected _events: {
+            [key: string]: SimpleEvent<T>;
+        };
+        on(key: string, callback: EventHandler<T>): void;
+        off(key: string, callback: EventHandler<T>): void;
+        emit(key: string, value: T): void;
+    }
+}
+declare namespace slib {
     class BigNumberHelper {
         static convertUnitNumber(gold: number, unit?: string): BigNumber;
         static convertUnitString(value: string): BigNumber;
         static convertNumStr2UnitStr(value: string, offset?: number, fixedNum?: number): string;
     }
+}
+declare namespace slib.JSHelper {
+    function clone<T extends Object>(srcObj: T): T;
+    function merge<T extends Object>(srcObj: Object, destObj: T): T;
 }
 declare namespace slib {
     var Base64: {

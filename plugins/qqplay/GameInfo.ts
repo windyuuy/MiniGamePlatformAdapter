@@ -36,7 +36,7 @@ namespace QQPlayGDK {
 		init() {
 		}
 
-		setGameInfo(info: GDK.GDKConfig) {
+		initWithConfig(info: GDK.GDKConfig) {
 			for (let k in info.qqplay) {
 				this[k] = info.qqplay[k]
 			}

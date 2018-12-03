@@ -33,7 +33,7 @@ namespace GDK {
 
 		abstract init?()
 
-		abstract setGameInfo(info: GDKConfig)
+		abstract initWithConfig(info: GDKConfig)
 
 		// setGameInfo(info: IGameInfo) {
 		// 	this.appId = info.appId

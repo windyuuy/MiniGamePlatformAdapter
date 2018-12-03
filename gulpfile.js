@@ -71,4 +71,10 @@ gulp.task("uploadVersion", async () => {
 
 })
 
+gulp.task('buildUserAPI', async () => {
+	const srcfile = './framework/frame/UserApiTemp.ts'
+	const destfile = './framework/frame/UserApi.ts'
+
+})
+
 gulp.task("publish", gulp.series("comp", "uploadVersion"));

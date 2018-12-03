@@ -8,9 +8,29 @@ namespace GDK {
 		}
 
 		initConfig(config: GDKConfig) {
-			this._m.gameInfo.setGameInfo(config)
 		}
 
+		_initWithConfig(info: GDKConfig) {
+			for (let key in this._m) {
+				let addon = <IModule>this._m[key]
+				if (addon.init) {
+					addon.init()
+				}
+				if (addon.initWithConfig) {
+					addon.initWithConfig(info)
+				}
+			}
+		}
+
+		support(name: string): boolean { return false }
+
+		/** 当前实际平台 */
+		platform: string | "oppo" | "qqplay"
+		get userdata(): IUserData { return this._m.userdata }
+		get gameInfo(): IGameInfo { return this._m.gameInfo }
+		get systemInfo(): ISystemInfo { return this._m.systemInfo }
+
+		/** 批量导出接口 */
 		login(params: LoginParams): Promise<LoginResult> { return this._m.user.login(params) }
 		showConfirm(object: ShowConfirmOptions): Promise<ShowConfirmResult> { return this._m.widgets.showConfirm(object) }
 		showAlert(object: ShowAlertOptions): Promise<ShowAlertResult> { return this._m.widgets.showAlert(object) }
@@ -18,13 +38,6 @@ namespace GDK {
 		payPurchase(item: GDK.PayItemInfo, options?: PayOptions): Promise<PayResult> {
 			return this._m.pay.payPurchase(item, options)
 		}
-
-		support() { }
-		/** 当前实际平台 */
-		platform: string | "oppo" | "qqplay"
-		get userdata(): IUserData { return this._m.userdata }
-		get gameInfo(): IGameInfo { return this._m.gameInfo }
-		get systemInfo(): ISystemInfo { return this._m.systemInfo }
 
 		/**
 		 * 注册全局的错误回调函数
@@ -98,16 +111,6 @@ namespace GDK {
 			return this._m.share.getShareParam();
 		}
 
-	}
-
-	export function genGdk(temp: ModuleClassMap) {
-		let map: IModuleMap = {} as IModuleMap
-		for (let k in temp) {
-			let pname = k[0].toLocaleLowerCase() + k.substr(1);
-			map[pname] = new temp[k]();
-		}
-		let api = new UserAPI(map)
-		return api;
 	}
 
 }
