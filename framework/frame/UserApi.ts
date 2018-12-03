@@ -8,7 +8,7 @@ namespace GDK {
 
     initConfig(config: GDKConfig) {}
 
-    _initWithConfig(info: GDKConfig) {
+    protected _initWithConfig(info: GDKConfig) {
       for (let key in this._m) {
         let addon = <IModule>this._m[key];
         if (addon.init) {
@@ -47,7 +47,7 @@ namespace GDK {
       return this._m.user.checkSession(params);
     }
 
-    update(): Promise<{}> {
+    updateUser(): Promise<{}> {
       return this._m.user.update();
     }
 
@@ -316,10 +316,6 @@ namespace GDK {
      **/
     get devPlatform(): string {
       return this._m.systemInfo.devPlatform;
-    }
-
-    init?() {
-      return this._m.systemInfo.init();
     }
 
     fetchNetworkInfo(): Promise<void> {

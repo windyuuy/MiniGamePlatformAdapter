@@ -35,7 +35,7 @@ namespace GDK {
 		initWithGDKConfig(info: GDKConfig) {
 			for (let k in this._pluginMap) {
 				const plugin = this.getPlugin(k)
-				plugin._initWithConfig(info)
+				plugin['_initWithConfig'](info)
 			}
 		}
 

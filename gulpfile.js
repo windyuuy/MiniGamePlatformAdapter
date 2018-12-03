@@ -175,9 +175,13 @@ gulp.task('buildUserAPI', async () => {
 			for (let sub of moduleList) {
 				const defs = parseModule('GDK', sub.typename)
 				for (let def of defs) {
-					const defline = def.declare
-					const varname = sub.varname
+					let defline = def.declare
+					const mvarname = sub.varname
 					const key = def.key
+					if (key == 'update') {
+						const newkey = key + mvarname.substr(0, 1).toUpperCase() + mvarname.substr(1)
+						defline = defline.replace(key + '():', newkey + '():')
+					}
 					const paramsline = def.params.join(',')
 					const membertype = def.membertype
 					const explain = def.explain
@@ -185,12 +189,12 @@ gulp.task('buildUserAPI', async () => {
 					if (def.deftype == 'TSMethodSignature') {
 						defcontent = `${explain}
 						${defline} {
-							return this._m.${varname}.${key}(${paramsline});
+							return this._m.${mvarname}.${key}(${paramsline});
 						}`
 					} else {
 						defcontent = `${explain}
 						get ${key}()${membertype} {
-							return this._m.${varname}.${key};
+							return this._m.${mvarname}.${key};
 						  }`
 					}
 					def.defcontent = defcontent
@@ -206,7 +210,13 @@ gulp.task('buildUserAPI', async () => {
 	// concat def content
 	let membersContent = ''
 	{
-		const lines = exportList.map(info => info.defcontent)
+		const lines = exportList.map(info => {
+			if (info.key == 'init') {
+				return ''
+			} else {
+				return info.defcontent
+			}
+		})
 		membersContent = lines.join('\n')
 	}
 
