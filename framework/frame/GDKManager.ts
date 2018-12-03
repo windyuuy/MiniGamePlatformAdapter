@@ -8,6 +8,7 @@ namespace GDK {
 		registPluginConfig(name: string, config: PackConfig) {
 			slib.assert(!this._configMap[name], `config name ${name} exists already!`)
 			this._configMap[name] = config
+			defaultGDKName = name
 		}
 
 		protected genGdk(temp: ModuleClassMap) {

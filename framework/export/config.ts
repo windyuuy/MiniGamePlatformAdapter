@@ -1,3 +1,3 @@
 namespace GDK {
-	export const defaultGDKName = ''
+	export let defaultGDKName = ''
 }
