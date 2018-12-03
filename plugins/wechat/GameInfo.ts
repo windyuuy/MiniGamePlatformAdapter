@@ -5,7 +5,7 @@ namespace WechatGDK {
 		mode: "develop" | "test" | "release"
 
 		appId: string
-		channelId: number
+		gameChannelId: number
 		/** 沙盒模式支付 */
 		isPayInSandbox: boolean
 		/** 支付侧应用id */

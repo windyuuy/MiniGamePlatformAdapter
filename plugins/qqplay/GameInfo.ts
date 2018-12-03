@@ -3,7 +3,7 @@ namespace QQPlayGDK {
 	export class GameInfo extends GDK.GameInfoBase {
 		mode: "develop" | "test" | "release"
 		appId: string
-		channelId: number
+		gameChannelId: number
 		launchOptions: GDK.LaunchOptions
 		/** 沙盒模式支付 */
 		isPayInSandbox: boolean
