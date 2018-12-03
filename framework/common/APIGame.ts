@@ -4,7 +4,7 @@ namespace GDK {
 		mode: "develop" | "test" | "release"
 
 		abstract appId: string
-		abstract channelId: number
+		abstract gameChannelId: number
 		/** 沙盒模式支付 */
 		abstract isPayInSandbox: boolean
 		/** 支付侧应用id */

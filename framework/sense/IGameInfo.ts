@@ -112,7 +112,7 @@ namespace GDK {
 		/**
 		 * 游戏启动的渠道id
 		 */
-		channelId: number
+		gameChannelId: number
 
 		/** 沙盒模式支付 */
 		isPayInSandbox: boolean
