@@ -23,6 +23,11 @@ namespace GDK {
 		httpClient: slib.HttpGameClient
 
 		/**
+		 * 优先只启用小程序跳转支付
+		 */
+		requireMiniAppPay: boolean = true
+
+		/**
 		 * 获取当前服务器时间
 		 */
 		getServerTime: () => Date;

@@ -191,7 +191,7 @@ namespace GDK {
     get gameType(): number {
       return this._m.gameInfo.gameType;
     }
-    /** 只启用小程序跳转支付 */
+    /** 优先只启用小程序跳转支付 */
     get requireMiniAppPay(): boolean {
       return this._m.gameInfo.requireMiniAppPay;
     }

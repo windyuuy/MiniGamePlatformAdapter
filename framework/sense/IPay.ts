@@ -62,6 +62,8 @@ namespace GDK {
 		landscapeRight = 3
 	}
 
+	export type ChannelType = 'miniapp' | 'origion'
+
 	export class PayOptions {
 		/** 屏幕方向 */
 		gameOrientation?: WebViewOrientation
@@ -70,7 +72,7 @@ namespace GDK {
 		 * - 平台自带支付 'origion'
 		 * - 跳转小程序支付 'miniapp'
 		 **/
-		channelType?: 'miniapp' | 'origion'
+		channelType?: ChannelType
 	}
 
 	export interface IPay extends IModule {
