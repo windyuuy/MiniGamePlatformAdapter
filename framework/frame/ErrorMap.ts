@@ -32,6 +32,7 @@ namespace GDK {
 		get temps() { return this._temps }
 
 		constructor(temps: GDKErrorExtra[]) {
+			arguments
 			this._temps = temps
 		}
 
@@ -43,10 +44,10 @@ namespace GDK {
 			const err = new GDKError()
 			// 待优化
 			const item = this._temps.find((item) => item.errcode == errcode)
-			err.errcode = item.errcode
-			err.message = item.message
-			err.reason = item.reason
-			err.data = item.data
+			err.errcode = extra && extra.errcode !== undefined ? extra.errcode : item.errcode
+			err.message = extra && extra.message !== undefined ? extra.message : item.message
+			err.reason = extra && extra.reason !== undefined ? extra.reason : item.reason
+			err.data = extra && extra.data !== undefined ? extra.data : item.data
 			return err
 		}
 	}

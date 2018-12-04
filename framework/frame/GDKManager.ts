@@ -13,11 +13,16 @@ namespace GDK {
 
 		protected genGdk(temp: ModuleClassMap) {
 			let map: IModuleMap = {} as IModuleMap
+			const addonList = []
 			for (let k in temp) {
 				let pname = k[0].toLocaleLowerCase() + k.substr(1);
 				map[pname] = new temp[k]();
+				addonList.push(map[pname])
 			}
 			let api = new UserAPI(map)
+			for (let addon of addonList) {
+				addon.api = api
+			}
 			return api;
 		}
 

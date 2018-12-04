@@ -53,6 +53,12 @@ namespace GDK {
 		 * 安卓分享时，所使用的代理网址
 		 */
 		shareProxyUrl: string = "";
+		userId?: number = 0
+
+        /**
+         * 跳转支付appid
+         */
+		miniAppOfferId?: string = ""
 
 	}
 
