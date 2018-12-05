@@ -245,7 +245,7 @@ gulp.task('buildapi', async () => {
 	let begin = temp.indexOf(beginMark) + beginMark.length
 	let end = temp.indexOf(endMark) - 1
 	temp = temp.substr(0, begin) + '\n' + membersContent + '\n\n' + temp.substr(end)
-	temp = prettier.format(temp, { parser: "typescript" });
+	temp = prettier.format(temp, { parser: "typescript", useTabs: true });
 	const output = temp
 	fs.writeFileSync(destfile, output, { encoding: 'utf-8' })
 })
