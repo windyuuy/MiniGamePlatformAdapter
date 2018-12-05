@@ -50,11 +50,23 @@ namespace WechatGDK {
 			const ret = new GDK.RPromise<GDK.PayResult>()
 
 			const successCode = 0
-			const appid = this.api.gameInfo.appId
-			// const appid = "wxcfc7f0661463ee36"
-			const userId = this.api.userData.userId
-			const jpPath = `pages/payment/payment?appId=${appid}&userId=${userId}&goodsId=${config.goodsId}&quantity=${config.amount}&title=${config.title}`
+
+			const myAppId = this.api.gameInfo.appId
 			const miniAppOfferId = this.api.gameInfo.miniAppOfferId
+			const userId = this.api.userData.userId
+			const goodsId = config.goodsId
+			const quantity = config.amount
+			const title = config.title
+
+			// test
+			// const myAppId = "wxcfc7f0661463ee36"
+			// const miniAppOfferId = "wx013e541d77408fc3"
+			// const userId = "1919"
+			// const goodsId = 1
+			// const quantity = 6
+			// const title = "60钻石"
+
+			const jpPath = `pages/payment/payment?appId=${myAppId}&userId=${userId}&goodsId=${goodsId}&quantity=${quantity}&title=${title}`
 			let envVersion: string = this.api.gameInfo.mode
 			if (envVersion == 'test') {
 				envVersion = 'trial'
