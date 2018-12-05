@@ -145,6 +145,13 @@ gulp.task('buildapi', async () => {
 										for (let p of params_def) {
 											params.push(p['name'])
 										}
+										const typeAnnotation = member['typeAnnotation']
+										if (typeAnnotation) {
+											const typeName = typeAnnotation['typeAnnotation']['typeName']
+											if (typeName) {
+												membertype = typeName['name']
+											}
+										}
 									} else {
 										membertype = cutline(text, member['typeAnnotation']['range'])
 									}
@@ -186,11 +193,15 @@ gulp.task('buildapi', async () => {
 					const membertype = def.membertype
 					const explain = def.explain
 					let defcontent = ''
+					let returnState = 'undefined'
+					if (membertype == 'Promise') {
+						returnState = 'this.createNonePromise()'
+					}
 					if (def.deftype == 'TSMethodSignature') {
 						defcontent = `${explain}
 						${defline} {
 							if(!this.checkModuleAttr("${mvarname}","${key}","function")){
-								return undefined
+								return ${returnState}
 							}
 							return this._m.${mvarname}.${key}(${paramsline});
 						}`
