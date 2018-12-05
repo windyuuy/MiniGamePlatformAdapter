@@ -342,6 +342,10 @@ namespace GDK {
     updateProgramForce?(): Promise<void> {
       return this._m.apiSystem.updateProgramForce();
     }
+
+    get clipboard(): IClipboard {
+      return this._m.apiSystem.clipboard;
+    }
     /**
      * 分享到聊天窗口
      * * 如果目标平台没有明确的聊天窗口，则进行社会化分享。

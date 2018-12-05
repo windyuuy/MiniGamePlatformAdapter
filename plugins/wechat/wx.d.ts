@@ -2344,4 +2344,8 @@ declare namespace wx {
 
 	}
 	export function getUpdateManager(): UpdateManager;
+
+	export function setClipboardData(data: { data: string, success?: () => void, fail?: () => void, complete?: () => void, }): void;
+	export function getClipboardData(data: { success: (res: { data: string }) => void, fail?: () => void, complete?: () => void, }): void;
+
 }

@@ -26,6 +26,14 @@ namespace GDK {
 	export interface AppCallUpResult {
 
 	}
+
+	export interface ClipboardData {
+		data: string
+	}
+	export interface IClipboard {
+		getData(): Promise<ClipboardData>
+		setData(res: ClipboardData): Promise<void>
+	}
 	export interface IAPISystem {
 		init?()
 		/**
@@ -40,6 +48,8 @@ namespace GDK {
 		 * 强制更新
 		 */
 		updateProgramForce?(): Promise<void>
+
+		clipboard?: IClipboard
 	}
 
 }

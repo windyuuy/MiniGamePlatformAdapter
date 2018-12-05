@@ -1,6 +1,32 @@
 
 namespace WechatGDK {
+
+	class Clipboard implements GDK.IClipboard {
+		getData(): Promise<GDK.ClipboardData> {
+			const ret = new GDK.RPromise<GDK.ClipboardData>()
+			wx.getClipboardData({
+				success: (res) => {
+					ret.success(res)
+				},
+				fail: ret.fail
+			})
+			return ret.promise
+		}
+		setData(res: GDK.ClipboardData): Promise<void> {
+			const ret = new GDK.RPromise<void>()
+			wx.setClipboardData({
+				data: res.data,
+				success: () => {
+					ret.success(undefined)
+				},
+				fail: ret.fail
+			})
+			return ret.promise
+		}
+	}
 	export class APISystem extends GDK.APISystemBase {
+		clipboard?: GDK.IClipboard = new Clipboard()
+
 		navigateToApp?(params: GDK.AppCallUpParams): Promise<GDK.AppCallUpResult> {
 			const ret = new GDK.RPromise<GDK.AppCallUpResult>()
 			const params2 = {
