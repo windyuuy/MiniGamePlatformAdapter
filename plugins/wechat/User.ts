@@ -63,6 +63,8 @@ namespace WechatGDK {
 		update(): Promise<{}> {
 			const ret = new GDK.RPromise<GDK.UserDataUpdateResult>()
 			wx.getUserInfo({
+				openIdList: ["selfOpenId"],
+				lang: "zh_CN",
 				success: (params) => {
 					const { userInfo, rawData, signature, encryptData } = params
 
