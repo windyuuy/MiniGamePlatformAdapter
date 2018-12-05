@@ -2354,4 +2354,6 @@ declare namespace wx {
 	export function getScreenBrightness(res: GetScreenBrightnessData): void
 	export function setKeepScreenOn(res: { keepScreenOn: boolean } & BaseOptions): void
 	export function setScreenBrightness(res: { value: number } & BaseOptions): void
+
+	export function setEnableDebug(res: { enableDebug: boolean } & BaseOptions): void
 }

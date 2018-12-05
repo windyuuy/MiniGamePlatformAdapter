@@ -24,8 +24,21 @@ namespace WechatGDK {
 			return ret.promise
 		}
 	}
+
 	export class APISystem extends GDK.APISystemBase {
 		clipboard?: GDK.IClipboard = new Clipboard()
+
+		setEnableDebug(res: { enableDebug: boolean }) {
+			const ret = new GDK.RPromise<void>()
+			wx.setEnableDebug({
+				enableDebug: res.enableDebug,
+				success: () => {
+					ret.success(undefined)
+				},
+				fail: ret.fail
+			})
+			return ret.promise
+		}
 
 		navigateToApp?(params: GDK.AppCallUpParams): Promise<GDK.AppCallUpResult> {
 			const ret = new GDK.RPromise<GDK.AppCallUpResult>()
@@ -110,4 +123,5 @@ namespace WechatGDK {
 			})
 		}
 	}
+
 }

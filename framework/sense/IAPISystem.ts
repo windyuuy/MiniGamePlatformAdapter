@@ -56,6 +56,7 @@ namespace GDK {
 
 		/**
 		 * 设置帧率
+		 * - 可能和cocos的会冲突
 		 */
 		setFPS?(fps: number): void
 
