@@ -65,6 +65,7 @@ namespace WechatGDK {
 				appId: miniAppOfferId,
 				path: jpPath,
 				envVersion: envVersion,
+				extraData: {},
 				success: () => {
 					log.info("调起app成功", config)
 					ret.success({
