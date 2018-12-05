@@ -13,5 +13,6 @@ namespace GDK {
 		support: ISupport
 		except: IExcept
 		auth: IAuth
+		hardware: IHardware
 	}
 }

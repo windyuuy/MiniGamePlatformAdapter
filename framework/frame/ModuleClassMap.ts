@@ -13,5 +13,6 @@ namespace GDK {
 		Support?: new () => ISupport
 		Except?: new () => IExcept
 		Auth?: new () => IAuth
+		Hardware?: new () => IHardware = HardwareBase
 	}
 }

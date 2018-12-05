@@ -13,5 +13,6 @@ namespace WechatGDK {
 		Support = Support
 		Except = Except
 		Auth = Auth
+		Hardware = Hardware
 	}
 }

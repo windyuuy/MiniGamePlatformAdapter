@@ -2314,4 +2314,7 @@ declare namespace wx {
 		success?: (authSetting: AuthSetting) => void, fail?: Function, complete?: Function
 	});
 
+	export function vibrateLong(params: BaseOptions)
+	export function vibrateShort(params: BaseOptions)
+
 }
