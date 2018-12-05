@@ -12,10 +12,22 @@ namespace GDK {
 		 */
 		vibrateShort(): Promise<void>
 	}
+
+	export interface MemoryWarningInfo {
+		level: number
+	}
+
+	export interface IPerformance {
+		getMicroTime?(): TMicroSecond
+		tryGC?(): void
+		onMemoryWarning?(callback: (res: MemoryWarningInfo) => void): void
+	}
+
 	export interface IHardware extends IModule {
 		/**
 		 * 振动器
 		 */
-		vibration: IVibration
+		vibration?: IVibration
+		performance?: IPerformance
 	}
 }

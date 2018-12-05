@@ -9,6 +9,18 @@ namespace GDK {
 			devlog.info("vibrateShort")
 		}
 	}
+	class Performance implements GDK.IPerformance {
+		_performance: wx.Performance = wx.getPerformance()
+		getMicroTime(): GDK.TMicroSecond {
+			return new Date().getTime() * 1000
+		}
+		tryGC?(): void {
+			devlog.info('tryGC')
+		}
+		onMemoryWarning?(callback: (res: GDK.MemoryWarningInfo) => void): void {
+			devlog.info('register onMemoryWarning')
+		}
+	}
 
 	export class HardwareBase implements IHardware {
 		vibration: IVibration = new Vibration()

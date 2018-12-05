@@ -27,7 +27,21 @@ namespace WechatGDK {
 		}
 	}
 
+	class Performance implements GDK.IPerformance {
+		_performance: wx.Performance = wx.getPerformance()
+		getMicroTime(): GDK.TMicroSecond {
+			return this._performance.now()
+		}
+		tryGC(): void {
+			wx.triggerGC()
+		}
+		onMemoryWarning(callback: (res: GDK.MemoryWarningInfo) => void): void {
+			wx.onMemoryWarning(callback)
+		}
+	}
+
 	export class Hardware implements GDK.IHardware {
 		vibration: GDK.IVibration = new Vibration()
+		performance: GDK.IPerformance = new Performance()
 	}
 }

@@ -2317,4 +2317,10 @@ declare namespace wx {
 	export function vibrateLong(params: BaseOptions)
 	export function vibrateShort(params: BaseOptions)
 
+	export class Performance {
+		now(): number
+	}
+	export function getPerformance(): Performance
+	export function triggerGC(): void
+	export function onMemoryWarning(callback: (res: { level: number }) => void): void
 }
