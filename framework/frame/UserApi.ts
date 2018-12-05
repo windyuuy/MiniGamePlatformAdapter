@@ -339,8 +339,8 @@ namespace GDK {
     /**
      * 强制更新
      */
-    updateForce?(): Promise<void> {
-      return this._m.apiSystem.updateForce();
+    updateProgramForce?(): Promise<void> {
+      return this._m.apiSystem.updateProgramForce();
     }
     /**
      * 分享到聊天窗口

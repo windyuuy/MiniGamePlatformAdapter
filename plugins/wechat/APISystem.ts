@@ -1,6 +1,6 @@
 
 namespace WechatGDK {
-	export class APISystem implements GDK.APISystemBase {
+	export class APISystem extends GDK.APISystemBase {
 		navigateToApp?(params: GDK.AppCallUpParams): Promise<GDK.AppCallUpResult> {
 			const ret = new GDK.RPromise<GDK.AppCallUpResult>()
 			const params2 = {
@@ -28,7 +28,7 @@ namespace WechatGDK {
 			return ret.promise
 		}
 
-		updateForce() {
+		updateProgramForce(): Promise<void> {
 			return new Promise<void>((resolve, reject) => {
 				wx.showLoading({ title: "检查更新中...", mask: true })
 				let updateManager = wx.getUpdateManager()

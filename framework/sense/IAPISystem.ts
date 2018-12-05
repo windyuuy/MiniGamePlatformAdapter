@@ -39,7 +39,7 @@ namespace GDK {
 		/**
 		 * 强制更新
 		 */
-		updateForce?(): Promise<void>
+		updateProgramForce?(): Promise<void>
 	}
 
 }
