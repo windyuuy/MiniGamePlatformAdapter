@@ -34,6 +34,7 @@ namespace GDK {
 		getData(): Promise<ClipboardData>
 		setData(res: ClipboardData): Promise<void>
 	}
+
 	export interface IAPISystem {
 		init?()
 		/**

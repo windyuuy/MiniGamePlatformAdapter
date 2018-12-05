@@ -111,7 +111,7 @@ declare namespace wx {
 		/**
 		 * 接口调用成功的回调函数
 		 */
-		success?: () => void;
+		success?: (res?: any) => void;
 
 		/**
 		 * 接口调用失败的回调函数
@@ -2348,4 +2348,10 @@ declare namespace wx {
 	export function setClipboardData(data: { data: string, success?: () => void, fail?: () => void, complete?: () => void, }): void;
 	export function getClipboardData(data: { success: (res: { data: string }) => void, fail?: () => void, complete?: () => void, }): void;
 
+	export interface GetScreenBrightnessData extends BaseOptions {
+		success?: (data: { value: number }) => void
+	}
+	export function getScreenBrightness(res: GetScreenBrightnessData): void
+	export function setKeepScreenOn(res: { keepScreenOn: boolean } & BaseOptions): void
+	export function setScreenBrightness(res: { value: number } & BaseOptions): void
 }

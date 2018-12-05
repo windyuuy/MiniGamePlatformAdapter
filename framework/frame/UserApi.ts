@@ -524,6 +524,10 @@ namespace GDK {
       return this._m.hardware.performance;
     }
 
+    get screen(): IScreen {
+      return this._m.hardware.screen;
+    }
+
     // $batch_export() end
   }
 }

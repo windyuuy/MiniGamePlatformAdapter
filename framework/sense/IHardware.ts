@@ -23,11 +23,22 @@ namespace GDK {
 		onMemoryWarning?(callback: (res: MemoryWarningInfo) => void): void
 	}
 
+	export interface BrightnessData {
+		value: number
+	}
+
+	export interface IScreen {
+		getBrightness(): Promise<BrightnessData>
+		setBrightness(data: BrightnessData): Promise<void>
+		setKeepScreenOn(res: { keepon: boolean }): Promise<void>
+	}
+
 	export interface IHardware extends IModule {
 		/**
 		 * 振动器
 		 */
 		vibration?: IVibration
 		performance?: IPerformance
+		screen?: IScreen
 	}
 }
