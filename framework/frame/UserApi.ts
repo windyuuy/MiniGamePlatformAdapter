@@ -33,14 +33,16 @@ namespace GDK {
 				devlog.warn("module unsupport: [gdk::${mvarname}]");
 				return false;
 			}
-			const attr = this._m[moduleName][attrName];
-			if (!attr) {
-				devlog.warn("func unsupport: [gdk::${mvarname}.${key}]");
-				return false;
-			}
-			if (attrType && typeof attr != attrType) {
-				devlog.warn("invalid func: [gdk::${mvarname}.${key}]");
-				return false;
+			if (attrType) {
+				const attr = this._m[moduleName][attrName];
+				if (!attr) {
+					devlog.warn("func unsupport: [gdk::${mvarname}.${key}]");
+					return false;
+				}
+				if (typeof attr != attrType) {
+					devlog.warn("invalid func: [gdk::${mvarname}.${key}]");
+					return false;
+				}
 			}
 			return true;
 		}
