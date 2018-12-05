@@ -51,6 +51,7 @@ namespace WechatGDK {
 
 			const successCode = 0
 			const appid = this.api.gameInfo.appId
+			// const appid = "wxcfc7f0661463ee36"
 			const userId = this.api.userData.userId
 			const jpPath = `pages/payment/payment?appId=${appid}&userId=${userId}&goodsId=${config.goodsId}&quantity=${config.amount}&title=${config.title}`
 			const miniAppOfferId = this.api.gameInfo.miniAppOfferId
@@ -60,7 +61,7 @@ namespace WechatGDK {
 			}
 			envVersion = 'release'
 
-			log.info(`navigateToMiniProgram: { path: ${jpPath}, appId: ${miniAppOfferId}, envVersion:${envVersion} }`)
+			log.info(`navigateToMiniProgram: { path: ${jpPath}, miniAppId: ${miniAppOfferId}, envVersion:${envVersion} }`)
 			wx.navigateToMiniProgram({
 				appId: miniAppOfferId,
 				path: jpPath,
