@@ -81,7 +81,7 @@ function findExplain(ast, loc) {
 	return comment
 }
 
-gulp.task('buildUserAPI', async () => {
+gulp.task('buildapi', async () => {
 	const prettier = require("prettier");
 
 	const srcfile = './framework/frame/UserApi.ts'
@@ -189,11 +189,17 @@ gulp.task('buildUserAPI', async () => {
 					if (def.deftype == 'TSMethodSignature') {
 						defcontent = `${explain}
 						${defline} {
+							if(!this.checkModuleAttr("${mvarname}","${key}","function")){
+								return undefined
+							}
 							return this._m.${mvarname}.${key}(${paramsline});
 						}`
 					} else {
 						defcontent = `${explain}
 						get ${key}()${membertype} {
+							if(!this.checkModuleAttr("${mvarname}","${key}")){
+								return undefined
+							}
 							return this._m.${mvarname}.${key};
 						  }`
 					}
@@ -233,6 +239,6 @@ gulp.task('buildUserAPI', async () => {
 	fs.writeFileSync(destfile, output, { encoding: 'utf-8' })
 })
 
-gulp.task("comp", gulp.series("buildUserAPI", "compile"));
+gulp.task("comp", gulp.series("buildapi", "compile"));
 
 gulp.task("publish", gulp.series("comp", "uploadVersion"));
