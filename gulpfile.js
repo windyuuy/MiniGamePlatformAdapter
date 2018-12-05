@@ -195,7 +195,7 @@ gulp.task('buildapi', async () => {
 					let defcontent = ''
 					let returnState = 'undefined'
 					if (membertype == 'Promise') {
-						returnState = 'this.createNonePromise()'
+						returnState = `this.createNonePromise("[${mvarname}.${key}]")`
 					}
 					if (def.deftype == 'TSMethodSignature') {
 						defcontent = `${explain}

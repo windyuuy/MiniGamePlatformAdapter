@@ -90,6 +90,10 @@ namespace GDK {
 		devPlatform?: string
 
 		init?()
+
+		/**
+		 * 获取网络状况信息
+		 */
 		fetchNetworkInfo(): Promise<void>
 	}
 
