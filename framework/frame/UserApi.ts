@@ -436,10 +436,6 @@ namespace GDK {
       return this._m.widgets.showAlert(object);
     }
 
-    get canvas(): HTMLCanvasElement {
-      return this._m.subContext.canvas;
-    }
-
     onMessage(callback: (message: PrimitiveMap) => void) {
       return this._m.subContext.onMessage(callback);
     }

@@ -2,10 +2,10 @@
 namespace GDK {
 
 	export interface IOpenDataContext {
+		canvas?: HTMLCanvasElement
 		postMessage(message: PrimitiveMap)
 	}
 	export interface ISubContext {
-		canvas?: HTMLCanvasElement
 		onMessage(callback: (message: PrimitiveMap) => void)
 		getOpenDataContext(): IOpenDataContext
 	}
