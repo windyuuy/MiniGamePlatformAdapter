@@ -2327,4 +2327,21 @@ declare namespace wx {
 	 * 退出当前小游戏
 	 */
 	export function exitMiniProgram(res: BaseOptions): void
+
+	export class UpdateManager {
+
+		//监听检查更新结果回调
+		onCheckForUpdate(callback: (res: { hasUpdate: boolean }) => void)
+
+		//监听更新包下载成功回调
+		onUpdateReady(callback: Function)
+
+		//监听更新包下载失败回调
+		onUpdateFailed(callback: Function)
+
+		//应用更新包并重启
+		applyUpdate()
+
+	}
+	export function getUpdateManager(): UpdateManager;
 }

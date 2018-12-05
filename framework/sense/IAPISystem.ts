@@ -36,6 +36,10 @@ namespace GDK {
 		 * 退出当前游戏
 		 */
 		exitProgram?(): Promise<void>
+		/**
+		 * 强制更新
+		 */
+		updateForce?(): Promise<void>
 	}
 
 }

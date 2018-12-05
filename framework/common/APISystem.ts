@@ -10,5 +10,8 @@ namespace GDK {
 			devlog.info("正在退出")
 			window.close();
 		}
+		async updateForce() {
+			devlog.info("没有更新")
+		}
 	}
 }

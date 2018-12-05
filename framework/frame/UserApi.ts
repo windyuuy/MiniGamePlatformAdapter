@@ -337,6 +337,12 @@ namespace GDK {
       return this._m.apiSystem.exitProgram();
     }
     /**
+     * 强制更新
+     */
+    updateForce?(): Promise<void> {
+      return this._m.apiSystem.updateForce();
+    }
+    /**
      * 分享到聊天窗口
      * * 如果目标平台没有明确的聊天窗口，则进行社会化分享。
      * * 如果当前环境无法分享，则分享失败
