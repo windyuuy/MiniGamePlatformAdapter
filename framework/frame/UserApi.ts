@@ -323,6 +323,19 @@ namespace GDK {
     fetchNetworkInfo(): Promise<void> {
       return this._m.systemInfo.fetchNetworkInfo();
     }
+
+    /**
+     * 跳转游戏
+     */
+    navigateToApp?(params: AppCallUpParams): Promise<AppCallUpResult> {
+      return this._m.apiSystem.navigateToApp(params);
+    }
+    /**
+     * 退出当前游戏
+     */
+    exitProgram?(): Promise<void> {
+      return this._m.apiSystem.exitProgram();
+    }
     /**
      * 分享到聊天窗口
      * * 如果目标平台没有明确的聊天窗口，则进行社会化分享。
@@ -495,6 +508,10 @@ namespace GDK {
      */
     get vibration(): IVibration {
       return this._m.hardware.vibration;
+    }
+
+    get performance(): IPerformance {
+      return this._m.hardware.performance;
     }
 
     // $batch_export() end

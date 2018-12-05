@@ -2323,4 +2323,8 @@ declare namespace wx {
 	export function getPerformance(): Performance
 	export function triggerGC(): void
 	export function onMemoryWarning(callback: (res: { level: number }) => void): void
+	/**
+	 * 退出当前小游戏
+	 */
+	export function exitMiniProgram(res: BaseOptions): void
 }

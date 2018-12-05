@@ -15,5 +15,17 @@ namespace WechatGDK {
 			wx.navigateToMiniProgram(params2)
 			return ret.promise
 		}
+		exitProgram(): Promise<void> {
+			const ret = new GDK.RPromise<void>()
+			wx.exitMiniProgram({
+				success: () => {
+					ret.success(undefined)
+				},
+				fail: () => {
+					ret.fail()
+				}
+			})
+			return ret.promise
+		}
 	}
 }

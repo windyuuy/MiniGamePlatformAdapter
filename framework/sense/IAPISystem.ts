@@ -28,7 +28,14 @@ namespace GDK {
 	}
 	export interface IAPISystem {
 		init?()
+		/**
+		 * 跳转游戏
+		 */
 		navigateToApp?(params: AppCallUpParams): Promise<AppCallUpResult>
+		/**
+		 * 退出当前游戏
+		 */
+		exitProgram?(): Promise<void>
 	}
 
 }

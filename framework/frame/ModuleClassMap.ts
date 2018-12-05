@@ -6,6 +6,7 @@ namespace GDK {
 		Pay?: new () => IPay
 		Share?: new () => IShare
 		SystemInfo?: new () => ISystemInfo
+		APISystem?: new () => IAPISystem = APISystemBase
 		UserData?: new () => IUserData
 		Customer?: new () => ICustomer
 		Widgets?: new () => IWidgets

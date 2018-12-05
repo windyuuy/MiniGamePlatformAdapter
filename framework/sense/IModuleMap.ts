@@ -4,6 +4,7 @@ namespace GDK {
 		userData: IUserData
 		gameInfo: IGameInfo
 		systemInfo: ISystemInfo
+		apiSystem: IAPISystem
 		share: IShare
 		pay: IPay
 		advert: IAdvert
