@@ -342,7 +342,21 @@ namespace GDK {
     updateProgramForce?(): Promise<void> {
       return this._m.apiSystem.updateProgramForce();
     }
-
+    /**
+     * 设置是否打开调试开关。此开关对正式版也能生效。
+     */
+    setEnableDebug?(res: { enableDebug: boolean }): Promise<void> {
+      return this._m.apiSystem.setEnableDebug(res);
+    }
+    /**
+     * 设置帧率
+     */
+    setFPS?(fps: number): void {
+      return this._m.apiSystem.setFPS(fps);
+    }
+    /**
+     * 剪切板
+     */
     get clipboard(): IClipboard {
       return this._m.apiSystem.clipboard;
     }
@@ -519,13 +533,55 @@ namespace GDK {
     get vibration(): IVibration {
       return this._m.hardware.vibration;
     }
-
+    /**
+     * 性能
+     */
     get performance(): IPerformance {
       return this._m.hardware.performance;
     }
-
+    /**
+     * 屏幕亮度
+     */
     get screen(): IScreen {
       return this._m.hardware.screen;
+    }
+    /**
+     * 陀螺仪
+     */
+    get gyroscope(): IGyroscope {
+      return this._m.hardware.gyroscope;
+    }
+    /**
+     * 罗盘
+     */
+    get compass(): ICompass {
+      return this._m.hardware.compass;
+    }
+    /**
+     * 电池
+     */
+    get battery(): IBattery {
+      return this._m.hardware.battery;
+    }
+    /**
+     * 加速计
+     */
+    get accelerometer(): IAccelerometer {
+      return this._m.hardware.accelerometer;
+    }
+    /**
+     * - 设备方向
+     * - 转屏相关
+     * - 重力感应
+     */
+    get gravity(): IGravity {
+      return this._m.hardware.gravity;
+    }
+    /**
+     * 触屏
+     */
+    get screenTouch(): IScreenTouch {
+      return this._m.hardware.screenTouch;
     }
 
     // $batch_export() end

@@ -49,7 +49,19 @@ namespace GDK {
 		 * 强制更新
 		 */
 		updateProgramForce?(): Promise<void>
+		/**
+		 * 设置是否打开调试开关。此开关对正式版也能生效。
+		 */
+		setEnableDebug?(res: { enableDebug: boolean }): Promise<void>
 
+		/**
+		 * 设置帧率
+		 */
+		setFPS?(fps: number): void
+
+		/**
+		 * 剪切板
+		 */
 		clipboard?: IClipboard
 	}
 
