@@ -12,5 +12,6 @@ namespace DevelopGDK {
 		SubContext = SubContext
 		Support = Support
 		Except = Except
+		Auth = Auth
 	}
 }
