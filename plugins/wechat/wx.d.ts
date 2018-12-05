@@ -2280,4 +2280,36 @@ declare namespace wx {
 		envVersion?: string
 	}
 	export function navigateToMiniProgram(res: AppCallUpParams)
+
+
+	export class AuthSetting {
+		/**
+		 * 是否授权用户信息，对应接口 wx.getUserInfo
+		 */
+		"scope.userInfo": boolean
+
+		/**
+		 * 是否授权地理位置，对应接口 wx.getLocation
+		 */
+		"scope.userLocation": boolean
+
+		/**
+		 * 是否授权微信运动步数，对应接口 wx.getWeRunData
+		 */
+		"scope.werun": boolean
+
+		/**
+		 * 是否授权保存到相册 wx.saveImageToPhotosAlbum
+		 */
+		"scope.writePhotosAlbum": boolean
+	}
+
+
+	/**
+	 * 获取用户的当前设置。返回值中只会出现小程序已经向用户请求过的权限。
+	 */
+	export function getSetting(data: {
+		success?: (authSetting: AuthSetting) => void, fail?: Function, complete?: Function
+	});
+
 }

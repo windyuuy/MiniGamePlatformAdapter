@@ -5,5 +5,9 @@ namespace DevelopGDK {
 			devlog.info("createUserInfoButton")
 			return null;
 		}
+
+		async isUserInfoAuthAlready() {
+			return true;
+		}
 	}
 }
