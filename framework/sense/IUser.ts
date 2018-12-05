@@ -66,7 +66,7 @@ namespace GDK {
 		login(params?: LoginParams): Promise<LoginResult>
 		checkSession?(params?: ReqParams)
 
-		update(): Promise<{}>
+		update(): Promise<UserDataUpdateResult>
 		getFriendCloudStorage(obj: { keyList: string[] }): Promise<{ data: UserGameData[] }>;
 		setUserCloudStorage(obj: { KVDataList: KVData[] }): Promise<void>
 	}

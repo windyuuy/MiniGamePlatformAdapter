@@ -60,7 +60,7 @@ namespace WechatGDK {
 			}, {}, GDK.GDKErrorCode.API_LOGIN_SESSION_OUTDATE)
 		}
 
-		update(): Promise<{}> {
+		update(): Promise<GDK.UserDataUpdateResult> {
 			const ret = new GDK.RPromise<GDK.UserDataUpdateResult>()
 			wx.getUserInfo({
 				openIdList: ["selfOpenId"],
@@ -69,8 +69,9 @@ namespace WechatGDK {
 					const { userInfo, rawData, signature, encryptData } = params
 
 					for (let key in userInfo) {
-						this[key] = userInfo[key]
+						this.api.userData[key] = userInfo[key]
 					}
+					this.api.userData.sex = userInfo.gender
 
 					ret.success({
 						extra: params

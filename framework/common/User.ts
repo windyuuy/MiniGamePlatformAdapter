@@ -8,7 +8,7 @@ namespace GDK {
 			return ret.promise
 		}
 
-		abstract update(): Promise<{}>
+		abstract update(): Promise<UserDataUpdateResult>
 		abstract getFriendCloudStorage(obj: { keyList: string[] }): Promise<{ data: UserGameData[] }>;
 		abstract setUserCloudStorage(obj: { KVDataList: KVData[] }): Promise<void>
 	}

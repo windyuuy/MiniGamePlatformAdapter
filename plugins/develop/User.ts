@@ -47,7 +47,7 @@ namespace DevelopGDK {
 			return ret.promise
 		}
 
-		update(): Promise<{}> {
+		update(): Promise<GDK.UserDataUpdateResult> {
 			const ret = new GDK.RPromise<GDK.UserDataUpdateResult>()
 			ret.success({})
 			return ret.promise

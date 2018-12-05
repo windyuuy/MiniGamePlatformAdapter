@@ -181,7 +181,7 @@ namespace QQPlayGDK {
 			}, 400)
 		}
 
-		update(): Promise<{}> {
+		update(): Promise<GDK.UserDataUpdateResult> {
 			const lang = undefined
 
 			const ret = new GDK.RPromise<GDK.UserDataUpdateResult>()

@@ -49,7 +49,7 @@ namespace GDK {
       return this._m.user.checkSession(params);
     }
 
-    updateUser(): Promise<{}> {
+    updateUser(): Promise<UserDataUpdateResult> {
       return this._m.user.update();
     }
 
