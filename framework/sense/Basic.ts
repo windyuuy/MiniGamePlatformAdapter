@@ -3,6 +3,8 @@ namespace GDK {
 
 	/** 毫秒 */
 	export type TMilliSeconds = number
+	/** 微秒 */
+	export type TMicroSecond = number
 	// export type ms=number
 	/** 秒 */
 	export type TSeconds = number
