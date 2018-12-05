@@ -481,6 +481,19 @@ namespace GDK {
     ) {
       return this._m.except.setErrorCallback(callback);
     }
+    /**
+     * 创建用户信息授权按钮
+     * * 当前仅微信有效
+     */
+    createUserInfoButton(obj: IUserInfoButton): UserInfoButton {
+      return this._m.auth.createUserInfoButton(obj);
+    }
+    /**
+     * 判断是否拥有获取用户信息的权限
+     */
+    isUserInfoAuthAlready(): Promise<boolean> {
+      return this._m.auth.isUserInfoAuthAlready();
+    }
 
     // $batch_export() end
   }

@@ -12,5 +12,6 @@ namespace GDK {
 		SubContext?: new () => ISubContext
 		Support?: new () => ISupport
 		Except?: new () => IExcept
+		Auth?: new () => IAuth
 	}
 }
