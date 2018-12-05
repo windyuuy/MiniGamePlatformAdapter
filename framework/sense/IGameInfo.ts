@@ -145,7 +145,7 @@ namespace GDK {
 		 **/
 		gameType: number
 
-		/** 只启用小程序跳转支付 */
+		/** 优先只启用小程序跳转支付 */
 		requireMiniAppPay: boolean
 
 	}

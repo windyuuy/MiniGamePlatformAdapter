@@ -2,8 +2,8 @@ declare let gdk: GDK.UserAPI
 namespace GDK {
 
 	export class GDKManager {
-		protected _configMap = {}
-		protected _pluginMap = {}
+		protected _configMap: { [key: string]: PackConfig } = {}
+		protected _pluginMap: { [key: string]: UserAPI } = {}
 
 		registPluginConfig(name: string, config: PackConfig) {
 			slib.assert(!this._configMap[name], `config name ${name} exists already!`)
@@ -13,11 +13,16 @@ namespace GDK {
 
 		protected genGdk(temp: ModuleClassMap) {
 			let map: IModuleMap = {} as IModuleMap
+			const addonList = []
 			for (let k in temp) {
 				let pname = k[0].toLocaleLowerCase() + k.substr(1);
 				map[pname] = new temp[k]();
+				addonList.push(map[pname])
 			}
 			let api = new UserAPI(map)
+			for (let addon of addonList) {
+				addon.api = api
+			}
 			return api;
 		}
 
@@ -44,7 +49,7 @@ namespace GDK {
 
 		initializeGDKInstance() {
 			for (let k in this._configMap) {
-				const plugin = this.genGdk(this._configMap[k])
+				const plugin = this.genGdk(new this._configMap[k].register)
 				this._pluginMap[k] = plugin
 			}
 		}

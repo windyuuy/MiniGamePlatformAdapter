@@ -67,7 +67,7 @@ namespace WechatGDK {
 		networkType: string
 		networkClass: number
 
-		async fetchNetworkInfo() {
+		fetchNetworkInfo() {
 			const ret = new GDK.RPromise<void>()
 			wx.getNetworkType({
 				success: (res) => {

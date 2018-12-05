@@ -10,7 +10,7 @@ namespace QQPlayGDK {
 		api?: GDK.UserAPI
 		server: QQServer
 
-		get userdata() { return this.api.userdata }
+		get userdata() { return this.api.userData }
 
 		login(params?: GDK.LoginParams) {
 			const ret = new GDK.RPromise<GDK.LoginResult>()
@@ -18,7 +18,7 @@ namespace QQPlayGDK {
 			this.update().then(() => {
 				let uploadData = {
 					...GameStatusInfo,
-					...this.api.userdata,
+					...this.api.userData,
 				}
 				uploadData['skltPath'] = undefined
 				uploadData['dressPath'] = undefined
@@ -39,7 +39,7 @@ namespace QQPlayGDK {
 							followGzh: data.followGzh,
 							gameToken: data.gametoken,
 						}
-						const userdata = this.api.userdata
+						const userdata = this.api.userData
 						for (let key in newdata) {
 							userdata[key] = newdata[key]
 						}
@@ -127,7 +127,7 @@ namespace QQPlayGDK {
 		checkSession() {
 			const ret = new GDK.RPromise<void>()
 			this.fetchOpenKey((params) => {
-				this.api.userdata.openKey = params.openKey
+				this.api.userData.openKey = params.openKey
 				ret.success(undefined)
 			}, () => {
 				ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_UPDATE_LOGIN_SESSION_FAILED))

@@ -4,6 +4,10 @@ namespace WechatGDK {
 		api?: GDK.UserAPI
 		server: WXServer
 
+		initWithConfig(info: GDK.GDKConfig) {
+			this.api.userData.userId = info.wechat.userId
+		}
+
 		login(params?: GDK.LoginParams) {
 			const ret = new GDK.RPromise<GDK.LoginResult>()
 			wx.login({
@@ -25,7 +29,7 @@ namespace WechatGDK {
 								followGzh: data.followGzh,
 								gameToken: data.gametoken,
 							}
-							const userdata = this.api.userdata
+							const userdata = this.api.userData
 							for (let key in newdata) {
 								userdata[key] = newdata[key]
 							}

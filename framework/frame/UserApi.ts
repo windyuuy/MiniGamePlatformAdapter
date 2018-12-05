@@ -28,8 +28,8 @@ namespace GDK {
 
     /** 当前实际平台 */
     runtimePlatform: string | "oppo" | "qqplay";
-    get userdata(): IUserData {
-      return this._m.userdata;
+    get userData(): IUserData {
+      return this._m.userData;
     }
     get gameInfo(): IGameInfo {
       return this._m.gameInfo;
@@ -64,69 +64,69 @@ namespace GDK {
     }
 
     get openId(): string {
-      return this._m.userdata.openId;
+      return this._m.userData.openId;
     }
 
     get openKey(): string {
-      return this._m.userdata.openKey;
+      return this._m.userData.openKey;
     }
 
     get password(): string {
-      return this._m.userdata.password;
+      return this._m.userData.password;
     }
 
     get nickName(): string {
-      return this._m.userdata.nickName;
+      return this._m.userData.nickName;
     }
 
     get userId(): number {
-      return this._m.userdata.userId;
+      return this._m.userData.userId;
     }
     /** 是否新用户 */
     get isNewUser(): boolean {
-      return this._m.userdata.isNewUser;
+      return this._m.userData.isNewUser;
     }
 
     get avatarUrl(): string {
-      return this._m.userdata.avatarUrl;
+      return this._m.userData.avatarUrl;
     }
     /** 上传存档时间(秒) */
     get backupTime(): number {
-      return this._m.userdata.backupTime;
+      return this._m.userData.backupTime;
     }
     /** 0 未关注,1 已关注 */
     get followGzh(): number {
-      return this._m.userdata.followGzh;
+      return this._m.userData.followGzh;
     }
     /** 渠道id */
     get channelId(): number {
-      return this._m.userdata.channelId;
+      return this._m.userData.channelId;
     }
     /** 创建时间 */
     get createTime(): string {
-      return this._m.userdata.createTime;
+      return this._m.userData.createTime;
     }
     /** 0 未知 1 男 2 女 */
     get sex(): number {
-      return this._m.userdata.sex;
+      return this._m.userData.sex;
     }
     /**
      * 是否为该游戏管理账号用户，1是，0否
      **/
     get isWhiteUser(): number {
-      return this._m.userdata.isWhiteUser;
+      return this._m.userData.isWhiteUser;
     }
     /**
      * 是否房主，1房主，0参加者
      **/
     get isMaster(): number {
-      return this._m.userdata.isMaster;
+      return this._m.userData.isMaster;
     }
     /**
      * 房间号
      **/
     get roomId(): number {
-      return this._m.userdata.roomId;
+      return this._m.userData.roomId;
     }
     /**
      * 游戏的启动模式。
@@ -191,7 +191,7 @@ namespace GDK {
     get gameType(): number {
       return this._m.gameInfo.gameType;
     }
-    /** 只启用小程序跳转支付 */
+    /** 优先只启用小程序跳转支付 */
     get requireMiniAppPay(): boolean {
       return this._m.gameInfo.requireMiniAppPay;
     }

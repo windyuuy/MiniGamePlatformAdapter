@@ -116,7 +116,7 @@ declare namespace wx {
 		/**
 		 * 接口调用失败的回调函数
 		 */
-		fail?: () => void;
+		fail?: (res?: any) => void;
 
 		/**
 		 * 接口调用结束的回调函数（调用成功、失败都会执行）
@@ -2276,8 +2276,10 @@ declare namespace wx {
 		/**
 		 * - 要打开的小程序版本。仅在当前小程序为开发版或体验版时此参数有效。如果当前小程序是正式版，则打开的小程序必定是正式版。
 		 * - 默认值 release
+		 * - develop|trial|release
 		 **/
 		envVersion?: string
+		fail?: (res: { errMsg: string }) => void;
 	}
 	export function navigateToMiniProgram(res: AppCallUpParams)
 

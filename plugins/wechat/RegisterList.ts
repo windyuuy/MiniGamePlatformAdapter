@@ -1,7 +1,7 @@
 namespace WechatGDK {
 	export class RegisterList extends GDK.ModuleClassMap {
 		Advert = Advert
-		// GameInfo = GameInfo
+		GameInfo = GameInfo
 		User = User
 		Pay = Pay
 		Share = Share

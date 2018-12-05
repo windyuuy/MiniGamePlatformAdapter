@@ -1,7 +1,7 @@
 namespace GDK {
 	export interface IModuleMap {
 		user: IUser
-		userdata: IUserData
+		userData: IUserData
 		gameInfo: IGameInfo
 		systemInfo: ISystemInfo
 		share: IShare

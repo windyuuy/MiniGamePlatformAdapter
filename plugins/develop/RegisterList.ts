@@ -1,11 +1,11 @@
 namespace DevelopGDK {
 	export class RegisterList extends GDK.ModuleClassMap {
 		Advert = Advert
-		// GameInfo = GameInfo
+		GameInfo = GameInfo
 		User = User
 		Pay = Pay
 		Share = Share
-		// SystemInfo = SystemInfo
+		SystemInfo = SystemInfo
 		UserData = UserData
 		Customer = Customer
 		Widgets = Widgets

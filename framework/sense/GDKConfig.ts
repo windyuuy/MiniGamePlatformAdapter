@@ -23,6 +23,11 @@ namespace GDK {
 		httpClient: slib.HttpGameClient
 
 		/**
+		 * 优先只启用小程序跳转支付
+		 */
+		requireMiniAppPay: boolean = true
+
+		/**
 		 * 获取当前服务器时间
 		 */
 		getServerTime: () => Date;
@@ -48,6 +53,12 @@ namespace GDK {
 		 * 安卓分享时，所使用的代理网址
 		 */
 		shareProxyUrl: string = "";
+		userId?: number = 0
+
+        /**
+         * 跳转支付appid
+         */
+		miniAppOfferId?: string = ""
 
 	}
 
