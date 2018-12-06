@@ -1,6 +1,6 @@
 namespace DevelopGDK {
 	export class NMServer extends GDK.APIServer {
-		static get inst(): NMServer { return null }
+		static get inst(): NMServer { return new NMServer() }
 		/**
 			 * 用户登录接口(用户首次进入游戏调用)
 			 */
