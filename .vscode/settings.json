@@ -3,5 +3,6 @@
 	"files.autoSave": "afterDelay",
 	"editor.renderWhitespace": "boundary",
 	"editor.insertSpaces": false,
-	"vscode.tsc.compiler.alertOnError": "never"
+	"vscode.tsc.compiler.alertOnError": "never",
+	"git.detectSubmodules": false
 }
