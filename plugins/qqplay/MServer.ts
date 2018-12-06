@@ -33,8 +33,12 @@ namespace QQPlayGDK {
 		}
 	}
 
-	export class QQServer extends GDK.APIServer {
-		static get inst(): QQServer { return null }
+	export class MServer extends GDK.APIServer {
+		static get inst(): MServer { return null }
+
+		get gameClient() {
+			return Common.httpClient
+		}
 
 		userLogin(
 			data: {

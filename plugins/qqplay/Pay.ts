@@ -3,7 +3,7 @@ namespace QQPlayGDK {
 
 	export class Pay extends GDK.PayBase {
 		api?: GDK.UserAPI
-		server: QQServer
+		server: MServer
 
 		init() {
 			//回到前台后响应

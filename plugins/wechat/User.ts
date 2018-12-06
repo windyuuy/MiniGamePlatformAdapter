@@ -2,7 +2,9 @@
 namespace WechatGDK {
 	export class User extends GDK.UserBase {
 		api?: GDK.UserAPI
-		server: WXServer
+		get server(): MServer {
+			return MServer.inst
+		}
 
 		initWithConfig(info: GDK.GDKConfig) {
 			this.api.userData.userId = info.wechat.userId

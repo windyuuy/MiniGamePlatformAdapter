@@ -8,7 +8,9 @@ namespace QQPlayGDK {
 
 	export class User extends GDK.UserBase {
 		api?: GDK.UserAPI
-		server: QQServer
+		get server(): MServer {
+			return MServer.inst
+		}
 
 		get userdata() { return this.api.userData }
 

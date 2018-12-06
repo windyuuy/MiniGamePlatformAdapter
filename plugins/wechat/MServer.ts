@@ -1,6 +1,10 @@
 namespace WechatGDK {
-	export class WXServer extends GDK.APIServer {
-		static get inst(): WXServer { return null }
+	export class MServer extends GDK.APIServer {
+		static get inst(): MServer { return null }
+
+		get gameClient() {
+			return Common.httpClient
+		}
 
 		userLogin(
 			data: {

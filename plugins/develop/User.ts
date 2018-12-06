@@ -6,8 +6,8 @@ namespace DevelopGDK {
 
 	export class User extends GDK.UserBase {
 		api?: GDK.UserAPI
-		get server(): NMServer {
-			return NMServer.inst
+		get server(): MServer {
+			return MServer.inst
 		}
 
 		login(params?: GDK.LoginParams) {

@@ -1,6 +1,11 @@
 namespace DevelopGDK {
-	export class NMServer extends GDK.APIServer {
-		static get inst(): NMServer { return new NMServer() }
+	export class MServer extends GDK.APIServer {
+		static readonly inst: MServer = new MServer()
+
+		get gameClient() {
+			return Common.httpClient
+		}
+
 		/**
 			 * 用户登录接口(用户首次进入游戏调用)
 			 */
@@ -41,7 +46,7 @@ namespace DevelopGDK {
 					gametoken: string,
 				}
 			}) => void, errorCallback: (error: any, retry: () => void) => void = null) {
-			this['gameClient'].request("user/loginTest", data, (data) => {
+			this.gameClient.request("user/loginTest", data, (data) => {
 				callback(data);
 			}, { modal: false, errorCallback: errorCallback })
 		}
@@ -89,7 +94,7 @@ namespace DevelopGDK {
 				}
 			}) => void,
 			errorCallback: (error: any, retry: () => void) => void = null) {
-			this['gameClient'].request("user/login", data, (data) => {
+			this.gameClient.request("user/login", data, (data) => {
 				callback(data);
 			}, { errorCallback: errorCallback })
 		}
