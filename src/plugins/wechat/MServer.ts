@@ -1,6 +1,6 @@
 namespace WechatGDK {
 	export class MServer extends GDK.APIServer {
-		static get inst(): MServer { return null }
+		static readonly inst: MServer = new MServer()
 
 		get gameClient() {
 			return Common.httpClient
