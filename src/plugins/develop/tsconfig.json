@@ -4,7 +4,7 @@
 		"target": "es6",
 		"preserveConstEnums": true,
 		"sourceMap": true,
-		"outFile": "../../dist/develop.js",
+		"outFile": "../../../dist/develop.js",
 		"declaration": true,
 		"composite": true
 	},

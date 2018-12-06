@@ -50,7 +50,7 @@ gulp.task("updateLibs", async function () {
 
 gulp.task("compile", async () => {
 
-	execon(".", () => {
+	execon("./src", () => {
 		execon("./framework", () => exec("tsc"))
 		execon("./plugins/wechat", () => exec("tsc"))
 		execon("./plugins/qqplay", () => exec("tsc"))
@@ -81,13 +81,14 @@ function findExplain(ast, loc) {
 	return comment
 }
 
-gulp.task('buildapi', async () => {
+async function buildApi() {
 	const prettier = require("prettier");
 
-	const srcfile = './framework/frame/UserApi.ts'
-	const destfile = './framework/frame/UserApi.ts'
+	const baseDir = "./src"
+	const srcfile = baseDir + '/framework/frame/UserApi.ts'
+	const destfile = baseDir + '/framework/frame/UserApi.ts'
 
-	const moduleMapFile = './framework/sense/IModuleMap.ts'
+	const moduleMapFile = baseDir + '/framework/sense/IModuleMap.ts'
 
 	/**
 	 * @type {varname:string,typename:string}[]
@@ -111,7 +112,7 @@ gulp.task('buildapi', async () => {
 			// console.log('parse', moduleName)
 			const exportList = []
 
-			const subProtoFile = `./framework/sense/${moduleName}.ts`
+			const subProtoFile = baseDir + `/framework/sense/${moduleName}.ts`
 			const content = fs.readFileSync(subProtoFile, { encoding: 'utf-8' })
 			let txt = prettier.format(content, { semi: false, parser: "typescript" })
 			prettier.format(txt, {
@@ -248,7 +249,9 @@ gulp.task('buildapi', async () => {
 	temp = prettier.format(temp, { parser: "typescript", useTabs: true });
 	const output = temp
 	fs.writeFileSync(destfile, output, { encoding: 'utf-8' })
-})
+}
+
+gulp.task('buildapi', buildApi)
 
 gulp.task("comp", gulp.series("buildapi", "compile"));
 

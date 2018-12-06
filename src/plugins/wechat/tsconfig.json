@@ -4,7 +4,7 @@
 		"target": "es6",
 		"preserveConstEnums": true,
 		"sourceMap": true,
-		"outFile": "../../dist/wechat.js",
+		"outFile": "../../../dist/wechat.js",
 		"declaration": true,
 		"composite": true
 	},
