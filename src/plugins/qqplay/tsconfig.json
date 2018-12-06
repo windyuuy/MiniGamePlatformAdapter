@@ -1,7 +1,12 @@
 {
 	"compilerOptions": {
 		"module": "none",
-		"target": "es6",
+		"target": "es5",
+		"lib": [
+			"es6",
+			"dom",
+			"es2015.promise"
+		],
 		"preserveConstEnums": true,
 		"sourceMap": true,
 		"outFile": "../../../dist/qqplay.js",
