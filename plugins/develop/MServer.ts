@@ -11,7 +11,7 @@ namespace DevelopGDK {
 			 */
 		loginTest(
 			data: {
-				userId: number
+				loginCode: number
 			},
 			callback: (data: {
 				succeed: boolean,
