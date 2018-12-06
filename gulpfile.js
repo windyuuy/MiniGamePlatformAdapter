@@ -253,6 +253,6 @@ async function buildApi() {
 
 gulp.task('buildapi', buildApi)
 
-gulp.task("comp", gulp.series("buildapi", "compile"));
+gulp.task("build", gulp.series("buildapi", "compile"));
 
-gulp.task("publish", gulp.series("comp", "uploadVersion"));
+gulp.task("publish", gulp.series("build", "uploadVersion"));
