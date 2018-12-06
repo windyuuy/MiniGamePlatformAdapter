@@ -1907,8 +1907,6 @@ interface Date{
 }
 
 declare namespace slib {
-}
-declare namespace slib {
     function assert(cond: any, tip?: string): any;
 }
 declare namespace slib {
@@ -2070,7 +2068,14 @@ declare namespace slib {
         off(callback: EventHandler<T>): void;
         emit(value: T): void;
     }
-    class SEvent<T> {
+    interface SEventInput<T> {
+        emit(key: string, value: T): any;
+    }
+    interface SEventOutput<T> {
+        on(key: string, callback: EventHandler<T>): any;
+        off(key: string, callback: EventHandler<T>): any;
+    }
+    class SEvent<T> implements SEventInput<T>, SEventOutput<T> {
         protected _events: {
             [key: string]: SimpleEvent<T>;
         };

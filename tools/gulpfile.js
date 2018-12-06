@@ -43,14 +43,14 @@ gulp.task("updateLibs", async function () {
 
 	let client = getOssClient();
 
-	await client.get("libs/slib.d.ts", "./libs/slib.d.ts")
+	await client.get("libs/slib.d.ts", "../src/libs/slib.d.ts")
 	console.log("更新完成 slib.d.ts")
 
 })
 
 gulp.task("compile", async () => {
 
-	execon("./src", () => {
+	execon("../src", () => {
 		execon("./framework", () => exec("tsc"))
 		execon("./plugins/wechat", () => exec("tsc"))
 		execon("./plugins/qqplay", () => exec("tsc"))
@@ -63,10 +63,10 @@ gulp.task("compile", async () => {
 gulp.task("uploadVersion", async () => {
 	let client = getOssClient();
 
-	let list = fs.readdirSync("./dist")
+	let list = fs.readdirSync("../dist")
 	for (let n of list) {
-		await client.put("libs/" + n, "./dist/" + n)
-		console.log("上传完成", "./dist/" + n)
+		await client.put("libs/" + n, "../dist/" + n)
+		console.log("上传完成", "../dist/" + n)
 	}
 
 })
@@ -84,7 +84,7 @@ function findExplain(ast, loc) {
 async function buildApi() {
 	const prettier = require("prettier");
 
-	const baseDir = "./src"
+	const baseDir = "../src"
 	const srcfile = baseDir + '/framework/frame/UserApi.ts'
 	const destfile = baseDir + '/framework/frame/UserApi.ts'
 
