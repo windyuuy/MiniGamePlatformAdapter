@@ -2031,6 +2031,11 @@ declare namespace slib {
      */
     function SafeClass(className: string): any;
     /**
+     * 类存储修饰符，被反序列化时会自动匹配上该类
+     * @param className
+     */
+    function StorageClass(className: string): any;
+    /**
      * 对某个属性进行加密
      * @param target 对象
      * @param property 对象的属性
