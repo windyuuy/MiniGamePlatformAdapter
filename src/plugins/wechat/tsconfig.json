@@ -1,23 +1,11 @@
 {
+	"extends": "../../base",
 	"compilerOptions": {
-		"module": "none",
-		"target": "es5",
-		"lib": [
-			"es6",
-			"dom",
-			"es2015.promise"
-		],
-		"preserveConstEnums": true,
-		"sourceMap": true,
-		"outFile": "../../../dist/wechat.js",
-		"declaration": true,
-		"composite": true
+		"outFile": "../../../dist/wechat.js"
 	},
-	"compileOnSave": true,
 	"include": [
 		"../../libs/**.ts",
 		"../../framework",
-		"./**/*.ts",
-	],
-	"typeAcquisition": {}
+		"./**/*.ts"
+	]
 }

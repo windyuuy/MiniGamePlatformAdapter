@@ -1,22 +1,11 @@
 {
+	"extends": "../base",
 	"compilerOptions": {
-		"module": "none",
-		// "noImplicitAny": true,
-		// "removeComments": true,
-		"target": "es5",
-		"lib": [
-			"es6",
-			"dom",
-			"es2015.promise"
-		],
-		"preserveConstEnums": true,
-		"sourceMap": true,
 		"outFile": "../../dist/gdk.js",
 		"emitDeclarationOnly": true,
 		"declaration": true,
 		"composite": true,
 	},
-	"compileOnSave": true,
 	"include": [
 		"../libs/*.ts",
 		"./**/*.ts"
