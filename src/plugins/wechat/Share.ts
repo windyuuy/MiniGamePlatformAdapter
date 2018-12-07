@@ -79,9 +79,21 @@ namespace WechatGDK {
 				let sharesSucFailSame: number = 0.1  //分享判定不同群提示概率  0.1
 
 				let beginShareTime = new Date().getTime();//开始分享时间
+
+				let imageUrl = data.imageUrl
+
+				let platform = wx.getSystemInfoSync().platform
+				if (platform == "android") {
+					imageUrl = ShareProxy.apiSetValue(this.api.gameInfo.shareProxyUrl, this.api.gameInfo.appId, beginShareTime, data.imageUrl)
+				}
+				console.log("share", {
+					title: data.title,
+					imageUrl: imageUrl,
+					query: query,
+				})
 				wx.shareAppMessage({
 					title: data.title,
-					imageUrl: data.imageUrl,
+					imageUrl: imageUrl,
 					query: query,
 				})
 
@@ -134,7 +146,7 @@ namespace WechatGDK {
 						//安卓平台使用
 						let platform = wx.getSystemInfoSync().platform
 						if (platform == "android") {
-							ShareProxy.apiGetValue(this.api.gameInfo.shareProxyUrl, this.api.gameInfo.appId, new Date().getTime(), (rep) => {
+							ShareProxy.apiGetValue(this.api.gameInfo.shareProxyUrl, this.api.gameInfo.appId, beginShareTime, (rep) => {
 								if (rep && rep.data) {
 									shareMaySuc()
 								} else {
