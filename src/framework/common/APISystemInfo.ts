@@ -1,7 +1,7 @@
 
-namespace DevelopGDK {
-	export class SystemInfo extends GDK.SystemInfoBase {
-		platform = "browser 1.0.0"
+namespace GDK {
+	export abstract class SystemInfoBase implements ISystemInfo {
+		platform = "devtools"
 		brand: string = 'unknown'
 		model: string = 'unknown'
 		pixelRatio: number = -1
@@ -12,7 +12,7 @@ namespace DevelopGDK {
 		statusBarHeight: number = -1
 		language: string = 'zh_CN'
 		version: string = '1.0.0'
-		system: string = "browser"
+		system: string = "devtools"
 		fontSizeSetting: number = -1
 		SDKVersion: string = '1.0.0'
 		benchmarkLevel: number = -1
@@ -21,10 +21,8 @@ namespace DevelopGDK {
 		networkType: string = 'unknown'
 
 		isFirstInstall?: number
-		devPlatform?: string = "browser"
+		devPlatform?: string = "devtools"
 
-		async fetchNetworkInfo(): Promise<void> {
-
-		}
+		abstract fetchNetworkInfo(): Promise<void>
 	}
 }
