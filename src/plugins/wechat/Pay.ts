@@ -1,6 +1,7 @@
 
 namespace WechatGDK {
-	const log = new slib.Log({ tags: ['api'] })
+	const log = new slib.Log({ tags: ['api-pay'] })
+
 	export class Pay extends GDK.PayBase {
 		api?: GDK.UserAPI
 
@@ -10,14 +11,25 @@ namespace WechatGDK {
 			const info = this.api.gameInfo
 			const env = info.isPayInSandbox ? 1 : 0
 			const successCode = 999999
-			wx.requestMidasPayment({
+			const zoneId = slib.defaultValue(options.wxZoneId, "1")
+			const mp: wx.MidasPaymentParams = {
 				mode: "game",
 				env: env,
 				offerId: info.offerId,
 				currencyType: config.currencyUnit || "CNY",
-				platform: this.api.systemInfo.system,
-				zoneId: "1",
+				platform: 'android',
+				zoneId: zoneId,
 				buyQuantity: config.money * 10,
+			}
+			log.info("requestMidasPayment", mp)
+			wx.requestMidasPayment({
+				mode: mp.mode,
+				env: mp.env,
+				offerId: mp.offerId,
+				currencyType: mp.currencyType,
+				platform: mp.platform,
+				zoneId: mp.zoneId,
+				buyQuantity: mp.buyQuantity,
 				success: () => {
 					log.info("微信充值成功", config)
 					ret.success({
@@ -57,6 +69,7 @@ namespace WechatGDK {
 			const goodsId = config.goodsId
 			const quantity = config.amount
 			const title = config.title
+			const zoneId = slib.defaultValue(options.gleeZoneId, 1)
 
 			// test
 			// const myAppId = "wxcfc7f0661463ee36"
@@ -67,18 +80,20 @@ namespace WechatGDK {
 			// const title = "60钻石"
 
 			const jpPath = `pages/payment/payment?appId=${myAppId}&userId=${userId}&goodsId=${goodsId}&quantity=${quantity}&title=${title}`
-			let envVersion: string = this.api.gameInfo.mode
-			if (envVersion == 'test') {
-				envVersion = 'trial'
+			const info = this.api.gameInfo
+			let envVersion = 'release'
+			if (info.payAppEnvVersion) {
+				envVersion = info.payAppEnvVersion
 			}
-			envVersion = 'release'
 
 			log.info(`navigateToMiniProgram: { path: ${jpPath}, miniAppId: ${miniAppOfferId}, envVersion:${envVersion} }`)
 			wx.navigateToMiniProgram({
 				appId: miniAppOfferId,
 				path: jpPath,
 				envVersion: envVersion,
-				extraData: {},
+				extraData: {
+					field: zoneId
+				},
 				success: () => {
 					log.info("调起app成功", config)
 					ret.success({

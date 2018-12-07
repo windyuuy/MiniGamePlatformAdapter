@@ -1908,6 +1908,7 @@ interface Date{
 
 declare namespace slib {
     function assert(cond: any, tip?: string): any;
+    function defaultValue<T>(kv: T, dv: T): T;
 }
 declare namespace slib {
     class I18N {
