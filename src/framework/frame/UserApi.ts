@@ -77,28 +77,28 @@ namespace GDK {
 
 		/** 批量导出接口 */
 		// $batch_export() begin
-
+		/** 登录 */
 		login(params?: LoginParams): Promise<LoginResult> {
 			if (!this.checkModuleAttr("user", "login", "function")) {
 				return this.createNonePromise("[user.login]");
 			}
 			return this._m.user.login(params);
 		}
-
+		/** 检查登录态是否过期 */
 		checkSession?(params?: ReqParams) {
 			if (!this.checkModuleAttr("user", "checkSession", "function")) {
 				return undefined;
 			}
 			return this._m.user.checkSession(params);
 		}
-
+		/** 更新用户数据 */
 		updateUser(): Promise<UserDataUpdateResult> {
 			if (!this.checkModuleAttr("user", "update", "function")) {
 				return this.createNonePromise("[user.update]");
 			}
 			return this._m.user.update();
 		}
-
+		/** 获取用户云端数据 */
 		getFriendCloudStorage(obj: {
 			keyList: string[];
 		}): Promise<{ data: UserGameData[] }> {
@@ -107,7 +107,7 @@ namespace GDK {
 			}
 			return this._m.user.getFriendCloudStorage(obj);
 		}
-
+		/** 提交用户云端数据 */
 		setUserCloudStorage(obj: { KVDataList: KVData[] }): Promise<void> {
 			if (!this.checkModuleAttr("user", "setUserCloudStorage", "function")) {
 				return this.createNonePromise("[user.setUserCloudStorage]");
@@ -128,21 +128,21 @@ namespace GDK {
 			}
 			return this._m.userData.openKey;
 		}
-
+		/** 密码 */
 		get password(): string {
 			if (!this.checkModuleAttr("userData", "password")) {
 				return undefined;
 			}
 			return this._m.userData.password;
 		}
-
+		/** 昵称 */
 		get nickName(): string {
 			if (!this.checkModuleAttr("userData", "nickName")) {
 				return undefined;
 			}
 			return this._m.userData.nickName;
 		}
-
+		/** 用户ID */
 		get userId(): number {
 			if (!this.checkModuleAttr("userData", "userId")) {
 				return undefined;
@@ -156,7 +156,7 @@ namespace GDK {
 			}
 			return this._m.userData.isNewUser;
 		}
-
+		/** 用户头像 */
 		get avatarUrl(): string {
 			if (!this.checkModuleAttr("userData", "avatarUrl")) {
 				return undefined;
@@ -170,7 +170,10 @@ namespace GDK {
 			}
 			return this._m.userData.backupTime;
 		}
-		/** 0 未关注,1 已关注 */
+		/** 是否已关注公众号
+		 * - 0 未关注
+		 * - 1 已关注
+		 **/
 		get followGzh(): number {
 			if (!this.checkModuleAttr("userData", "followGzh")) {
 				return undefined;
@@ -191,7 +194,12 @@ namespace GDK {
 			}
 			return this._m.userData.createTime;
 		}
-		/** 0 未知 1 男 2 女 */
+		/**
+		 * 性别
+		 * - 0 未知
+		 * - 1 男
+		 * - 2 女
+		 **/
 		get sex(): number {
 			if (!this.checkModuleAttr("userData", "sex")) {
 				return undefined;
@@ -199,7 +207,9 @@ namespace GDK {
 			return this._m.userData.sex;
 		}
 		/**
-		 * 是否为该游戏管理账号用户，1是，0否
+		 * 是否为该游戏管理账号用户
+		 * - 1是
+		 * - 0否
 		 **/
 		get isWhiteUser(): number {
 			if (!this.checkModuleAttr("userData", "isWhiteUser")) {
@@ -259,6 +269,13 @@ namespace GDK {
 				return undefined;
 			}
 			return this._m.gameInfo.isPayInSandbox;
+		}
+		/** 跳转支付app模式 */
+		get payAppEnvVersion(): "trial" | "release" | "develop" {
+			if (!this.checkModuleAttr("gameInfo", "payAppEnvVersion")) {
+				return undefined;
+			}
+			return this._m.gameInfo.payAppEnvVersion;
 		}
 		/** 支付侧应用id */
 		get offerId(): string {
@@ -338,8 +355,8 @@ namespace GDK {
 			return this._m.systemInfo.brand;
 		}
 		/**
-		 * 手机型号
-		 * 具体机型(手Q7.6.3及以上支持) 形如 "PRO 6 Plus"
+		 * - 手机型号
+		 * - 具体机型(手Q7.6.3及以上支持) 形如 "PRO 6 Plus"
 		 **/
 		get model(): string {
 			if (!this.checkModuleAttr("systemInfo", "model")) {
@@ -467,12 +484,12 @@ namespace GDK {
 		}
 		/**
 		 * 网络类型
-		 * - wifi	wifi 网络
-		 * - 2g	2g 网络
-		 * - 3g	3g 网络
-		 * - 4g	4g 网络
-		 * - unknown	Android 下不常见的网络类型
-		 * - none	无网络
+		 * - `wifi`	wifi 网络
+		 * - `2g`	2g 网络
+		 * - `3g`	3g 网络
+		 * - `4g`	4g 网络
+		 * - `unknown`	Android 下不常见的网络类型
+		 * - `none`	无网络
 		 */
 		get networkType(): string {
 			if (!this.checkModuleAttr("systemInfo", "networkType")) {
@@ -559,8 +576,8 @@ namespace GDK {
 			return this._m.apiSystem.setEnableDebug(res);
 		}
 		/**
-		 * 设置帧率
-		 * - 可能和cocos的会冲突
+		 * - 设置帧率
+		 * 	- 可能和cocos的会冲突
 		 */
 		setFPS?(fps: number): void {
 			if (!this.checkModuleAttr("apiSystem", "setFPS", "function")) {
@@ -581,7 +598,6 @@ namespace GDK {
 		 * 分享到聊天窗口
 		 * * 如果目标平台没有明确的聊天窗口，则进行社会化分享。
 		 * * 如果当前环境无法分享，则分享失败
-		 * @param data
 		 */
 		share(data: ShareData): Promise<ShareResult> {
 			if (!this.checkModuleAttr("share", "share", "function")) {
@@ -593,7 +609,6 @@ namespace GDK {
 		 * 社会化分享
 		 * * 如果目标平台无法进行社会化分享，则选用聊天窗口分享。
 		 * * 如果当前环境无法分享，则分享失败
-		 * @param data
 		 */
 		socialShare(data: ShareData): Promise<ShareResult> {
 			if (!this.checkModuleAttr("share", "socialShare", "function")) {
@@ -605,7 +620,6 @@ namespace GDK {
 		 * 分享网址
 		 * * 如果当前环境无法进行URL分享，则分享失败
 		 * * 当前仅 QQPlay 环境支持
-		 * @param data
 		 */
 		shareUrl(data: ShareUrlData): Promise<ShareResult> {
 			if (!this.checkModuleAttr("share", "shareUrl", "function")) {
@@ -653,7 +667,9 @@ namespace GDK {
 			}
 			return this._m.share.getShareParam();
 		}
-
+		/**
+		 * 调起支付
+		 */
 		payPurchase(
 			item: GDK.PayItemInfo,
 			options?: PayOptions
@@ -663,7 +679,7 @@ namespace GDK {
 			}
 			return this._m.pay.payPurchase(item, options);
 		}
-
+		/** 创建激励视频广告对象 */
 		createRewardedVideoAd(params: {
 			/** 广告单元 id */
 			adUnitId?: string;
@@ -675,7 +691,7 @@ namespace GDK {
 			}
 			return this._m.advert.createRewardedVideoAd(params);
 		}
-
+		/** 创建条幅广告对象 */
 		createBannerAd(params: {
 			/** 广告单元 id */
 			adUnitId?: string;
@@ -689,7 +705,10 @@ namespace GDK {
 			}
 			return this._m.advert.createBannerAd(params);
 		}
-
+		/**
+		 * - 进入客服会话。
+		 * 	- 微信小游戏要求在用户发生过至少一次 touch 事件后才能调用。后台接入方式与小程序一致
+		 */
 		openCustomerServiceConversation(params: OpenParam) {
 			if (
 				!this.checkModuleAttr(
@@ -702,63 +721,73 @@ namespace GDK {
 			}
 			return this._m.customer.openCustomerServiceConversation(params);
 		}
-
+		/** 系统键盘对象 */
 		get keyboard(): IKeyBoard {
 			if (!this.checkModuleAttr("widgets", "keyboard")) {
 				return undefined;
 			}
 			return this._m.widgets.keyboard;
 		}
-
+		/** 显示 loading 提示框。需主动调用 wx.hideLoading 才能关闭提示框 */
 		showLoading(object: ShowLoadingParams): Promise<void> {
 			if (!this.checkModuleAttr("widgets", "showLoading", "function")) {
 				return this.createNonePromise("[widgets.showLoading]");
 			}
 			return this._m.widgets.showLoading(object);
 		}
-
+		/** 隐藏 loading 提示框 */
 		hideLoading(): Promise<void> {
 			if (!this.checkModuleAttr("widgets", "hideLoading", "function")) {
 				return this.createNonePromise("[widgets.hideLoading]");
 			}
 			return this._m.widgets.hideLoading();
 		}
-
+		/** 显示消息提示框 */
 		showToast(object: ShowToastOptions): Promise<void> {
 			if (!this.checkModuleAttr("widgets", "showToast", "function")) {
 				return this.createNonePromise("[widgets.showToast]");
 			}
 			return this._m.widgets.showToast(object);
 		}
-
+		/** 隐藏消息提示框 */
 		hideToast(): Promise<void> {
 			if (!this.checkModuleAttr("widgets", "hideToast", "function")) {
 				return this.createNonePromise("[widgets.hideToast]");
 			}
 			return this._m.widgets.hideToast();
 		}
-
+		/**
+		 * 显示模态对话框
+		 * - 有`确定`和`取消`两个按钮
+		 */
 		showConfirm(object: ShowConfirmOptions): Promise<ShowConfirmResult> {
 			if (!this.checkModuleAttr("widgets", "showConfirm", "function")) {
 				return this.createNonePromise("[widgets.showConfirm]");
 			}
 			return this._m.widgets.showConfirm(object);
 		}
-
+		/**
+		 * 显示模态对话框
+		 * - 只有`确定`一个按钮
+		 */
 		showAlert(object: ShowAlertOptions): Promise<ShowAlertResult> {
 			if (!this.checkModuleAttr("widgets", "showAlert", "function")) {
 				return this.createNonePromise("[widgets.showAlert]");
 			}
 			return this._m.widgets.showAlert(object);
 		}
-
+		/**
+		 * - 监听主域发送的消息
+		 */
 		onMessage(callback: (message: PrimitiveMap) => void) {
 			if (!this.checkModuleAttr("subContext", "onMessage", "function")) {
 				return undefined;
 			}
 			return this._m.subContext.onMessage(callback);
 		}
-
+		/**
+		 * 获取开放数据域
+		 */
 		getOpenDataContext(): IOpenDataContext {
 			if (
 				!this.checkModuleAttr("subContext", "getOpenDataContext", "function")
@@ -778,6 +807,20 @@ namespace GDK {
 				return undefined;
 			}
 			return this._m.support.apiPlatform;
+		}
+		/**
+		 * - 插件名，如：
+		 * ```
+		 * develop(网页版)
+		 * wechat(微信)
+		 * qqplay(玩一玩)
+		 * ```
+		 **/
+		get pluginName(): string {
+			if (!this.checkModuleAttr("support", "pluginName")) {
+				return undefined;
+			}
+			return this._m.support.pluginName;
 		}
 		/** 是否支持群分享 */
 		get supportShareTickets(): boolean {
@@ -809,7 +852,6 @@ namespace GDK {
 		}
 		/**
 		 * 注册全局的错误回调函数
-		 * @param callback
 		 */
 		setErrorCallback(
 			callback: (err: { message: string; stack: string }) => void

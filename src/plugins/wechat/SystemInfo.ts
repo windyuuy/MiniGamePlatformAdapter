@@ -100,6 +100,8 @@ namespace WechatGDK {
 			this.fetchNetworkInfo()
 			this.updateNetworkInfo(this.networkType)
 
+			console.log('wx systeminfo:', this)
+
 			wx.onNetworkStatusChange((res) => {
 				this.updateNetworkInfo(res.networkType, res.isConnected)
 			})
