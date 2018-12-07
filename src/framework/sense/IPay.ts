@@ -30,10 +30,10 @@ namespace GDK {
 	}
 
 	/**
-	 * //每次有成功订单被应用时,都会通知
-	 * // 包括微信回调成功,补单成功,登录时补单成功
-	 * let notifyData:ApplyOrderInfo={orderInfo:orderInfo,config:config,isDelayedApply:isDelayedApply}
-	 * GlobalEmit.instance.messsgeEmit.emit("onApplyOrder",notifyData);
+	 * - 每次有成功订单被应用时,都会通知
+	 * - 包括微信回调成功,补单成功,登录时补单成功
+	 * - let notifyData:ApplyOrderInfo={orderInfo:orderInfo,config:config,isDelayedApply:isDelayedApply}
+	 * - GlobalEmit.instance.messsgeEmit.emit("onApplyOrder",notifyData);
 	 */
 	export type ApplyOrderInfo = {
 		orderInfo: OrderInfo, //订单信息
