@@ -11,7 +11,7 @@ namespace GDK {
 		model: string
 		/**
 		 * 设备像素比
-		 * - -1代表未知
+		 * - -1 代表未知
 		 **/
 		pixelRatio: number
 		/**
