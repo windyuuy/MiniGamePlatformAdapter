@@ -70,6 +70,9 @@ namespace WechatGDK {
 			const quantity = config.amount
 			const title = config.title
 			const zoneId = slib.defaultValue(options.gleeZoneId, 1)
+			const extraData = {
+				field: zoneId
+			}
 
 			// test
 			// const myAppId = "wxcfc7f0661463ee36"
@@ -78,6 +81,9 @@ namespace WechatGDK {
 			// const goodsId = 1
 			// const quantity = 6
 			// const title = "60钻石"
+			// const extraData = {
+			// 	field: 1
+			// }
 
 			const jpPath = `pages/payment/payment?appId=${myAppId}&userId=${userId}&goodsId=${goodsId}&quantity=${quantity}&title=${title}`
 			const info = this.api.gameInfo
@@ -86,14 +92,12 @@ namespace WechatGDK {
 				envVersion = info.payAppEnvVersion
 			}
 
-			log.info(`navigateToMiniProgram: { path: ${jpPath}, miniAppId: ${miniAppOfferId}, envVersion:${envVersion} }`)
+			log.info(`navigateToMiniProgram: { path: ${jpPath}, miniAppId: ${miniAppOfferId}, envVersion:${envVersion} }`, extraData)
 			wx.navigateToMiniProgram({
 				appId: miniAppOfferId,
 				path: jpPath,
 				envVersion: envVersion,
-				extraData: {
-					field: zoneId
-				},
+				extraData: extraData,
 				success: () => {
 					log.info("调起app成功", config)
 					ret.success({
