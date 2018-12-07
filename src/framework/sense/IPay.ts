@@ -76,6 +76,9 @@ namespace GDK {
 		// 这个参数代表不同数据库分区
 		/**
 		 * 每日给力支付app分区 ID
+		 * - 0 测试版
+		 * - 1 fox应用
+		 * - 2 海洋馆应用
 		 * @default 1
 		 */
 		gleeZoneId?: number
