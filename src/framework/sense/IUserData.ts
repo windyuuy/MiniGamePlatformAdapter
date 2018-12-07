@@ -59,8 +59,8 @@ namespace GDK {
 
 		/**
 		 * 是否为该游戏管理账号用户
-		 * - 1是
-		 * - 0否
+		 * - 1 是
+		 * - 0 否
 		 **/
 		isWhiteUser?: number
 		/**

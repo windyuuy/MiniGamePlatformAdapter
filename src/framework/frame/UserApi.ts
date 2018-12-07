@@ -218,7 +218,9 @@ namespace GDK {
 			return this._m.userData.isWhiteUser;
 		}
 		/**
-		 * 是否房主，1房主，0参加者
+		 * 是否房主
+		 * - 1 房主
+		 * - 0 参加者
 		 **/
 		get isMaster(): number {
 			if (!this.checkModuleAttr("userData", "isMaster")) {

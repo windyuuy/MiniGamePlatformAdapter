@@ -1,24 +1,25 @@
 namespace GDK {
 	export interface ISystemInfo {
 		/**
-		 * 手机品牌	1.5.0
+		 * 手机品牌
 		 **/
 		brand: string
 		/**
 		 * - 手机型号
-		 * - 具体机型(手Q7.6.3及以上支持) 形如 "PRO 6 Plus"
+		 * - 具体机型(微信、手Q7.6.3及以上支持) 形如 "PRO 6 Plus"
 		 **/
 		model: string
 		/**
-		 * 设备像素比，-1代表未知
+		 * 设备像素比
+		 * - -1代表未知
 		 **/
 		pixelRatio: number
 		/**
-		 * 屏幕宽度	1.1.0
+		 * 屏幕宽度
 		 **/
 		screenWidth: number
 		/**
-		 * 屏幕高度	1.1.0
+		 * 屏幕高度
 		 **/
 		screenHeight: number
 		/**
@@ -30,7 +31,7 @@ namespace GDK {
 		 **/
 		windowHeight: number
 		/**
-		 * 状态栏的高度	1.9.0
+		 * 状态栏的高度
 		 **/
 		statusBarHeight?: number
 		/**
@@ -51,15 +52,19 @@ namespace GDK {
 		 **/
 		platform: string
 		/**
-		 * 用户字体大小设置。以“我 - 设置 - 通用 - 字体大小”中的设置为准，单位 px。	1.5.0
+		 * 用户字体大小设置。以“我 - 设置 - 通用 - 字体大小”中的设置为准，单位 px。
 		 **/
 		fontSizeSetting?: number
 		/**
-		 * 客户端基础库版本	1.1.0
+		 * 客户端基础库版本
 		 **/
 		SDKVersion: string
 		/**
-		 * (仅Android小游戏) 性能等级，-2 或 0：该设备无法运行小游戏，-1：性能未知，>= 1 设备性能值，该值越高，设备性能越好(目前设备最高不到50)	1.8.0
+		 * (仅Android小游戏) 性能等级
+		 * - -2 或 0：该设备无法运行小游戏
+		 * - -1：性能未知
+		 * - `>=` 1 设备性能值
+		 * - 该值越高，设备性能越好(目前设备最高不到50)
 		 **/
 		benchmarkLevel: number
 		/**
@@ -75,13 +80,16 @@ namespace GDK {
 
 		// qqplay
 		/**
-		 * 网络类型 1 电信 ，2 联通 ，3 移动 0: wifi或未知
+		 * 网络类型 1 电信 ，2 联通 ，3 移动
+		 * - 0: wifi或未知
 		 * -1 无网络
 		 * -2 2G/3G/4G/nG 网络
 		 **/
 		networkClass: number
 		/**
-		 * 是否首次安装 1为首次安装 0非首次安装
+		 * 是否首次安装
+		 * - 1为首次安装
+		 * - 0非首次安装
 		 **/
 		isFirstInstall?: number
 		/**
