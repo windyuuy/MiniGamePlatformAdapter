@@ -19,4 +19,4 @@ qqplay(玩一玩)
 - 是否需要鉴权认证
 
 ### **apiNameLocale**
-- api名字
+- api本地化名字

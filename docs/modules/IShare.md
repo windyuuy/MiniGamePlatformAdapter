@@ -1,14 +1,14 @@
-### **share()**
+### **share(data)**
 分享到聊天窗口
 * 如果目标平台没有明确的聊天窗口，则进行社会化分享。
 * 如果当前环境无法分享，则分享失败
 
-### **socialShare()**
+### **socialShare(data)**
 社会化分享
 * 如果目标平台无法进行社会化分享，则选用聊天窗口分享。
 * 如果当前环境无法分享，则分享失败
 
-### **shareUrl()**
+### **shareUrl(data)**
 分享网址
 * 如果当前环境无法进行URL分享，则分享失败
 * 当前仅 QQPlay 环境支持
@@ -21,7 +21,7 @@
 ### **hideShareMenu()**
 - 隐藏分享菜单
 
-### **setShareMenuData()**
+### **setShareMenuData(data)**
 在某些平台可以设置分享按钮所分享的内容
 * 微信支持
 * QQplay 无效

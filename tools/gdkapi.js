@@ -14,6 +14,9 @@ function findExplain(ast, loc) {
 	return comment
 }
 
+/**
+ * @type {parent:string,declare:string,defcontent:string,key:string,alias:string,params:string[],deftype:string,membertype:string,explain:string}[]
+ */
 const parseModule = (parent, moduleName) => {
 	// console.log('parse', moduleName)
 	const exportList = []
@@ -49,6 +52,7 @@ const parseModule = (parent, moduleName) => {
 							let membertype = null
 							if (deftype == 'TSMethodSignature') {
 								const params_def = member['params']
+								// console.log('params_def', prettier.format(JSON.stringify(params_def)))
 								for (let p of params_def) {
 									params.push(p['name'])
 								}
@@ -107,9 +111,6 @@ function parseModuleList(moduleMapFile) {
 	return moduleList
 }
 
-/**
- * @type {parent:string,declare:string,defcontent:string,key:string,alias:string,params:string[],deftype:string,membertype:string,explain:string}[]
- */
 // make module body
 function makeModuleBody(moduleList) {
 	const exportList = []
@@ -212,13 +213,13 @@ async function genDoc() {
 		if (alias == 'init') {
 			continue
 		}
-		// const paramsline = def.params.join(',')
+		const paramsline = def.params.join(',')
 		const membertype = def.membertype
 		const explain = def.explain
 
 		let interfaceLine = alias
 		if (def.deftype == 'TSMethodSignature') {
-			interfaceLine = `${interfaceLine}()`
+			interfaceLine = `${interfaceLine}(${paramsline})`
 		}
 
 		let comment = explain || ''
@@ -246,7 +247,9 @@ async function genDoc() {
 
 
 		const docs = moduleDocs[moduleName] ? moduleDocs[moduleName] : moduleDocs[moduleName] = []
-		const line = `### **${interfaceLine}**
+		// template
+		const line =
+			`### **${interfaceLine}**
 ${comment}
 `
 		// console.log(line)

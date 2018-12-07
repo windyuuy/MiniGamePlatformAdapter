@@ -31,11 +31,11 @@
 - 平台(微信、QQ等）版本号
 
 ### **system**
-操作系统版本
-- "android" | "ios" | "devtools" | ...
+- 操作系统版本，形如 "Android 5.0"
 
 ### **platform**
-- 客户端平台
+客户端平台
+- "android" | "ios" | "devtools" | ...
 
 ### **fontSizeSetting**
 - 用户字体大小设置。以“我 - 设置 - 通用 - 字体大小”中的设置为准，单位 px。

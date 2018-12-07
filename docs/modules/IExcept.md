@@ -1,2 +1,2 @@
-### **setErrorCallback()**
+### **setErrorCallback(callback)**
 - 注册全局的错误回调函数

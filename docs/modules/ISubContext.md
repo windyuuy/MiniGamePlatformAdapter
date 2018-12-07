@@ -1,4 +1,4 @@
-### **onMessage()**
+### **onMessage(callback)**
 - - 监听主域发送的消息
 
 ### **getOpenDataContext()**

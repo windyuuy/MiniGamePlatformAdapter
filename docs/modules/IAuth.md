@@ -1,4 +1,4 @@
-### **createUserInfoButton()**
+### **createUserInfoButton(obj)**
 创建用户信息授权按钮
 * 当前仅微信有效
 
