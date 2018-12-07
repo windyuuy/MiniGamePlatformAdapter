@@ -22,6 +22,10 @@ namespace GDK {
 
 	/** 在线服务、客服 */
 	export interface ICustomer {
+		/**
+		 * - 进入客服会话。
+		 * 	- 微信小游戏要求在用户发生过至少一次 touch 事件后才能调用。后台接入方式与小程序一致
+		 */
 		openCustomerServiceConversation(params: OpenParam)
 	}
 }

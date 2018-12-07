@@ -5,8 +5,8 @@ namespace GDK {
 		 **/
 		brand: string
 		/**
-		 * 手机型号
-		 * 具体机型(手Q7.6.3及以上支持) 形如 "PRO 6 Plus"
+		 * - 手机型号
+		 * - 具体机型(手Q7.6.3及以上支持) 形如 "PRO 6 Plus"
 		 **/
 		model: string
 		/**
@@ -64,12 +64,12 @@ namespace GDK {
 		benchmarkLevel: number
 		/**
 		 * 网络类型
-		 * - wifi	wifi 网络
-		 * - 2g	2g 网络
-		 * - 3g	3g 网络
-		 * - 4g	4g 网络
-		 * - unknown	Android 下不常见的网络类型
-		 * - none	无网络
+		 * - `wifi`	wifi 网络
+		 * - `2g`	2g 网络
+		 * - `3g`	3g 网络
+		 * - `4g`	4g 网络
+		 * - `unknown`	Android 下不常见的网络类型
+		 * - `none`	无网络
 		 */
 		networkType: string
 

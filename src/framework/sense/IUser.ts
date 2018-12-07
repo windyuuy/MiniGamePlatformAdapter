@@ -63,11 +63,16 @@ namespace GDK {
 	// 自动生成
 	/** 登录接口 */
 	export interface IUser extends IModule {
+		/** 登录 */
 		login(params?: LoginParams): Promise<LoginResult>
+		/** 检查登录态是否过期 */
 		checkSession?(params?: ReqParams)
 
+		/** 更新用户数据 */
 		update(): Promise<UserDataUpdateResult>
+		/** 获取用户云端数据 */
 		getFriendCloudStorage(obj: { keyList: string[] }): Promise<{ data: UserGameData[] }>;
+		/** 提交用户云端数据 */
 		setUserCloudStorage(obj: { KVDataList: KVData[] }): Promise<void>
 	}
 }

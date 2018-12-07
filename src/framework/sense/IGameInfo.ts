@@ -117,6 +117,9 @@ namespace GDK {
 		/** 沙盒模式支付 */
 		isPayInSandbox: boolean
 
+		/** 跳转支付app模式 */
+		payAppEnvVersion?: "trial" | "release" | "develop"
+
 		/** 支付侧应用id */
 		offerId: string
 		/**

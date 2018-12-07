@@ -74,16 +74,30 @@ namespace GDK {
 	}
 
 	export interface IKeyBoard {
+		/** 隐藏键盘 */
 		hideKeyboard(object: Object): Promise<void>
 	}
 	export interface IWidgets {
+		/** 系统键盘对象 */
 		readonly keyboard: IKeyBoard
 
+		/** 显示 loading 提示框。需主动调用 wx.hideLoading 才能关闭提示框 */
 		showLoading(object: ShowLoadingParams): Promise<void>
+		/** 隐藏 loading 提示框 */
 		hideLoading(): Promise<void>
+		/** 显示消息提示框 */
 		showToast(object: ShowToastOptions): Promise<void>
+		/** 隐藏消息提示框 */
 		hideToast(): Promise<void>
+		/**
+		 * 显示模态对话框
+		 * - 有`确定`和`取消`两个按钮
+		 */
 		showConfirm(object: ShowConfirmOptions): Promise<ShowConfirmResult>
+		/**
+		 * 显示模态对话框
+		 * - 只有`确定`一个按钮
+		 */
 		showAlert(object: ShowAlertOptions): Promise<ShowAlertResult>
 	}
 }

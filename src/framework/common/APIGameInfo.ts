@@ -35,16 +35,5 @@ namespace GDK {
 
 		abstract initWithConfig(info: GDKConfig)
 
-		// setGameInfo(info: IGameInfo) {
-		// 	this.appId = info.appId
-		// 	this.channelId = info.channelId
-		// 	this.isPayInSandbox = info.isPayInSandbox
-		// 	this.offerId = info.offerId
-
-		// 	this.gameVersion = info.gameVersion
-		// 	this.gameId = info.gameId
-		// 	this.gameType = info.gameType
-
-		// }
 	}
 }

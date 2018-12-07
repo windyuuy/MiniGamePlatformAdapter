@@ -28,25 +28,39 @@ namespace GDK {
 	export interface IUserData extends IModule {
 		openId: string
 		openKey: string
+		/** 密码 */
 		password?: string
+		/** 昵称 */
 		nickName: string
+		/** 用户ID */
 		userId: number
 		/** 是否新用户 */
 		isNewUser: boolean
+		/** 用户头像 */
 		avatarUrl: string
 		/** 上传存档时间(秒) */
 		backupTime: number
-		/** 0 未关注,1 已关注 */
+		/** 是否已关注公众号
+		 * - 0 未关注
+		 * - 1 已关注
+		 **/
 		followGzh: number
 		/** 渠道id */
 		channelId: number
 		/** 创建时间 */
 		createTime: string
-		/** 0 未知 1 男 2 女 */
+		/**
+		 * 性别
+		 * - 0 未知
+		 * - 1 男
+		 * - 2 女
+		 **/
 		sex: number
 
 		/**
-		 * 是否为该游戏管理账号用户，1是，0否
+		 * 是否为该游戏管理账号用户
+		 * - 1是
+		 * - 0否
 		 **/
 		isWhiteUser?: number
 		/**

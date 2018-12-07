@@ -49,6 +49,9 @@ namespace GDK {
          */
 		isPayInSandbox: boolean = true;
 
+		/** 跳转支付app模式 */
+		payAppEnvVersion: "trial" | "release" | "develop"
+
 		/**
 		 * 安卓分享时，所使用的代理网址
 		 */

@@ -73,9 +73,23 @@ namespace GDK {
 		 * - 跳转小程序支付 'miniapp'
 		 **/
 		channelType?: ChannelType
+		// 这个参数代表不同数据库分区
+		/**
+		 * 每日给力支付app分区 ID
+		 * @default 1
+		 */
+		gleeZoneId?: number
+		/**
+		 * 微信支付分区ID
+		 * @default "1"
+		 */
+		wxZoneId?: string
 	}
 
 	export interface IPay extends IModule {
+		/**
+		 * 调起支付
+		 */
 		payPurchase(item: GDK.PayItemInfo, options?: PayOptions): Promise<PayResult>
 	}
 

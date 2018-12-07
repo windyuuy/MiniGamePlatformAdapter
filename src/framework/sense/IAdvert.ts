@@ -66,11 +66,13 @@ namespace GDK {
 	}
 
 	export interface IAdvert extends IModule {
+		/** 创建激励视频广告对象 */
 		createRewardedVideoAd(params: {
 			/** 广告单元 id */
 			adUnitId?: string
 		}): IRewardedVideoAd
 
+		/** 创建条幅广告对象 */
 		createBannerAd(params: {
 			/** 广告单元 id */
 			adUnitId?: string,
