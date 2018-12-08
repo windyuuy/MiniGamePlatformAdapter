@@ -3,7 +3,7 @@ namespace GDK {
 	export abstract class UserBase implements IUser {
 		abstract login(params?: LoginParams): Promise<LoginResult>
 		checkSession(params?: ReqParams) {
-			const ret = new GDK.RPromise<void>()
+			const ret = new RPromise<void>()
 			ret.success(undefined)
 			return ret.promise
 		}

@@ -93,7 +93,7 @@ namespace GDK {
 		/**
 		 * 调起支付
 		 */
-		payPurchase(item: GDK.PayItemInfo, options?: PayOptions): Promise<PayResult>
+		payPurchase(item: PayItemInfo, options?: PayOptions): Promise<PayResult>
 	}
 
 }
