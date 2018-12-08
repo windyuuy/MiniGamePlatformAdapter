@@ -4,6 +4,24 @@
 - 参数定义
 
 ```typescript
+type UserInfoButtonStyle = {
+	left?: number //		是	左上角横坐标
+	top?: number //		是	左上角纵坐标
+	width?: number //		是	宽度
+	height?: number //		是	高度
+	backgroundColor?: string //		是	背景颜色
+	borderColor?: string //		是	边框颜色
+	borderWidth?: number //		是	边框宽度
+	borderRadius?: number //		是	边框圆角
+	textAlign?: "left" | "center" | "right" //		是	文本的水平居中方式
+	fontSize?: number //		是	字号
+	lineHeight?: number //		是	文本的行高
+}
+
+```
+
+
+```typescript
 type IUserInfoButton = {
 	/**
 	 * 按钮的类型

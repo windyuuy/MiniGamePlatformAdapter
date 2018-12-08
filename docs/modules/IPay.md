@@ -22,6 +22,22 @@ type PayItemInfo = {
 
 
 ```typescript
+enum WebViewOrientation {
+	portrait = 1,
+	landscapeLeft = 2,
+	landscapeRight = 3
+}
+
+```
+
+
+```typescript
+type ChannelType = "miniapp" | "origion"
+
+```
+
+
+```typescript
 type PayOptions = {
 	/** 屏幕方向 */
 	gameOrientation?: WebViewOrientation

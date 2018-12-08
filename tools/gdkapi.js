@@ -247,33 +247,47 @@ const scanInterfaces = (path, parent) => {
 					let def = interfaceDef['declaration']
 					if (!def) { continue }
 					let defType = def['type']
+					let interfaceDefMake = null
 					if (defType == 'TSInterfaceDeclaration' || defType == 'ClassDeclaration' || defType == 'TSAbstractClassDeclaration') {
 						const defname = def['id'] && def['id']['name']
 						const body = cutline(text, def['body']['range'])
-						interfaceList.push({
+						interfaceDefMake = {
 							name: defname,
 							body: body,
 							defType: defType,
-						})
+						}
 					} else if (defType == 'VariableDeclaration') {
 						const subDef = def['declarations'][0]
 						const defname = subDef['id'] && subDef['id']['name']
 						const body = cutline(text, subDef['init']['range'])
-						interfaceList.push({
+						interfaceDefMake = {
 							name: defname,
 							body: body,
 							defType: defType,
-						})
+						}
 					} else if (defType == 'TSEnumDeclaration') {
 						const defname = def['id'] && def['id']['name']
 						const body = cutline(text, def['range'])
-						interfaceList.push({
+						interfaceDefMake = {
 							name: defname,
 							body: body,
 							defType: defType,
-						})
+						}
 					} else {
 						console.log(defType)
+					}
+					interfaceList.push(interfaceDefMake)
+					interfaceDefMake.referList = []
+
+					for (line of interfaceDefMake.body.split('\n')) {
+						// 忽略 new()=>T
+						const m = line.match(/([\w\$]+)[\?]?\: ([\w\$]+)/)
+						if (m) {
+							const typeName = m[2]
+							interfaceDefMake.referList.push({
+								typeName
+							})
+						}
 					}
 				}
 			}
@@ -352,10 +366,29 @@ async function genDoc() {
 						let referDef = interfaceListAll.find(info => info.name == typename)
 						if (referDef) {
 							typeRefer = referDef.body
+
+							// 搜寻二级引用
+							if (referDef.referList) {
+								for (let { typeName } of referDef.referList) {
+									let typeRefer = null
+									let referDef = interfaceListAll.find(info => info.name == typeName)
+									if (referDef) {
+										typeRefer = referDef.body
+									}
+									if (typeRefer) {
+										typeDeclareList.push({
+											referName: typeName,
+											content: typeRefer,
+											defType: referDef.defType,
+										})
+									}
+								}
+							}
 						}
 						typeDeclareList.push({
 							referName: typename,
-							content: typeRefer
+							content: typeRefer,
+							defType: referDef.defType,
 						})
 						// if (alias == 'payPurchase') {
 						// console.log(param['typeAnnotation']['typeAnnotation'])
@@ -412,6 +445,9 @@ async function genDoc() {
 		const declareLines = []
 		for (let info of typeDeclareList) {
 			let code = `type ${info.referName} = ${info.content}`
+			if (info.defType == 'TSEnumDeclaration') {
+				code = info.content
+			}
 			try {
 				code = prettier.format(code, { semi: false, parser: "typescript", useTabs: true })
 			} catch (e) {

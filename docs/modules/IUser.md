@@ -13,6 +13,12 @@ type LoginParams = {}
 - 参数定义
 
 ```typescript
+type TSeconds = number
+
+```
+
+
+```typescript
 type ReqParams = {
 	/** 超时时间(s) */
 	timeout?: TSeconds
