@@ -1,7 +1,7 @@
 
 namespace WechatGDK {
 
-	export class SystemInfo implements GDK.ISystemInfo {
+	export class SystemInfo extends GDK.SystemInfoBase {
 		/**
 		 * 手机品牌	1.5.0
 		 **/

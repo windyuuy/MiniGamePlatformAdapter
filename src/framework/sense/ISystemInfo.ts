@@ -103,6 +103,7 @@ namespace GDK {
 		 * 获取网络状况信息
 		 */
 		fetchNetworkInfo(): Promise<void>
+		clone(): ISystemInfo
 	}
 
 }
