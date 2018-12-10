@@ -16,5 +16,9 @@
     "ali-oss": "^6.0.1",
     "gulp": "^4.0.0",
     "prettier": "^1.15.3"
+  },
+  "devDependencies": {
+    "gulp-rename": "^1.4.0",
+    "gulp-uglify": "^3.0.1"
   }
 }

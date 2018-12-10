@@ -1,6 +1,6 @@
 var gulp = require('gulp');
-// var uglifyjs = require("gulp-uglify");//压缩混淆js
-// var rename = require('gulp-rename')//文件重命名
+var uglifyjs = require("gulp-uglify");//压缩混淆js
+var rename = require('gulp-rename')//文件重命名
 var fs = require("fs")
 var child_process = require("child_process")
 const OSS = require("ali-oss");
@@ -51,6 +51,24 @@ gulp.task("updateLibs", async function () {
 
 })
 
+
+gulp.task("mini", () => {
+
+	let fileList = fs.readdirSync("../dist")
+	for (let f of fileList) {
+		if (f.endsWith(".mini.js")) {
+			fs.unlinkSync(path.join("../dist", f));
+		}
+	}
+
+	return gulp.src("../dist/*.js") //JS文件地址
+		.pipe(uglifyjs())
+		.pipe(rename((path) => {
+			path.basename = path.basename + ".mini";
+		}))
+		.pipe(gulp.dest("../dist")) //混淆后文件输出地址
+})
+
 gulp.task("compile", async () => {
 
 	execon("../src", () => {
@@ -77,6 +95,6 @@ gulp.task("uploadVersion", async () => {
 gulp.task('buildapi', buildApi)
 gulp.task('gendoc', genDoc)
 
-gulp.task("build", gulp.series("buildapi", "compile"));
+gulp.task("build", gulp.series("buildapi", "compile", "mini"));
 
 gulp.task("publish", gulp.series("build", "uploadVersion"));
