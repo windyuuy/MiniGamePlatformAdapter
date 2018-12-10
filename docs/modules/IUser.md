@@ -13,18 +13,18 @@ type LoginParams = {}
 - 参数定义
 
 ```typescript
-type TSeconds = number
-
-```
-
-
-```typescript
 type ReqParams = {
 	/** 超时时间(s) */
 	timeout?: TSeconds
 	/** 平台 */
 	platform?: string
 }
+
+```
+
+
+```typescript
+type TSeconds = number
 
 ```
 
@@ -41,12 +41,10 @@ type ReqParams = {
 type ParamType = {
 	keyList: string[]
 	/**
-			 * - 玩一玩和浏览器必须
-			 * - 格式形如（null开头）：
-			 * ```
-[null, 'goldRank', 'seedRank', 'unlockRank', 'sceneRank',]
-			 * ```
-			 **/
+	 * - 玩一玩和浏览器必须
+	 * - 格式形如（null开头）：
+	 * 	- [null, 'goldRank', 'seedRank', 'unlockRank', 'sceneRank',]
+	 **/
 	typeIndex: string[]
 }
 
@@ -61,12 +59,10 @@ type ParamType = {
 type ParamType = {
 	KVDataList: KVData[]
 	/**
-			 * - 玩一玩和浏览器必须
-			 * - 格式形如（null开头）：
-			 * ```
-[null, 'goldRank', 'seedRank', 'unlockRank', 'sceneRank',]
-			 * ```
-			 **/
+	 * - 玩一玩和浏览器必须
+	 * - 格式形如（null开头）：
+	 * 	- [null, 'goldRank', 'seedRank', 'unlockRank', 'sceneRank',]
+	 **/
 	typeIndex: string[]
 }
 

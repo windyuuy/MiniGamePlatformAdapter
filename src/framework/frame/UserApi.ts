@@ -226,7 +226,7 @@ namespace GDK {
 			 * - 玩一玩和浏览器必须
 			 * - 格式形如（null开头）：
 			 * ```
-[null, 'goldRank', 'seedRank', 'unlockRank', 'sceneRank',]
+			 * [null, 'goldRank', 'seedRank', 'unlockRank', 'sceneRank',]
 			 * ```
 			 **/
 			typeIndex: string[];
@@ -243,7 +243,7 @@ namespace GDK {
 			 * - 玩一玩和浏览器必须
 			 * - 格式形如（null开头）：
 			 * ```
-[null, 'goldRank', 'seedRank', 'unlockRank', 'sceneRank',]
+			 * [null, 'goldRank', 'seedRank', 'unlockRank', 'sceneRank',]
 			 * ```
 			 **/
 			typeIndex: string[];

@@ -427,7 +427,7 @@ async function genDoc() {
 						pts.push(`${varname}: ${typename}`)
 					}
 				}
-				return { paramsline: pts.join(','), typeDeclareList: typeDeclareList }
+				return { paramsline: pts.join(','), typeDeclareList: typeDeclareList.reverse() }
 			})()
 
 			let paramsline = info.paramsline

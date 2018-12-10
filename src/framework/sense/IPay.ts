@@ -73,7 +73,7 @@ namespace GDK {
 		 * - 跳转小程序支付 'miniapp'
 		 **/
 		channelType?: ChannelType
-		// 这个参数代表不同数据库分区
+		// 这个参数代表不同数据分区
 		/**
 		 * 每日给力支付app分区 ID
 		 * - 0 测试版

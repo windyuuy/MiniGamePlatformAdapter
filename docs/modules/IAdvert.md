@@ -3,6 +3,15 @@
 - 参数定义
 
 ```typescript
+type ParamType = {
+	/** 广告单元 id */
+	adUnitId?: string
+}
+
+```
+
+
+```typescript
 type IRewardedVideoAd = {
 	//属性
 	adUnitId: string
@@ -34,18 +43,22 @@ type IRewardedVideoAd = {
 ```
 
 
+### **createBannerAd(params: ParamType): IBannerAd**
+- 创建条幅广告对象
+- 参数定义
+
 ```typescript
 type ParamType = {
 	/** 广告单元 id */
 	adUnitId?: string
+	/** QQ玩一玩 必填。1001静态banner，1002动态banner，1003 广点通banner(7.8.0) */
+	viewId?: number
+	/** banner 广告组件的样式 */
+	style: BannerStyle
 }
 
 ```
 
-
-### **createBannerAd(params: ParamType): IBannerAd**
-- 创建条幅广告对象
-- 参数定义
 
 ```typescript
 type IBannerAd = {
@@ -77,19 +90,6 @@ type IBannerAd = {
 	onError(callback: Function)
 	/** 取消监听 banner 广告错误事件 */
 	offError(callback: Function)
-}
-
-```
-
-
-```typescript
-type ParamType = {
-	/** 广告单元 id */
-	adUnitId?: string
-	/** QQ玩一玩 必填。1001静态banner，1002动态banner，1003 广点通banner(7.8.0) */
-	viewId?: number
-	/** banner 广告组件的样式 */
-	style: BannerStyle
 }
 
 ```
