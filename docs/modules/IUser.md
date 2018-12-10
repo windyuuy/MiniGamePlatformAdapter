@@ -40,11 +40,35 @@ type ReqParams = {
 ```typescript
 type ParamType = {
 	keyList: string[]
+	/**
+			 * - 玩一玩和浏览器必须
+			 * - 格式形如（null开头）：
+			 * ```
+[null, 'goldRank', 'seedRank', 'unlockRank', 'sceneRank',]
+			 * ```
+			 **/
+	typeIndex: string[]
 }
 
 ```
 
 
-### **setUserCloudStorage(obj: { KVDataList: KVData[] })**
+### **setUserCloudStorage(obj: ParamType)**
 - 提交用户云端数据
+- 参数定义
+
+```typescript
+type ParamType = {
+	KVDataList: KVData[]
+	/**
+			 * - 玩一玩和浏览器必须
+			 * - 格式形如（null开头）：
+			 * ```
+[null, 'goldRank', 'seedRank', 'unlockRank', 'sceneRank',]
+			 * ```
+			 **/
+	typeIndex: string[]
+}
+
+```
 

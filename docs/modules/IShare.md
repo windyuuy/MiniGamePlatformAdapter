@@ -154,3 +154,8 @@ type ShareData = {
 ### **getShareParam()**
 - 获取通过点击分享链接时或传递的参数
 
+
+### **getShareInfo(shareTicket: string)**
+获取分享的信息
+* 当前仅微信环境有效
+

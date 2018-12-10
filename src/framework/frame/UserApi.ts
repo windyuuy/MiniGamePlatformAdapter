@@ -819,7 +819,7 @@ namespace GDK {
 			return this._m.widgets.showAlert(object);
 		}
 		/**
-		 * - 监听主域发送的消息
+		 * 监听主域发送的消息
 		 */
 		onMessage(callback: (message: PrimitiveMap) => void) {
 			if (!this.checkModuleAttr("subContext", "onMessage", "function")) {

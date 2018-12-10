@@ -14,7 +14,7 @@ namespace GDK {
 	}
 	export interface ISubContext {
 		/**
-		 * - 监听主域发送的消息
+		 * 监听主域发送的消息
 		 */
 		onMessage(callback: (message: PrimitiveMap) => void)
 		/**

@@ -1,7 +1,7 @@
 # Summary
 * [概况](README.md)
-* [1.用户管理](modules/IUser.md)
-* [2.用户信息](modules/IUserData.md)
+* [1.用户信息](modules/IUserData.md)
+* [2.用户管理](modules/IUser.md)
 * [3.游戏信息](modules/IGameInfo.md)
 * [4.系统信息](modules/ISystemInfo.md)
 * [5.系统管理](modules/IAPISystem.md)
@@ -12,6 +12,6 @@
 * [10.基本UI组件](modules/IWidgets.md)
 * [11.子域、排行榜相关](modules/ISubContext.md)
 * [12.平台特性](modules/ISupport.md)
-* [13.全局异常处理](modules/IExcept.md)
+* [13.全局错误处理](modules/IExcept.md)
 * [14.用户授权相关](modules/IAuth.md)
 * [15.硬件附加功能管理](modules/IHardware.md)
