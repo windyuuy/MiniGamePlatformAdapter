@@ -42,11 +42,11 @@ type AppCallUpParams = {
 - 设置是否打开调试开关。此开关对正式版也能生效。
 
 
-### **setFPS(fps: number): null**
+### **setFPS(fps: number): void**
 - 设置帧率
 	- 可能和cocos的会冲突
 
 
-### **clipboard**
+### **clipboard: IClipboard**
 - 剪切板
 

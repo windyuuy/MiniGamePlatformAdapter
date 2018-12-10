@@ -1,4 +1,4 @@
-### **keyboard**
+### **keyboard: IKeyBoard**
 - 系统键盘对象
 
 

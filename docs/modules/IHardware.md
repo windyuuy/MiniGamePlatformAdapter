@@ -1,37 +1,37 @@
-### **vibration**
+### **vibration: IVibration**
 - 振动器
 
 
-### **performance**
+### **performance: IPerformance**
 - 性能
 
 
-### **screen**
+### **screen: IScreen**
 - 屏幕亮度
 
 
-### **gyroscope**
+### **gyroscope: IGyroscope**
 - 陀螺仪
 
 
-### **compass**
+### **compass: ICompass**
 - 罗盘
 
 
-### **battery**
+### **battery: IBattery**
 - 电池
 
 
-### **accelerometer**
+### **accelerometer: IAccelerometer**
 - 加速计
 
 
-### **gravity**
+### **gravity: IGravity**
 - 设备方向
 - 转屏相关
 - 重力感应
 
 
-### **screenTouch**
+### **screenTouch: IScreenTouch**
 - 触屏
 

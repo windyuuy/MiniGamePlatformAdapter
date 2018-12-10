@@ -340,7 +340,7 @@ async function genDoc() {
 			continue
 		}
 		// const paramsline = def.params.join(',')
-		const membertype = def.membertype
+		const membertype = def.membertype || 'void'
 		const explain = def.explain
 		const text = def.text
 
@@ -433,6 +433,8 @@ async function genDoc() {
 			let paramsline = info.paramsline
 			typeDeclareList = info.typeDeclareList
 			interfaceLine = `${interfaceLine}(${paramsline}): ${membertype}`
+		} else {
+			interfaceLine = `${alias}${membertype}`
 		}
 
 		let comment = explain || ''

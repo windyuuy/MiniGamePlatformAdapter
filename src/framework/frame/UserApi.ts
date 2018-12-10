@@ -225,9 +225,7 @@ namespace GDK {
 			/**
 			 * - 玩一玩和浏览器必须
 			 * - 格式形如（null开头）：
-			 * ```
-			 * [null, 'goldRank', 'seedRank', 'unlockRank', 'sceneRank',]
-			 * ```
+			 * 	- [null, 'goldRank', 'seedRank', 'unlockRank', 'sceneRank',]
 			 **/
 			typeIndex: string[];
 		}): Promise<{ data: UserGameData[] }> {
@@ -242,9 +240,7 @@ namespace GDK {
 			/**
 			 * - 玩一玩和浏览器必须
 			 * - 格式形如（null开头）：
-			 * ```
-			 * [null, 'goldRank', 'seedRank', 'unlockRank', 'sceneRank',]
-			 * ```
+			 * 	- [null, 'goldRank', 'seedRank', 'unlockRank', 'sceneRank',]
 			 **/
 			typeIndex: string[];
 		}): Promise<void> {
@@ -565,9 +561,6 @@ namespace GDK {
 			return this._m.systemInfo.fetchNetworkInfo();
 		}
 
-		/**
-		 * 获取全部系统数据
-		 */
 		clone(): ISystemInfo {
 			if (!this.checkModuleAttr("systemInfo", "clone", "function")) {
 				return undefined;
