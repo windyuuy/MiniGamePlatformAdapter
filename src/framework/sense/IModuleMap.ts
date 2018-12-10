@@ -1,9 +1,9 @@
 namespace GDK {
 	export interface IModuleMap {
-		/** 用户管理 */
-		user: IUser
 		/** 用户信息 */
 		userData: IUserData
+		/** 用户管理 */
+		user: IUser
 		/** 游戏信息 */
 		gameInfo: IGameInfo
 		/** 系统信息 */
@@ -24,7 +24,7 @@ namespace GDK {
 		subContext: ISubContext
 		/** 平台特性 */
 		support: ISupport
-		/** 全局异常处理 */
+		/** 全局错误处理 */
 		except: IExcept
 		/** 用户授权相关 */
 		auth: IAuth

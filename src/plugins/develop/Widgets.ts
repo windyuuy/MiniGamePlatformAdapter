@@ -1,5 +1,8 @@
 
 namespace DevelopGDK {
+
+	const devlog = Common.devlog
+
 	class KeyBoard implements GDK.IKeyBoard {
 		async hideKeyboard(): Promise<void> {
 			devlog.info("hideKeyboard")

@@ -1,6 +1,8 @@
 
 namespace QQPlayGDK {
 
+	const paylog = Common.paylog
+
 	export class Pay extends GDK.PayBase {
 		api?: GDK.UserAPI
 		server: MServer
@@ -8,7 +10,7 @@ namespace QQPlayGDK {
 		init() {
 			//回到前台后响应
 			BK.onEnterForeground(() => {
-				console.log("-[QQPlayAPI] onEnterforeground");
+				paylog.info("-[QQPlayAPI] onEnterforeground");
 				if (this._isPaying) {
 					this._payReturnCallback && this._payReturnCallback()
 				}
@@ -28,7 +30,7 @@ namespace QQPlayGDK {
 				this._isPaying = false
 				const code = -1
 				try {
-					console.log('-[QQPlayAPI] callback cancel onShow')
+					paylog.info('-[QQPlayAPI] callback cancel onShow')
 					callback(code, {
 						code: code,
 						itemList: items,
@@ -36,7 +38,7 @@ namespace QQPlayGDK {
 						success: false,
 					})
 				} catch (e) {
-					console.error("充值回调中发生异常:", e)
+					paylog.error("充值回调中发生异常:", e)
 				}
 			}
 
@@ -46,7 +48,7 @@ namespace QQPlayGDK {
 				try {
 					callback && callback(errCode, data)
 				} catch (e) {
-					console.error("充值回调中发生异常:", e)
+					paylog.error("充值回调中发生异常:", e)
 				}
 			})
 		}

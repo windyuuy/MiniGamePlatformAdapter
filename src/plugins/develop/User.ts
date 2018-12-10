@@ -3,6 +3,7 @@ namespace DevelopGDK {
 	const unitNum = [null, 'K', 'M', 'B', 'T', 'aa', 'bb', 'cc', 'dd', 'ee', 'ff', 'gg', 'hh', 'ii', 'jj', 'kk', 'll', 'mm', 'nn', 'oo', 'pp', 'qq', 'rr', 'ss', 'tt', 'uu', 'vv', 'ww', 'xx', 'yy', 'zz', 'Aa', 'Bb', 'Cc', 'Dd', 'Ee', 'Ff', 'Gg', 'Hh', 'Ii', 'Jj', 'Kk', 'Ll', 'Mm', 'Nn', 'Oo', 'Pp', 'Qq', 'Rr', 'Ss', 'Tt', 'Uu', 'Vv', 'Ww', 'Xx', 'Yy', 'Zz', 'AA', 'BB', 'CC', 'DD', 'EE', 'FF', 'GG', 'HH', 'II', 'JJ', 'KK', 'LL', 'MM', 'NN', 'OO', 'PP', 'QQ', 'RR', 'SS', 'TT', 'UU', 'VV', 'WW', 'XX', 'YY', 'ZZ']
 	// const typeIndex = [null, 'goldRank', 'seedRank', 'unlockRank', 'sceneRank',]
 	// const expNum = 7
+	const devlog = Common.devlog
 
 	export class User extends GDK.UserBase {
 		api?: GDK.UserAPI
@@ -97,7 +98,7 @@ namespace DevelopGDK {
 		}
 
 		_setUserCloudStorage(obj: { KVDataList: wx.KVData[], typeIndex: string[], success?: Function, fail?: Function, complete?: Function }) {
-			console.log('-[UserCloudStorage] 提交用户成绩', obj.KVDataList)
+			devlog.info('-[UserCloudStorage] 提交用户成绩', obj.KVDataList)
 			const typeIndex = obj.typeIndex
 			let commitTime = 0//this.getTime()
 			let data: BK.QQRankData = {
@@ -132,7 +133,7 @@ namespace DevelopGDK {
 				let keyIndex = typeIndex.indexOf(item.key)
 
 				if (keyIndex <= 0) {
-					console.log(`-[UserCloudStorage] 不正确的keyIndex: ${keyIndex} ${item.key}`)
+					devlog.info(`-[UserCloudStorage] 不正确的keyIndex: ${keyIndex} ${item.key}`)
 					continue
 				}
 
@@ -146,7 +147,7 @@ namespace DevelopGDK {
 			}
 
 
-			console.log('-[UserCloudStorage] 提交用户成绩数据: ' + JSON.stringify(data))
+			devlog.info('-[UserCloudStorage] 提交用户成绩数据: ' + JSON.stringify(data))
 		}
 
 		getFriendCloudStorage(obj: { keyList: string[], typeIndex: string[] }): Promise<{ data: GDK.UserGameData[] }> {

@@ -1,5 +1,5 @@
 namespace WechatGDK {
-
+	const devlog = Common.devlog
 
     /**
      * 由于微信官方没有微信回调的数据，
@@ -14,7 +14,7 @@ namespace WechatGDK {
 		static apiSetValue(server: string, openId: string, timeStamp: number, url: string) {
 			let params = "?openId=" + openId + "&timeStamp=" + timeStamp + "&url=" + url;
 			let api = server + "/api/Client/SetValue" + params;
-			console.log("apiSetValue url=", api);
+			devlog.info("apiSetValue url=", api);
 			return api;
 		}
 
@@ -27,12 +27,12 @@ namespace WechatGDK {
 			if (window['wx']) {
 				let params = "?openId=" + openId + "&timeStamp=" + timeStamp;
 				let url = server + "/api/Client/GetValue" + params;
-				console.log("apiGetValue url=", url);
+				devlog.info("apiGetValue url=", url);
 				wx['request']({
 					url: url,
 					method: 'get',
 					success: (res) => {
-						console.log("apiGetValue res=", res);
+						devlog.info("apiGetValue res=", res);
 						if (typeof (callback) == 'function') {
 							callback(res);
 						}
@@ -86,7 +86,7 @@ namespace WechatGDK {
 				if (platform == "android") {
 					imageUrl = ShareProxy.apiSetValue(this.api.gameInfo.shareProxyUrl, this.api.gameInfo.appId, beginShareTime, data.imageUrl)
 				}
-				console.log("share", {
+				devlog.info("share", {
 					title: data.title,
 					imageUrl: imageUrl,
 					query: query,

@@ -9,4 +9,6 @@ namespace QQPlayGDK.Common {
 	 */
 	export let getServerTime: () => Date;
 
+	export const devlog = new slib.Log({ tags: ["[gdk]", "[qqplay]"] });
+	export const paylog = new slib.Log({ tags: ["[gdk]", "[qqpay]"] });
 }

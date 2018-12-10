@@ -8,7 +8,7 @@ namespace GDK {
 		}
 
 		initConfig(config: GDKConfig) {
-			console.warn("redundant init for gdk, ignored");
+			devlog.warn("redundant init for gdk, ignored");
 		}
 
 		protected _initWithConfig(info: GDKConfig) {

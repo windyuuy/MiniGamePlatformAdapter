@@ -1,5 +1,7 @@
 namespace DevelopGDK {
 
+	const devlog = Common.devlog
+
 	export class Share implements GDK.IShare {
 		api?: GDK.UserAPI
 

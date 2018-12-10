@@ -1,6 +1,6 @@
 
 namespace WechatGDK {
-	const log = new slib.Log({ tags: ['api-pay'] })
+	const devlog = Common.paylog
 
 	export class Pay extends GDK.PayBase {
 		api?: GDK.UserAPI
@@ -21,7 +21,7 @@ namespace WechatGDK {
 				zoneId: zoneId,
 				buyQuantity: config.money * 10,
 			}
-			log.info("requestMidasPayment", mp)
+			devlog.info("requestMidasPayment", mp)
 			wx.requestMidasPayment({
 				mode: mp.mode,
 				env: mp.env,
@@ -31,7 +31,7 @@ namespace WechatGDK {
 				zoneId: mp.zoneId,
 				buyQuantity: mp.buyQuantity,
 				success: () => {
-					log.info("微信充值成功", config)
+					devlog.info("微信充值成功", config)
 					ret.success({
 						result: {
 							errCode: successCode,
@@ -41,10 +41,10 @@ namespace WechatGDK {
 				},
 				fail: (res: { errCode: number }) => {
 					if (res.errCode == 1) {
-						log.info("微信充值取消", res, config)
+						devlog.info("微信充值取消", res, config)
 						ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_PAY_CANCEL))
 					} else {
-						log.warn("微信充值失败", res, config)
+						devlog.warn("微信充值失败", res, config)
 						ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_PAY_FAILED, {
 							data: {
 								extra: res
@@ -92,14 +92,14 @@ namespace WechatGDK {
 				envVersion = info.payAppEnvVersion
 			}
 
-			log.info(`navigateToMiniProgram: { path: ${jpPath}, miniAppId: ${miniAppOfferId}, envVersion:${envVersion} }`, extraData)
+			devlog.info(`navigateToMiniProgram: { path: ${jpPath}, miniAppId: ${miniAppOfferId}, envVersion:${envVersion} }`, extraData)
 			wx.navigateToMiniProgram({
 				appId: miniAppOfferId,
 				path: jpPath,
 				envVersion: envVersion,
 				extraData: extraData,
 				success: () => {
-					log.info("调起app成功", config)
+					devlog.info("调起app成功", config)
 					ret.success({
 						result: {
 							errCode: successCode,
@@ -108,7 +108,7 @@ namespace WechatGDK {
 					})
 				},
 				fail: (res) => {
-					log.warn("调起app失败", config)
+					devlog.warn("调起app失败", config)
 					ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_PAY_FAILED, {
 						data: {
 							extra: res

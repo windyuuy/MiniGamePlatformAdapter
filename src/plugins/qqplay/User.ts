@@ -1,10 +1,11 @@
 
 namespace QQPlayGDK {
-	const log = new slib.Log({ tags: ['[QQPlayAPI]'] })
 
 	const unitNum = [null, 'K', 'M', 'B', 'T', 'aa', 'bb', 'cc', 'dd', 'ee', 'ff', 'gg', 'hh', 'ii', 'jj', 'kk', 'll', 'mm', 'nn', 'oo', 'pp', 'qq', 'rr', 'ss', 'tt', 'uu', 'vv', 'ww', 'xx', 'yy', 'zz', 'Aa', 'Bb', 'Cc', 'Dd', 'Ee', 'Ff', 'Gg', 'Hh', 'Ii', 'Jj', 'Kk', 'Ll', 'Mm', 'Nn', 'Oo', 'Pp', 'Qq', 'Rr', 'Ss', 'Tt', 'Uu', 'Vv', 'Ww', 'Xx', 'Yy', 'Zz', 'AA', 'BB', 'CC', 'DD', 'EE', 'FF', 'GG', 'HH', 'II', 'JJ', 'KK', 'LL', 'MM', 'NN', 'OO', 'PP', 'QQ', 'RR', 'SS', 'TT', 'UU', 'VV', 'WW', 'XX', 'YY', 'ZZ']
 	// const typeIndex = [null, 'goldRank', 'seedRank', 'unlockRank', 'sceneRank',]
 	const expNum = 7
+
+	const devlog = Common.devlog
 
 	export class User extends GDK.UserBase {
 		api?: GDK.UserAPI
@@ -25,7 +26,7 @@ namespace QQPlayGDK {
 				uploadData['skltPath'] = undefined
 				uploadData['dressPath'] = undefined
 				uploadData['cpuType'] = undefined
-				log.info(`-[QQPlayLogin] upload data: `, uploadData)
+				devlog.info(`-[QQPlayLogin] upload data: `, uploadData)
 
 				this.server.userLoginQQPlay(uploadData, (resp) => {
 					if (resp.succeed) {
@@ -75,7 +76,7 @@ namespace QQPlayGDK {
 
 		private _fetchingOpenKey = false
 		fetchOpenKey(onDone: (params: { openKey: string }) => void, onFail) {
-			log.info('to fetchOpenKey')
+			devlog.info('to fetchOpenKey')
 			let fetchOpenKeyReturn = false
 			BK.QQ.fetchOpenKey((errCode, cmd, data) => {
 				let shouldCallback = true
@@ -89,10 +90,10 @@ namespace QQPlayGDK {
 					data = {
 						openKey: null
 					}
-					log.info('fetchOpenKey 填入开发模式数据')
+					devlog.info('fetchOpenKey 填入开发模式数据')
 				}
 
-				log.info(`fetchOpenKey return ${errCode},${cmd},${data}`)
+				devlog.info(`fetchOpenKey return ${errCode},${cmd},${data}`)
 				if (errCode == 0) {
 					let openKey = data.openKey;
 					this.setStorageSync('yeknepo', `${openKey}`)
@@ -109,10 +110,10 @@ namespace QQPlayGDK {
 				if (!fetchOpenKeyReturn) {
 					fetchOpenKeyReturn = true
 
-					log.warn(`fetchOpenKey timeout`)
+					devlog.warn(`fetchOpenKey timeout`)
 					let openKey = this.getStorageSync('yeknepo')
 					if (openKey) {
-						log.warn(`use local stored openkey`, openKey)
+						devlog.warn(`use local stored openkey`, openKey)
 						onDone({ openKey: openKey })
 					} else {
 						this.api.showAlert({
@@ -138,7 +139,7 @@ namespace QQPlayGDK {
 		}
 
 		getHeadEx(onDone: (params: { avatarUrl: string }) => void) {
-			log.info('to getHeadEx')
+			devlog.info('to getHeadEx')
 			let fetchHeadExReturn = false
 
 			const openId = this.userdata.openId
@@ -146,17 +147,17 @@ namespace QQPlayGDK {
 
 			BK.MQQ.Account.getHeadEx(openId, (openId, imgUrl) => {
 				if (fetchHeadExReturn) {
-					log.info('getHeadEx return too late')
+					devlog.info('getHeadEx return too late')
 					return
 				}
 				fetchHeadExReturn = true
-				log.info(`getHeadEx return ${openId},${imgUrl}`)
+				devlog.info(`getHeadEx return ${openId},${imgUrl}`)
 				// onDone()
 			})
 			setTimeout(() => {
 				if (fetchHeadExReturn) { return }
 				fetchHeadExReturn = true
-				log.info(`getHeadEx timeout 2s`)
+				devlog.info(`getHeadEx timeout 2s`)
 				// onDone()
 			}, 500)
 
@@ -164,21 +165,21 @@ namespace QQPlayGDK {
 		}
 
 		getNick(onDone: (params: { nick: string }) => void) {
-			log.info('to getNick')
+			devlog.info('to getNick')
 			let fetchNickReturn = false
 			BK.MQQ.Account.getNick(this.userdata.openId, (openId, nick) => {
 				if (fetchNickReturn) {
-					log.info('getNick return too late')
+					devlog.info('getNick return too late')
 					return
 				}
 				fetchNickReturn = true
-				log.info(`getNick return ${openId},${nick}`)
+				devlog.info(`getNick return ${openId},${nick}`)
 				onDone({ nick: nick })
 			})
 			setTimeout(() => {
 				if (fetchNickReturn) { return }
 				fetchNickReturn = true
-				log.info(`getNick timeout 2s`)
+				devlog.info(`getNick timeout 2s`)
 				onDone({ nick: undefined })
 			}, 400)
 		}
@@ -188,10 +189,10 @@ namespace QQPlayGDK {
 
 			const ret = new GDK.RPromise<GDK.UserDataUpdateResult>()
 			if (this._fetchingOpenKey) {
-				log.info(`fetchOpenKey fetching true`)
+				devlog.info(`fetchOpenKey fetching true`)
 			}
 			this._fetchingOpenKey = true
-			log.info(`getUserInfo start`)
+			devlog.info(`getUserInfo start`)
 			let openId = this.userdata.openId
 			let roleData: wx.UserInfo = {
 				openId: this.userdata.openId,
@@ -209,11 +210,11 @@ namespace QQPlayGDK {
 				iv: null,
 			}
 			let onDone = () => {
-				log.info('getUserInfo return', res)
+				devlog.info('getUserInfo return', res)
 				ret.success({ extra: res })
 			}
 			let onFail = (errCode, cmd, data) => {
-				log.info(`getUserInfo failed ${errCode}, ${cmd}, ${data}`)
+				devlog.info(`getUserInfo failed ${errCode}, ${cmd}, ${data}`)
 				// ret.fail(errCode, cmd, res)
 				ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_LOGIN_FAILED, {
 					data: {
@@ -232,12 +233,12 @@ namespace QQPlayGDK {
 					roleData.nickName = nick || '未设置QQ昵称'
 					this.getHeadEx(({ avatarUrl }) => {
 						roleData.avatarUrl = avatarUrl || '未设置QQ头像'
-						log.info(`get userinfo timespend`)
+						devlog.info(`get userinfo timespend`)
 						onDone()
 					})
 				})
 			}, onFail)
-			log.info(`getUserInfo waiting`)
+			devlog.info(`getUserInfo waiting`)
 
 			return ret.promise
 		}
@@ -258,7 +259,7 @@ namespace QQPlayGDK {
 					rankLog.info("-[FriendRank] getRankListWithoutRoom callback  cmd" + cmd + " errCode:" + errCode + "  data:" + JSON.stringify(data));
 					// 返回错误码信息
 					if (errCode !== 0) {
-						log.info(1, 1, '获取排行榜数据失败!错误码：' + errCode);
+						devlog.info(1, 1, '获取排行榜数据失败!错误码：' + errCode);
 						reject()
 						return;
 					}
@@ -412,7 +413,7 @@ namespace QQPlayGDK {
 		}
 
 		getTime(): number {
-			console.warn("需要改为使用服务器时间")
+			devlog.warn("需要改为使用服务器时间")
 			return new Date().getTime()
 		}
 

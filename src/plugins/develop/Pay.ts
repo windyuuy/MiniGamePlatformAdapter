@@ -1,6 +1,8 @@
 
 namespace DevelopGDK {
-	const log = new slib.Log({ tags: ['DevelopPay'] })
+
+	const paylog = Common.paylog
+
 	export class Pay extends GDK.PayBase {
 
 		payPurchase(config: GDK.PayItemInfo): Promise<GDK.PayResult> {
@@ -8,7 +10,7 @@ namespace DevelopGDK {
 
 			const ok = confirm("确定充值吗？\n" + JSON.stringify(config))
 			if (ok) {
-				log.info("模拟充值成功", config)
+				paylog.info("模拟充值成功", config)
 				ret.success({
 					result: {
 						errCode: 0,
@@ -21,13 +23,13 @@ namespace DevelopGDK {
 					const res = {
 						errCode: -1,
 					}
-					log.info("模拟充值取消", res, config)
+					paylog.info("模拟充值取消", res, config)
 					ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_PAY_CANCEL))
 				} else {
 					const res = {
 						errCode: 9999,
 					}
-					log.warn("模拟充值失败", res, config)
+					paylog.warn("模拟充值失败", res, config)
 					ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_PAY_FAILED, {
 						data: {
 							extra: res

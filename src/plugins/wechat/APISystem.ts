@@ -1,6 +1,8 @@
 
 namespace WechatGDK {
 
+	const devlog = Common.devlog
+
 	class Clipboard implements GDK.IClipboard {
 		getData(): Promise<GDK.ClipboardData> {
 			const ret = new GDK.RPromise<GDK.ClipboardData>()
@@ -73,19 +75,19 @@ namespace WechatGDK {
 				let updateManager = wx.getUpdateManager()
 				if (updateManager) {
 					updateManager.onCheckForUpdate((hasUpdate) => {
-						console.log("检查更新开始:")
+						devlog.info("检查更新开始:")
 						if (hasUpdate.hasUpdate) {
-							console.log('有更新')
+							devlog.info('有更新')
 							// wx.showLoading({title:"检查更新中...",mask:true})
 						} else {
-							console.log('没有更新')
+							devlog.info('没有更新')
 							wx.hideLoading({})
 							resolve()
 						}
 					})
 
 					updateManager.onUpdateReady(() => {
-						console.log("更新完成")
+						devlog.info("更新完成")
 						wx.hideLoading({})
 						wx.showModal(
 							{
@@ -103,7 +105,7 @@ namespace WechatGDK {
 					})
 
 					updateManager.onUpdateFailed(() => {
-						console.log("更新失败")
+						devlog.info("更新失败")
 						wx.hideLoading({})
 						wx.showModal(
 							{

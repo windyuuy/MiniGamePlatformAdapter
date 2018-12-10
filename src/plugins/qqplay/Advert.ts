@@ -1,5 +1,8 @@
 
 namespace QQPlayGDK {
+
+	const devlog = Common.devlog
+
 	class VideoAd implements GDK.IRewardedVideoAd {
 		adUnitId: string
 		isEnded: boolean = false
@@ -135,10 +138,10 @@ namespace QQPlayGDK {
 			this._advertObj.destory()
 		}
 		onResize(callback: Function) {
-			console.warn('qqplay bannerAd dose not support resize')
+			devlog.warn('qqplay bannerAd dose not support resize')
 		}
 		offResize(callback: Function) {
-			console.warn('qqplay bannerAd dose not support resize')
+			devlog.warn('qqplay bannerAd dose not support resize')
 		}
 		onLoad(callback: Function) {
 			this._advertObj.onLoad(callback)

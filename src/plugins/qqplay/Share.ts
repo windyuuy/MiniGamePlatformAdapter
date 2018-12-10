@@ -1,5 +1,7 @@
 namespace QQPlayGDK {
 
+	const devlog = Common.devlog
+
 	export class Share implements GDK.IShare {
 		api?: GDK.UserAPI
 
@@ -64,19 +66,19 @@ namespace QQPlayGDK {
 				}
 
 				if (data.socialPicUrl) {
-					console.log("开始下载社会化分享图片", data.socialPicUrl)
-					console.log(data.socialPicUrl)
+					devlog.info("开始下载社会化分享图片", data.socialPicUrl)
+					devlog.info(data.socialPicUrl)
 					BK.Http.request({
 						url: data.socialPicUrl,
 						method: "GET",
 						success: (data) => {
 							if (data.statusCode !== 200) {
-								console.log("社会化分享图片下载失败")
-								console.log(data.statusCode)
+								devlog.info("社会化分享图片下载失败")
+								devlog.info(data.statusCode)
 								shareLogic(false);
 								return;
 							}
-							console.log("社会化分享图片下载成功")
+							devlog.info("社会化分享图片下载成功")
 							//buffer
 							BK.fileSystem.writeFileSync("GameSandBox://share/socialpic.png", data.arrayBuffer());
 							shareLogic(true);

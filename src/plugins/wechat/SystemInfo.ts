@@ -1,5 +1,6 @@
 
 namespace WechatGDK {
+	const devlog = Common.devlog
 
 	export class SystemInfo extends GDK.SystemInfoBase {
 		/**
@@ -100,7 +101,7 @@ namespace WechatGDK {
 			this.fetchNetworkInfo()
 			this.updateNetworkInfo(this.networkType)
 
-			console.log('wx systeminfo:', this)
+			devlog.info('wx systeminfo:', this)
 
 			wx.onNetworkStatusChange((res) => {
 				this.updateNetworkInfo(res.networkType, res.isConnected)

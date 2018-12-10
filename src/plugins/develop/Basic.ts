@@ -1,8 +1,6 @@
 namespace DevelopGDK {
 	type ReqResult = any
 
-	export let devlog = new slib.Log({ tags: ["DEVELOP"] })
-
 	export class RReqPromise<T, F=undefined> extends GDK.RPromise<ReqResult>{
 		success: (value: T) => void
 		fail: (value?: F) => void
