@@ -565,6 +565,9 @@ namespace GDK {
 			return this._m.systemInfo.fetchNetworkInfo();
 		}
 
+		/**
+		 * 获取全部系统数据
+		 */
 		clone(): ISystemInfo {
 			if (!this.checkModuleAttr("systemInfo", "clone", "function")) {
 				return undefined;

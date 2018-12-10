@@ -40,8 +40,8 @@ namespace GDK {
 		adUnitId?: string
 		/**
 		 * - QQ玩一玩 必填。1001静态banner，1002动态banner，1003 广点通banner(7.8.0)
-		 * 	- viewId 1001、1002 手机qq 7.6.5 支持原生游戏（cocos/laya/ergret），不支持H5游戏（使用DOM的游戏）
-		 * 	- viewId 1003 仅在手机qq 7.8.5支持。 支持原生游戏（cocos/laya/ergret），支持H5游戏（使用DOM的游戏）
+		 * 	- 1001、1002: （手机qq 7.6.5）支持原生游戏（cocos/laya/ergret），不支持H5游戏（使用DOM的游戏）
+		 * 	- 1003: （仅在手机qq 7.8.5支持）支持原生游戏（cocos/laya/ergret），支持H5游戏（使用DOM的游戏）
 		 **/
 		viewId?: number
 
