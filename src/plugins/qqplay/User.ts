@@ -3,7 +3,7 @@ namespace QQPlayGDK {
 	const log = new slib.Log({ tags: ['[QQPlayAPI]'] })
 
 	const unitNum = [null, 'K', 'M', 'B', 'T', 'aa', 'bb', 'cc', 'dd', 'ee', 'ff', 'gg', 'hh', 'ii', 'jj', 'kk', 'll', 'mm', 'nn', 'oo', 'pp', 'qq', 'rr', 'ss', 'tt', 'uu', 'vv', 'ww', 'xx', 'yy', 'zz', 'Aa', 'Bb', 'Cc', 'Dd', 'Ee', 'Ff', 'Gg', 'Hh', 'Ii', 'Jj', 'Kk', 'Ll', 'Mm', 'Nn', 'Oo', 'Pp', 'Qq', 'Rr', 'Ss', 'Tt', 'Uu', 'Vv', 'Ww', 'Xx', 'Yy', 'Zz', 'AA', 'BB', 'CC', 'DD', 'EE', 'FF', 'GG', 'HH', 'II', 'JJ', 'KK', 'LL', 'MM', 'NN', 'OO', 'PP', 'QQ', 'RR', 'SS', 'TT', 'UU', 'VV', 'WW', 'XX', 'YY', 'ZZ']
-	const typeIndex = [null, 'goldRank', 'seedRank', 'unlockRank', 'sceneRank',]
+	// const typeIndex = [null, 'goldRank', 'seedRank', 'unlockRank', 'sceneRank',]
 	const expNum = 7
 
 	export class User extends GDK.UserBase {
@@ -242,8 +242,8 @@ namespace QQPlayGDK {
 			return ret.promise
 		}
 
-		_getFriendCloudStorage({ keyList, success, complete, fail }:
-			{ keyList: string[], success?: (res: { data: wx.UserGameData[] }) => void, fail?: Function, complete?: Function }): void {
+		_getFriendCloudStorage({ keyList, typeIndex, success, complete, fail }:
+			{ keyList: string[], typeIndex: string[], success?: (res: { data: wx.UserGameData[] }) => void, fail?: Function, complete?: Function }): void {
 			// 当前不支持一次同时拉取多个排行榜，需要拉取多次，而且必须等上一个拉取回来后才能拉取另外一个排行榜
 			// 先拉 score 排行榜
 			const rankLog = new slib.Log({ tags: ['[FriendRank]'] })
@@ -396,10 +396,11 @@ namespace QQPlayGDK {
 
 		}
 
-		getFriendCloudStorage(obj: { keyList: string[] }): Promise<{ data: GDK.UserGameData[] }> {
+		getFriendCloudStorage(obj: { keyList: string[], typeIndex: string[] }): Promise<{ data: GDK.UserGameData[] }> {
 			const ret = new GDK.RPromise<{ data: GDK.UserGameData[] }>()
 			this._getFriendCloudStorage({
 				keyList: obj.keyList,
+				typeIndex: obj.typeIndex,
 				success: (res) => {
 					ret.success(res)
 				},
@@ -417,8 +418,8 @@ namespace QQPlayGDK {
 
 		protected loginTime = null
 		protected uploadingUserScore = false
-		_setUserCloudStorage(obj: { KVDataList: wx.KVData[], success?: Function, fail?: Function, complete?: Function }) {
-			const { success, fail } = obj
+		_setUserCloudStorage(obj: { KVDataList: wx.KVData[], typeIndex: string[], success?: Function, fail?: Function, complete?: Function }) {
+			const { success, fail, typeIndex } = obj
 			const rankLog = new slib.Log({ tags: ['[UserCloudStorage]'] })
 			if (this.loginTime == null) {
 				rankLog.info('-[UserCloudStorage] 未登录,不提交成绩数据', obj.KVDataList)
@@ -501,8 +502,9 @@ namespace QQPlayGDK {
 			});
 		}
 
-		uploadBusinessData(obj: { KVDataList: wx.KVData[], success?: Function, fail?: Function, complete?: Function }) {
+		uploadBusinessData(obj: { KVDataList: wx.KVData[], typeIndex: string[], success?: Function, fail?: Function, complete?: Function }) {
 			const rankLog = new slib.Log({ tags: ['[BusinessData]'] })
+			const typeIndex = obj.typeIndex
 			// 上报游戏运营数据
 			let gameTime = this.getTime() - this.loginTime
 			let gameResultData = {
@@ -550,10 +552,12 @@ namespace QQPlayGDK {
 			});
 		}
 
-		setUserCloudStorage(obj: { KVDataList: wx.KVData[] }): Promise<void> {
+		setUserCloudStorage(obj: { KVDataList: wx.KVData[], typeIndex: string[] }): Promise<void> {
 			const ret = new GDK.RPromise<void>()
 			this._setUserCloudStorage({
-				KVDataList: obj.KVDataList, success: () => {
+				KVDataList: obj.KVDataList,
+				typeIndex: obj.typeIndex,
+				success: () => {
 					ret.success(undefined)
 				},
 				fail: () => {

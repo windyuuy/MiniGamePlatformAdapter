@@ -71,8 +71,28 @@ namespace GDK {
 		/** 更新用户数据 */
 		update(): Promise<UserDataUpdateResult>
 		/** 获取用户云端数据 */
-		getFriendCloudStorage(obj: { keyList: string[] }): Promise<{ data: UserGameData[] }>;
+		getFriendCloudStorage(obj: {
+			keyList: string[],
+			/**
+			 * - 玩一玩和浏览器必须
+			 * - 格式形如（null开头）：
+			 * ```
+[null, 'goldRank', 'seedRank', 'unlockRank', 'sceneRank',]
+			 * ```
+			 **/
+			typeIndex: string[],
+		}): Promise<{ data: UserGameData[] }>;
 		/** 提交用户云端数据 */
-		setUserCloudStorage(obj: { KVDataList: KVData[] }): Promise<void>
+		setUserCloudStorage(obj: {
+			KVDataList: KVData[],
+			/**
+			 * - 玩一玩和浏览器必须
+			 * - 格式形如（null开头）：
+			 * ```
+[null, 'goldRank', 'seedRank', 'unlockRank', 'sceneRank',]
+			 * ```
+			 **/
+			typeIndex: string[],
+		}): Promise<void>
 	}
 }

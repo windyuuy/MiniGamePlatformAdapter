@@ -1,8 +1,8 @@
 
 namespace DevelopGDK {
 	const unitNum = [null, 'K', 'M', 'B', 'T', 'aa', 'bb', 'cc', 'dd', 'ee', 'ff', 'gg', 'hh', 'ii', 'jj', 'kk', 'll', 'mm', 'nn', 'oo', 'pp', 'qq', 'rr', 'ss', 'tt', 'uu', 'vv', 'ww', 'xx', 'yy', 'zz', 'Aa', 'Bb', 'Cc', 'Dd', 'Ee', 'Ff', 'Gg', 'Hh', 'Ii', 'Jj', 'Kk', 'Ll', 'Mm', 'Nn', 'Oo', 'Pp', 'Qq', 'Rr', 'Ss', 'Tt', 'Uu', 'Vv', 'Ww', 'Xx', 'Yy', 'Zz', 'AA', 'BB', 'CC', 'DD', 'EE', 'FF', 'GG', 'HH', 'II', 'JJ', 'KK', 'LL', 'MM', 'NN', 'OO', 'PP', 'QQ', 'RR', 'SS', 'TT', 'UU', 'VV', 'WW', 'XX', 'YY', 'ZZ']
-	const typeIndex = [null, 'goldRank', 'seedRank', 'unlockRank', 'sceneRank',]
-	const expNum = 7
+	// const typeIndex = [null, 'goldRank', 'seedRank', 'unlockRank', 'sceneRank',]
+	// const expNum = 7
 
 	export class User extends GDK.UserBase {
 		api?: GDK.UserAPI
@@ -55,7 +55,7 @@ namespace DevelopGDK {
 			return ret.promise
 		}
 
-		_getFriendCloudStorage({ keyList, success, complete, fail }: { keyList: string[], success?: (res: { data: wx.UserGameData[] }) => void, fail?: Function, complete?: Function }): void {
+		_getFriendCloudStorage({ keyList, success, complete, fail }: { keyList: string[], typeIndex: string[], success?: (res: { data: wx.UserGameData[] }) => void, fail?: Function, complete?: Function }): void {
 			// let typeIndex = [null, 'goldRank', 'seedRank', 'unlockRank', 'sceneRank',]
 			let info: wx.UserGameData = {
 				avatarUrl: "http://thirdqq.qlogo.cn/g?b=sdk&k=hX0olvhiaztn1FNkd2IibY4g&s=100&t=1483308056",
@@ -96,8 +96,9 @@ namespace DevelopGDK {
 			complete && complete();
 		}
 
-		_setUserCloudStorage(obj: { KVDataList: wx.KVData[], success?: Function, fail?: Function, complete?: Function }) {
+		_setUserCloudStorage(obj: { KVDataList: wx.KVData[], typeIndex: string[], success?: Function, fail?: Function, complete?: Function }) {
 			console.log('-[UserCloudStorage] 提交用户成绩', obj.KVDataList)
+			const typeIndex = obj.typeIndex
 			let commitTime = 0//this.getTime()
 			let data: BK.QQRankData = {
 				userData: [
@@ -148,10 +149,11 @@ namespace DevelopGDK {
 			console.log('-[UserCloudStorage] 提交用户成绩数据: ' + JSON.stringify(data))
 		}
 
-		getFriendCloudStorage(obj: { keyList: string[] }): Promise<{ data: GDK.UserGameData[] }> {
+		getFriendCloudStorage(obj: { keyList: string[], typeIndex: string[] }): Promise<{ data: GDK.UserGameData[] }> {
 			const ret = new GDK.RPromise<{ data: GDK.UserGameData[] }>()
 			this._getFriendCloudStorage({
 				keyList: obj.keyList,
+				typeIndex: obj.typeIndex,
 				success: (res) => {
 					ret.success(res)
 				},
@@ -162,12 +164,13 @@ namespace DevelopGDK {
 			return ret.promise
 		}
 
-		setUserCloudStorage(obj: { KVDataList: wx.KVData[] }): Promise<void> {
+		setUserCloudStorage(obj: { KVDataList: wx.KVData[], typeIndex: string[] }): Promise<void> {
 			const ret = new GDK.RPromise<void>()
 			this._setUserCloudStorage({
 				KVDataList: obj.KVDataList, success: () => {
 					ret.success(undefined)
 				},
+				typeIndex: obj.typeIndex,
 				fail: () => {
 					ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_SET_USER_CLOUD_STORAGE_FAILED))
 				}

@@ -86,7 +86,7 @@ namespace WechatGDK {
 			return ret.promise
 		}
 
-		getFriendCloudStorage(obj: { keyList: string[] }): Promise<{ data: GDK.UserGameData[] }> {
+		getFriendCloudStorage(obj: { keyList: string[], typeIndex: string[] }): Promise<{ data: GDK.UserGameData[] }> {
 			const ret = new GDK.RPromise<{ data: GDK.UserGameData[] }>()
 			wx.getFriendCloudStorage({
 				keyList: obj.keyList,
@@ -100,7 +100,7 @@ namespace WechatGDK {
 			return ret.promise
 		}
 
-		setUserCloudStorage(obj: { KVDataList: wx.KVData[] }): Promise<void> {
+		setUserCloudStorage(obj: { KVDataList: wx.KVData[], typeIndex: string[] }): Promise<void> {
 			const ret = new GDK.RPromise<void>()
 			wx.setUserCloudStorage({
 				KVDataList: obj.KVDataList,

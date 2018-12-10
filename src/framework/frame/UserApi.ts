@@ -101,6 +101,14 @@ namespace GDK {
 		/** 获取用户云端数据 */
 		getFriendCloudStorage(obj: {
 			keyList: string[];
+			/**
+			 * - 玩一玩和浏览器必须
+			 * - 格式形如（null开头）：
+			 * ```
+[null, 'goldRank', 'seedRank', 'unlockRank', 'sceneRank',]
+			 * ```
+			 **/
+			typeIndex: string[];
 		}): Promise<{ data: UserGameData[] }> {
 			if (!this.checkModuleAttr("user", "getFriendCloudStorage", "function")) {
 				return this.createNonePromise("[user.getFriendCloudStorage]");
@@ -108,7 +116,17 @@ namespace GDK {
 			return this._m.user.getFriendCloudStorage(obj);
 		}
 		/** 提交用户云端数据 */
-		setUserCloudStorage(obj: { KVDataList: KVData[] }): Promise<void> {
+		setUserCloudStorage(obj: {
+			KVDataList: KVData[];
+			/**
+			 * - 玩一玩和浏览器必须
+			 * - 格式形如（null开头）：
+			 * ```
+[null, 'goldRank', 'seedRank', 'unlockRank', 'sceneRank',]
+			 * ```
+			 **/
+			typeIndex: string[];
+		}): Promise<void> {
 			if (!this.checkModuleAttr("user", "setUserCloudStorage", "function")) {
 				return this.createNonePromise("[user.setUserCloudStorage]");
 			}
@@ -687,10 +705,7 @@ namespace GDK {
 		/**
 		 * 调起支付
 		 */
-		payPurchase(
-			item: PayItemInfo,
-			options?: PayOptions
-		): Promise<PayResult> {
+		payPurchase(item: PayItemInfo, options?: PayOptions): Promise<PayResult> {
 			if (!this.checkModuleAttr("pay", "payPurchase", "function")) {
 				return this.createNonePromise("[pay.payPurchase]");
 			}
