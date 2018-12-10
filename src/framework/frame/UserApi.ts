@@ -685,6 +685,16 @@ namespace GDK {
 			return this._m.share.getShareParam();
 		}
 		/**
+		 * 获取分享的信息
+		 * * 当前仅微信环境有效
+		 */
+		getShareInfo(shareTicket: string): Promise<any> {
+			if (!this.checkModuleAttr("share", "getShareInfo", "function")) {
+				return this.createNonePromise("[share.getShareInfo]");
+			}
+			return this._m.share.getShareInfo(shareTicket);
+		}
+		/**
 		 * 调起支付
 		 */
 		payPurchase(item: PayItemInfo, options?: PayOptions): Promise<PayResult> {
