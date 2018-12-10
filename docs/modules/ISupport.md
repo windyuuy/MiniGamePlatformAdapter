@@ -1,6 +1,7 @@
 ### **apiPlatform**
 - api平台名称
 
+
 ### **pluginName**
 - 插件名，如：
 ```
@@ -9,14 +10,19 @@ wechat(微信)
 qqplay(玩一玩)
 ```
 
+
 ### **supportShareTickets**
 - 是否支持群分享
+
 
 ### **requireSubDomainRank**
 - 是否需要支持子域
 
+
 ### **requireAuthorize**
 - 是否需要鉴权认证
 
+
 ### **apiNameLocale**
-- api名字
+- api本地化名字
+

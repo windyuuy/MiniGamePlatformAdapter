@@ -43,12 +43,12 @@ namespace GDK {
 		 **/
 		version: string
 		/**
-		 * 操作系统版本
-		 * - "android" | "ios" | "devtools" | ...
+		 * 操作系统版本，形如 "Android 5.0"
 		 **/
 		system: string
 		/**
 		 * 客户端平台
+		 * - "android" | "ios" | "devtools" | ...
 		 **/
 		platform: string
 		/**
@@ -103,6 +103,7 @@ namespace GDK {
 		 * 获取网络状况信息
 		 */
 		fetchNetworkInfo(): Promise<void>
+		clone(): ISystemInfo
 	}
 
 }

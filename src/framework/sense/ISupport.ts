@@ -17,7 +17,7 @@ namespace GDK {
 		requireSubDomainRank: boolean
 		/** 是否需要鉴权认证 */
 		requireAuthorize: boolean
-		/** api名字 */
+		/** api本地化名字 */
 		apiNameLocale: string
 	}
 }

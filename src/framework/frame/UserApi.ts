@@ -208,8 +208,8 @@ namespace GDK {
 		}
 		/**
 		 * 是否为该游戏管理账号用户
-		 * - 1是
-		 * - 0否
+		 * - 1 是
+		 * - 0 否
 		 **/
 		get isWhiteUser(): number {
 			if (!this.checkModuleAttr("userData", "isWhiteUser")) {
@@ -218,9 +218,7 @@ namespace GDK {
 			return this._m.userData.isWhiteUser;
 		}
 		/**
-		 * 是否房主
-		 * - 1 房主
-		 * - 0 参加者
+		 * 是否房主，1房主，0参加者
 		 **/
 		get isMaster(): number {
 			if (!this.checkModuleAttr("userData", "isMaster")) {
@@ -238,8 +236,10 @@ namespace GDK {
 			return this._m.userData.roomId;
 		}
 		/**
-		 * 游戏的启动模式。
-		 * 可以是 开发、测试、发布
+		 * 游戏的启动模式，可以是：
+		 * - 开发
+		 * - 测试
+		 * - 发布
 		 */
 		get mode(): "develop" | "test" | "release" {
 			if (!this.checkModuleAttr("gameInfo", "mode")) {
@@ -348,7 +348,7 @@ namespace GDK {
 			return this._m.gameInfo.requireMiniAppPay;
 		}
 		/**
-		 * 手机品牌	1.5.0
+		 * 手机品牌
 		 **/
 		get brand(): string {
 			if (!this.checkModuleAttr("systemInfo", "brand")) {
@@ -358,7 +358,7 @@ namespace GDK {
 		}
 		/**
 		 * - 手机型号
-		 * - 具体机型(手Q7.6.3及以上支持) 形如 "PRO 6 Plus"
+		 * - 具体机型(微信、手Q7.6.3及以上支持) 形如 "PRO 6 Plus"
 		 **/
 		get model(): string {
 			if (!this.checkModuleAttr("systemInfo", "model")) {
@@ -367,7 +367,8 @@ namespace GDK {
 			return this._m.systemInfo.model;
 		}
 		/**
-		 * 设备像素比，-1代表未知
+		 * 设备像素比
+		 * - -1 代表未知
 		 **/
 		get pixelRatio(): number {
 			if (!this.checkModuleAttr("systemInfo", "pixelRatio")) {
@@ -376,7 +377,7 @@ namespace GDK {
 			return this._m.systemInfo.pixelRatio;
 		}
 		/**
-		 * 屏幕宽度	1.1.0
+		 * 屏幕宽度
 		 **/
 		get screenWidth(): number {
 			if (!this.checkModuleAttr("systemInfo", "screenWidth")) {
@@ -385,7 +386,7 @@ namespace GDK {
 			return this._m.systemInfo.screenWidth;
 		}
 		/**
-		 * 屏幕高度	1.1.0
+		 * 屏幕高度
 		 **/
 		get screenHeight(): number {
 			if (!this.checkModuleAttr("systemInfo", "screenHeight")) {
@@ -412,7 +413,7 @@ namespace GDK {
 			return this._m.systemInfo.windowHeight;
 		}
 		/**
-		 * 状态栏的高度	1.9.0
+		 * 状态栏的高度
 		 **/
 		get statusBarHeight(): number {
 			if (!this.checkModuleAttr("systemInfo", "statusBarHeight")) {
@@ -439,8 +440,7 @@ namespace GDK {
 			return this._m.systemInfo.version;
 		}
 		/**
-		 * 操作系统版本
-		 * - "android" | "ios" | "devtools" | ...
+		 * 操作系统版本，形如 "Android 5.0"
 		 **/
 		get system(): string {
 			if (!this.checkModuleAttr("systemInfo", "system")) {
@@ -450,6 +450,7 @@ namespace GDK {
 		}
 		/**
 		 * 客户端平台
+		 * - "android" | "ios" | "devtools" | ...
 		 **/
 		get platform(): string {
 			if (!this.checkModuleAttr("systemInfo", "platform")) {
@@ -458,7 +459,7 @@ namespace GDK {
 			return this._m.systemInfo.platform;
 		}
 		/**
-		 * 用户字体大小设置。以“我 - 设置 - 通用 - 字体大小”中的设置为准，单位 px。	1.5.0
+		 * 用户字体大小设置。以“我 - 设置 - 通用 - 字体大小”中的设置为准，单位 px。
 		 **/
 		get fontSizeSetting(): number {
 			if (!this.checkModuleAttr("systemInfo", "fontSizeSetting")) {
@@ -467,7 +468,7 @@ namespace GDK {
 			return this._m.systemInfo.fontSizeSetting;
 		}
 		/**
-		 * 客户端基础库版本	1.1.0
+		 * 客户端基础库版本
 		 **/
 		get SDKVersion(): string {
 			if (!this.checkModuleAttr("systemInfo", "SDKVersion")) {
@@ -476,7 +477,11 @@ namespace GDK {
 			return this._m.systemInfo.SDKVersion;
 		}
 		/**
-		 * (仅Android小游戏) 性能等级，-2 或 0：该设备无法运行小游戏，-1：性能未知，>= 1 设备性能值，该值越高，设备性能越好(目前设备最高不到50)	1.8.0
+		 * (仅Android小游戏) 性能等级
+		 * - -2 或 0：该设备无法运行小游戏
+		 * - -1：性能未知
+		 * - `>=` 1 设备性能值
+		 * - 该值越高，设备性能越好(目前设备最高不到50)
 		 **/
 		get benchmarkLevel(): number {
 			if (!this.checkModuleAttr("systemInfo", "benchmarkLevel")) {
@@ -500,7 +505,8 @@ namespace GDK {
 			return this._m.systemInfo.networkType;
 		}
 		/**
-		 * 网络类型 1 电信 ，2 联通 ，3 移动 0: wifi或未知
+		 * 网络类型 1 电信 ，2 联通 ，3 移动
+		 * - 0: wifi或未知
 		 * -1 无网络
 		 * -2 2G/3G/4G/nG 网络
 		 **/
@@ -511,7 +517,9 @@ namespace GDK {
 			return this._m.systemInfo.networkClass;
 		}
 		/**
-		 * 是否首次安装 1为首次安装 0非首次安装
+		 * 是否首次安装
+		 * - 1为首次安装
+		 * - 0非首次安装
 		 **/
 		get isFirstInstall(): number {
 			if (!this.checkModuleAttr("systemInfo", "isFirstInstall")) {
@@ -537,6 +545,13 @@ namespace GDK {
 				return this.createNonePromise("[systemInfo.fetchNetworkInfo]");
 			}
 			return this._m.systemInfo.fetchNetworkInfo();
+		}
+
+		clone(): ISystemInfo {
+			if (!this.checkModuleAttr("systemInfo", "clone", "function")) {
+				return undefined;
+			}
+			return this._m.systemInfo.clone();
 		}
 
 		/**
@@ -673,7 +688,7 @@ namespace GDK {
 		 * 调起支付
 		 */
 		payPurchase(
-			item: GDK.PayItemInfo,
+			item: PayItemInfo,
 			options?: PayOptions
 		): Promise<PayResult> {
 			if (!this.checkModuleAttr("pay", "payPurchase", "function")) {
@@ -845,7 +860,7 @@ namespace GDK {
 			}
 			return this._m.support.requireAuthorize;
 		}
-		/** api名字 */
+		/** api本地化名字 */
 		get apiNameLocale(): string {
 			if (!this.checkModuleAttr("support", "apiNameLocale")) {
 				return undefined;

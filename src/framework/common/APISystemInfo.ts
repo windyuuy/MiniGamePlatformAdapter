@@ -24,5 +24,14 @@ namespace GDK {
 		devPlatform?: string = "devtools"
 
 		abstract fetchNetworkInfo(): Promise<void>
+
+		clone(): ISystemInfo {
+			const obj: any = {}
+			for (let k in this) {
+				obj[k] = this[k]
+			}
+			obj.api = undefined
+			return obj
+		}
 	}
 }

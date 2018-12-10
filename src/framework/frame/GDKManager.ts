@@ -58,6 +58,10 @@ namespace GDK {
 	export const gdkManager = new GDKManager()
 
 	class FakeUserApi {
+		get pluginName(): string {
+			return defaultGDKName
+		}
+
 		initConfig(config: GDKConfig) {
 			gdkManager.initializeGDKInstance()
 			gdkManager.setDefaultGdk(defaultGDKName)

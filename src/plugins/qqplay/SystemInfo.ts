@@ -1,6 +1,6 @@
 
 namespace QQPlayGDK {
-	export class SystemInfo implements GDK.ISystemInfo {
+	export class SystemInfo extends GDK.SystemInfoBase {
 		brand: string
 		model: string
 		pixelRatio: number

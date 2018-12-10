@@ -1,6 +1,7 @@
 const fs = require("fs")
 const path = require("path")
 const prettier = require("prettier");
+const glob = require('glob')
 
 const baseDir = "../src"
 
@@ -14,6 +15,21 @@ function findExplain(ast, loc) {
 	return comment
 }
 
+/**
+ * @type {
+ * text:string,
+ * parent:string,
+ * declare:string,
+ * defcontent:string,
+ * key:string,
+ * alias:string,
+ * params:string[],
+ * paramsDef:astObj[],
+ * deftype:string,
+ * membertype:string,
+ * explain:string
+ * }[]
+ */
 const parseModule = (parent, moduleName) => {
 	// console.log('parse', moduleName)
 	const exportList = []
@@ -47,8 +63,11 @@ const parseModule = (parent, moduleName) => {
 							const deftype = member['type']
 							const params = []
 							let membertype = null
+							let paramsDef = null
 							if (deftype == 'TSMethodSignature') {
 								const params_def = member['params']
+								paramsDef = params_def
+								// console.log('params_def', prettier.format(JSON.stringify(params_def)))
 								for (let p of params_def) {
 									params.push(p['name'])
 								}
@@ -73,7 +92,17 @@ const parseModule = (parent, moduleName) => {
 							}
 
 							// console.log(memberHead)
-							exportList.push({ parent: moduleName, key: key, declare: memberHead, params: params, deftype: deftype, membertype: membertype, explain: explainText })
+							exportList.push({
+								text: text,
+								parent: moduleName,
+								key: key,
+								declare: memberHead,
+								params: params,
+								deftype: deftype,
+								membertype: membertype,
+								explain: explainText,
+								paramsDef: paramsDef,
+							})
 						}
 					}
 				}
@@ -103,13 +132,10 @@ function parseModuleList(moduleMapFile) {
 			}
 		}
 	}
-	console.log(moduleList)
+	// console.log(moduleList)
 	return moduleList
 }
 
-/**
- * @type {parent:string,declare:string,defcontent:string,key:string,alias:string,params:string[],deftype:string,membertype:string,explain:string}[]
- */
 // make module body
 function makeModuleBody(moduleList) {
 	const exportList = []
@@ -194,6 +220,104 @@ async function buildApi() {
 	fs.writeFileSync(destfile, output, { encoding: 'utf-8' })
 }
 
+const loadFormattedTSContent = (srcfile) => {
+	const content = fs.readFileSync(srcfile, { encoding: 'utf-8' })
+	let txt = prettier.format(content, { semi: false, parser: "typescript", useTabs: true })
+	return txt
+}
+
+const scanInterfaces = (path, parent) => {
+	const interfaceList = []
+
+	const content = loadFormattedTSContent(path)
+	prettier.format(content, {
+		parser(text, { typescript }) {
+			const ast = typescript(text);
+			const namespaces = ast['body']
+			for (let _namespace of namespaces) {
+				if (!_namespace['id']) {
+					continue
+				}
+				if (_namespace['id']['name'] !== parent) {
+					continue
+				}
+				const namespace_GDK = _namespace['body']
+				const defs = namespace_GDK['body']
+				for (let interfaceDef of defs) {
+					let def = interfaceDef['declaration']
+					if (!def) { continue }
+					let defType = def['type']
+					let interfaceDefMake = null
+					if (defType == 'TSInterfaceDeclaration' || defType == 'ClassDeclaration' || defType == 'TSAbstractClassDeclaration') {
+						const defname = def['id'] && def['id']['name']
+						const body = cutline(text, def['body']['range'])
+						interfaceDefMake = {
+							name: defname,
+							body: body,
+							defType: defType,
+						}
+					} else if (defType == 'VariableDeclaration') {
+						const subDef = def['declarations'][0]
+						const defname = subDef['id'] && subDef['id']['name']
+						const body = cutline(text, subDef['init']['range'])
+						interfaceDefMake = {
+							name: defname,
+							body: body,
+							defType: defType,
+						}
+					} else if (defType == 'TSEnumDeclaration') {
+						const defname = def['id'] && def['id']['name']
+						const body = cutline(text, def['range'])
+						interfaceDefMake = {
+							name: defname,
+							body: body,
+							defType: defType,
+						}
+					} else {
+						console.log(defType)
+					}
+					interfaceList.push(interfaceDefMake)
+					interfaceDefMake.referList = []
+
+					for (line of interfaceDefMake.body.split('\n')) {
+						// 忽略 new()=>T
+						const m = line.match(/([\w\$]+)[\?]?\: ([\w\$]+)/)
+						if (m) {
+							const typeName = m[2]
+							interfaceDefMake.referList.push({
+								typeName
+							})
+						}
+					}
+				}
+			}
+			return ast;
+		}
+	})
+
+	// console.log(interfaceList)
+
+	return interfaceList
+}
+
+const scanInterfacesInProject = (folder) => {
+	return new Promise((resolve, reject) => {
+		let interfaceListAll = []
+		glob(folder, {}, function (er, files) {
+			for (let file of files) {
+				const interfaceList = scanInterfaces(file, "GDK")
+				interfaceListAll = interfaceListAll.concat(interfaceList)
+			}
+			resolve(interfaceListAll)
+		})
+	})
+}
+
+// scanInterfaces('F:/workspace/GDK/src/framework/sense/IPay.ts', 'GDK')
+// scanInterfacesInProject("F:/workspace/GDK/src/framework/**/*.ts").then((interfaceListAll) => {
+// 	console.log(interfaceListAll)
+// })
+
 async function genDoc() {
 
 	const srcfile = baseDir + '/framework/frame/UserApi.ts'
@@ -203,6 +327,8 @@ async function genDoc() {
 
 	const moduleList = parseModuleList(moduleMapFile)
 	const exportList = makeModuleBody(moduleList)
+
+	const interfaceListAll = await scanInterfacesInProject("F:/workspace/GDK/src/framework/**/*.ts")
 
 	const moduleDocs = {}
 	for (let def of exportList) {
@@ -215,10 +341,82 @@ async function genDoc() {
 		// const paramsline = def.params.join(',')
 		const membertype = def.membertype
 		const explain = def.explain
+		const text = def.text
+
+		// 参数信息
+		const paramsDef = def.paramsDef
 
 		let interfaceLine = alias
+		let typeDeclareList = []
 		if (def.deftype == 'TSMethodSignature') {
-			interfaceLine = `${interfaceLine}()`
+			const info = (() => {
+				const pts = []
+				const typeDeclareList = []
+				let counter = 0
+				for (let param of paramsDef) {
+					counter++
+					let varname = param['name']
+					let defType = param['typeAnnotation']['typeAnnotation']['type']
+					if (defType == 'TSTypeReference') {
+						let typename = cutline(text, param['typeAnnotation']['typeAnnotation']['range'])
+						if (typename.startsWith('GDK.')) {
+							typename = typename.substr('GDK.'.length)
+						}
+						let typeRefer = '{/** ReferedType */}'
+						let referDef = interfaceListAll.find(info => info.name == typename)
+						if (referDef) {
+							typeRefer = referDef.body
+
+							// 搜寻二级引用
+							if (referDef.referList) {
+								for (let { typeName } of referDef.referList) {
+									let typeRefer = null
+									let referDef = interfaceListAll.find(info => info.name == typeName)
+									if (referDef) {
+										typeRefer = referDef.body
+									}
+									if (typeRefer) {
+										typeDeclareList.push({
+											referName: typeName,
+											content: typeRefer,
+											defType: referDef.defType,
+										})
+									}
+								}
+							}
+						}
+						typeDeclareList.push({
+							referName: typename,
+							content: typeRefer,
+							defType: referDef.defType,
+						})
+						// if (alias == 'payPurchase') {
+						// console.log(param['typeAnnotation']['typeAnnotation'])
+						// }
+						pts.push(`${varname}: ${typename}`)
+					} else {
+						const typeline = cutline(text, param['typeAnnotation']['typeAnnotation']['range'])
+						let typename = typeline
+						// console.log(JSON.stringify(param))
+						if (typename.split('\n').length > 1) {
+							typename = `ParamType${counter}`
+							if (counter == 1) {
+								typename = `ParamType`
+							}
+							typeDeclareList.push({
+								referName: typename,
+								content: typeline,
+							})
+						}
+						pts.push(`${varname}: ${typename}`)
+					}
+				}
+				return { paramsline: pts.join(','), typeDeclareList: typeDeclareList }
+			})()
+
+			let paramsline = info.paramsline
+			typeDeclareList = info.typeDeclareList
+			interfaceLine = `${interfaceLine}(${paramsline})`
 		}
 
 		let comment = explain || ''
@@ -244,10 +442,34 @@ async function genDoc() {
 			comment = `- ${interfaceLine}`
 		}
 
+		const declareLines = []
+		for (let info of typeDeclareList) {
+			let code = `type ${info.referName} = ${info.content}`
+			if (info.defType == 'TSEnumDeclaration') {
+				code = info.content
+			}
+			try {
+				code = prettier.format(code, { semi: false, parser: "typescript", useTabs: true })
+			} catch (e) {
+				// pass
+			}
+			const line = `
+\`\`\`typescript
+${code}
+\`\`\`
+`
+			declareLines.push(line)
+		}
+		if (declareLines.length > 0) {
+			declareLines.unshift('- 参数定义')
+		}
 
 		const docs = moduleDocs[moduleName] ? moduleDocs[moduleName] : moduleDocs[moduleName] = []
-		const line = `### **${interfaceLine}**
+		// template
+		const line =
+			`### **${interfaceLine}**
 ${comment}
+${declareLines.join('\n')}
 `
 		// console.log(line)
 		docs.push(line)
