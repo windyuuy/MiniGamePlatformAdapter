@@ -64,6 +64,7 @@ const parseModule = (parent, moduleName) => {
 							const params = []
 							let membertype = null
 							let paramsDef = null
+							// console.log(JSON.stringify(member))
 							if (deftype == 'TSMethodSignature') {
 								const params_def = member['params']
 								paramsDef = params_def
@@ -328,7 +329,7 @@ async function genDoc() {
 	const moduleList = parseModuleList(moduleMapFile)
 	const exportList = makeModuleBody(moduleList)
 
-	const interfaceListAll = await scanInterfacesInProject("F:/workspace/GDK/src/framework/**/*.ts")
+	const interfaceListAll = await scanInterfacesInProject("F:/workspace/GDK/src/framework/sense/**/*.ts")
 
 	const moduleDocs = {}
 	for (let def of exportList) {
@@ -352,6 +353,21 @@ async function genDoc() {
 			const info = (() => {
 				const pts = []
 				const typeDeclareList = []
+
+				{
+					let typeRefer = '{/** ReferedType */}'
+					let referDef = interfaceListAll.find(info => info.name == membertype)
+					if (referDef) {
+						typeRefer = referDef.body
+
+						typeDeclareList.push({
+							referName: membertype,
+							content: typeRefer,
+							defType: referDef.defType,
+						})
+					}
+				}
+
 				let counter = 0
 				for (let param of paramsDef) {
 					counter++
@@ -416,7 +432,7 @@ async function genDoc() {
 
 			let paramsline = info.paramsline
 			typeDeclareList = info.typeDeclareList
-			interfaceLine = `${interfaceLine}(${paramsline})`
+			interfaceLine = `${interfaceLine}(${paramsline}): ${membertype}`
 		}
 
 		let comment = explain || ''
