@@ -37,6 +37,31 @@
 
 ### **launchOptions: LaunchOptions**
 - 小游戏启动时的参数。
+- 参数定义
+
+```typescript
+type LaunchOptions = {
+	/** 打开小游戏的场景值 */
+	scene: number
+	/** 打开小游戏的启动参数 query */
+	query: { [key: string]: string }
+	path?: string
+	isSticky?: boolean
+	/** shareTicket，详见获取更多转发信息 */
+	shareTicket: string
+	/**
+	 * 来源信息。从另一个小程序、公众号或 App 进入小程序时返回。否则返回 {}。(参见后文注意) *
+	 * - 部分版本在无referrerInfo的时候会返回 undefined，建议使用 options.referrerInfo && options.referrerInfo.appId 进行判断。
+	 **/
+	referrerInfo?: {
+		/** 来源小程序、公众号或 App 的 appId */
+		extraData: object
+		/** 来源小程序传过来的数据，scene=1037或1038时支持 */
+		appId: string
+	}
+}
+
+```
 
 
 ### **gameVersion: string**

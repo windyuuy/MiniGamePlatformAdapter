@@ -1,5 +1,14 @@
 ### **keyboard: IKeyBoard**
 - 系统键盘对象
+- 参数定义
+
+```typescript
+type IKeyBoard = {
+	/** 隐藏键盘 */
+	hideKeyboard(object: Object): Promise<void>
+}
+
+```
 
 
 ### **showLoading(object: ShowLoadingParams): Promise**

@@ -340,7 +340,10 @@ async function genDoc() {
 			continue
 		}
 		// const paramsline = def.params.join(',')
-		const membertype = def.membertype || 'void'
+		let membertype = def.membertype || 'void'
+		if (membertype.startsWith(': ')) {
+			membertype = membertype.substr(2)
+		}
 		const explain = def.explain
 		const text = def.text
 
@@ -349,24 +352,25 @@ async function genDoc() {
 
 		let interfaceLine = alias
 		let typeDeclareList = []
+
+		{
+			let typeRefer = '{/** ReferedType */}'
+			let referDef = interfaceListAll.find(info => info.name == membertype)
+			if (referDef) {
+				typeRefer = referDef.body
+
+				typeDeclareList.push({
+					referName: membertype,
+					content: typeRefer,
+					defType: referDef.defType,
+				})
+			}
+		}
+
 		if (def.deftype == 'TSMethodSignature') {
 			const info = (() => {
 				const pts = []
 				const typeDeclareList = []
-
-				{
-					let typeRefer = '{/** ReferedType */}'
-					let referDef = interfaceListAll.find(info => info.name == membertype)
-					if (referDef) {
-						typeRefer = referDef.body
-
-						typeDeclareList.push({
-							referName: membertype,
-							content: typeRefer,
-							defType: referDef.defType,
-						})
-					}
-				}
 
 				let counter = 0
 				for (let param of paramsDef) {
@@ -434,7 +438,7 @@ async function genDoc() {
 			typeDeclareList = info.typeDeclareList
 			interfaceLine = `${interfaceLine}(${paramsline}): ${membertype}`
 		} else {
-			interfaceLine = `${alias}${membertype}`
+			interfaceLine = `${alias}: ${membertype}`
 		}
 
 		let comment = explain || ''

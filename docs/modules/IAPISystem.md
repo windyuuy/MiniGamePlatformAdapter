@@ -49,4 +49,13 @@ type AppCallUpParams = {
 
 ### **clipboard: IClipboard**
 - 剪切板
+- 参数定义
+
+```typescript
+type IClipboard = {
+	getData(): Promise<ClipboardData>
+	setData(res: ClipboardData): Promise<void>
+}
+
+```
 

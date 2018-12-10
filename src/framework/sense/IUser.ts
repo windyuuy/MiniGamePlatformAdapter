@@ -66,7 +66,7 @@ namespace GDK {
 		/** 登录 */
 		login(params?: LoginParams): Promise<LoginResult>
 		/** 检查登录态是否过期 */
-		checkSession?(params?: ReqParams)
+		checkSession?(params?: ReqParams): Promise<void>
 
 		/** 更新用户数据 */
 		update(): Promise<UserDataUpdateResult>

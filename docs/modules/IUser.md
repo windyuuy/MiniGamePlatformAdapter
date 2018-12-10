@@ -8,7 +8,7 @@ type LoginParams = {}
 ```
 
 
-### **checkSession(params: ReqParams): void**
+### **checkSession(params: ReqParams): Promise**
 - 检查登录态是否过期
 - 参数定义
 
