@@ -77,61 +77,6 @@ namespace GDK {
 
 		/** 批量导出接口 */
 		// $batch_export() begin
-		/** 登录 */
-		login(params?: LoginParams): Promise<LoginResult> {
-			if (!this.checkModuleAttr("user", "login", "function")) {
-				return this.createNonePromise("[user.login]");
-			}
-			return this._m.user.login(params);
-		}
-		/** 检查登录态是否过期 */
-		checkSession?(params?: ReqParams) {
-			if (!this.checkModuleAttr("user", "checkSession", "function")) {
-				return undefined;
-			}
-			return this._m.user.checkSession(params);
-		}
-		/** 更新用户数据 */
-		updateUser(): Promise<UserDataUpdateResult> {
-			if (!this.checkModuleAttr("user", "update", "function")) {
-				return this.createNonePromise("[user.update]");
-			}
-			return this._m.user.update();
-		}
-		/** 获取用户云端数据 */
-		getFriendCloudStorage(obj: {
-			keyList: string[];
-			/**
-			 * - 玩一玩和浏览器必须
-			 * - 格式形如（null开头）：
-			 * ```
-[null, 'goldRank', 'seedRank', 'unlockRank', 'sceneRank',]
-			 * ```
-			 **/
-			typeIndex: string[];
-		}): Promise<{ data: UserGameData[] }> {
-			if (!this.checkModuleAttr("user", "getFriendCloudStorage", "function")) {
-				return this.createNonePromise("[user.getFriendCloudStorage]");
-			}
-			return this._m.user.getFriendCloudStorage(obj);
-		}
-		/** 提交用户云端数据 */
-		setUserCloudStorage(obj: {
-			KVDataList: KVData[];
-			/**
-			 * - 玩一玩和浏览器必须
-			 * - 格式形如（null开头）：
-			 * ```
-[null, 'goldRank', 'seedRank', 'unlockRank', 'sceneRank',]
-			 * ```
-			 **/
-			typeIndex: string[];
-		}): Promise<void> {
-			if (!this.checkModuleAttr("user", "setUserCloudStorage", "function")) {
-				return this.createNonePromise("[user.setUserCloudStorage]");
-			}
-			return this._m.user.setUserCloudStorage(obj);
-		}
 
 		get openId(): string {
 			if (!this.checkModuleAttr("userData", "openId")) {
@@ -252,6 +197,61 @@ namespace GDK {
 				return undefined;
 			}
 			return this._m.userData.roomId;
+		}
+		/** 登录 */
+		login(params?: LoginParams): Promise<LoginResult> {
+			if (!this.checkModuleAttr("user", "login", "function")) {
+				return this.createNonePromise("[user.login]");
+			}
+			return this._m.user.login(params);
+		}
+		/** 检查登录态是否过期 */
+		checkSession?(params?: ReqParams) {
+			if (!this.checkModuleAttr("user", "checkSession", "function")) {
+				return undefined;
+			}
+			return this._m.user.checkSession(params);
+		}
+		/** 更新用户数据 */
+		updateUser(): Promise<UserDataUpdateResult> {
+			if (!this.checkModuleAttr("user", "update", "function")) {
+				return this.createNonePromise("[user.update]");
+			}
+			return this._m.user.update();
+		}
+		/** 获取用户云端数据 */
+		getFriendCloudStorage(obj: {
+			keyList: string[];
+			/**
+			 * - 玩一玩和浏览器必须
+			 * - 格式形如（null开头）：
+			 * ```
+[null, 'goldRank', 'seedRank', 'unlockRank', 'sceneRank',]
+			 * ```
+			 **/
+			typeIndex: string[];
+		}): Promise<{ data: UserGameData[] }> {
+			if (!this.checkModuleAttr("user", "getFriendCloudStorage", "function")) {
+				return this.createNonePromise("[user.getFriendCloudStorage]");
+			}
+			return this._m.user.getFriendCloudStorage(obj);
+		}
+		/** 提交用户云端数据 */
+		setUserCloudStorage(obj: {
+			KVDataList: KVData[];
+			/**
+			 * - 玩一玩和浏览器必须
+			 * - 格式形如（null开头）：
+			 * ```
+[null, 'goldRank', 'seedRank', 'unlockRank', 'sceneRank',]
+			 * ```
+			 **/
+			typeIndex: string[];
+		}): Promise<void> {
+			if (!this.checkModuleAttr("user", "setUserCloudStorage", "function")) {
+				return this.createNonePromise("[user.setUserCloudStorage]");
+			}
+			return this._m.user.setUserCloudStorage(obj);
 		}
 		/**
 		 * 游戏的启动模式，可以是：

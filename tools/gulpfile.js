@@ -96,8 +96,9 @@ gulp.task('buildapi', buildApi)
 gulp.task('gendoc', genDoc)
 
 gulp.task("build", gulp.series("buildapi", "compile", "mini"));
-gulp.task("pubdoc", async () => {
+gulp.task("convdoc", async () => {
 	execon("../docs/", () => exec("gitbook build"))
 });
+gulp.task('builddoc', gulp.series("gendoc", "convdoc"))
 
 gulp.task("publish", gulp.series("build", "uploadVersion"));
