@@ -343,7 +343,10 @@ async function genDoc() {
 		let membertype = def.membertype || 'void'
 		if (membertype.startsWith(': ')) {
 			membertype = membertype.substr(2)
+		} else if (membertype.startsWith('?: ')) {
+			membertype = membertype.substr(3)
 		}
+
 		const explain = def.explain
 		const text = def.text
 
