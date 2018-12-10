@@ -1,4 +1,4 @@
-### **navigateToApp(params: AppCallUpParams)**
+### **navigateToApp(params: AppCallUpParams): Promise**
 - 跳转游戏
 - 参数定义
 
@@ -30,19 +30,19 @@ type AppCallUpParams = {
 ```
 
 
-### **exitProgram()**
+### **exitProgram(): Promise**
 - 退出当前游戏
 
 
-### **updateProgramForce()**
+### **updateProgramForce(): Promise**
 - 强制更新
 
 
-### **setEnableDebug(res: { enableDebug: boolean })**
+### **setEnableDebug(res: { enableDebug: boolean }): Promise**
 - 设置是否打开调试开关。此开关对正式版也能生效。
 
 
-### **setFPS(fps: number)**
+### **setFPS(fps: number): null**
 - 设置帧率
 	- 可能和cocos的会冲突
 

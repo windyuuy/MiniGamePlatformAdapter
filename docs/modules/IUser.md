@@ -1,4 +1,4 @@
-### **login(params: LoginParams)**
+### **login(params: LoginParams): Promise**
 - 登录
 - 参数定义
 
@@ -8,7 +8,7 @@ type LoginParams = {}
 ```
 
 
-### **checkSession(params: ReqParams)**
+### **checkSession(params: ReqParams): null**
 - 检查登录态是否过期
 - 参数定义
 
@@ -29,11 +29,11 @@ type ReqParams = {
 ```
 
 
-### **updateUser()**
+### **updateUser(): Promise**
 - 更新用户数据
 
 
-### **getFriendCloudStorage(obj: ParamType)**
+### **getFriendCloudStorage(obj: ParamType): Promise**
 - 获取用户云端数据
 - 参数定义
 
@@ -53,7 +53,7 @@ type ParamType = {
 ```
 
 
-### **setUserCloudStorage(obj: ParamType)**
+### **setUserCloudStorage(obj: ParamType): Promise**
 - 提交用户云端数据
 - 参数定义
 

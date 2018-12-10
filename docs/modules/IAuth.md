@@ -1,7 +1,41 @@
-### **createUserInfoButton(obj: IUserInfoButton)**
+### **createUserInfoButton(obj: IUserInfoButton): UserInfoButton**
 创建用户信息授权按钮
 * 当前仅微信有效
 - 参数定义
+
+```typescript
+type UserInfoButton = {
+	text: string //按钮上的文本，仅当 type 为 text 时有效
+	image: string //按钮的背景图片，仅当 type 为 image 时有效
+	style: UserInfoButtonStyle
+
+	//显示用户信息按钮
+	show()
+
+	//隐藏用户信息按钮
+	hide()
+
+	//销毁用户信息按钮
+	destroy()
+
+	//监听用户信息按钮点击事件
+	onTap(callback: Function)
+
+	//取消监听用户信息按钮点击事件
+	offTap(callback: Function)
+
+	//显示用户信息按钮
+	show()
+
+	//隐藏用户信息按钮
+	hide()
+
+	//销毁用户信息按钮
+	destroy()
+}
+
+```
+
 
 ```typescript
 type UserInfoButtonStyle = {
@@ -40,6 +74,6 @@ type IUserInfoButton = {
 ```
 
 
-### **isUserInfoAuthAlready()**
+### **isUserInfoAuthAlready(): Promise**
 - 判断是否拥有获取用户信息的权限
 

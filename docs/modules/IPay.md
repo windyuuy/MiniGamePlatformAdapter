@@ -1,4 +1,4 @@
-### **payPurchase(item: PayItemInfo,options: PayOptions)**
+### **payPurchase(item: PayItemInfo,options: PayOptions): Promise**
 - 调起支付
 - 参数定义
 
