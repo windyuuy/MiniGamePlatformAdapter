@@ -3,6 +3,9 @@
 	"compilerOptions": {
 		"outFile": "../../../dist/qqplay.js"
 	},
+	"files": [
+		"./Common.ts",
+	],
 	"include": [
 		"../../libs/**.ts",
 		"../../framework",

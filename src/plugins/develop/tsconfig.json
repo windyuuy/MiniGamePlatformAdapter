@@ -3,6 +3,9 @@
 	"compilerOptions": {
 		"outFile": "../../../dist/develop.js"
 	},
+	"files": [
+		"./Common.ts",
+	],
 	"include": [
 		"../../libs/**.ts",
 		"../../framework",
