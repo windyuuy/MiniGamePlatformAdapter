@@ -48,7 +48,7 @@ namespace WechatGDK {
 		/**
 		 * 分享的启动参数
 		 */
-		protected _shareParam: { [key: string]: string } = {}
+		protected _shareParam: { [key: string]: string } = null
 
 		init() {
 			wx.onShow((res) => {
@@ -232,6 +232,20 @@ namespace WechatGDK {
 			let data = wx.getLaunchOptionsSync()
 			return data.query;
 		}
+
+		async getShareInfo(shareTicket: string): Promise<any> {
+			return new Promise<any>((resolve, reject) => {
+				wx.getShareInfo({
+					shareTicket: shareTicket, success: (res) => {
+						resolve(res);
+					},
+					fail: (err) => {
+						reject(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN, err))
+					}
+				})
+			})
+		}
+
 
 	}
 }
