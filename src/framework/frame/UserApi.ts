@@ -687,10 +687,7 @@ namespace GDK {
 		/**
 		 * 调起支付
 		 */
-		payPurchase(
-			item: PayItemInfo,
-			options?: PayOptions
-		): Promise<PayResult> {
+		payPurchase(item: PayItemInfo, options?: PayOptions): Promise<PayResult> {
 			if (!this.checkModuleAttr("pay", "payPurchase", "function")) {
 				return this.createNonePromise("[pay.payPurchase]");
 			}

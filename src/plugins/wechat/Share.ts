@@ -48,7 +48,7 @@ namespace WechatGDK {
 		/**
 		 * 分享的启动参数
 		 */
-		protected _shareParam: { [key: string]: string } = {}
+		protected _shareParam: { [key: string]: string } = null
 
 		init() {
 			wx.onShow((res) => {
