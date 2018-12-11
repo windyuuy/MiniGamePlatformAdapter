@@ -70,9 +70,7 @@ namespace WechatGDK {
 			const quantity = config.amount
 			const title = config.title
 			const zoneId = slib.defaultValue(options.gleeZoneId, 1)
-			const extraData = {
-				field: zoneId
-			}
+			const filed = zoneId
 
 			// test
 			// const myAppId = "wxcfc7f0661463ee36"
@@ -85,19 +83,22 @@ namespace WechatGDK {
 			// 	field: 1
 			// }
 
-			const jpPath = `pages/payment/payment?appId=${myAppId}&userId=${userId}&goodsId=${goodsId}&quantity=${quantity}&title=${title}`
+			const jpPath = `pages/payment/payment?appId=${myAppId}&userId=${userId}&goodsId=${goodsId}&quantity=${quantity}&title=${title}&filed=${filed}`
 			const info = this.api.gameInfo
 			let envVersion = 'release'
+			if (info.mode == 'develop') {
+				envVersion = 'develop'
+			}
 			if (info.payAppEnvVersion) {
 				envVersion = info.payAppEnvVersion
 			}
 
-			devlog.info(`navigateToMiniProgram: { path: ${jpPath}, miniAppId: ${miniAppOfferId}, envVersion:${envVersion} }`, extraData)
+			devlog.info(`navigateToMiniProgram: { path: ${jpPath}, miniAppId: ${miniAppOfferId}, envVersion:${envVersion} }`)
 			wx.navigateToMiniProgram({
 				appId: miniAppOfferId,
 				path: jpPath,
 				envVersion: envVersion,
-				extraData: extraData,
+				extraData: {},
 				success: () => {
 					devlog.info("调起app成功", config)
 					ret.success({
