@@ -206,9 +206,9 @@ namespace GDK {
 			return this._m.user.login(params);
 		}
 		/** 检查登录态是否过期 */
-		checkSession?(params?: ReqParams) {
+		checkSession?(params?: ReqParams): Promise<void> {
 			if (!this.checkModuleAttr("user", "checkSession", "function")) {
-				return undefined;
+				return this.createNonePromise("[user.checkSession]");
 			}
 			return this._m.user.checkSession(params);
 		}
