@@ -70,7 +70,7 @@ namespace WechatGDK {
 			const quantity = config.amount
 			const title = config.title
 			const zoneId = slib.defaultValue(options.gleeZoneId, 1)
-			const filed = zoneId
+			const field = zoneId
 
 			// test
 			// const myAppId = "wxcfc7f0661463ee36"
@@ -79,11 +79,9 @@ namespace WechatGDK {
 			// const goodsId = 1
 			// const quantity = 6
 			// const title = "60钻石"
-			// const extraData = {
-			// 	field: 1
-			// }
+			// const field = 1
 
-			const jpPath = `pages/payment/payment?appId=${myAppId}&userId=${userId}&goodsId=${goodsId}&quantity=${quantity}&title=${title}&filed=${filed}`
+			const jpPath = `pages/payment/payment?appId=${myAppId}&userId=${userId}&goodsId=${goodsId}&quantity=${quantity}&title=${title}&field=${field}`
 			const info = this.api.gameInfo
 			let envVersion = 'release'
 			if (info.mode == 'develop') {
