@@ -84,9 +84,9 @@ namespace WechatGDK {
 			const jpPath = `pages/payment/payment?appId=${myAppId}&userId=${userId}&goodsId=${goodsId}&quantity=${quantity}&title=${title}&field=${field}`
 			const info = this.api.gameInfo
 			let envVersion = 'release'
-			// if (info.mode == 'develop') {
-			// 	envVersion = 'develop'
-			// }
+			if (info.mode == 'develop') {
+				envVersion = 'develop'
+			}
 			if (info.payAppEnvVersion) {
 				envVersion = info.payAppEnvVersion
 			}
