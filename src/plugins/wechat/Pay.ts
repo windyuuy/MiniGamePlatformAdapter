@@ -2,6 +2,16 @@
 namespace WechatGDK {
 	const devlog = Common.paylog
 
+
+	type MiniAppPayLaunchParams = {
+		appId: string,
+		userId: number,
+		goodsId: number,
+		quantity: number,
+		title: string,
+		field: number,
+	}
+
 	export class Pay extends GDK.PayBase {
 		api?: GDK.UserAPI
 
@@ -19,7 +29,7 @@ namespace WechatGDK {
 				currencyType: config.currencyUnit || "CNY",
 				platform: 'android',
 				zoneId: zoneId,
-				buyQuantity: config.money * 10,
+				buyQuantity: config.amount,
 			}
 			devlog.info("requestMidasPayment", mp)
 			wx.requestMidasPayment({
@@ -81,6 +91,18 @@ namespace WechatGDK {
 			// const title = "60钻石"
 			// const field = 1
 
+			const launchParams: MiniAppPayLaunchParams = {
+				appId: myAppId,
+				userId: userId,
+				goodsId: goodsId,
+				quantity: quantity,
+				title: title,
+				field: field,
+			}
+			const extraData = {
+				launchParams: launchParams,
+			}
+
 			const jpPath = `pages/payment/payment?appId=${myAppId}&userId=${userId}&goodsId=${goodsId}&quantity=${quantity}&title=${title}&field=${field}`
 			const info = this.api.gameInfo
 			let envVersion = 'release'
@@ -91,12 +113,12 @@ namespace WechatGDK {
 				envVersion = info.payAppEnvVersion
 			}
 
-			devlog.info(`navigateToMiniProgram: { path: ${jpPath}, miniAppId: ${miniAppOfferId}, envVersion:${envVersion} }`)
+			devlog.info(`navigateToMiniProgram: { path: ${jpPath}, miniAppId: ${miniAppOfferId}, envVersion:${envVersion} }`, extraData)
 			wx.navigateToMiniProgram({
 				appId: miniAppOfferId,
 				path: jpPath,
 				envVersion: envVersion,
-				extraData: {},
+				extraData: extraData,
 				success: () => {
 					devlog.info("调起app成功", config)
 					ret.success({
