@@ -68,8 +68,8 @@ function copyLibsTask(ossSrcDir, ossDestDir, tip) {
 	}
 }
 
-gulp.task("copyLibsToNext", copyLibsTask(ossFolderLibTest, ossFolderLibNext, "发布next版完成"))
-gulp.task("copyLibsToPub", copyLibsTask(ossFolderLibNext, ossFolderLibPub, "发布public版完成"))
+gulp.task("pubNext", copyLibsTask(ossFolderLibTest, ossFolderLibNext, "发布next版完成"))
+gulp.task("pubPub", copyLibsTask(ossFolderLibNext, ossFolderLibPub, "发布public版完成"))
 
 
 gulp.task("mini", () => {
