@@ -4,9 +4,18 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "gulp publish",
+			"label": "gulp: publish",
 			"type": "shell",
 			"command": "gulp publish",
+			"options": {
+				"cwd": "./tools"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "gulp: build",
+			"type": "shell",
+			"command": "gulp build",
 			"options": {
 				"cwd": "./tools"
 			},

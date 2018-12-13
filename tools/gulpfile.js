@@ -9,6 +9,10 @@ const gdkapi = require('./gdkapi')
 const buildApi = gdkapi.buildApi
 const genDoc = gdkapi.genDoc
 
+const ossFolderLibTest = 'libs-test'
+const ossFolderLibNext = 'libs-next'
+const ossFolderLibPub = 'libs'
+
 const execon = (dir, fn) => {
 	const pwd = path.resolve(process.cwd())
 	try {
@@ -46,10 +50,26 @@ gulp.task("updateLibs", async function () {
 
 	let client = getOssClient();
 
-	await client.get("libs/slib.d.ts", "../src/libs/slib.d.ts")
+	await client.get(`${ossFolderLibTest}/slib.d.ts`, `../src/libs/slib.d.ts`)
 	console.log("更新完成 slib.d.ts")
 
 })
+
+function copyLibsTask(ossSrcDir, ossDestDir, tip) {
+	return async function () {
+		let client = getOssClient();
+
+		const result = await client.list({ prefix: `${ossSrcDir}/` })
+		for await (let info of result.objects) {
+			console.log(`${ossDestDir}/${path.basename(info.name)}`, '<-', `${info.name}`)
+			client.copy(`${ossDestDir}/${path.basename(info.name)}`, `${info.name}`)
+		}
+		console.log(tip)
+	}
+}
+
+gulp.task("copyLibsToNext", copyLibsTask(ossFolderLibTest, ossFolderLibNext, "发布next版完成"))
+gulp.task("copyLibsToPub", copyLibsTask(ossFolderLibNext, ossFolderLibPub, "发布public版完成"))
 
 
 gulp.task("mini", () => {
@@ -85,8 +105,8 @@ gulp.task("uploadVersion", async () => {
 	let client = getOssClient();
 
 	let list = fs.readdirSync("../dist")
-	for (let n of list) {
-		await client.put("libs/" + n, "../dist/" + n)
+	for await (let n of list) {
+		client.put(`${ossFolderLibTest} / ` + n, "../dist/" + n)
 		console.log("上传完成", "../dist/" + n)
 	}
 
