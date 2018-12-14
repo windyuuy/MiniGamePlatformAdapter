@@ -106,7 +106,7 @@ gulp.task("uploadVersion", async () => {
 
 	let list = fs.readdirSync("../dist")
 	for await (let n of list) {
-		client.put(`${ossFolderLibTest} / ` + n, "../dist/" + n)
+		client.put(`${ossFolderLibTest}/` + n, "../dist/" + n)
 		console.log("上传完成", "../dist/" + n)
 	}
 
