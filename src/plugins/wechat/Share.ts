@@ -78,7 +78,7 @@ namespace WechatGDK {
 				let sharesSucFail: number = 0.2  //分享判定调用接口失败概率  0.2
 				let sharesSucFailSame: number = 0.1  //分享判定不同群提示概率  0.1
 
-				let beginShareTime = new Date().getTime();//开始分享时间
+				let beginShareTime = Common.getServerTime().getTime();//开始分享时间
 
 				let imageUrl = data.imageUrl
 
@@ -142,6 +142,7 @@ namespace WechatGDK {
 
 					let ec = (Common.getServerTime().getTime() - beginShareTime) / 1000
 					if (ec > shareInvaterl) {
+						console.log("分享间隔时间", ec, shareInvaterl)
 
 						//安卓平台使用
 						let platform = wx.getSystemInfoSync().platform
