@@ -16,38 +16,52 @@ namespace WechatGDK {
 				success: (res) => {
 					// 解密数据
 					const system = this.api.systemInfo.system == "android" ? 0 : 1
-					this.server.userLogin({ code: res.code, system: system, clientSystemInfo: wx.getSystemInfoSync() }, (resp) => {
-						if (resp.succeed) {
-							const data = resp.data
-							const newdata = {
-								openId: data.openId,
-								isNewUser: data.userNew,
-								userId: data.userId,
-								avatarUrl: data.profileImg,
-								nickName: data.nickname,
-								backupTime: data.backupTime,
-								channelId: data.channelId,
-								createTime: data.createTime,
-								followGzh: data.followGzh,
-								gameToken: data.gametoken,
-							}
-							const userdata = this.api.userData
-							for (let key in newdata) {
-								userdata[key] = newdata[key]
-							}
-							ret.success({
-								extra: data,
-							})
-						} else {
-							ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN, {
-								data: {
-									extra: resp,
+					let option = wx.getLaunchOptionsSync()
+					console.log("LaunchOptions", option);
+					let launchOptionsPath = option.path
+					let launchOptionsQuery = option.query
+					let extraData = option.referrerInfo ? option.referrerInfo.extraData : null;
+					this.server.userLogin({
+						code: res.code,
+						system: system,
+						clientSystemInfo: wx.getSystemInfoSync(),
+						launchOptionsPath: launchOptionsPath,
+						launchOptionsQuery: launchOptionsQuery,
+						extraData: extraData,
+					},
+						(resp) => {
+							if (resp.succeed) {
+								const data = resp.data
+								const newdata = {
+									openId: data.openId,
+
+									isNewUser: data.userNew,
+									userId: data.userId,
+									avatarUrl: data.profileImg,
+									nickName: data.nickname,
+									backupTime: data.backupTime,
+									channelId: data.channelId,
+									createTime: data.createTime,
+									followGzh: data.followGzh,
+									gameToken: data.gametoken,
 								}
-							}))
-						}
-					}, () => {
-						ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.NETWORK_ERROR))
-					})
+								const userdata = this.api.userData
+								for (let key in newdata) {
+									userdata[key] = newdata[key]
+								}
+								ret.success({
+									extra: data,
+								})
+							} else {
+								ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN, {
+									data: {
+										extra: resp,
+									}
+								}))
+							}
+						}, () => {
+							ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.NETWORK_ERROR))
+						})
 				},
 				fail: () => {
 					ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_LOGIN_FAILED))
