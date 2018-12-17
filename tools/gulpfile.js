@@ -122,3 +122,4 @@ gulp.task("convdoc", async () => {
 gulp.task('builddoc', gulp.series("gendoc", "convdoc"))
 
 gulp.task("publish", gulp.series("build", "uploadVersion"));
+gulp.task("pubOne", gulp.series("publish", "pubNext", "pubPub"))
