@@ -50,10 +50,13 @@ namespace WechatGDK {
 		 */
 		protected _shareParam: { [key: string]: string } = null
 
+		protected _shareTicket: string = null
+
 		init() {
 			wx.onShow((res) => {
 				//获取对应的分享启动参数
 				this._shareParam = res.query
+				this._shareTicket = res.shareTicket
 			})
 		}
 
@@ -235,6 +238,15 @@ namespace WechatGDK {
 
 			let data = wx.getLaunchOptionsSync()
 			return data.query;
+		}
+
+		async getShareTicket(): Promise<string> {
+			if (this._shareTicket) {
+				return this._shareTicket;
+			}
+
+			let data = wx.getLaunchOptionsSync()
+			return data.shareTicket;
 		}
 
 		async getShareInfo(shareTicket: string): Promise<any> {

@@ -54,5 +54,8 @@ namespace DevelopGDK {
 			return null;
 		}
 
+		async getShareTicket(): Promise<string> {
+			return "";
+		}
 	}
 }

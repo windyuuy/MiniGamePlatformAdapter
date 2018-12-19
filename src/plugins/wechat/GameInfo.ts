@@ -16,7 +16,9 @@ namespace WechatGDK {
 		 */
 		shareProxyUrl: string;
 
-		get launchOptions(): GDK.LaunchOptions { return wx.getLaunchOptionsSync() }
+		protected _launchOptions: GDK.LaunchOptions = null
+
+		get launchOptions(): GDK.LaunchOptions { return this._launchOptions }
 		/**
 		 * 游戏版本号
 		 **/
@@ -39,6 +41,14 @@ namespace WechatGDK {
 			Common.httpClient = info.wechat.httpClient
 		}
 		init() {
+			this._launchOptions = wx.getLaunchOptionsSync()
+			wx.onShow((res) => {
+				//刷新启动参数
+				this._launchOptions.query = res.query
+				this._launchOptions.shareTicket = res.shareTicket
+				this._launchOptions.scene = res.scene
+				this._launchOptions.referrerInfo = res.referrerInfo
+			})
 		}
 	}
 }
