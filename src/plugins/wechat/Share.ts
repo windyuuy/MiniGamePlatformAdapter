@@ -157,6 +157,9 @@ namespace WechatGDK {
 						} else if (platform == "ios") {
 							//根据时间进行假判断
 							shareMaySuc()
+						} else if (platform == "devtools") {
+							//开发工具 可能成功
+							shareMaySuc()
 						} else {
 							reject(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_SHARE_UNSUPPORTED, { message: "不支持的平台" + platform }))
 						}
