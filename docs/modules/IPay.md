@@ -10,6 +10,7 @@ type PayOptions = {
 	 * 渠道
 	 * - 平台自带支付 'origion'
 	 * - 跳转小程序支付 'miniapp'
+	 * - 跳转客服支付 'customer_service'
 	 **/
 	channelType?: ChannelType
 	// 这个参数代表不同数据分区
@@ -32,7 +33,7 @@ type PayOptions = {
 
 
 ```typescript
-type ChannelType = "miniapp" | "origion"
+type ChannelType = "miniapp" | "origion" | "customer_service"
 
 ```
 

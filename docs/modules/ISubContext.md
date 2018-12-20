@@ -1,4 +1,4 @@
-### **onMessage(callback: (message: PrimitiveMap) => void): void**
+### **onMessage(callback: (message: OpenDataContextMessage) => void): void**
 - 监听主域发送的消息
 
 

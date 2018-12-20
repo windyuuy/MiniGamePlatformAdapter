@@ -155,6 +155,10 @@ type ShareData = {
 - 获取通过点击分享链接时或传递的参数
 
 
+### **getShareTicket(): Promise**
+- 获取通过点击分享链接时或传递的参数
+
+
 ### **getShareInfo(shareTicket: string): Promise**
 获取分享的信息
 * 当前仅微信环境有效

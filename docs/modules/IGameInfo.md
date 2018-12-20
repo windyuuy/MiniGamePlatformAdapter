@@ -76,6 +76,10 @@ type LaunchOptions = {
 - 游戏类型(手Q7.6.5及以上支持) 0: 普通游戏 1：红包游戏
 
 
+### **requireCustomServicePay: boolean**
+- 优先只启用客服跳转支付
+
+
 ### **requireMiniAppPay: boolean**
 - 优先只启用小程序跳转支付
 
