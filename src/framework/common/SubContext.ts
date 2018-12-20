@@ -3,21 +3,21 @@ namespace GDK {
 	class SimpleEvent<T> extends slib.SimpleEvent<T> { }
 
 	class OpenDataContext implements IOpenDataContext {
-		protected _event: SimpleEvent<PrimitiveMap> = null
-		constructor(event: SimpleEvent<PrimitiveMap>) {
+		protected _event: SimpleEvent<OpenDataContextMessage> = null
+		constructor(event: SimpleEvent<OpenDataContextMessage>) {
 			this._event = event
 		}
 
-		postMessage(message: PrimitiveMap) {
+		postMessage(message: OpenDataContextMessage) {
 			this._event.emit(message)
 		}
 	}
 
 	export class SubContextBase implements ISubContext {
-		protected _event: SimpleEvent<PrimitiveMap> = new SimpleEvent()
+		protected _event: SimpleEvent<OpenDataContextMessage> = new SimpleEvent()
 		protected _context: OpenDataContext = new OpenDataContext(this._event)
 
-		onMessage(callback: (message: PrimitiveMap) => void) {
+		onMessage(callback: (message: OpenDataContextMessage) => void) {
 			return this._event.on(callback)
 		}
 

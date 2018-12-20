@@ -354,6 +354,13 @@ namespace GDK {
 			}
 			return this._m.gameInfo.gameType;
 		}
+		/** 优先只启用客服跳转支付 */
+		get requireCustomServicePay(): boolean {
+			if (!this.checkModuleAttr("gameInfo", "requireCustomServicePay")) {
+				return undefined;
+			}
+			return this._m.gameInfo.requireCustomServicePay;
+		}
 		/** 优先只启用小程序跳转支付 */
 		get requireMiniAppPay(): boolean {
 			if (!this.checkModuleAttr("gameInfo", "requireMiniAppPay")) {
@@ -817,7 +824,7 @@ namespace GDK {
 		/**
 		 * 监听主域发送的消息
 		 */
-		onMessage(callback: (message: PrimitiveMap) => void) {
+		onMessage(callback: (message: OpenDataContextMessage) => void) {
 			if (!this.checkModuleAttr("subContext", "onMessage", "function")) {
 				return undefined;
 			}

@@ -30,6 +30,7 @@ namespace GDK {
 		 **/
 		abstract gameType: number
 		requireMiniAppPay: boolean = false
+		requireCustomServicePay: boolean = false
 
 		abstract init?()
 
