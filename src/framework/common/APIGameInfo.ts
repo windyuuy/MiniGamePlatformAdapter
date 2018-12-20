@@ -29,8 +29,8 @@ namespace GDK {
 		 * 游戏类型(手Q7.6.5及以上支持) 0: 普通游戏 1：红包游戏
 		 **/
 		abstract gameType: number
-		requireMiniAppPay: boolean = false
 		requireCustomServicePay: boolean = false
+		requireMiniAppPay: boolean = false
 
 		abstract init?()
 
