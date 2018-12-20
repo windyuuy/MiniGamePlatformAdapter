@@ -20,7 +20,7 @@ namespace WechatGDK {
 				adUnitId: params.adUnitId,
 				style: {
 					...params.style,
-					top: params.style.y + params.style.height,
+					top: wx.getSystemInfoSync().screenHeight - (params.style.y + params.style.height),
 					left: params.style.x,
 				}
 			}
