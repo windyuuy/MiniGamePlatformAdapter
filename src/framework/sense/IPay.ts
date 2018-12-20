@@ -62,7 +62,7 @@ namespace GDK {
 		landscapeRight = 3
 	}
 
-	export type ChannelType = 'miniapp' | 'origion'
+	export type ChannelType = 'miniapp' | 'origion' | 'customer_service'
 
 	export class PayOptions {
 		/** 屏幕方向 */
@@ -71,6 +71,7 @@ namespace GDK {
 		 * 渠道
 		 * - 平台自带支付 'origion'
 		 * - 跳转小程序支付 'miniapp'
+		 * - 跳转客服支付 'customer_service'
 		 **/
 		channelType?: ChannelType
 		// 这个参数代表不同数据分区
@@ -87,6 +88,16 @@ namespace GDK {
 		 * @default "1"
 		 */
 		wxZoneId?: string
+
+		/**
+		 * - 副标题
+		 * - 客服跳转支付，会话内消息卡片标题
+		 */
+		subTitle?: string
+		/**
+		 * - 客服跳转支付，会话内消息卡片图片路径
+		 */
+		imagePath?: string
 	}
 
 	export interface IPay extends IModule {

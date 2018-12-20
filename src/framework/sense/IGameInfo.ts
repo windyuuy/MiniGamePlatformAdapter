@@ -150,6 +150,8 @@ namespace GDK {
 		 **/
 		gameType: number
 
+		/** 优先只启用客服跳转支付 */
+		requireCustomServicePay: boolean
 		/** 优先只启用小程序跳转支付 */
 		requireMiniAppPay: boolean
 

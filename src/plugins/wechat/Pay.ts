@@ -141,9 +141,78 @@ namespace WechatGDK {
 			return ret.promise
 		}
 
+		payCustomService(config: GDK.PayItemInfo, options: GDK.PayOptions): Promise<GDK.PayResult> {
+			const ret = new GDK.RPromise<GDK.PayResult>()
+
+			const successCode = 0
+
+			const myAppId = this.api.gameInfo.appId
+			const miniAppOfferId = this.api.gameInfo.miniAppOfferId
+			const userId = this.api.userData.userId
+			const goodsId = config.goodsId
+			const quantity = config.amount
+			const title = config.title
+			const zoneId = slib.defaultValue(options.gleeZoneId, 1)
+			const field = zoneId
+			const subTitle = options.subTitle
+			const imagePath = options.imagePath
+
+			const launchParams: MiniAppPayLaunchParams = {
+				appId: myAppId,
+				userId: userId,
+				goodsId: goodsId,
+				quantity: quantity,
+				title: title,
+				field: field,
+			}
+			const extraData = {
+				launchParams: launchParams,
+			}
+
+			const jpPath = `../index/index?appId=${myAppId}&userId=${userId}&goodsId=${goodsId}&quantity=${quantity}&title=${title}&field=${field}`
+			const info = this.api.gameInfo
+			let envVersion = 'release'
+			if (info.mode == 'develop') {
+				envVersion = 'develop'
+			}
+			if (info.payAppEnvVersion) {
+				envVersion = info.payAppEnvVersion
+			}
+
+			devlog.info(`openCustomerServiceConversation: { path: ${jpPath}, miniAppId: ${miniAppOfferId}, envVersion:${envVersion} }`, subTitle, imagePath, extraData)
+			wx.openCustomerServiceConversation({
+				sessionFrom: myAppId,
+				showMessageCard: true,
+				sendMessagePath: jpPath,
+				sendMessageTitle: subTitle,
+				sendMessageImg: imagePath,
+				success: () => {
+					devlog.info("调起客服支付成功", config)
+					ret.success({
+						result: {
+							errCode: successCode,
+						},
+						extra: { errCode: successCode, state: GDK.OrderState.ok },
+					})
+				},
+				fail: (res) => {
+					devlog.warn("调起客服支付失败", config)
+					ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_PAY_FAILED, {
+						data: {
+							extra: res
+						}
+					}))
+				}
+			})
+
+			return ret.promise
+		}
+
 		payPurchase(config: GDK.PayItemInfo, options: GDK.PayOptions): Promise<GDK.PayResult> {
 			if (options && options.channelType == 'miniapp') {
 				return this.payMiniApp(config, options)
+			} else if (options && options.channelType == 'customer_service') {
+				return this.payCustomService(config, options)
 			} else {
 				return this.payOrigion(config, options)
 			}
