@@ -132,6 +132,10 @@ namespace QQPlayGDK {
 			return null;
 		}
 
+		async getShareTicket(): Promise<string> {
+			return "";
+		}
+
 		async getShareInfo(shareTicket: string): Promise<any> {
 			return null;
 		}

@@ -2281,7 +2281,7 @@ declare namespace wx {
 	 * 监听小游戏回到前台的事件
 	 * https://developers.weixin.qq.com/minigame/dev/document/system/life-cycle/wx.onShow.html
 	 */
-	export function onShow(callback: (res: { scene: string, query: any, shareTicket: string }) => void);
+	export function onShow(callback: (res: { scene: number, query: any, shareTicket: string ,referrerInfo:any }) => void);
 	export function onHide(callback: Function);
 	export function offHide(callback: Function);
 	export function offShow(callback: Function);

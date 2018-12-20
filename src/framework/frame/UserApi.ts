@@ -706,6 +706,15 @@ namespace GDK {
 			return this._m.share.getShareParam();
 		}
 		/**
+		 * 获取通过点击分享链接时或传递的参数
+		 */
+		getShareTicket(): Promise<string> {
+			if (!this.checkModuleAttr("share", "getShareTicket", "function")) {
+				return this.createNonePromise("[share.getShareTicket]");
+			}
+			return this._m.share.getShareTicket();
+		}
+		/**
 		 * 获取分享的信息
 		 * * 当前仅微信环境有效
 		 */

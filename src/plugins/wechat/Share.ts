@@ -50,10 +50,13 @@ namespace WechatGDK {
 		 */
 		protected _shareParam: { [key: string]: string } = null
 
+		protected _shareTicket: string = null
+
 		init() {
 			wx.onShow((res) => {
 				//获取对应的分享启动参数
 				this._shareParam = res.query
+				this._shareTicket = res.shareTicket
 			})
 		}
 
@@ -73,7 +76,7 @@ namespace WechatGDK {
 				}
 
 
-				let shareInvaterl: number = 1.5	//分享必须消耗该时间，才可能成功
+				let shareInvaterl: number = 2	//分享必须消耗该时间，才可能成功
 				let sharesSucPro: number = 0.7   //分享判定成功概率  0.7
 				let sharesSucFail: number = 0.2  //分享判定调用接口失败概率  0.2
 				let sharesSucFailSame: number = 0.1  //分享判定不同群提示概率  0.1
@@ -141,11 +144,11 @@ namespace WechatGDK {
 					}
 
 					let ec = (Common.getServerTime().getTime() - beginShareTime) / 1000
-					if (ec > shareInvaterl) {
-						console.log("分享间隔时间", ec, shareInvaterl)
+					console.log("分享间隔时间", ec, shareInvaterl)
+					let platform = wx.getSystemInfoSync().platform
+					if (platform == "android" || ec > shareInvaterl) {//安卓不需要验证时间
 
 						//安卓平台使用
-						let platform = wx.getSystemInfoSync().platform
 						if (platform == "android") {
 							ShareProxy.apiGetValue(this.api.gameInfo.shareProxyUrl, this.api.gameInfo.appId, beginShareTime, (rep) => {
 								if (rep && rep.data) {
@@ -156,6 +159,9 @@ namespace WechatGDK {
 							})
 						} else if (platform == "ios") {
 							//根据时间进行假判断
+							shareMaySuc()
+						} else if (platform == "devtools") {
+							//开发工具 可能成功
 							shareMaySuc()
 						} else {
 							reject(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_SHARE_UNSUPPORTED, { message: "不支持的平台" + platform }))
@@ -232,6 +238,15 @@ namespace WechatGDK {
 
 			let data = wx.getLaunchOptionsSync()
 			return data.query;
+		}
+
+		async getShareTicket(): Promise<string> {
+			if (this._shareTicket) {
+				return this._shareTicket;
+			}
+
+			let data = wx.getLaunchOptionsSync()
+			return data.shareTicket;
 		}
 
 		async getShareInfo(shareTicket: string): Promise<any> {
