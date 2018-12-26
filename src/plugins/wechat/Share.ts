@@ -65,6 +65,11 @@ namespace WechatGDK {
 		 */
 		protected _isLastTimeYeasterDay: boolean = false;
 
+		/**
+		 * 上次分享失败，则下次必然成功
+		 */
+		protected _shareDefeated: boolean = false;
+
 		async share(data: GDK.ShareData): Promise<GDK.ShareResult> {
 			return new Promise<GDK.ShareResult>((resolve, reject) => {
 				let query = "";
@@ -109,8 +114,9 @@ namespace WechatGDK {
 							一定概率（配表）判定本次分享失败，返回提示 调用微信分享接口失败,请重试，采用微信的提示弹框
 							一定概率（配表）判定本次分享失败，返回提示 请不要频繁打扰同个用户/群哦，采用微信的提示弹框
 						* */
-						if (this._isLastTimeYeasterDay) {
+						if (this._isLastTimeYeasterDay || this._shareDefeated) {
 							shareSuc()
+							this._shareDefeated = false;
 						} else {
 							let r = Math.random()
 
@@ -122,10 +128,12 @@ namespace WechatGDK {
 							r -= sharesSucPro
 							if (r <= sharesSucFail) {
 								shareFail()
+								this._shareDefeated = true;
 								return
 							}
 
 							shareFail("请不要频繁打扰同个用户/群哦")
+							this._shareDefeated = true;
 						}
 					}
 

@@ -58,6 +58,16 @@ namespace GDK {
 		 * 提示的内容
 		 */
 		content: string;
+
+		/**
+		 * 确认按钮文字
+		 */
+		okLabel?: string;
+
+		/**
+		 * 取消按钮文字
+		 */
+		cancelLabel?: string;
 	}
 
 	export interface ShowAlertOptions {
@@ -71,6 +81,11 @@ namespace GDK {
 		 * 提示的内容
 		 */
 		content: string;
+
+		/**
+		 * 确认按钮文字
+		 */
+		okLabel?: string;
 	}
 
 	export interface IKeyBoard {
