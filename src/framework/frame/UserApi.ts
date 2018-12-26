@@ -593,6 +593,34 @@ namespace GDK {
 			}
 			return this._m.apiSystem.exitProgram();
 		}
+
+		onShow?(callback: (data: any) => void): void {
+			if (!this.checkModuleAttr("apiSystem", "onShow", "function")) {
+				return undefined;
+			}
+			return this._m.apiSystem.onShow(callback);
+		}
+
+		offShow?(callback: Function): void {
+			if (!this.checkModuleAttr("apiSystem", "offShow", "function")) {
+				return undefined;
+			}
+			return this._m.apiSystem.offShow(callback);
+		}
+
+		onHide?(callback: Function): void {
+			if (!this.checkModuleAttr("apiSystem", "onHide", "function")) {
+				return undefined;
+			}
+			return this._m.apiSystem.onHide(callback);
+		}
+
+		offHide?(callback: Function): void {
+			if (!this.checkModuleAttr("apiSystem", "offHide", "function")) {
+				return undefined;
+			}
+			return this._m.apiSystem.offHide(callback);
+		}
 		/**
 		 * 强制更新
 		 */

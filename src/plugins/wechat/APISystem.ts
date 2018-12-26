@@ -30,6 +30,9 @@ namespace WechatGDK {
 	export class APISystem extends GDK.APISystemBase {
 		clipboard?: GDK.IClipboard = new Clipboard()
 
+		init?() {
+		}
+
 		setEnableDebug(res: { enableDebug: boolean }) {
 			const ret = new GDK.RPromise<void>()
 			wx.setEnableDebug({
@@ -124,6 +127,20 @@ namespace WechatGDK {
 				}
 			})
 		}
+
+		onShow?(callback: (data: any) => void): void {
+			return wx.onShow(callback)
+		}
+		offShow?(callback: Function): void {
+			return wx.offShow(callback)
+		}
+		onHide?(callback: Function): void {
+			return wx.onHide(callback)
+		}
+		offHide?(callback: Function): void {
+			return wx.offHide(callback)
+		}
+
 	}
 
 }

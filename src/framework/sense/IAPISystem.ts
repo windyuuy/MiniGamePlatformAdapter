@@ -45,6 +45,12 @@ namespace GDK {
 		 * 退出当前游戏
 		 */
 		exitProgram?(): Promise<void>
+
+		onShow?(callback: (data: any) => void): void
+		offShow?(callback: Function): void
+		onHide?(callback: Function): void
+		offHide?(callback: Function): void
+
 		/**
 		 * 强制更新
 		 */
