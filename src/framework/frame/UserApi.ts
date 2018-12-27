@@ -762,10 +762,7 @@ namespace GDK {
 			return this._m.pay.payPurchase(item, options);
 		}
 		/** 创建激励视频广告对象 */
-		createRewardedVideoAd(params: {
-			/** 广告单元 id */
-			adUnitId?: string;
-		}): IRewardedVideoAd {
+		createRewardedVideoAd(params: VideoAdCreateParam): IRewardedVideoAd {
 			if (
 				!this.checkModuleAttr("advert", "createRewardedVideoAd", "function")
 			) {
@@ -774,14 +771,7 @@ namespace GDK {
 			return this._m.advert.createRewardedVideoAd(params);
 		}
 		/** 创建条幅广告对象 */
-		createBannerAd(params: {
-			/** 广告单元 id */
-			adUnitId?: string;
-			/** QQ玩一玩 必填。1001静态banner，1002动态banner，1003 广点通banner(7.8.0) */
-			viewId?: number;
-			/** banner 广告组件的样式 */
-			style: BannerStyle;
-		}): IBannerAd {
+		createBannerAd(params: BannerAdCreateParam): IBannerAd {
 			if (!this.checkModuleAttr("advert", "createBannerAd", "function")) {
 				return undefined;
 			}
