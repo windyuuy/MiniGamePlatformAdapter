@@ -110,7 +110,7 @@ namespace DevelopGDK {
 				this._ad.style.position = "absolute"
 				this._ad.style.bottom = "0px"
 				this._ad.style.width = "500px"
-				this._ad.style.height = "200px"
+				this._ad.style.height = "100px"
 				this._ad.src = "https://www.baidu.com/img/bd_logo1.png"
 
 				document.body.appendChild(this._ad)
