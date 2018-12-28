@@ -14,5 +14,6 @@ namespace WechatGDK {
 		Except = Except
 		Auth = Auth
 		Hardware = Hardware
+		APISystem = APISystem
 	}
 }

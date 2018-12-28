@@ -109,7 +109,7 @@ namespace GDK {
 			this._onHideEvent.on(<slib.EventHandler<void>>callback)
 		}
 		offHide?(callback: Function): void {
-			this._onHideEvent.off (<slib.EventHandler<void>>callback)
+			this._onHideEvent.off(<slib.EventHandler<void>>callback)
 		}
 
 	}

@@ -761,7 +761,10 @@ namespace GDK {
 			}
 			return this._m.pay.payPurchase(item, options);
 		}
-		/** 创建激励视频广告对象 */
+		/**
+		 * 是个单例
+		 * 创建激励视频广告对象
+		 */
 		createRewardedVideoAd(params: VideoAdCreateParam): IRewardedVideoAd {
 			if (
 				!this.checkModuleAttr("advert", "createRewardedVideoAd", "function")

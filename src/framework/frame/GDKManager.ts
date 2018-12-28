@@ -15,7 +15,20 @@ namespace GDK {
 			let map: IModuleMap = {} as IModuleMap
 			const addonList = []
 			for (let k in temp) {
-				let pname = k[0].toLocaleLowerCase() + k.substr(1);
+				// let pname = k[0].toLocaleLowerCase() + k.substr(1);
+				let headLen = 0
+				for (let c of k) {
+					if (c.toLocaleLowerCase() == c) {
+						break
+					}
+					headLen++
+				}
+				let pname = k
+				if (headLen == 1) {
+					pname = k[0].toLocaleLowerCase() + k.substr(1)
+				} else {
+					pname = k.substring(0, headLen - 1).toLocaleLowerCase() + k.substring(headLen - 1)
+				}
 				map[pname] = new temp[k]();
 				addonList.push(map[pname])
 			}

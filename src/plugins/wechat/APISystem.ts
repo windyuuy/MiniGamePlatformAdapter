@@ -56,6 +56,7 @@ namespace WechatGDK {
 					ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_CALL_UP_MINI_PROGRAM_FAILED))
 				}
 			}
+			devlog.info('wx.navigateToMiniProgram(params2)', params2)
 			wx.navigateToMiniProgram(params2)
 			return ret.promise
 		}
