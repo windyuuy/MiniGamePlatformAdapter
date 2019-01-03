@@ -10,6 +10,10 @@ namespace GDK {
 		height: number
 	}
 
+	export class RewardedVideoAdOnErrorParam {
+		errMsg: string
+		errCode: number
+	}
 	export interface IRewardedVideoAd {
 		//属性
 		adUnitId: string
@@ -22,7 +26,7 @@ namespace GDK {
 		/** 取消监听 激励视频 广告加载事件 */
 		offLoad(callback: Function)
 		/** 监听 激励视频 广告错误事件 */
-		onError(callback: (res: { errMsg: string, errCode: number }) => void)
+		onError(callback: (res: RewardedVideoAdOnErrorParam) => void)
 		/** 取消监听 激励视频 广告错误事件 */
 		offError(callback: Function)
 		/** 监听用户点击 关闭广告 按钮的事件 */

@@ -23,7 +23,7 @@ namespace DevelopGDK {
 				if (Math.random() > 0.9) {
 					ret.fail();
 					for (let f of this._errorFuncList) {
-						f(-1, "1%的概率模拟广告加载失败")
+						f({ errCode: -1, errMsg: "1%的概率模拟广告加载失败" })
 					}
 				} else {
 					this._isLoad;
@@ -61,7 +61,7 @@ namespace DevelopGDK {
 			this._loadFuncList.splice(this._loadFuncList.indexOf(callback), 1)
 		}
 
-		onError(callback: (code: number, msg: string) => void) {
+		onError(callback: (res: GDK.RewardedVideoAdOnErrorParam) => void) {
 			this._errorFuncList.push(callback)
 		}
 		offError(callback: Function) {
