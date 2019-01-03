@@ -22,7 +22,7 @@ namespace GDK {
 		/** 取消监听 激励视频 广告加载事件 */
 		offLoad(callback: Function)
 		/** 监听 激励视频 广告错误事件 */
-		onError(callback: Function)
+		onError(callback: (res: { errMsg: string, errCode: number }) => void)
 		/** 取消监听 激励视频 广告错误事件 */
 		offError(callback: Function)
 		/** 监听用户点击 关闭广告 按钮的事件 */
