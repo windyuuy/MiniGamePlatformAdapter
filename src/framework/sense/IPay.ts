@@ -82,8 +82,13 @@ namespace GDK {
 		 * - 2 海洋馆应用
 		 * - 3 外部项目
 		 * @default 1
+		 * @deprecated
 		 */
 		gleeZoneId?: number
+		/**
+		 * 用于代替gleeZoneId判断app分区
+		 */
+		payUrl?: string
 		/**
 		 * 微信支付分区ID
 		 * @default "1"

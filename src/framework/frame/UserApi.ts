@@ -354,14 +354,20 @@ namespace GDK {
 			}
 			return this._m.gameInfo.gameType;
 		}
-		/** 优先只启用客服跳转支付 */
+		/**
+		 * 优先只启用客服跳转支付
+		 * - 支持ios和安卓
+		 */
 		get requireCustomServicePay(): boolean {
 			if (!this.checkModuleAttr("gameInfo", "requireCustomServicePay")) {
 				return undefined;
 			}
 			return this._m.gameInfo.requireCustomServicePay;
 		}
-		/** 优先只启用小程序跳转支付 */
+		/**
+		 * 优先只启用小程序跳转支付
+		 * 只支持安卓
+		 */
 		get requireMiniAppPay(): boolean {
 			if (!this.checkModuleAttr("gameInfo", "requireMiniAppPay")) {
 				return undefined;

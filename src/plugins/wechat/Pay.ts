@@ -10,6 +10,7 @@ namespace WechatGDK {
 		quantity: number,
 		title: string,
 		field: number,
+		payUrl: string
 	}
 
 	export class Pay extends GDK.PayBase {
@@ -81,6 +82,7 @@ namespace WechatGDK {
 			const title = config.title
 			const zoneId = slib.defaultValue(options.gleeZoneId, 1)
 			const field = zoneId
+			const payUrl = options.payUrl || null
 
 			// test
 			// const myAppId = "wxcfc7f0661463ee36"
@@ -98,12 +100,13 @@ namespace WechatGDK {
 				quantity: quantity,
 				title: title,
 				field: field,
+				payUrl: payUrl,
 			}
 			const extraData = {
 				launchParams: launchParams,
 			}
 
-			const jpPath = `pages/payment/payment?appId=${myAppId}&userId=${userId}&goodsId=${goodsId}&quantity=${quantity}&title=${title}&field=${field}`
+			const jpPath = `pages/payment/payment?appId=${myAppId}&userId=${userId}&goodsId=${goodsId}&quantity=${quantity}&title=${title}&field=${field}&payUrl=${payUrl}`
 			const info = this.api.gameInfo
 			let envVersion = 'release'
 			if (info.mode == 'develop') {
@@ -154,6 +157,7 @@ namespace WechatGDK {
 			const title = config.title
 			const zoneId = slib.defaultValue(options.gleeZoneId, 1)
 			const field = zoneId
+			const payUrl = options.payUrl || null
 			const subTitle = options.subTitle
 			const imagePath = options.imagePath
 
@@ -164,12 +168,13 @@ namespace WechatGDK {
 				quantity: quantity,
 				title: title,
 				field: field,
+				payUrl: payUrl,
 			}
 			const extraData = {
 				launchParams: launchParams,
 			}
 
-			const jpPath = `../index/index?appId=${myAppId}&userId=${userId}&goodsId=${goodsId}&quantity=${quantity}&title=${title}&field=${field}`
+			const jpPath = `../index/index?appId=${myAppId}&userId=${userId}&goodsId=${goodsId}&quantity=${quantity}&title=${title}&field=${field}&payUrl=${payUrl}`
 			const info = this.api.gameInfo
 			let envVersion = 'release'
 			if (info.mode == 'develop') {
