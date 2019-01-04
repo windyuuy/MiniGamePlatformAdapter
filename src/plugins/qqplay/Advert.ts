@@ -95,9 +95,14 @@ namespace QQPlayGDK {
 			this._advertObj.offLoad(callback)
 		}
 
-		onError(callback: (code: number, msg: string) => void) {
+		onError(callback: (res: GDK.RewardedVideoAdOnErrorParam) => void) {
 			slib.assert(this._advertObj)
-			this._advertObj.onError(callback)
+			this._advertObj.onError((code, msg) => {
+				callback({
+					errCode: code,
+					errMsg: msg,
+				})
+			})
 		}
 		offError(callback: Function) {
 			slib.assert(this._advertObj)

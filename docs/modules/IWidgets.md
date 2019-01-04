@@ -68,6 +68,16 @@ type ShowConfirmOptions = {
 	 * 提示的内容
 	 */
 	content: string
+
+	/**
+	 * 确认按钮文字
+	 */
+	okLabel?: string
+
+	/**
+	 * 取消按钮文字
+	 */
+	cancelLabel?: string
 }
 
 ```
@@ -89,6 +99,11 @@ type ShowAlertOptions = {
 	 * 提示的内容
 	 */
 	content: string
+
+	/**
+	 * 确认按钮文字
+	 */
+	okLabel?: string
 }
 
 ```

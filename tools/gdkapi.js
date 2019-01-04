@@ -407,12 +407,13 @@ async function genDoc() {
 									}
 								}
 							}
+
+							typeDeclareList.push({
+								referName: typename,
+								content: typeRefer,
+								defType: referDef.defType,
+							})
 						}
-						typeDeclareList.push({
-							referName: typename,
-							content: typeRefer,
-							defType: referDef.defType,
-						})
 						// if (alias == 'payPurchase') {
 						// console.log(param['typeAnnotation']['typeAnnotation'])
 						// }

@@ -34,6 +34,22 @@ type AppCallUpParams = {
 - 退出当前游戏
 
 
+### **onShow(callback: (data: any) => void): void**
+- onShow(callback: (data: any) => void): void
+
+
+### **offShow(callback: Function): void**
+- offShow(callback: Function): void
+
+
+### **onHide(callback: Function): void**
+- onHide(callback: Function): void
+
+
+### **offHide(callback: Function): void**
+- offHide(callback: Function): void
+
+
 ### **updateProgramForce(): Promise**
 - 强制更新
 

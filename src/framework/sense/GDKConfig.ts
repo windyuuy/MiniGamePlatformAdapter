@@ -22,11 +22,15 @@ namespace GDK {
 		 */
 		httpClient: slib.HttpGameClient
 
-		/** 优先只启用客服跳转支付 */
+		/**
+		 * 优先只启用客服跳转支付
+		 * - 支持ios和安卓
+		 */
 		requireCustomServicePay: boolean = false
 
 		/**
 		 * 优先只启用小程序跳转支付
+		 * 只支持安卓
 		 */
 		requireMiniAppPay: boolean = true
 

@@ -13,5 +13,6 @@ namespace DevelopGDK {
 		Support = Support
 		Except = Except
 		Auth = Auth
+		APISystem = APISystem
 	}
 }
