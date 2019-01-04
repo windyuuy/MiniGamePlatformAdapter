@@ -144,7 +144,7 @@ namespace WechatGDK {
 						result.result = 0;
 						resolve(result)
 					}
-					let shareFail = (msg: string = "微信分享接口调用失败，请重试") => {
+					let shareFail = (msg: string = "失败，发给其他好友试试") => {
 						let result = new GDK.ShareResult()
 						result.result = 1;
 						result.message = msg;
