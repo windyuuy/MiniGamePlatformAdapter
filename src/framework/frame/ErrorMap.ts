@@ -13,6 +13,7 @@ namespace GDK {
 		errcode: number
 		reason: string
 		data?: any
+		message: string = '' 
 
 		constructor() {
 			super("")
