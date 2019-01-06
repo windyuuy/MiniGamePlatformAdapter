@@ -2,6 +2,22 @@
 namespace WechatGDK {
 	const devlog = Common.paylog
 
+	const checkEssentialParam = (options: { [key: string]: any }, keys: string[]) => {
+		if (!options || (typeof (options) != 'object')) {
+			console.error("校验无效选项表", options)
+			return
+		}
+		try {
+			for (const key of keys) {
+				const value = options[key]
+				if (value == undefined || value == null || value == '') {
+					console.error(`可能缺少必要参数 ${key}，当前值：${value}`)
+				}
+			}
+		} catch (e) {
+			console.error(`校验选项失败`, options)
+		}
+	}
 
 	type MiniAppPayLaunchParams = {
 		appId: string,
@@ -106,6 +122,8 @@ namespace WechatGDK {
 				launchParams: launchParams,
 			}
 
+			checkEssentialParam(launchParams, ['payUrl', 'appId'])
+
 			const jpPath = `pages/payment/payment?appId=${myAppId}&userId=${userId}&goodsId=${goodsId}&quantity=${quantity}&title=${title}&field=${field}&payUrl=${payUrl}`
 			const info = this.api.gameInfo
 			let envVersion = 'release'
@@ -173,6 +191,8 @@ namespace WechatGDK {
 			const extraData = {
 				launchParams: launchParams,
 			}
+
+			checkEssentialParam(launchParams, ['payUrl', 'appId'])
 
 			const jpPath = `../index/index?appId=${myAppId}&userId=${userId}&goodsId=${goodsId}&quantity=${quantity}&title=${title}&field=${field}&payUrl=${payUrl}`
 			const info = this.api.gameInfo
