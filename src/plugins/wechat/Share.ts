@@ -81,7 +81,16 @@ namespace WechatGDK {
 		 * @param data 
 		 */
 		async share(data: GDK.ShareData): Promise<GDK.ShareResult> {
-			return this.shareV2(data);
+			if (data.wxShareVersion == 1) {
+				return this.shareV1(data);
+			} else if (data.wxShareVersion == 2) {
+				return this.shareV2(data);
+			} else if (data.wxShareVersion == 3) {
+				return this.shareV3(data);
+			} else {
+				//默认分享版本
+				return this.shareV1(data);
+			}
 		}
 
 		/**
@@ -303,6 +312,94 @@ namespace WechatGDK {
 			})
 		}
 
+
+		/**
+		 * 第三代微信分享解决方案
+		 * * 通过微信的活动卡片，服务器修改活动卡片信息，如果修改成功则说明分享成功
+		 * @param data 
+		 */
+		async shareV3(data: GDK.ShareData): Promise<GDK.ShareResult> {
+			return new Promise<GDK.ShareResult>((resolve, reject) => {
+				// 	let query = "";
+				// 	if (data.data) {
+				// 		for (let k in data.data) {
+				// 			query += `${k}=${data.data[k]}&`
+				// 		}
+				// 		query = query.substr(0, query.length - 1)//去除结尾&符号
+				// 	}
+
+				// 	let isCancel: boolean = false;
+
+				// 	let imageUrl = data.imageUrl
+
+				// 	devlog.info("share", {
+				// 		title: data.title,
+				// 		imageUrl: imageUrl,
+				// 		query: query,
+				// 	})
+				// 	wx.shareAppMessage({
+				// 		title: data.title,
+				// 		imageUrl: imageUrl,
+				// 		query: query,
+				// 		cancel: () => {
+				// 			//有些时候回触发取消
+				// 			isCancel = true;
+				// 		}
+				// 	})
+
+				// 	let onShow = () => {
+				// 		wx.offShow(onShow);
+
+				// 		let sharesSucPro1: number = 0.7  //第一次分享成功概率
+				// 		let sharesSucPro2: number = 0.9  //第二次分享成功概率
+
+				// 		let shareMaySuc = () => {
+				// 			let r = Math.random()
+
+				// 			if (this._shareSucceedCount == 0) {
+				// 				shareSuc()
+				// 			} else if (this._shareSucceedCount == 1) {
+				// 				if (r < sharesSucPro1) {
+				// 					shareSuc()
+				// 				} else {
+				// 					shareFail()
+				// 				}
+				// 			} else {
+				// 				if (r < sharesSucPro2) {
+				// 					shareSuc()
+				// 				} else {
+				// 					shareFail()
+				// 				}
+				// 			}
+				// 		}
+
+				// 		let shareSuc = () => {
+				// 			this._shareSucceedCount++;
+
+				// 			let result = new GDK.ShareResult()
+				// 			result.result = 0;
+				// 			resolve(result)
+				// 		}
+				// 		let shareFail = (r: number = 1, msg: string = "请分享到不同群") => {
+				// 			let result = new GDK.ShareResult()
+				// 			result.result = r;
+				// 			result.message = msg;
+				// 			resolve(result)
+				// 		}
+
+				// 		setTimeout(() => {
+				// 			if (isCancel) {
+				// 				shareFail(2, "分享失败，请分享到群哦");
+				// 			} else {
+				// 				shareMaySuc();
+				// 			}
+				// 		}, 200)
+
+				// 	}
+				// 	wx.onShow(onShow);
+
+			})
+		}
 
 		async socialShare(data: GDK.ShareData): Promise<GDK.ShareResult> {
 			//微信平台仅支持分享到聊天窗口

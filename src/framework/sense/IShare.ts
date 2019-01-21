@@ -28,6 +28,14 @@ namespace GDK {
 		 * 分享的数据
 		 */
 		data: { [key: string]: string }
+
+		/**
+		 * 使用微信分享版本
+		 * 1、根据分享时加载的卡片验证
+		 * 2、根据cancel按钮验证
+		 * 3、根据活动卡片验证
+		 */
+		wxShareVersion?: number
 	}
 
 	export class ShareUrlData {
@@ -51,6 +59,14 @@ namespace GDK {
 		 * 分享的URL
 		 */
 		url: string
+
+		/**
+		 * 使用微信分享版本
+		 * 1、根据分享时加载的卡片验证
+		 * 2、根据cancel按钮验证
+		 * 3、根据活动卡片验证
+		 */
+		wxShareVersion?: number
 	}
 
 	export class ShareResult {
