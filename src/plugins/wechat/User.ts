@@ -15,7 +15,7 @@ namespace WechatGDK {
 			wx.login({
 				success: (res) => {
 					// 解密数据
-					const system = this.api.systemInfo.system == "android" ? 0 : 1
+					const system = this.api.systemInfo.platform == "android" ? 1 : this.api.systemInfo.platform == "ios" ? 2 : 0
 					let option = wx.getLaunchOptionsSync()
 					console.log("LaunchOptions", option);
 					let launchOptionsPath = option.path
