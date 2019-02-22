@@ -1,0 +1,14 @@
+{
+	"extends": "../../base",
+	"compilerOptions": {
+		"outFile": "../../../dist/app.js"
+	},
+	"files": [
+		"./Common.ts",
+	],
+	"include": [
+		"../../libs/**.ts",
+		"../../framework",
+		"./**/*.ts"
+	]
+}
