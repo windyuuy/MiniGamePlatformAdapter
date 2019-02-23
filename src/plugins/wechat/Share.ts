@@ -182,7 +182,7 @@ namespace WechatGDK {
 					}
 
 					let ec = (Common.getServerTime().getTime() - beginShareTime) / 1000
-					console.log("分享间隔时间", ec, shareInvaterl)
+					devlog.info("分享间隔时间", ec, shareInvaterl)
 					let platform = wx.getSystemInfoSync().platform
 					if (platform == "android" || ec > shareInvaterl) {//安卓不需要验证时间
 
