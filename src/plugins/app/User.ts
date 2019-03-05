@@ -5,6 +5,70 @@ namespace AppGDK {
 	// const expNum = 7
 	const devlog = Common.devlog
 
+	/**
+	 * 用户信息本地存储的key
+	 */
+	const USER_INFO_KEY = "$OFNIRESU$";
+	const USER_INFO_XXTEA_KEY = "key$OFNIRESU$key";
+
+	/**
+	 * 登陆的用户信息结构
+	 */
+	type UserInfo = {
+		/**
+		 * 用户id
+		 */
+		userId: number,
+
+		/**
+		 * 登陆时的openId
+		 */
+		openId: string,
+
+		/**
+		 * 记录上次的登陆类型
+		 */
+		loginType: "visitor" | "facebook" | "google",
+
+		/**
+		 * 玩家的昵称
+		 */
+		name: string,
+
+		/**
+		 * 创建的时间
+		 */
+		createTime: number,
+
+		token: string,
+	}
+
+	/**
+	 * 加载用户登陆信息
+	 */
+	function loadUserInfo(): UserInfo {
+		try {
+			let data = localStorage.getItem(USER_INFO_KEY);
+			if (data && data != "") {
+				return JSON.parse(slib.xxtea.decryptFromBase64(data, USER_INFO_XXTEA_KEY)) as UserInfo;
+			}
+			return null;
+		} finally {
+			return null;
+		}
+	}
+
+
+	/**
+	 * 保存登陆信息
+	 * @param data 
+	 */
+	function saveUserInfo(data: UserInfo) {
+		let str = JSON.stringify(data);
+		let xxt = slib.xxtea.encryptToBase64(str, USER_INFO_XXTEA_KEY);
+		localStorage.setItem(USER_INFO_KEY, xxt);
+	}
+
 	export class User extends GDK.UserBase {
 		api?: GDK.UserAPI
 		get server(): MServer {
@@ -14,38 +78,69 @@ namespace AppGDK {
 		login(params?: GDK.LoginParams) {
 			const ret = new GDK.RPromise<GDK.LoginResult>()
 
-			let userId = localStorage.getItem('sdk_glee_userId')
-			let nUserId = parseInt(userId)
-			if (isNaN(nUserId)) {
-				nUserId = undefined
-			}
+			let userInfo = loadUserInfo();
+			let loginType = null;
 
-			this.server.loginTest({ loginCode: nUserId }, (resp) => {
-				//玩家数据
-				if (resp.succeed) {
-					const data = resp.data
+			let loginComplete = (data: LoginCallbackData) => {
+				if (data.succeed) {
+					userInfo = {
+						openId: data.data.openId,
+						userId: data.data.userId,
+						loginType: loginType,
+						name: data.data.nickname,
+						createTime: data.data.createTime,
+						token: data.data.token
+					}
+					saveUserInfo(userInfo)//保存登陆信息
+
 					const userdata = this.api.userData
-					userdata.channelId = data.channelId
-					userdata.createTime = data.createTime
-					userdata.userId = data.userId
-					localStorage.setItem('sdk_glee_userId', `${data.userId}`)
-					userdata.followGzh = data.followGzh
-					userdata.nickName = data.nickname
-					userdata.isNewUser = data.userNew
+					userdata.channelId = data.data.channelId
+					userdata.createTime = data.data.createTime
+					userdata.userId = data.data.userId
+					userdata.followGzh = data.data.followGzh
+					userdata.nickName = data.data.nickname
+					userdata.isNewUser = data.data.userNew
 
 					ret.success({
-						extra: data,
+						extra: data.data,
 					})
+
 				} else {
 					ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN, {
 						data: {
-							extra: resp,
+							extra: data,
 						}
 					}))
 				}
-			}, () => {
-				ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.NETWORK_ERROR))
-			})
+			}
+
+			if (userInfo) {
+				//老用户
+				if (params.autoLogin) {
+					loginType = userInfo.loginType
+					if (userInfo.loginType == "visitor") {
+						//自动游客登陆
+						this.server.loginByOpenId({ openId: userInfo.openId }, loginComplete);
+					} else if (userInfo.loginType == "facebook") {
+						//自动脸书登陆
+					} else if (userInfo.loginType == "google") {
+						//自动google登陆
+					} else {
+						//打开登陆弹框
+					}
+				} else {
+					//打开登陆弹框
+				}
+			} else {
+				//新用户
+				if (params.autoLogin) {
+					//自动游客登陆
+					loginType = "visitor"
+					this.server.loginByOpenId({ openId: null }, loginComplete);
+				} else {
+					//打开登陆弹框
+				}
+			}
 
 			return ret.promise
 		}

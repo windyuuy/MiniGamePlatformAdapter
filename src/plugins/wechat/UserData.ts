@@ -9,11 +9,11 @@ namespace WechatGDK {
 		isNewUser: boolean
 		avatarUrl: string
 		backupTime: number
-		followGzh: number
+		followGzh: 0 | 1
 		token: string
 		gameToken: string
 		channelId: number
-		createTime: string
+		createTime: number
 		sex: number
 	}
 }
