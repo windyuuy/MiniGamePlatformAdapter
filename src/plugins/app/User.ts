@@ -125,7 +125,7 @@ namespace AppGDK {
 					loginType = userInfo.loginType
 					if (userInfo.loginType == "visitor") {
 						//自动游客登陆
-						this.server.loginByOpenId({ openId: userInfo.openId }, loginComplete);
+						this.server.loginOpenId({ openId: userInfo.openId }, loginComplete);
 					} else if (userInfo.loginType == "facebook") {
 						//自动脸书登陆
 					} else if (userInfo.loginType == "google") {
@@ -141,7 +141,7 @@ namespace AppGDK {
 				if (params.autoLogin) {
 					//自动游客登陆
 					loginType = "visitor"
-					this.server.loginByOpenId({ openId: null }, loginComplete);
+					this.server.loginOpenId({ openId: null }, loginComplete);
 				} else {
 					//打开登陆弹框
 				}

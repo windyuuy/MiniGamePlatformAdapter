@@ -114,13 +114,13 @@ namespace AppGDK {
          * * openId 传入空则产生新的账号
          * * 传入历史openId则表示游客再次登陆
          */
-		loginByOpenId(
+		loginOpenId(
 			data: {
 				openId: string
 			},
 			callback: (data: LoginCallbackData) => void,
 			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
-			this.gameClient.request("user/loginByOpenId", data, (data) => {
+			this.gameClient.request("user/loginOpenId", data, (data) => {
 				callback(data);
 			}, { modal: modal, errorCallback: errorCallback })
 		}
