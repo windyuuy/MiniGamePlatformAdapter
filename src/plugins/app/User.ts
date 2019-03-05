@@ -76,6 +76,11 @@ namespace AppGDK {
 		}
 
 		login(params?: GDK.LoginParams) {
+
+			if (params.autoLogin === undefined) {
+				params.autoLogin = true;//默认允许自动登陆
+			}
+
 			const ret = new GDK.RPromise<GDK.LoginResult>()
 
 			let userInfo = loadUserInfo();
