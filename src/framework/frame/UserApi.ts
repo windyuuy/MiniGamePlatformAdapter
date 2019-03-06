@@ -877,25 +877,26 @@ namespace GDK {
 			}
 			return this._m.subContext.getOpenDataContext();
 		}
-		/** api平台名称 */
-		get apiPlatform():
-			| "wechatgame"
-			| "browser"
-			| "qqplay"
-			| "unknown"
-			| string {
+		/**
+		 * api平台名称
+		 * * browser 浏览器
+		 * * native APP原生
+		 * * wechatgame 微信
+		 * * qqplay QQ玩一玩
+		 * * unknown 未知平台
+		 */
+		get apiPlatform(): string {
 			if (!this.checkModuleAttr("support", "apiPlatform")) {
 				return undefined;
 			}
 			return this._m.support.apiPlatform;
 		}
 		/**
-		 * - 插件名，如：
-		 * ```
-		 * develop(网页版)
-		 * wechat(微信)
-		 * qqplay(玩一玩)
-		 * ```
+		 * 插件名
+		 * * develop 网页开发测试
+		 * * wechat 微信
+		 * * qqplay 玩一玩
+		 * * app 原生APP
 		 **/
 		get pluginName(): string {
 			if (!this.checkModuleAttr("support", "pluginName")) {
