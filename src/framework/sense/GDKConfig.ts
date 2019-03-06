@@ -80,6 +80,10 @@ namespace GDK {
 
 	}
 
+	export class GDKAPPConfig extends GDKConfigBase {
+
+	}
+
 
 	export class GDKConfig {
 
@@ -89,6 +93,7 @@ namespace GDK {
 
 		qqplay?: GDKQQPlayConfig
 
+		app?: GDKAPPConfig
 	}
 
 
