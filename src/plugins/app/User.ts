@@ -53,7 +53,8 @@ namespace AppGDK {
 				return JSON.parse(slib.xxtea.decryptFromBase64(data, USER_INFO_XXTEA_KEY)) as UserInfo;
 			}
 			return null;
-		} finally {
+		} catch (e) {
+			console.error(e);
 			return null;
 		}
 	}
