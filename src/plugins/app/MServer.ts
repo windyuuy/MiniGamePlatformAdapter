@@ -124,5 +124,40 @@ namespace AppGDK {
 				callback(data);
 			}, { modal: modal, errorCallback: errorCallback })
 		}
+
+		/**
+         * FB登陆
+         * * userId 
+         * * token
+         */
+		loginFB(
+			data: {
+				openId: string,
+				token: string
+			},
+			callback: (data: LoginCallbackData) => void,
+			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
+			this.gameClient.request("user/loginFB", data, (data) => {
+				callback(data);
+			}, { modal: modal, errorCallback: errorCallback })
+		}
+
+		/**
+         * FB登陆
+         * * userId 
+         * * token
+         */
+		loginGoogle(
+			data: {
+				openId: string,
+				token: string
+			},
+			callback: (data: LoginCallbackData) => void,
+			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
+			this.gameClient.request("user/loginGoogle", data, (data) => {
+				callback(data);
+			}, { modal: modal, errorCallback: errorCallback })
+		}
+
 	}
 }

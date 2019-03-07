@@ -5,69 +5,45 @@ namespace AppGDK {
 	// const expNum = 7
 	const devlog = Common.devlog
 
-	/**
-	 * 用户信息本地存储的key
-	 */
-	const USER_INFO_KEY = "$OFNIRESU$";
-	const USER_INFO_XXTEA_KEY = "key$OFNIRESU$key";
+	var isCancelLogin: boolean = false;
 
-	/**
-	 * 登陆的用户信息结构
-	 */
-	type UserInfo = {
-		/**
-		 * 用户id
-		 */
-		userId: number,
+	var loginRet = null;
+	var self: User
 
-		/**
-		 * 登陆时的openId
-		 */
-		openId: string,
-
-		/**
-		 * 记录上次的登陆类型
-		 */
-		loginType: "visitor" | "facebook" | "google",
-
-		/**
-		 * 玩家的昵称
-		 */
-		name: string,
-
-		/**
-		 * 创建的时间
-		 */
-		createTime: number,
-
-		token: string,
-	}
-
-	/**
-	 * 加载用户登陆信息
-	 */
-	function loadUserInfo(): UserInfo {
-		try {
-			let data = localStorage.getItem(USER_INFO_KEY);
-			if (data && data != "") {
-				return JSON.parse(slib.xxtea.decryptFromBase64(data, USER_INFO_XXTEA_KEY)) as UserInfo;
-			}
-			return null;
-		} catch (e) {
-			console.error(e);
-			return null;
+	let loginComplete = (data: LoginCallbackData) => {
+		if (isCancelLogin) {
+			isCancelLogin = false;
+			return;
 		}
-	}
+		if (data.succeed) {
+			let userRecords = SDKProxy.loadUserRecord()
+			let user = userRecords[0];
+			user.name = data.data.nickname
+			user.userId = data.data.userId
+			user.createTime = data.data.createTime
+			SDKProxy.saveUserRecord(userRecords);
 
+			const userdata = self.api.userData
+			userdata.channelId = data.data.channelId
+			userdata.createTime = data.data.createTime
+			userdata.userId = data.data.userId
+			userdata.followGzh = data.data.followGzh
+			userdata.nickName = data.data.nickname
+			userdata.isNewUser = data.data.userNew
 
-	/**
-	 * 保存登陆信息
-	 * @param data 
-	 */
-	function saveUserInfo(data: UserInfo) {
-		let str = JSON.stringify(data);
-		let xxt = slib.xxtea.encryptToBase64(str, USER_INFO_XXTEA_KEY);
-		localStorage.setItem(USER_INFO_KEY, xxt);
+			loginRet.success({
+				extra: data.data,
+			})
+
+			SDKProxy.showUserCenter(user);
+
+		} else {
+			loginRet.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN, {
+				data: {
+					extra: data,
+				}
+			}))
+		}
 	}
 
 	export class User extends GDK.UserBase {
@@ -76,75 +52,87 @@ namespace AppGDK {
 			return MServer.inst
 		}
 
+		init(data) {
+			self = this;
+			SDKProxy.onCancelLogining(() => {
+				//当玩家取消当前的登陆进程，则弹出登陆框，让玩家进行选择
+				isCancelLogin = true;
+				SDKProxy.hideLogining();
+				SDKProxy.showLoginDialog();
+			})
+
+			SDKProxy.onLogin((type, userId, token) => {
+				//玩家SDK登陆完成
+				SDKProxy.hideLogining();
+
+				//生成玩家登陆记录
+				let userRecords = SDKProxy.loadUserRecord()
+				let record = userRecords.find(a => a.openId == userId)
+				if (record) {
+					userRecords.remove(record)
+				} else {
+					record = {
+						userId: null,
+						openId: userId,
+						loginType: type,
+						name: userId,
+						createTime: new Date().getTime(),
+						token: token,
+					}
+				}
+				userRecords.unshift(record)//当前玩家记录放在第一条
+
+				SDKProxy.saveUserRecord(userRecords);
+
+				if (type == "google") {
+					this.server.loginGoogle({ openId: userId, token: token }, loginComplete);
+				} else if (type == "facebook") {
+					this.server.loginFB({ openId: userId, token: token }, loginComplete);
+				}
+			})
+
+			SDKProxy.onBind((type, userId, token) => {
+				//玩家SDK绑定完成
+			})
+		}
+
 		login(params?: GDK.LoginParams) {
+			isCancelLogin = false;
 
 			if (params.autoLogin === undefined) {
 				params.autoLogin = true;//默认允许自动登陆
 			}
 
 			const ret = new GDK.RPromise<GDK.LoginResult>()
+			loginRet = ret
 
-			let userInfo = loadUserInfo();
-			let loginType = null;
+			let userRecords = SDKProxy.loadUserRecord();
 
-			let loginComplete = (data: LoginCallbackData) => {
-				if (data.succeed) {
-					userInfo = {
-						openId: data.data.openId,
-						userId: data.data.userId,
-						loginType: loginType,
-						name: data.data.nickname,
-						createTime: data.data.createTime,
-						token: data.data.token
-					}
-					saveUserInfo(userInfo)//保存登陆信息
-
-					const userdata = this.api.userData
-					userdata.channelId = data.data.channelId
-					userdata.createTime = data.data.createTime
-					userdata.userId = data.data.userId
-					userdata.followGzh = data.data.followGzh
-					userdata.nickName = data.data.nickname
-					userdata.isNewUser = data.data.userNew
-
-					ret.success({
-						extra: data.data,
-					})
-
-				} else {
-					ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN, {
-						data: {
-							extra: data,
-						}
-					}))
-				}
-			}
-
-			if (userInfo) {
+			if (userRecords.length > 0) {
 				//老用户
 				if (params.autoLogin) {
-					loginType = userInfo.loginType
-					if (userInfo.loginType == "visitor") {
+					let currentUser = userRecords[0];
+					if (currentUser.loginType == "visitor") {
 						//自动游客登陆
-						this.server.loginOpenId({ openId: userInfo.openId }, loginComplete);
-					} else if (userInfo.loginType == "facebook") {
-						//自动脸书登陆
-					} else if (userInfo.loginType == "google") {
-						//自动google登陆
+						SDKProxy.showLogining("玩家 " + currentUser.name + " 正在登陆");
+						this.server.loginOpenId({ openId: currentUser.openId }, loginComplete);
 					} else {
-						//打开登陆弹框
+						//执行SDK自动登陆
+						SDKProxy.showLogining("玩家 " + currentUser.name + " 正在登陆");
+						SDKProxy.autoLogin(currentUser);
 					}
 				} else {
 					//打开登陆弹框
+					SDKProxy.showLoginDialog();
 				}
 			} else {
 				//新用户
 				if (params.autoLogin) {
 					//自动游客登陆
-					loginType = "visitor"
 					this.server.loginOpenId({ openId: null }, loginComplete);
 				} else {
 					//打开登陆弹框
+					SDKProxy.showLoginDialog();
 				}
 			}
 
