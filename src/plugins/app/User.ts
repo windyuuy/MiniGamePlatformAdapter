@@ -21,13 +21,10 @@ namespace AppGDK {
 		}
 		isLoginEnd = true;
 		if (data.succeed) {
+
+			//刷新登陆记录中的信息
 			let userRecords = SDKProxy.loadUserRecord()
-			let record = userRecords.find(a => a.openId == data.data.openId)
-			if (record == null) {
-				record = {} as any
-				userRecords.unshift(record)
-			}
-			record.loginType = record.loginType == null ? loginType : record.loginType;
+			let record = userRecords[0]//当前登陆的用户必然在第一条
 			record.openId = data.data.openId;
 			record.name = data.data.nickname
 			record.userId = data.data.userId
@@ -79,7 +76,7 @@ namespace AppGDK {
 
 			SDKProxy.onLogin((type, userId, token) => {
 				//玩家SDK登陆完成
-				SDKProxy.hideLogining();
+				SDKProxy.hideLoginDialog();//隐藏登陆弹框
 
 				//生成玩家登陆记录
 				let userRecords = SDKProxy.loadUserRecord()
@@ -97,6 +94,8 @@ namespace AppGDK {
 					}
 				}
 				userRecords.unshift(record)//当前玩家记录放在第一条
+
+				SDKProxy.showLogining(record.name);//显示正在登陆
 
 				SDKProxy.saveUserRecord(userRecords);
 
@@ -156,6 +155,17 @@ namespace AppGDK {
 				if (params.autoLogin) {
 					//自动游客登陆
 					SDKProxy.showLogining("欢迎");
+					//创建一条登陆记录
+					let record = {
+						userId: null,
+						openId: null,
+						loginType: "visitor",
+						name: null,
+						createTime: new Date().getTime(),
+						token: null,
+					} as any
+					userRecords.unshift(record)//当前玩家记录放在第一条
+
 					this.server.loginOpenId({ openId: null }, loginComplete);
 				} else {
 					//打开登陆弹框
