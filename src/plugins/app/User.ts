@@ -11,6 +11,8 @@ namespace AppGDK {
 	var loginRet = null;
 	var self: User
 
+	var loginType: LoginType;
+
 	let loginComplete = (data: LoginCallbackData) => {
 		SDKProxy.hideLogining();
 		if (isCancelLogin) {
@@ -20,10 +22,17 @@ namespace AppGDK {
 		isLoginEnd = true;
 		if (data.succeed) {
 			let userRecords = SDKProxy.loadUserRecord()
-			let user = userRecords[0] || {} as any;
-			user.name = data.data.nickname
-			user.userId = data.data.userId
-			user.createTime = data.data.createTime
+			let record = userRecords.find(a => a.openId == data.data.openId)
+			if (record == null) {
+				record = {} as any
+				userRecords.unshift(record)
+			}
+			record.loginType = record.loginType == null ? loginType : record.loginType;
+			record.openId = data.data.openId;
+			record.name = data.data.nickname
+			record.userId = data.data.userId
+			record.createTime = data.data.createTime
+			record.token = data.data.token
 			SDKProxy.saveUserRecord(userRecords);
 
 			const userdata = self.api.userData
@@ -38,7 +47,7 @@ namespace AppGDK {
 				extra: data.data,
 			})
 
-			SDKProxy.showUserCenter(user);
+			SDKProxy.showUserCenter(record);
 
 		} else {
 			loginRet.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN, {
@@ -91,10 +100,13 @@ namespace AppGDK {
 
 				SDKProxy.saveUserRecord(userRecords);
 
+				loginType = type
 				if (type == "google") {
 					this.server.loginGoogle({ openId: userId, token: token }, loginComplete);
 				} else if (type == "facebook") {
 					this.server.loginFB({ openId: userId, token: token }, loginComplete);
+				} else if (type == "visitor") {
+					this.server.loginOpenId({ openId: null }, loginComplete);
 				}
 			})
 
