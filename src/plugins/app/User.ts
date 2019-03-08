@@ -11,6 +11,7 @@ namespace AppGDK {
 	var self: User
 
 	let loginComplete = (data: LoginCallbackData) => {
+		SDKProxy.hideLogining();
 		if (isCancelLogin) {
 			isCancelLogin = false;
 			return;
