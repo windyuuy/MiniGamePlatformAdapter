@@ -6,6 +6,7 @@ namespace AppGDK {
 	const devlog = Common.devlog
 
 	var isCancelLogin: boolean = false;
+	var isLoginEnd: boolean = false;
 
 	var loginRet = null;
 	var self: User
@@ -16,9 +17,10 @@ namespace AppGDK {
 			isCancelLogin = false;
 			return;
 		}
+		isLoginEnd = true;
 		if (data.succeed) {
 			let userRecords = SDKProxy.loadUserRecord()
-			let user = userRecords[0];
+			let user = userRecords[0] || {} as any;
 			user.name = data.data.nickname
 			user.userId = data.data.userId
 			user.createTime = data.data.createTime
@@ -56,8 +58,12 @@ namespace AppGDK {
 		init(data) {
 			self = this;
 			SDKProxy.onCancelLogining(() => {
+				if (isLoginEnd) {
+					return;
+				}
 				//当玩家取消当前的登陆进程，则弹出登陆框，让玩家进行选择
 				isCancelLogin = true;
+
 				SDKProxy.hideLogining();
 				SDKProxy.showLoginDialog();
 			})
@@ -95,6 +101,13 @@ namespace AppGDK {
 			SDKProxy.onBind((type, userId, token) => {
 				//玩家SDK绑定完成
 			})
+
+			SDKProxy.onRemoveUser((openId) => {
+				//移除某条玩家记录
+				let userRecords = SDKProxy.loadUserRecord()
+				userRecords.remove(userRecords.find(a => a.openId == openId))
+				SDKProxy.saveUserRecord(userRecords);
+			})
 		}
 
 		login(params?: GDK.LoginParams) {
@@ -115,11 +128,11 @@ namespace AppGDK {
 					let currentUser = userRecords[0];
 					if (currentUser.loginType == "visitor") {
 						//自动游客登陆
-						SDKProxy.showLogining("玩家 " + currentUser.name + " 正在登陆");
+						SDKProxy.showLogining(currentUser.name);
 						this.server.loginOpenId({ openId: currentUser.openId }, loginComplete);
 					} else {
 						//执行SDK自动登陆
-						SDKProxy.showLogining("玩家 " + currentUser.name + " 正在登陆");
+						SDKProxy.showLogining(currentUser.name);
 						SDKProxy.autoLogin(currentUser);
 					}
 				} else {
@@ -130,6 +143,7 @@ namespace AppGDK {
 				//新用户
 				if (params.autoLogin) {
 					//自动游客登陆
+					SDKProxy.showLogining("欢迎");
 					this.server.loginOpenId({ openId: null }, loginComplete);
 				} else {
 					//打开登陆弹框

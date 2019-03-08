@@ -79,6 +79,21 @@ class SDKProxy {
 		localStorage.setItem(USER_INFO_KEY, xxt);
 	}
 
+	/**
+	 * 显示普通菊花
+	 */
+	static showLoading() {
+		if (gdkjsb.bridge == undefined) return;
+		gdkjsb.bridge.callAction("showLoading", "{}", (data) => { })
+	}
+
+	/**
+	 * 隐藏普通菊花
+	 */
+	static hideLoading() {
+		if (gdkjsb.bridge == undefined) return;
+		gdkjsb.bridge.callAction("hideLoading", "{}", (data) => { })
+	}
 
 	/**
 	 * 隐藏正在登陆提示
@@ -188,6 +203,21 @@ class SDKProxy {
 		this.bindId = gdkjsb.bridge.on("bind", (data) => {
 			let json = JSON.parse(data);
 			callback(json.type, json.uesrId, json.token);
+		});
+	}
+
+	protected static removeUserId: number = undefined
+	static onRemoveUser(
+		callback: (openId: string) => void
+	) {
+		if (gdkjsb.bridge == undefined) return;
+
+		if (this.removeUserId !== undefined) {
+			gdkjsb.bridge.off(this.removeUserId);
+		}
+		this.removeUserId = gdkjsb.bridge.on("removeUser", (data) => {
+			let json = JSON.parse(data);
+			callback(json.openId);
 		});
 	}
 
