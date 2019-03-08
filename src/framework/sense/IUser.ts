@@ -23,7 +23,7 @@ namespace GDK {
 				diamond: string,
 				seed: string
 			},
-			createTime: string,//创建时间
+			createTime: number,//创建时间 毫秒
 			channelId: number,//渠道id
 
 			encryptKey: string,//存档加密key
@@ -47,6 +47,26 @@ namespace GDK {
 
 	/** 登录请求参数 */
 	export class LoginParams extends ReqParams {
+		/**
+		 * 是否禁止游客登陆
+		 */
+		disableVisitor?: boolean = false;
+		/**
+		 * 是否允许Google登陆
+		 */
+		google?: boolean = false;
+
+		/**
+		 * 是否允许facebook登陆
+		 */
+		facebook?: boolean = false;
+
+		/**
+		 * 是否允许自动登陆
+		 * * 如果当前未绑定任何第三方账号，则执行游客登陆
+		 * * 否则，执行第三方账号的自动登陆
+		 */
+		autoLogin?: boolean = true;
 	}
 
 	export class LoginPromise extends Promise<LoginResult>{ }

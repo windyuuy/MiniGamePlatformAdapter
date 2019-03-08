@@ -1,6 +1,6 @@
 namespace QQPlayGDK {
 
-	export type UserLoginData = {
+	export type LoginCallbackData = {
 		succeed: boolean,
 		code: 0 | number,
 		message: "success" | string,
@@ -8,28 +8,66 @@ namespace QQPlayGDK {
 			userId: number,
 			openId?: string,
 			serviceTimestamp: number
-			dataTimestamp: number//上次存档的时间戳
+			service24Timestamp: number
+			/**
+			 * 上次存档的时间戳
+			 */
+			dataTimestamp: number
 			nickname: string,
 			profileImg: string,
-			backupTime: number//上传存档时间 秒
-			userNew: false,//是否为新用户
-			service24Timestamp: number,//下一天0点的时间戳
+			/**
+			 * 上传存档时间 秒
+			 */
+			backupTime: number,
+			/**
+			 * 是否为新用户
+			 */
+			userNew: false,
 			shareSwitch: {
 
 			},
-			followGzh: 0 | 1,//0 未关注,1 已关注
 			gameCurrency: {
 				gold: string,
 				diamond: string,
 				seed: string
 			},
-			createTime: string,//创建时间
-			channelId: number,//渠道id
+			/**
+			 * 创建时间 毫秒
+			 */
+			createTime: number,
+			/**
+			 * 渠道id
+			 */
+			channelId: number
 
-			encryptKey: string,//存档加密key
-			token: string,//登陆token
-			heart: number,//心数量
+			/**
+			 * 存档加密key
+			 */
+			encryptKey: string,
+			/**
+			 * 登陆token
+			 */
+			token: string,
+
 			gametoken: string,
+
+			noticeSign: string,
+
+			heart: number,
+
+			custom: string,
+
+			/**
+			 * 性别
+			 */
+			gender: number
+
+			/** 是否已关注公众号
+			 * - 0 未关注
+			 * - 1 已关注
+			 **/
+			followGzh: 0 | 1
+
 		}
 	}
 
@@ -50,38 +88,7 @@ namespace QQPlayGDK {
 				clientSystemInfo: any;//系统信息
 				extraData?: any;
 			},
-			callback: (data: {
-				succeed: boolean,
-				code: 0 | number,
-				message: "success" | string,
-				data: {
-					userId: number,
-					openId?: string,
-					serviceTimestamp: number
-					dataTimestamp: number//上次存档的时间戳
-					nickname: string,
-					profileImg: string,
-					backupTime: number//上传存档时间 秒
-					userNew: false,//是否为新用户
-					service24Timestamp: number,//下一天0点的时间戳
-					shareSwitch: {
-
-					},
-					followGzh: 0 | 1,//0 未关注,1 已关注
-					gameCurrency: {
-						gold: string,
-						diamond: string,
-						seed: string
-					},
-					createTime: string,//创建时间
-					channelId: number,//渠道id
-
-					encryptKey: string,//存档加密key
-					token: string,//登陆token
-					heart: number,//心数量
-					gameToken: string,
-				}
-			}) => void,
+			callback: (data: LoginCallbackData) => void,
 			errorCallback: (error: any, retry: () => void) => void = null) {
 			Common.httpClient.request("user/login", data, (data) => {
 				callback(data);
@@ -94,7 +101,7 @@ namespace QQPlayGDK {
 		 */
 		userLoginQQPlay(
 			data: object, //GAMESTATUSINFO&wx.UserInfo
-			callback: (data: UserLoginData) => void,
+			callback: (data: LoginCallbackData) => void,
 			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
 			Common.httpClient.request("user/loginQQ", data, (data) => {
 				callback(data);

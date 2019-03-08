@@ -137,7 +137,7 @@ namespace GDK {
 		 * - 0 未关注
 		 * - 1 已关注
 		 **/
-		get followGzh(): number {
+		get followGzh(): 0 | 1 {
 			if (!this.checkModuleAttr("userData", "followGzh")) {
 				return undefined;
 			}
@@ -151,7 +151,7 @@ namespace GDK {
 			return this._m.userData.channelId;
 		}
 		/** 创建时间 */
-		get createTime(): string {
+		get createTime(): number {
 			if (!this.checkModuleAttr("userData", "createTime")) {
 				return undefined;
 			}
@@ -201,21 +201,21 @@ namespace GDK {
 		/** 登录 */
 		login(params?: LoginParams): Promise<LoginResult> {
 			if (!this.checkModuleAttr("user", "login", "function")) {
-				return this.createNonePromise("[user.login]");
+				return undefined;
 			}
 			return this._m.user.login(params);
 		}
 		/** 检查登录态是否过期 */
 		checkSession?(params?: ReqParams): Promise<void> {
 			if (!this.checkModuleAttr("user", "checkSession", "function")) {
-				return this.createNonePromise("[user.checkSession]");
+				return undefined;
 			}
 			return this._m.user.checkSession(params);
 		}
 		/** 更新用户数据 */
 		updateUser(): Promise<UserDataUpdateResult> {
 			if (!this.checkModuleAttr("user", "update", "function")) {
-				return this.createNonePromise("[user.update]");
+				return undefined;
 			}
 			return this._m.user.update();
 		}
@@ -230,7 +230,7 @@ namespace GDK {
 			typeIndex: string[];
 		}): Promise<{ data: UserGameData[] }> {
 			if (!this.checkModuleAttr("user", "getFriendCloudStorage", "function")) {
-				return this.createNonePromise("[user.getFriendCloudStorage]");
+				return undefined;
 			}
 			return this._m.user.getFriendCloudStorage(obj);
 		}
@@ -245,7 +245,7 @@ namespace GDK {
 			typeIndex: string[];
 		}): Promise<void> {
 			if (!this.checkModuleAttr("user", "setUserCloudStorage", "function")) {
-				return this.createNonePromise("[user.setUserCloudStorage]");
+				return undefined;
 			}
 			return this._m.user.setUserCloudStorage(obj);
 		}
@@ -569,7 +569,7 @@ namespace GDK {
 		 */
 		fetchNetworkInfo(): Promise<void> {
 			if (!this.checkModuleAttr("systemInfo", "fetchNetworkInfo", "function")) {
-				return this.createNonePromise("[systemInfo.fetchNetworkInfo]");
+				return undefined;
 			}
 			return this._m.systemInfo.fetchNetworkInfo();
 		}
@@ -586,7 +586,7 @@ namespace GDK {
 		 */
 		navigateToApp?(params: AppCallUpParams): Promise<AppCallUpResult> {
 			if (!this.checkModuleAttr("apiSystem", "navigateToApp", "function")) {
-				return this.createNonePromise("[apiSystem.navigateToApp]");
+				return undefined;
 			}
 			return this._m.apiSystem.navigateToApp(params);
 		}
@@ -595,7 +595,7 @@ namespace GDK {
 		 */
 		exitProgram?(): Promise<void> {
 			if (!this.checkModuleAttr("apiSystem", "exitProgram", "function")) {
-				return this.createNonePromise("[apiSystem.exitProgram]");
+				return undefined;
 			}
 			return this._m.apiSystem.exitProgram();
 		}
@@ -634,7 +634,7 @@ namespace GDK {
 			if (
 				!this.checkModuleAttr("apiSystem", "updateProgramForce", "function")
 			) {
-				return this.createNonePromise("[apiSystem.updateProgramForce]");
+				return undefined;
 			}
 			return this._m.apiSystem.updateProgramForce();
 		}
@@ -643,7 +643,7 @@ namespace GDK {
 		 */
 		setEnableDebug?(res: { enableDebug: boolean }): Promise<void> {
 			if (!this.checkModuleAttr("apiSystem", "setEnableDebug", "function")) {
-				return this.createNonePromise("[apiSystem.setEnableDebug]");
+				return undefined;
 			}
 			return this._m.apiSystem.setEnableDebug(res);
 		}
@@ -673,7 +673,7 @@ namespace GDK {
 		 */
 		share(data: ShareData): Promise<ShareResult> {
 			if (!this.checkModuleAttr("share", "share", "function")) {
-				return this.createNonePromise("[share.share]");
+				return undefined;
 			}
 			return this._m.share.share(data);
 		}
@@ -684,7 +684,7 @@ namespace GDK {
 		 */
 		socialShare(data: ShareData): Promise<ShareResult> {
 			if (!this.checkModuleAttr("share", "socialShare", "function")) {
-				return this.createNonePromise("[share.socialShare]");
+				return undefined;
 			}
 			return this._m.share.socialShare(data);
 		}
@@ -695,7 +695,7 @@ namespace GDK {
 		 */
 		shareUrl(data: ShareUrlData): Promise<ShareResult> {
 			if (!this.checkModuleAttr("share", "shareUrl", "function")) {
-				return this.createNonePromise("[share.shareUrl]");
+				return undefined;
 			}
 			return this._m.share.shareUrl(data);
 		}
@@ -706,7 +706,7 @@ namespace GDK {
 		 */
 		showShareMenu(): Promise<void> {
 			if (!this.checkModuleAttr("share", "showShareMenu", "function")) {
-				return this.createNonePromise("[share.showShareMenu]");
+				return undefined;
 			}
 			return this._m.share.showShareMenu();
 		}
@@ -715,7 +715,7 @@ namespace GDK {
 		 */
 		hideShareMenu(): Promise<void> {
 			if (!this.checkModuleAttr("share", "hideShareMenu", "function")) {
-				return this.createNonePromise("[share.hideShareMenu]");
+				return undefined;
 			}
 			return this._m.share.hideShareMenu();
 		}
@@ -726,7 +726,7 @@ namespace GDK {
 		 */
 		setShareMenuData(data: ShareData): Promise<void> {
 			if (!this.checkModuleAttr("share", "setShareMenuData", "function")) {
-				return this.createNonePromise("[share.setShareMenuData]");
+				return undefined;
 			}
 			return this._m.share.setShareMenuData(data);
 		}
@@ -735,7 +735,7 @@ namespace GDK {
 		 */
 		getShareParam(): Promise<{ [key: string]: string }> {
 			if (!this.checkModuleAttr("share", "getShareParam", "function")) {
-				return this.createNonePromise("[share.getShareParam]");
+				return undefined;
 			}
 			return this._m.share.getShareParam();
 		}
@@ -744,7 +744,7 @@ namespace GDK {
 		 */
 		getShareTicket(): Promise<string> {
 			if (!this.checkModuleAttr("share", "getShareTicket", "function")) {
-				return this.createNonePromise("[share.getShareTicket]");
+				return undefined;
 			}
 			return this._m.share.getShareTicket();
 		}
@@ -754,7 +754,7 @@ namespace GDK {
 		 */
 		getShareInfo(shareTicket: string): Promise<any> {
 			if (!this.checkModuleAttr("share", "getShareInfo", "function")) {
-				return this.createNonePromise("[share.getShareInfo]");
+				return undefined;
 			}
 			return this._m.share.getShareInfo(shareTicket);
 		}
@@ -763,7 +763,7 @@ namespace GDK {
 		 */
 		payPurchase(item: PayItemInfo, options?: PayOptions): Promise<PayResult> {
 			if (!this.checkModuleAttr("pay", "payPurchase", "function")) {
-				return this.createNonePromise("[pay.payPurchase]");
+				return undefined;
 			}
 			return this._m.pay.payPurchase(item, options);
 		}
@@ -812,28 +812,28 @@ namespace GDK {
 		/** 显示 loading 提示框。需主动调用 wx.hideLoading 才能关闭提示框 */
 		showLoading(object: ShowLoadingParams): Promise<void> {
 			if (!this.checkModuleAttr("widgets", "showLoading", "function")) {
-				return this.createNonePromise("[widgets.showLoading]");
+				return undefined;
 			}
 			return this._m.widgets.showLoading(object);
 		}
 		/** 隐藏 loading 提示框 */
 		hideLoading(): Promise<void> {
 			if (!this.checkModuleAttr("widgets", "hideLoading", "function")) {
-				return this.createNonePromise("[widgets.hideLoading]");
+				return undefined;
 			}
 			return this._m.widgets.hideLoading();
 		}
 		/** 显示消息提示框 */
 		showToast(object: ShowToastOptions): Promise<void> {
 			if (!this.checkModuleAttr("widgets", "showToast", "function")) {
-				return this.createNonePromise("[widgets.showToast]");
+				return undefined;
 			}
 			return this._m.widgets.showToast(object);
 		}
 		/** 隐藏消息提示框 */
 		hideToast(): Promise<void> {
 			if (!this.checkModuleAttr("widgets", "hideToast", "function")) {
-				return this.createNonePromise("[widgets.hideToast]");
+				return undefined;
 			}
 			return this._m.widgets.hideToast();
 		}
@@ -843,7 +843,7 @@ namespace GDK {
 		 */
 		showConfirm(object: ShowConfirmOptions): Promise<ShowConfirmResult> {
 			if (!this.checkModuleAttr("widgets", "showConfirm", "function")) {
-				return this.createNonePromise("[widgets.showConfirm]");
+				return undefined;
 			}
 			return this._m.widgets.showConfirm(object);
 		}
@@ -853,7 +853,7 @@ namespace GDK {
 		 */
 		showAlert(object: ShowAlertOptions): Promise<ShowAlertResult> {
 			if (!this.checkModuleAttr("widgets", "showAlert", "function")) {
-				return this.createNonePromise("[widgets.showAlert]");
+				return undefined;
 			}
 			return this._m.widgets.showAlert(object);
 		}
@@ -877,25 +877,26 @@ namespace GDK {
 			}
 			return this._m.subContext.getOpenDataContext();
 		}
-		/** api平台名称 */
-		get apiPlatform():
-			| "wechatgame"
-			| "browser"
-			| "qqplay"
-			| "unknown"
-			| string {
+		/**
+		 * api平台名称
+		 * * browser 浏览器
+		 * * native APP原生
+		 * * wechatgame 微信
+		 * * qqplay QQ玩一玩
+		 * * unknown 未知平台
+		 */
+		get apiPlatform(): string {
 			if (!this.checkModuleAttr("support", "apiPlatform")) {
 				return undefined;
 			}
 			return this._m.support.apiPlatform;
 		}
 		/**
-		 * - 插件名，如：
-		 * ```
-		 * develop(网页版)
-		 * wechat(微信)
-		 * qqplay(玩一玩)
-		 * ```
+		 * 插件名
+		 * * develop 网页开发测试
+		 * * wechat 微信
+		 * * qqplay 玩一玩
+		 * * app 原生APP
 		 **/
 		get pluginName(): string {
 			if (!this.checkModuleAttr("support", "pluginName")) {
@@ -957,7 +958,7 @@ namespace GDK {
 		 */
 		isUserInfoAuthAlready(): Promise<boolean> {
 			if (!this.checkModuleAttr("auth", "isUserInfoAuthAlready", "function")) {
-				return this.createNonePromise("[auth.isUserInfoAuthAlready]");
+				return undefined;
 			}
 			return this._m.auth.isUserInfoAuthAlready();
 		}

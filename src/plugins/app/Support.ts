@@ -1,11 +1,11 @@
 
 namespace AppGDK {
 	export class Support implements GDK.ISupport {
-		pluginName = "develop"
+		pluginName = "app"
 		supportShareTickets: boolean = false
 		requireSubDomainRank: boolean = false
-		apiPlatform = "develop"
+		apiPlatform = "native"
 		requireAuthorize: boolean = false
-		apiNameLocale: string = "开发模式"
+		apiNameLocale: string = "原生APP"
 	}
 }

@@ -10,11 +10,11 @@ namespace QQPlayGDK {
 		isNewUser: boolean
 		avatarUrl: string
 		backupTime: number
-		followGzh: number
+		followGzh: 0 | 1
 		token: string
 		gameToken: string
 		channelId: number
-		createTime: string
+		createTime: number
 		get sex(): number { return GameStatusInfo.sex }
 
 		get isWhiteUser(): number { return BK.getSystemInfoSync().isWhiteUser }

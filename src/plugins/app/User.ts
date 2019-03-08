@@ -5,47 +5,136 @@ namespace AppGDK {
 	// const expNum = 7
 	const devlog = Common.devlog
 
+	var isCancelLogin: boolean = false;
+
+	var loginRet = null;
+	var self: User
+
+	let loginComplete = (data: LoginCallbackData) => {
+		if (isCancelLogin) {
+			isCancelLogin = false;
+			return;
+		}
+		if (data.succeed) {
+			let userRecords = SDKProxy.loadUserRecord()
+			let user = userRecords[0];
+			user.name = data.data.nickname
+			user.userId = data.data.userId
+			user.createTime = data.data.createTime
+			SDKProxy.saveUserRecord(userRecords);
+
+			const userdata = self.api.userData
+			userdata.channelId = data.data.channelId
+			userdata.createTime = data.data.createTime
+			userdata.userId = data.data.userId
+			userdata.followGzh = data.data.followGzh
+			userdata.nickName = data.data.nickname
+			userdata.isNewUser = data.data.userNew
+
+			loginRet.success({
+				extra: data.data,
+			})
+
+			SDKProxy.showUserCenter(user);
+
+		} else {
+			loginRet.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN, {
+				data: {
+					extra: data,
+				}
+			}))
+		}
+	}
+
 	export class User extends GDK.UserBase {
 		api?: GDK.UserAPI
 		get server(): MServer {
 			return MServer.inst
 		}
 
-		login(params?: GDK.LoginParams) {
-			const ret = new GDK.RPromise<GDK.LoginResult>()
+		init(data) {
+			self = this;
+			SDKProxy.onCancelLogining(() => {
+				//当玩家取消当前的登陆进程，则弹出登陆框，让玩家进行选择
+				isCancelLogin = true;
+				SDKProxy.hideLogining();
+				SDKProxy.showLoginDialog();
+			})
 
-			let userId = localStorage.getItem('sdk_glee_userId')
-			let nUserId = parseInt(userId)
-			if (isNaN(nUserId)) {
-				nUserId = undefined
+			SDKProxy.onLogin((type, userId, token) => {
+				//玩家SDK登陆完成
+				SDKProxy.hideLogining();
+
+				//生成玩家登陆记录
+				let userRecords = SDKProxy.loadUserRecord()
+				let record = userRecords.find(a => a.openId == userId)
+				if (record) {
+					userRecords.remove(record)
+				} else {
+					record = {
+						userId: null,
+						openId: userId,
+						loginType: type,
+						name: userId,
+						createTime: new Date().getTime(),
+						token: token,
+					}
+				}
+				userRecords.unshift(record)//当前玩家记录放在第一条
+
+				SDKProxy.saveUserRecord(userRecords);
+
+				if (type == "google") {
+					this.server.loginGoogle({ openId: userId, token: token }, loginComplete);
+				} else if (type == "facebook") {
+					this.server.loginFB({ openId: userId, token: token }, loginComplete);
+				}
+			})
+
+			SDKProxy.onBind((type, userId, token) => {
+				//玩家SDK绑定完成
+			})
+		}
+
+		login(params?: GDK.LoginParams) {
+			isCancelLogin = false;
+
+			if (params.autoLogin === undefined) {
+				params.autoLogin = true;//默认允许自动登陆
 			}
 
-			this.server.loginTest({ loginCode: nUserId }, (resp) => {
-				//玩家数据
-				if (resp.succeed) {
-					const data = resp.data
-					const userdata = this.api.userData
-					userdata.channelId = data.channelId
-					userdata.createTime = data.createTime
-					userdata.userId = data.userId
-					localStorage.setItem('sdk_glee_userId', `${data.userId}`)
-					userdata.followGzh = data.followGzh
-					userdata.nickName = data.nickname
-					userdata.isNewUser = data.userNew
+			const ret = new GDK.RPromise<GDK.LoginResult>()
+			loginRet = ret
 
-					ret.success({
-						extra: data,
-					})
+			let userRecords = SDKProxy.loadUserRecord();
+
+			if (userRecords.length > 0) {
+				//老用户
+				if (params.autoLogin) {
+					let currentUser = userRecords[0];
+					if (currentUser.loginType == "visitor") {
+						//自动游客登陆
+						SDKProxy.showLogining("玩家 " + currentUser.name + " 正在登陆");
+						this.server.loginOpenId({ openId: currentUser.openId }, loginComplete);
+					} else {
+						//执行SDK自动登陆
+						SDKProxy.showLogining("玩家 " + currentUser.name + " 正在登陆");
+						SDKProxy.autoLogin(currentUser);
+					}
 				} else {
-					ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN, {
-						data: {
-							extra: resp,
-						}
-					}))
+					//打开登陆弹框
+					SDKProxy.showLoginDialog();
 				}
-			}, () => {
-				ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.NETWORK_ERROR))
-			})
+			} else {
+				//新用户
+				if (params.autoLogin) {
+					//自动游客登陆
+					this.server.loginOpenId({ openId: null }, loginComplete);
+				} else {
+					//打开登陆弹框
+					SDKProxy.showLoginDialog();
+				}
+			}
 
 			return ret.promise
 		}

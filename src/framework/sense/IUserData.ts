@@ -44,11 +44,11 @@ namespace GDK {
 		 * - 0 未关注
 		 * - 1 已关注
 		 **/
-		followGzh: number
+		followGzh: 0 | 1
 		/** 渠道id */
 		channelId: number
 		/** 创建时间 */
-		createTime: string
+		createTime: number
 		/**
 		 * 性别
 		 * - 0 未知
