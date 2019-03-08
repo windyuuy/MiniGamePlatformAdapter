@@ -165,7 +165,7 @@ namespace AppGDK {
 						token: null,
 					} as any
 					userRecords.unshift(record)//当前玩家记录放在第一条
-
+					SDKProxy.saveUserRecord(userRecords);
 					this.server.loginOpenId({ openId: null }, loginComplete);
 				} else {
 					//打开登陆弹框
