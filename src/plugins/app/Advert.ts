@@ -21,19 +21,20 @@ namespace AppGDK {
 			}
 			const ret = new GDK.RPromise<void>()
 			setTimeout(() => {
-				if (Math.random() > 0.9) {
+				if (false) {
+					// if (Math.random() > 0.9) {
 					ret.fail();
 					for (let f of this._errorFuncList) {
 						f({ errCode: -1, errMsg: "1%的概率模拟广告加载失败" })
 					}
 				} else {
-					this._isLoad;
+					this._isLoad = true;
 					ret.success(undefined);
 					for (let f of this._loadFuncList) {
 						f()
 					}
 				}
-			}, 1000)
+			}, 100)
 
 			return ret.promise
 		}
@@ -44,7 +45,10 @@ namespace AppGDK {
 			if (!this._isLoad) {
 				ret.fail("请先加载，再显示");
 			} else {
-				this.api.showConfirm({ content: "你是否观看完广告？", title: "广告测试" }).then((isOk) => {
+				this._isLoad = false;
+				setTimeout(() => {
+					let isOk = true
+					// this.api.showConfirm({ content: "你是否观看完广告？", title: "广告测试" }).then((isOk) => {
 					for (let f of this._closeFuncList) {
 						f({ isEnded: isOk });
 					}
