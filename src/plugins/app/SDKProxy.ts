@@ -57,7 +57,7 @@ class SDKProxy {
 			if (data && data != "") {
 				let d = JSON.parse(slib.xxtea.decryptFromBase64(data, USER_INFO_XXTEA_KEY))
 				let list = d instanceof Array ? d : [d];
-				if (list[0].userId == null || list[0].openId == null) {//简单验证一下
+				if (list[0].loginType == null) {//简单验证一下
 					return [];
 				}
 				return d instanceof Array ? d : [d];
