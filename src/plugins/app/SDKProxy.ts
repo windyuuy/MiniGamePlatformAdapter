@@ -57,10 +57,16 @@ class SDKProxy {
 			if (data && data != "") {
 				let d = JSON.parse(slib.xxtea.decryptFromBase64(data, USER_INFO_XXTEA_KEY))
 				let list = d instanceof Array ? d : [d];
-				if (list[0].loginType == null) {//简单验证一下
+				if (list.length == 0 || list[0].loginType == null) {//简单验证一下
 					return [];
 				}
-				return d instanceof Array ? d : [d];
+				//删除openId等于空的记录，一般由登陆失败产生
+				for (let i = list.length - 1; i >= 0; i--) {
+					if (list[i].openId == null) {
+						list.splice(i, 1);
+					}
+				}
+				return list;
 			}
 			return [];
 		} catch (e) {
