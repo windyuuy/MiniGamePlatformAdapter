@@ -70,22 +70,22 @@ namespace AppGDK {
 				SDKProxy.showLoginDialog();
 			})
 
-			SDKProxy.onLogin((type, userId, token) => {
+			SDKProxy.onLogin((type, openId, token) => {
 				//玩家SDK登陆完成
 				SDKProxy.hideLoginDialog();//隐藏登陆弹框
 				isCancelLogin = false;
 
 				//生成玩家登陆记录
 				let userRecords = SDKProxy.loadUserRecord()
-				let record = userRecords.find(a => a.openId == userId)
+				let record = userRecords.find(a => a.openId == openId)
 				if (record) {
 					userRecords.remove(record)
 				} else {
 					record = {
 						userId: null,
-						openId: userId,
+						openId: openId,
 						loginType: type,
-						name: userId,
+						name: openId,
 						createTime: new Date().getTime(),
 						token: token,
 					}
@@ -96,11 +96,10 @@ namespace AppGDK {
 
 				SDKProxy.saveUserRecord(userRecords);
 
-				loginType = type
 				if (type == "google") {
-					this.server.loginGoogle({ openId: userId, token: token }, loginComplete);
+					this.server.loginGoogle({ openId: openId, token: token }, loginComplete);
 				} else if (type == "facebook") {
-					this.server.loginFB({ openId: userId, token: token }, loginComplete);
+					this.server.loginFB({ openId: openId, token: token }, loginComplete);
 				} else if (type == "visitor") {
 					this.server.loginOpenId({ openId: null }, loginComplete);
 				}
