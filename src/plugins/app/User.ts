@@ -16,7 +16,6 @@ namespace AppGDK {
 	let loginComplete = (data: LoginCallbackData) => {
 		SDKProxy.hideLogining();
 		if (isCancelLogin) {
-			isCancelLogin = false;
 			return;
 		}
 		isLoginEnd = true;
@@ -77,6 +76,7 @@ namespace AppGDK {
 			SDKProxy.onLogin((type, userId, token) => {
 				//玩家SDK登陆完成
 				SDKProxy.hideLoginDialog();//隐藏登陆弹框
+				isCancelLogin = false;
 
 				//生成玩家登陆记录
 				let userRecords = SDKProxy.loadUserRecord()
