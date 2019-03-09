@@ -66,6 +66,9 @@ namespace QQPlayGDK {
 			return ret.promise
 		}
 
+		async showUserCenter() {
+		}
+
 		setStorageSync(key: string, value: string): void {
 			BK.sessionStorage.setItem(key, value)
 		}

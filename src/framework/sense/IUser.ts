@@ -85,6 +85,13 @@ namespace GDK {
 	export interface IUser extends IModule {
 		/** 登录 */
 		login(params?: LoginParams): Promise<LoginResult>
+
+		/**
+		 * 显示用户中心
+		 * * APP平台支持
+		 */
+		showUserCenter(): Promise<void>;
+
 		/** 检查登录态是否过期 */
 		checkSession?(params?: ReqParams): Promise<void>
 

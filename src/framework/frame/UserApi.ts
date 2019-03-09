@@ -205,6 +205,16 @@ namespace GDK {
 			}
 			return this._m.user.login(params);
 		}
+		/**
+		 * 显示用户中心
+		 * * APP平台支持
+		 */
+		showUserCenter(): Promise<void> {
+			if (!this.checkModuleAttr("user", "showUserCenter", "function")) {
+				return undefined;
+			}
+			return this._m.user.showUserCenter();
+		}
 		/** 检查登录态是否过期 */
 		checkSession?(params?: ReqParams): Promise<void> {
 			if (!this.checkModuleAttr("user", "checkSession", "function")) {

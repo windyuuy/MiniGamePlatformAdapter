@@ -11,8 +11,6 @@ namespace AppGDK {
 	var loginRet = null;
 	var self: User
 
-	var loginType: LoginType;
-
 	let loginComplete = (data: LoginCallbackData) => {
 		SDKProxy.hideLogining();
 		if (isCancelLogin) {
@@ -43,7 +41,6 @@ namespace AppGDK {
 				extra: data.data,
 			})
 
-			SDKProxy.showUserCenter(record);
 
 		} else {
 			loginRet.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN, {
@@ -174,6 +171,11 @@ namespace AppGDK {
 			}
 
 			return ret.promise
+		}
+
+		async showUserCenter() {
+			let user = SDKProxy.loadUserRecord()[0];
+			SDKProxy.showUserCenter(user);
 		}
 
 		update(): Promise<GDK.UserDataUpdateResult> {
