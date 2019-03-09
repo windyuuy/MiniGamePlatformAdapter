@@ -51,7 +51,7 @@ class SDKProxy {
 	/**
 	 * 加载用户登陆信息
 	 */
-	static loadUserRecord(): UserInfo[] {
+	static loadUserRecord(removeNullUser: boolean = false): UserInfo[] {
 		try {
 			let data = localStorage.getItem(USER_INFO_KEY);
 			if (data && data != "") {
@@ -61,7 +61,7 @@ class SDKProxy {
 					return [];
 				}
 				//删除openId等于空的记录，一般由登陆失败产生
-				for (let i = list.length - 1; i >= 0; i--) {
+				if (removeNullUser) for (let i = list.length - 1; i >= 0; i--) {
 					if (list[i].openId == null) {
 						list.splice(i, 1);
 					}
@@ -125,7 +125,7 @@ class SDKProxy {
 	static showLoginDialog() {
 		if (gdkjsb.bridge == undefined) return;
 
-		gdkjsb.bridge.callAction("showLoginDialog", JSON.stringify({ support: this.support, records: this.loadUserRecord() }), (data) => { });
+		gdkjsb.bridge.callAction("showLoginDialog", JSON.stringify({ support: this.support, records: this.loadUserRecord(true) }), (data) => { });
 	}
 
 	/**
