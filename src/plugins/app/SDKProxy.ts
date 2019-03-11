@@ -158,6 +158,16 @@ class SDKProxy {
 		gdkjsb.bridge.callAction("hideUserCenter", "{}", (data) => { });
 	}
 
+	/**
+	 * 隐藏用户中心图标
+	 */
+	static hideBindDialog() {
+		if (gdkjsb.bridge == undefined) return;
+
+		gdkjsb.bridge.callAction("hideBindDialog", "{}", (data) => { });
+	}
+
+
 	protected static cancelLoginingId: number = undefined;
 	/**
 	 * 侦听取消登陆的回掉接口

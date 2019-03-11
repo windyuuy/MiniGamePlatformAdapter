@@ -115,11 +115,12 @@ namespace AppGDK {
 					typeNumb = 2
 				}
 
-				SDKProxy.hideUserCenter();
 
 				this.server.bindingAccount({ visitorOpenId: visitorOpenId, openId: openId, token: token, type: typeNumb }, (data) => {
 					if (data.succeed) {
-
+						SDKProxy.hideUserCenter();
+						SDKProxy.hideBindDialog();
+						this.api.showAlert({ title: "友情提示", content: "绑定成功" });
 					} else {
 						this.api.showAlert({ title: "BIND ERROR", content: data.message });
 					}
