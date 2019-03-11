@@ -21,9 +21,10 @@ namespace AppGDK {
 
 			//刷新登陆记录中的信息
 			let userRecords = SDKProxy.loadUserRecord()
-			let record = userRecords[0]//当前登陆的用户必然在第一条
+			//查找ID相同的记录，或者是游客登陆，则是第一条
+			let record = userRecords.find(a => a.openId == data.data.openId) || userRecords[0]
 			record.openId = data.data.openId;
-			record.name = data.data.nickname
+			// record.name = data.data.nickname
 			record.userId = data.data.userId
 			record.createTime = data.data.createTime
 			record.token = data.data.token
@@ -105,8 +106,29 @@ namespace AppGDK {
 				}
 			})
 
-			SDKProxy.onBind((type, userId, token) => {
+			SDKProxy.onBind((type, visitorOpenId, openId, token) => {
 				//玩家SDK绑定完成
+				let typeNumb = null
+				if (type == "facebook") {
+					typeNumb = 1
+				} else if (type == "google") {
+					typeNumb = 2
+				}
+
+				SDKProxy.hideUserCenter();
+
+				this.server.bindingAccount({ visitorOpenId: visitorOpenId, openId: openId, token: token, type: typeNumb }, (data) => {
+					if (data.succeed) {
+
+					} else {
+						this.api.showAlert({ title: "BIND ERROR", content: data.message });
+					}
+				})
+			})
+
+			SDKProxy.onLoginFail(() => {
+				//SDK层 登陆失败
+				SDKProxy.hideLogining();
 			})
 
 			SDKProxy.onRemoveUser((openId) => {

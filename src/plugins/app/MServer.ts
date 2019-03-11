@@ -159,5 +159,33 @@ namespace AppGDK {
 			}, { modal: modal, errorCallback: errorCallback })
 		}
 
+		bindingAccount(
+			data: {
+				/**
+				 * 游客openId
+				 */
+				visitorOpenId: string,
+				/**
+				 * 第三方openId
+				 */
+				openId: string,
+				/**
+				 * 第三方token
+				 */
+				token: string,
+
+				/**
+				 * 第三方账号类别（1:facebook 2:google）
+				 */
+				type: number
+			},
+			callback: (data: LoginCallbackData) => void,
+			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
+			this.gameClient.request("user/bindingAccount", data, (data) => {
+				callback(data);
+			}, { modal: modal, errorCallback: errorCallback })
+		}
+
+
 	}
 }

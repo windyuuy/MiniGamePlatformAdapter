@@ -199,7 +199,7 @@ class SDKProxy {
 
 	protected static bindId: number = undefined
 	static onBind(
-		callback: (/**登陆的类型 */ type: LoginType,/**用户ID */ openId: string, token: string) => void
+		callback: (/**登陆的类型 */ type: LoginType,/**游客OpenId */visitorOpenId: string,/**用户ID */ openId: string, token: string) => void
 	) {
 		if (gdkjsb.bridge == undefined) return;
 
@@ -208,7 +208,22 @@ class SDKProxy {
 		}
 		this.bindId = gdkjsb.bridge.on("bind", (data) => {
 			let json = JSON.parse(data);
-			callback(json.type, json.openId, json.token);
+			callback(json.type, json.visitorOpenId, json.openId, json.token);
+		});
+	}
+
+	protected static loginFailId: number = undefined
+	static onLoginFail(
+		callback: () => void
+	) {
+		if (gdkjsb.bridge == undefined) return;
+
+		if (this.loginFailId !== undefined) {
+			gdkjsb.bridge.off(this.loginFailId);
+		}
+		this.loginFailId = gdkjsb.bridge.on("loginFail", (data) => {
+			let json = JSON.parse(data);
+			callback();
 		});
 	}
 
