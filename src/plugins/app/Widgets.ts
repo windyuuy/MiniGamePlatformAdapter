@@ -43,5 +43,9 @@ namespace AppGDK {
 			})
 		}
 
+		async hideLaunchingView(): Promise<void> {
+			SDKProxy.hideLaunchingView()
+		}
+
 	}
 }

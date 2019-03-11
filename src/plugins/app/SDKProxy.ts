@@ -252,4 +252,13 @@ class SDKProxy {
 		});
 	}
 
+	/**
+	 * 隐藏启动屏
+	 */
+	static hideLaunchingView() {
+		if (gdkjsb.bridge == undefined) return;
+
+		gdkjsb.bridge.callAction("hideLaunchingView", "{}", (data) => { });
+	}
+
 }

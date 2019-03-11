@@ -868,6 +868,15 @@ namespace GDK {
 			return this._m.widgets.showAlert(object);
 		}
 		/**
+		 * 隐藏启动画面
+		 */
+		hideLaunchingView(): Promise<void> {
+			if (!this.checkModuleAttr("widgets", "hideLaunchingView", "function")) {
+				return undefined;
+			}
+			return this._m.widgets.hideLaunchingView();
+		}
+		/**
 		 * 监听主域发送的消息
 		 */
 		onMessage(callback: (message: OpenDataContextMessage) => void) {
