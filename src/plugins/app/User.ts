@@ -120,7 +120,16 @@ namespace AppGDK {
 					if (data.succeed) {
 						SDKProxy.hideUserCenter();
 						SDKProxy.hideBindDialog();
+
+						let users = SDKProxy.loadUserRecord()
+						let user = users.find(a => a.openId == visitorOpenId);
+						user.openId = openId
+						user.token = token
+						user.loginType = type
+						SDKProxy.saveUserRecord(users);
+
 						this.api.showAlert({ title: "友情提示", content: "绑定成功" });
+
 					} else {
 						this.api.showAlert({ title: "BIND ERROR", content: data.message });
 					}
