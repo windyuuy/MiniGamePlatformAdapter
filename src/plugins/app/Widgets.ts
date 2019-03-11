@@ -14,7 +14,9 @@ namespace AppGDK {
 		api?: GDK.UserAPI
 
 		init(data) {
-			this.api.hideLaunchingView();
+			setTimeout(() => {
+				this.api.hideLaunchingView();
+			})
 		}
 
 		keyboard = new KeyBoard()
