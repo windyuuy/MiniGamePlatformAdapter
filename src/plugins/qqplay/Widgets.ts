@@ -54,5 +54,10 @@ namespace QQPlayGDK {
 			return ret.promise
 
 		}
+
+		async hideLaunchingView(): Promise<void> {
+
+		}
+
 	}
 }

@@ -5,7 +5,7 @@
 const USER_INFO_KEY = "$OFNIRESU$";
 const USER_INFO_XXTEA_KEY = "key$OFNIRESU$key";
 
-type LoginType = "visitor" | "facebook" | "google"
+type LoginType = "visitor" | "facebook" | "google" | "silent"
 
 /**
  * 登陆的用户信息结构
@@ -51,16 +51,22 @@ class SDKProxy {
 	/**
 	 * 加载用户登陆信息
 	 */
-	static loadUserRecord(): UserInfo[] {
+	static loadUserRecord(removeNullUser: boolean = false): UserInfo[] {
 		try {
 			let data = localStorage.getItem(USER_INFO_KEY);
 			if (data && data != "") {
 				let d = JSON.parse(slib.xxtea.decryptFromBase64(data, USER_INFO_XXTEA_KEY))
 				let list = d instanceof Array ? d : [d];
-				if (list[0].userId == null || list[0].openId == null) {//简单验证一下
+				if (list.length == 0 || list[0].loginType == null) {//简单验证一下
 					return [];
 				}
-				return d instanceof Array ? d : [d];
+				//删除openId等于空的记录，一般由登陆失败产生
+				if (removeNullUser) for (let i = list.length - 1; i >= 0; i--) {
+					if (list[i].openId == null) {
+						list.splice(i, 1);
+					}
+				}
+				return list;
 			}
 			return [];
 		} catch (e) {
@@ -79,6 +85,21 @@ class SDKProxy {
 		localStorage.setItem(USER_INFO_KEY, xxt);
 	}
 
+	/**
+	 * 显示普通菊花
+	 */
+	static showLoading() {
+		if (gdkjsb.bridge == undefined) return;
+		gdkjsb.bridge.callAction("showLoading", "{}", (data) => { })
+	}
+
+	/**
+	 * 隐藏普通菊花
+	 */
+	static hideLoading() {
+		if (gdkjsb.bridge == undefined) return;
+		gdkjsb.bridge.callAction("hideLoading", "{}", (data) => { })
+	}
 
 	/**
 	 * 隐藏正在登陆提示
@@ -104,7 +125,7 @@ class SDKProxy {
 	static showLoginDialog() {
 		if (gdkjsb.bridge == undefined) return;
 
-		gdkjsb.bridge.callAction("showLoginDialog", JSON.stringify({ support: this.support, records: this.loadUserRecord() }), (data) => { });
+		gdkjsb.bridge.callAction("showLoginDialog", JSON.stringify({ support: this.support, records: this.loadUserRecord(true) }), (data) => { });
 	}
 
 	/**
@@ -137,6 +158,16 @@ class SDKProxy {
 		gdkjsb.bridge.callAction("hideUserCenter", "{}", (data) => { });
 	}
 
+	/**
+	 * 隐藏用户中心图标
+	 */
+	static hideBindDialog() {
+		if (gdkjsb.bridge == undefined) return;
+
+		gdkjsb.bridge.callAction("hideBindDialog", "{}", (data) => { });
+	}
+
+
 	protected static cancelLoginingId: number = undefined;
 	/**
 	 * 侦听取消登陆的回掉接口
@@ -163,7 +194,7 @@ class SDKProxy {
 
 	protected static loginId: number = undefined
 	static onLogin(
-		callback: (/**登陆的类型 */ type: LoginType,/**用户ID */ uesrId: string, token: string) => void
+		callback: (/**登陆的类型 */ type: LoginType,/**用户ID */ openId: string, token: string) => void
 	) {
 		if (gdkjsb.bridge == undefined) return;
 
@@ -172,13 +203,13 @@ class SDKProxy {
 		}
 		this.loginId = gdkjsb.bridge.on("login", (data) => {
 			let json = JSON.parse(data);
-			callback(json.type, json.uesrId, json.token);
+			callback(json.type, json.openId, json.token);
 		});
 	}
 
 	protected static bindId: number = undefined
 	static onBind(
-		callback: (/**登陆的类型 */ type: LoginType,/**用户ID */ uesrId: string, token: string) => void
+		callback: (/**登陆的类型 */ type: LoginType,/**游客OpenId */visitorOpenId: string,/**用户ID */ openId: string, token: string) => void
 	) {
 		if (gdkjsb.bridge == undefined) return;
 
@@ -187,8 +218,47 @@ class SDKProxy {
 		}
 		this.bindId = gdkjsb.bridge.on("bind", (data) => {
 			let json = JSON.parse(data);
-			callback(json.type, json.uesrId, json.token);
+			callback(json.type, json.visitorOpenId, json.openId, json.token);
 		});
+	}
+
+	protected static loginFailId: number = undefined
+	static onLoginFail(
+		callback: () => void
+	) {
+		if (gdkjsb.bridge == undefined) return;
+
+		if (this.loginFailId !== undefined) {
+			gdkjsb.bridge.off(this.loginFailId);
+		}
+		this.loginFailId = gdkjsb.bridge.on("loginFail", (data) => {
+			let json = JSON.parse(data);
+			callback();
+		});
+	}
+
+	protected static removeUserId: number = undefined
+	static onRemoveUser(
+		callback: (openId: string) => void
+	) {
+		if (gdkjsb.bridge == undefined) return;
+
+		if (this.removeUserId !== undefined) {
+			gdkjsb.bridge.off(this.removeUserId);
+		}
+		this.removeUserId = gdkjsb.bridge.on("removeUser", (data) => {
+			let json = JSON.parse(data);
+			callback(json.openId);
+		});
+	}
+
+	/**
+	 * 隐藏启动屏
+	 */
+	static hideLaunchingView() {
+		if (gdkjsb.bridge == undefined) return;
+
+		gdkjsb.bridge.callAction("hideLaunchingView", "{}", (data) => { });
 	}
 
 }

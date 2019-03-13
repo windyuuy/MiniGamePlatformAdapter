@@ -10,6 +10,15 @@ namespace AppGDK {
 	}
 
 	export class Widgets implements GDK.IWidgets {
+
+		api?: GDK.UserAPI
+
+		init(data) {
+			setTimeout(() => {
+				this.api.hideLaunchingView();
+			})
+		}
+
 		keyboard = new KeyBoard()
 		async showLoading(object: GDK.ShowLoadingParams) {
 			devlog.info("showLoading")
@@ -41,6 +50,10 @@ namespace AppGDK {
 					resolve(r);
 				})
 			})
+		}
+
+		async hideLaunchingView(): Promise<void> {
+			SDKProxy.hideLaunchingView()
 		}
 
 	}

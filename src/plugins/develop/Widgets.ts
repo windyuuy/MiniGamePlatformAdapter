@@ -45,5 +45,9 @@ namespace DevelopGDK {
 			})
 		}
 
+		async hideLaunchingView(): Promise<void> {
+
+		}
+
 	}
 }

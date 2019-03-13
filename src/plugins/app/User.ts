@@ -6,44 +6,68 @@ namespace AppGDK {
 	const devlog = Common.devlog
 
 	var isCancelLogin: boolean = false;
+	var isLoginEnd: boolean = false;
 
 	var loginRet = null;
 	var self: User
 
+	var isDelayLogin = false;
+
 	let loginComplete = (data: LoginCallbackData) => {
 		if (isCancelLogin) {
-			isCancelLogin = false;
 			return;
 		}
-		if (data.succeed) {
-			let userRecords = SDKProxy.loadUserRecord()
-			let user = userRecords[0];
-			user.name = data.data.nickname
-			user.userId = data.data.userId
-			user.createTime = data.data.createTime
-			SDKProxy.saveUserRecord(userRecords);
 
-			const userdata = self.api.userData
-			userdata.channelId = data.data.channelId
-			userdata.createTime = data.data.createTime
-			userdata.userId = data.data.userId
-			userdata.followGzh = data.data.followGzh
-			userdata.nickName = data.data.nickname
-			userdata.isNewUser = data.data.userNew
+		let loginLogic = () => {
+			SDKProxy.hideLogining();
+			if (isCancelLogin) {
+				return;
+			}
+			isLoginEnd = true;
+			if (data.succeed) {
 
-			loginRet.success({
-				extra: data.data,
-			})
+				//刷新登陆记录中的信息
+				let userRecords = SDKProxy.loadUserRecord()
+				//查找ID相同的记录，或者是游客登陆，则是第一条
+				let record = userRecords.find(a => a.openId == data.data.openId) || userRecords[0]
+				record.openId = data.data.openId;
+				// record.name = data.data.nickname
+				record.userId = data.data.userId
+				record.createTime = data.data.createTime
+				record.token = data.data.token
+				SDKProxy.saveUserRecord(userRecords);
 
-			SDKProxy.showUserCenter(user);
+				const userdata = self.api.userData
+				userdata.channelId = data.data.channelId
+				userdata.createTime = data.data.createTime
+				userdata.userId = data.data.userId
+				userdata.followGzh = data.data.followGzh
+				userdata.nickName = data.data.nickname
+				userdata.isNewUser = data.data.userNew
 
-		} else {
-			loginRet.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN, {
-				data: {
-					extra: data,
-				}
-			}))
+				loginRet.success({
+					extra: data.data,
+				})
+
+
+			} else {
+				loginRet.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN, {
+					data: {
+						extra: data,
+					}
+				}))
+			}
 		}
+
+		if (isDelayLogin) {
+			//延迟一秒
+			setTimeout(() => {
+				loginLogic();
+			}, 1000);
+		} else {
+			loginLogic();
+		}
+
 	}
 
 	export class User extends GDK.UserBase {
@@ -55,44 +79,92 @@ namespace AppGDK {
 		init(data) {
 			self = this;
 			SDKProxy.onCancelLogining(() => {
+				if (isLoginEnd) {
+					return;
+				}
 				//当玩家取消当前的登陆进程，则弹出登陆框，让玩家进行选择
 				isCancelLogin = true;
+
 				SDKProxy.hideLogining();
 				SDKProxy.showLoginDialog();
 			})
 
-			SDKProxy.onLogin((type, userId, token) => {
+			SDKProxy.onLogin((type, openId, token) => {
 				//玩家SDK登陆完成
-				SDKProxy.hideLogining();
+				SDKProxy.hideLoginDialog();//隐藏登陆弹框
+				isCancelLogin = false;
 
 				//生成玩家登陆记录
 				let userRecords = SDKProxy.loadUserRecord()
-				let record = userRecords.find(a => a.openId == userId)
+				let record = userRecords.find(a => a.openId == openId)
 				if (record) {
 					userRecords.remove(record)
 				} else {
 					record = {
 						userId: null,
-						openId: userId,
+						openId: openId,
 						loginType: type,
-						name: userId,
+						name: openId,
 						createTime: new Date().getTime(),
 						token: token,
 					}
 				}
 				userRecords.unshift(record)//当前玩家记录放在第一条
 
+				SDKProxy.showLogining(record.name);//显示正在登陆
+				isDelayLogin = true;
+
 				SDKProxy.saveUserRecord(userRecords);
 
 				if (type == "google") {
-					this.server.loginGoogle({ openId: userId, token: token }, loginComplete);
+					this.server.loginGoogle({ openId: openId, token: token }, loginComplete);
 				} else if (type == "facebook") {
-					this.server.loginFB({ openId: userId, token: token }, loginComplete);
+					this.server.loginFB({ openId: openId, token: token }, loginComplete);
+				} else if (type == "visitor") {
+					this.server.loginOpenId({ openId: null }, loginComplete);
 				}
 			})
 
-			SDKProxy.onBind((type, userId, token) => {
+			SDKProxy.onBind((type, visitorOpenId, openId, token) => {
 				//玩家SDK绑定完成
+				let typeNumb = null
+				if (type == "facebook") {
+					typeNumb = 1
+				} else if (type == "google") {
+					typeNumb = 2
+				}
+
+
+				this.server.bindingAccount({ visitorOpenId: visitorOpenId, openId: openId, token: token, type: typeNumb }, (data) => {
+					if (data.succeed) {
+						SDKProxy.hideUserCenter();
+						SDKProxy.hideBindDialog();
+
+						let users = SDKProxy.loadUserRecord()
+						let user = users.find(a => a.openId == visitorOpenId);
+						user.openId = openId
+						user.token = token
+						user.loginType = type
+						SDKProxy.saveUserRecord(users);
+
+						this.api.showAlert({ title: "友情提示", content: "绑定成功" });
+
+					} else {
+						this.api.showAlert({ title: "BIND ERROR", content: data.message });
+					}
+				})
+			})
+
+			SDKProxy.onLoginFail(() => {
+				//SDK层 登陆失败
+				SDKProxy.hideLogining();
+			})
+
+			SDKProxy.onRemoveUser((openId) => {
+				//移除某条玩家记录
+				let userRecords = SDKProxy.loadUserRecord()
+				userRecords.remove(userRecords.find(a => a.openId == openId))
+				SDKProxy.saveUserRecord(userRecords);
 			})
 		}
 
@@ -112,13 +184,19 @@ namespace AppGDK {
 				//老用户
 				if (params.autoLogin) {
 					let currentUser = userRecords[0];
-					if (currentUser.loginType == "visitor") {
+					if (currentUser.loginType == "silent") {
+						//自动静默登陆
+						isDelayLogin = false;
+						this.server.loginOpenId({ openId: currentUser.openId }, loginComplete);
+					} else if (currentUser.loginType == "visitor") {
 						//自动游客登陆
-						SDKProxy.showLogining("玩家 " + currentUser.name + " 正在登陆");
+						SDKProxy.showLogining(currentUser.name);
+						isDelayLogin = true;
 						this.server.loginOpenId({ openId: currentUser.openId }, loginComplete);
 					} else {
 						//执行SDK自动登陆
-						SDKProxy.showLogining("玩家 " + currentUser.name + " 正在登陆");
+						isDelayLogin = true;
+						SDKProxy.showLogining(currentUser.name);
 						SDKProxy.autoLogin(currentUser);
 					}
 				} else {
@@ -127,8 +205,37 @@ namespace AppGDK {
 				}
 			} else {
 				//新用户
-				if (params.autoLogin) {
+				if (params.autoLogin && params.silent) {
+					//自动静默登陆
+					//创建一条登陆记录
+					let record = {
+						userId: null,
+						openId: null,
+						loginType: "silent",
+						name: null,
+						createTime: new Date().getTime(),
+						token: null,
+					} as any
+					userRecords.unshift(record)//当前玩家记录放在第一条
+					SDKProxy.saveUserRecord(userRecords);
+					isDelayLogin = false;
+					this.server.loginOpenId({ openId: null }, loginComplete);
+
+				} else if (params.autoLogin) {
 					//自动游客登陆
+					SDKProxy.showLogining("欢迎");
+					//创建一条登陆记录
+					let record = {
+						userId: null,
+						openId: null,
+						loginType: "visitor",
+						name: null,
+						createTime: new Date().getTime(),
+						token: null,
+					} as any
+					userRecords.unshift(record)//当前玩家记录放在第一条
+					SDKProxy.saveUserRecord(userRecords);
+					isDelayLogin = true;
 					this.server.loginOpenId({ openId: null }, loginComplete);
 				} else {
 					//打开登陆弹框
@@ -137,6 +244,11 @@ namespace AppGDK {
 			}
 
 			return ret.promise
+		}
+
+		async showUserCenter() {
+			let user = SDKProxy.loadUserRecord()[0];
+			SDKProxy.showUserCenter(user);
 		}
 
 		update(): Promise<GDK.UserDataUpdateResult> {

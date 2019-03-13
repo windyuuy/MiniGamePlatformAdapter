@@ -62,6 +62,11 @@ namespace GDK {
 		facebook?: boolean = false;
 
 		/**
+		 * 是否静默登陆
+		 */
+		silent?: boolean = false;
+
+		/**
 		 * 是否允许自动登陆
 		 * * 如果当前未绑定任何第三方账号，则执行游客登陆
 		 * * 否则，执行第三方账号的自动登陆
@@ -85,6 +90,13 @@ namespace GDK {
 	export interface IUser extends IModule {
 		/** 登录 */
 		login(params?: LoginParams): Promise<LoginResult>
+
+		/**
+		 * 显示用户中心
+		 * * APP平台支持
+		 */
+		showUserCenter(): Promise<void>;
+
 		/** 检查登录态是否过期 */
 		checkSession?(params?: ReqParams): Promise<void>
 

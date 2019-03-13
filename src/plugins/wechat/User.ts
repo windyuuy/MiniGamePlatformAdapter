@@ -72,6 +72,9 @@ namespace WechatGDK {
 			return ret.promise
 		}
 
+		async showUserCenter() {
+		}
+
 		checkSession() {
 			return wrapReq((obj: wx.CheckSessionOptions) => {
 				return wx.checkSession(obj)
