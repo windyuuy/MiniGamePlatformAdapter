@@ -95,7 +95,7 @@ namespace AppGDK {
 				SDKProxy.showLoginDialog();
 			})
 
-			SDKProxy.onLogin((type, openId, token) => {
+			SDKProxy.onLogin((type, openId, token, nickName, email, head) => {
 				//玩家SDK登陆完成
 				SDKProxy.hideLoginDialog();//隐藏登陆弹框
 				isCancelLogin = false;
@@ -110,7 +110,7 @@ namespace AppGDK {
 						userId: null,
 						openId: openId,
 						loginType: type,
-						name: openId,
+						name: nickName,
 						createTime: new Date().getTime(),
 						token: token,
 					}
@@ -123,7 +123,7 @@ namespace AppGDK {
 				SDKProxy.saveUserRecord(userRecords);
 
 				if (type == "google") {
-					this.server.loginGoogle({ openId: openId, token: token }, loginComplete);
+					this.server.loginGoogle({ openId: openId, token: token, avatar: head, userName: nickName, email: email }, loginComplete);
 				} else if (type == "facebook") {
 					this.server.loginFB({ openId: openId, token: token }, loginComplete);
 				} else if (type == "visitor") {

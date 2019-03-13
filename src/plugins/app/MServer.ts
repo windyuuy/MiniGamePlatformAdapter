@@ -150,7 +150,10 @@ namespace AppGDK {
 		loginGoogle(
 			data: {
 				openId: string,
-				token: string
+				token: string,
+				userName: string,
+				avatar: string,
+				email: string
 			},
 			callback: (data: LoginCallbackData) => void,
 			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {

@@ -194,7 +194,7 @@ class SDKProxy {
 
 	protected static loginId: number = undefined
 	static onLogin(
-		callback: (/**登陆的类型 */ type: LoginType,/**用户ID */ openId: string, token: string) => void
+		callback: (/**登陆的类型 */ type: LoginType,/**用户ID */ openId: string, token: string, nickName: string, email: string, head: string) => void
 	) {
 		if (gdkjsb.bridge == undefined) return;
 
@@ -203,7 +203,7 @@ class SDKProxy {
 		}
 		this.loginId = gdkjsb.bridge.on("login", (data) => {
 			let json = JSON.parse(data);
-			callback(json.type, json.openId, json.token);
+			callback(json.type, json.openId, json.token, json.nickName, json.email, json.head);
 		});
 	}
 
