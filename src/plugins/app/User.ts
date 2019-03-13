@@ -11,45 +11,63 @@ namespace AppGDK {
 	var loginRet = null;
 	var self: User
 
+	var isDelayLogin = false;
+
 	let loginComplete = (data: LoginCallbackData) => {
-		SDKProxy.hideLogining();
 		if (isCancelLogin) {
 			return;
 		}
-		isLoginEnd = true;
-		if (data.succeed) {
 
-			//刷新登陆记录中的信息
-			let userRecords = SDKProxy.loadUserRecord()
-			//查找ID相同的记录，或者是游客登陆，则是第一条
-			let record = userRecords.find(a => a.openId == data.data.openId) || userRecords[0]
-			record.openId = data.data.openId;
-			// record.name = data.data.nickname
-			record.userId = data.data.userId
-			record.createTime = data.data.createTime
-			record.token = data.data.token
-			SDKProxy.saveUserRecord(userRecords);
+		let loginLogic = () => {
+			SDKProxy.hideLogining();
+			if (isCancelLogin) {
+				return;
+			}
+			isLoginEnd = true;
+			if (data.succeed) {
 
-			const userdata = self.api.userData
-			userdata.channelId = data.data.channelId
-			userdata.createTime = data.data.createTime
-			userdata.userId = data.data.userId
-			userdata.followGzh = data.data.followGzh
-			userdata.nickName = data.data.nickname
-			userdata.isNewUser = data.data.userNew
+				//刷新登陆记录中的信息
+				let userRecords = SDKProxy.loadUserRecord()
+				//查找ID相同的记录，或者是游客登陆，则是第一条
+				let record = userRecords.find(a => a.openId == data.data.openId) || userRecords[0]
+				record.openId = data.data.openId;
+				// record.name = data.data.nickname
+				record.userId = data.data.userId
+				record.createTime = data.data.createTime
+				record.token = data.data.token
+				SDKProxy.saveUserRecord(userRecords);
 
-			loginRet.success({
-				extra: data.data,
-			})
+				const userdata = self.api.userData
+				userdata.channelId = data.data.channelId
+				userdata.createTime = data.data.createTime
+				userdata.userId = data.data.userId
+				userdata.followGzh = data.data.followGzh
+				userdata.nickName = data.data.nickname
+				userdata.isNewUser = data.data.userNew
+
+				loginRet.success({
+					extra: data.data,
+				})
 
 
-		} else {
-			loginRet.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN, {
-				data: {
-					extra: data,
-				}
-			}))
+			} else {
+				loginRet.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN, {
+					data: {
+						extra: data,
+					}
+				}))
+			}
 		}
+
+		if (isDelayLogin) {
+			//延迟一秒
+			setTimeout(() => {
+				loginLogic();
+			}, 1000);
+		} else {
+			loginLogic();
+		}
+
 	}
 
 	export class User extends GDK.UserBase {
@@ -94,6 +112,7 @@ namespace AppGDK {
 				userRecords.unshift(record)//当前玩家记录放在第一条
 
 				SDKProxy.showLogining(record.name);//显示正在登陆
+				isDelayLogin = true;
 
 				SDKProxy.saveUserRecord(userRecords);
 
@@ -165,12 +184,18 @@ namespace AppGDK {
 				//老用户
 				if (params.autoLogin) {
 					let currentUser = userRecords[0];
-					if (currentUser.loginType == "visitor") {
+					if (currentUser.loginType == "silent") {
+						//自动静默登陆
+						isDelayLogin = false;
+						this.server.loginOpenId({ openId: currentUser.openId }, loginComplete);
+					} else if (currentUser.loginType == "visitor") {
 						//自动游客登陆
 						SDKProxy.showLogining(currentUser.name);
+						isDelayLogin = true;
 						this.server.loginOpenId({ openId: currentUser.openId }, loginComplete);
 					} else {
 						//执行SDK自动登陆
+						isDelayLogin = true;
 						SDKProxy.showLogining(currentUser.name);
 						SDKProxy.autoLogin(currentUser);
 					}
@@ -180,7 +205,23 @@ namespace AppGDK {
 				}
 			} else {
 				//新用户
-				if (params.autoLogin) {
+				if (params.autoLogin && params.silent) {
+					//自动静默登陆
+					//创建一条登陆记录
+					let record = {
+						userId: null,
+						openId: null,
+						loginType: "silent",
+						name: null,
+						createTime: new Date().getTime(),
+						token: null,
+					} as any
+					userRecords.unshift(record)//当前玩家记录放在第一条
+					SDKProxy.saveUserRecord(userRecords);
+					isDelayLogin = false;
+					this.server.loginOpenId({ openId: null }, loginComplete);
+
+				} else if (params.autoLogin) {
 					//自动游客登陆
 					SDKProxy.showLogining("欢迎");
 					//创建一条登陆记录
@@ -194,6 +235,7 @@ namespace AppGDK {
 					} as any
 					userRecords.unshift(record)//当前玩家记录放在第一条
 					SDKProxy.saveUserRecord(userRecords);
+					isDelayLogin = true;
 					this.server.loginOpenId({ openId: null }, loginComplete);
 				} else {
 					//打开登陆弹框
