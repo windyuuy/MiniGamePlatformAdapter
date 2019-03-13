@@ -45,6 +45,12 @@ namespace AppGDK {
 				userdata.nickName = data.data.nickname
 				userdata.isNewUser = data.data.userNew
 
+				//记录原生日志
+				if (data.data.userNew) {
+					LogBridge.logRegister(record.loginType)//注册日志
+				}
+				LogBridge.logLogin(record.loginType)//登陆日志
+
 				loginRet.success({
 					extra: data.data,
 				})
