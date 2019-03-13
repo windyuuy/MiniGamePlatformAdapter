@@ -125,9 +125,13 @@ namespace QQPlayGDK {
 		adUnitId?: string
 		viewId?: number
 
+		style: GDK.BannerStyleAccessor = new GDK.BannerStyleAccessor()
+
 		protected _advertObj: BK.Advertisement.BannerAd
 		constructor(params: { viewId: number, style?: { x: number, y: number } }) {
 			this._advertObj = BK.Advertisement.createBannerAd(params)
+			this.style.x = params.style.x
+			this.style.y = params.style.y
 		}
 
 		show(): Promise<void> {
