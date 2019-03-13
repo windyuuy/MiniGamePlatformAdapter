@@ -1064,6 +1064,15 @@ namespace GDK {
 			}
 			return this._m.hardware.screenTouch;
 		}
+		/**
+		 * 提交日志
+		 */
+		commitLog(key: string, params: { [key: string]: String }): Promise<void> {
+			if (!this.checkModuleAttr("log", "commitLog", "function")) {
+				return undefined;
+			}
+			return this._m.log.commitLog(key, params);
+		}
 
 		// $batch_export() end
 	}
