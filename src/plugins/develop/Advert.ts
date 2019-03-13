@@ -1,6 +1,8 @@
 namespace DevelopGDK {
 	class VideoAd implements GDK.IRewardedVideoAd {
 
+		api?: GDK.UserAPI
+
 		protected _loadFuncList: Function[] = []
 		protected _errorFuncList: Function[] = []
 		protected _closeFuncList: Function[] = []
@@ -8,10 +10,14 @@ namespace DevelopGDK {
 		protected _isLoad: boolean = false;
 
 		adUnitId: string
-		constructor(params: {
-			adUnitId: string
-		}) {
-			this.adUnitId = this.adUnitId
+		constructor(
+			params: {
+				adUnitId: string
+			},
+			api: GDK.UserAPI
+		) {
+			this.adUnitId = params.adUnitId
+			this.api = api
 		}
 
 		async load(): Promise<void> {
@@ -46,14 +52,16 @@ namespace DevelopGDK {
 			} else {
 				this._isLoad = false;
 				setTimeout(() => {
-					let r = confirm("你是否观看完广告？")
-					ret.success(undefined)
-					for (let f of this._closeFuncList) {
-						f({ isEnded: r });
-					}
-					setTimeout(() => {
-						this.load()
-					}, 1)
+					this.api.showConfirm({ title: "你是否观看完广告？", content: "你是否观看完广告？" }).then((value) => {
+						let r = value.confirm
+						ret.success(undefined)
+						for (let f of this._closeFuncList) {
+							f({ isEnded: r });
+						}
+						setTimeout(() => {
+							this.load()
+						}, 1)
+					})
 				}, 100)
 			}
 
@@ -163,6 +171,8 @@ namespace DevelopGDK {
 
 	export class Advert implements GDK.IAdvert {
 
+		api?: GDK.UserAPI
+
 		protected static _videoAd: VideoAd
 		protected static _bannerAd: BannerAd
 		createRewardedVideoAd(params: {
@@ -170,7 +180,7 @@ namespace DevelopGDK {
 			adUnitId: string
 		}): GDK.IRewardedVideoAd {
 			if (!Advert._videoAd) {
-				Advert._videoAd = new VideoAd(params)
+				Advert._videoAd = new VideoAd(params, this.api)
 			}
 			return Advert._videoAd
 		}
