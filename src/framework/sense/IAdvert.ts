@@ -111,6 +111,8 @@ namespace GDK {
 	export interface VideoAdCreateParam {
 		/** 广告单元 id */
 		adUnitId?: string
+		/** app平原生聚合广告填 */
+		placementName?: string
 	}
 
 	export interface BannerAdCreateParam {
@@ -118,7 +120,7 @@ namespace GDK {
 		adUnitId?: string,
 		/** QQ玩一玩 必填。1001静态banner，1002动态banner，1003 广点通banner(7.8.0) */
 		viewId?: number,
-		/** app平原生聚合广告必填 */
+		/** app平原生聚合广告填 */
 		placementName?: string
 		/** banner 广告组件的样式 */
 		style: BannerStyle
