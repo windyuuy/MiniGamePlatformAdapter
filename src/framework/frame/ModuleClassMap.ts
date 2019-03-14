@@ -15,5 +15,6 @@ namespace GDK {
 		Except?: new () => IExcept
 		Auth?: new () => IAuth
 		Hardware?: new () => IHardware = HardwareBase
+		Log?: new () => ILog = LogBase
 	}
 }

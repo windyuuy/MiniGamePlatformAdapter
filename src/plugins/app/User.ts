@@ -31,7 +31,9 @@ namespace AppGDK {
 				//查找ID相同的记录，或者是游客登陆，则是第一条
 				let record = userRecords.find(a => a.openId == data.data.openId) || userRecords[0]
 				record.openId = data.data.openId;
-				// record.name = data.data.nickname
+				if (record.name == "" || record.name == null) {
+					record.name = data.data.nickname
+				}
 				record.userId = data.data.userId
 				record.createTime = data.data.createTime
 				record.token = data.data.token
@@ -44,6 +46,12 @@ namespace AppGDK {
 				userdata.followGzh = data.data.followGzh
 				userdata.nickName = data.data.nickname
 				userdata.isNewUser = data.data.userNew
+
+				//记录原生日志
+				if (data.data.userNew) {
+					LogBridge.logRegister(record.loginType)//注册日志
+				}
+				LogBridge.logLogin(record.loginType)//登陆日志
 
 				loginRet.success({
 					extra: data.data,
@@ -89,7 +97,7 @@ namespace AppGDK {
 				SDKProxy.showLoginDialog();
 			})
 
-			SDKProxy.onLogin((type, openId, token) => {
+			SDKProxy.onLogin((type, openId, token, nickName, email, head) => {
 				//玩家SDK登陆完成
 				SDKProxy.hideLoginDialog();//隐藏登陆弹框
 				isCancelLogin = false;
@@ -104,7 +112,7 @@ namespace AppGDK {
 						userId: null,
 						openId: openId,
 						loginType: type,
-						name: openId,
+						name: nickName,
 						createTime: new Date().getTime(),
 						token: token,
 					}
@@ -117,11 +125,11 @@ namespace AppGDK {
 				SDKProxy.saveUserRecord(userRecords);
 
 				if (type == "google") {
-					this.server.loginGoogle({ openId: openId, token: token }, loginComplete);
+					this.server.loginGoogle({ openId: openId, token: token, avatar: head, userName: nickName, email: email }, loginComplete);
 				} else if (type == "facebook") {
 					this.server.loginFB({ openId: openId, token: token }, loginComplete);
 				} else if (type == "visitor") {
-					this.server.loginOpenId({ openId: null }, loginComplete);
+					this.server.loginOpenId({ openId: openId }, loginComplete);
 				}
 			})
 
@@ -144,6 +152,7 @@ namespace AppGDK {
 						let user = users.find(a => a.openId == visitorOpenId);
 						user.openId = openId
 						user.token = token
+						user.name = data.data.nickname//绑定后使用绑定账号的昵称
 						user.loginType = type
 						SDKProxy.saveUserRecord(users);
 
