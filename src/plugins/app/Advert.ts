@@ -214,12 +214,15 @@ namespace AppGDK {
 		api?: GDK.UserAPI
 		init?(data?: any) {
 			SDKProxy.nativeAdvert.init({
-				appKey: "8a88a50d", modules: {
+				appKey: "ironsrcappkey", modules: {
 					REWARDED_VIDEO: true,
 					BANNER: true,
 				}
 			})
 			SDKProxy.nativeAdvert.setRewardedVideoListener()
+			let debug = true
+			SDKProxy.nativeAdvert.setAdaptersDebug({ debug: debug })
+			SDKProxy.nativeAdvert.shouldTrackNetworkState({ track: debug })
 		}
 
 		protected static _videoAd: VideoAd

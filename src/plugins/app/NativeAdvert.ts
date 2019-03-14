@@ -119,6 +119,10 @@ namespace AppGDK {
 			return this.callAction("ironsrc:banner.setVisibility", params)
 		}
 
+		async setAdaptersDebug(params: { debug: boolean }) {
+			return this.callAction("ironsrc:banner.setAdaptersDebug", params)
+		}
+
 		async loadBanner(params: { placementName?: string }) {
 			return this.callAction("ironsrc:IronSource.loadBanner", params)
 		}
