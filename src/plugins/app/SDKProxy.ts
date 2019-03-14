@@ -261,4 +261,6 @@ class SDKProxy {
 		gdkjsb.bridge.callAction("hideLaunchingView", "{}", (data) => { });
 	}
 
+	static nativeAdvert: AppGDK.NativeAdvert = new AppGDK.NativeAdvert()
+
 }

@@ -18,54 +18,91 @@ namespace AppGDK {
 		) {
 			this.adUnitId = params.adUnitId
 			this.api = api
+
+			SDKProxy.nativeAdvert.onRewardedVideoAvailabilityChanged((data) => {
+				this.onRewardedVideoAvailabilityChanged(data.available)
+			})
+
+			SDKProxy.nativeAdvert.onRewardedVideoAdRewarded((data) => {
+				this.onRewardedVideoAdRewarded()
+			})
+			SDKProxy.nativeAdvert.onRewardedVideoAdClosed(() => {
+				this.onRewardedVideoAdClosed()
+			})
+
+			SDKProxy.nativeAdvert.onRewardedVideoAdOpened(() => {
+				this.onRewardedVideoAdOpened()
+			})
+			SDKProxy.nativeAdvert.onRewardedVideoAdShowFailed((error) => {
+				this.onRewardedVideoAdShowFailed(error)
+			})
+		}
+
+		onRewardedVideoAdOpened() {
+
+		}
+		onRewardedVideoAdShowFailed(error: IronSrc.IronSourceError) {
+			let err = new GDK.RewardedVideoAdOnErrorParam()
+			err.errCode = error.errorCode
+			err.errMsg = error.errorMsg
+			for (let f of this._errorFuncList) {
+				f(err)
+			}
+		}
+
+		protected _isEnded: boolean = false
+		onRewardedVideoAdRewarded() {
+			this._isEnded = true
+		}
+		onRewardedVideoAdClosed() {
+			let isEnded = this._isEnded
+			this._isEnded = false
+			for (let f of this._closeFuncList) {
+				try {
+					f({ isEnded: isEnded });
+				} catch (e) {
+					console.error('视频广告发放奖励回调异常：', e)
+				}
+			}
+		}
+
+		protected _onLoadedCallbacks: Function[] = []
+		protected _available: boolean = false
+		onRewardedVideoAvailabilityChanged(available: boolean) {
+			this._available = available
+			if (available) {
+				// load() promise 回调
+				let onLoadedCallbacks = this._onLoadedCallbacks
+				this._onLoadedCallbacks = []
+				for (let f of onLoadedCallbacks) {
+					try {
+						f()
+					} catch (e) {
+						console.error('广告已加载回调异常：', e)
+					}
+				}
+				// onLoaded 回调
+				for (let f of this._loadFuncList) {
+					f()
+				}
+			}
 		}
 
 		async load(): Promise<void> {
-			if (this._isLoad) {
-				return;
-			}
 			const ret = new GDK.RPromise<void>()
-			setTimeout(() => {
-				if (Math.random() > 0.9) {
-					const reason = { errCode: -1, errMsg: "10%的概率模拟广告加载失败" }
-					ret.fail(reason);
-					for (let f of this._errorFuncList) {
-						f(reason)
-					}
-				} else {
-					this._isLoad = true;
+			if (this._available) {
+				ret.success(undefined)
+			} else {
+				this._onLoadedCallbacks.push(() => {
 					ret.success(undefined);
-					for (let f of this._loadFuncList) {
-						f()
-					}
-				}
-			}, 1000)
-
+				})
+			}
 			return ret.promise
 		}
 
-		show(): Promise<void> {
-			const ret = new GDK.RPromise<void>()
-
-			if (!this._isLoad) {
-				ret.fail("请先加载，再显示");
-			} else {
-				this._isLoad = false;
-				setTimeout(() => {
-					this.api.showConfirm({ title: "你是否观看完广告？", content: "你是否观看完广告？" }).then((value) => {
-						let r = value.confirm
-						ret.success(undefined)
-						for (let f of this._closeFuncList) {
-							f({ isEnded: r });
-						}
-						setTimeout(() => {
-							this.load()
-						}, 1)
-					})
-				}, 100)
-			}
-
-			return ret.promise
+		async show(): Promise<void> {
+			console.log('ironsrc:show video advert')
+			await SDKProxy.nativeAdvert.showRewardedVideo({ placementName: "DefaultRewardedVideo" })
 		}
 
 		onLoad(callback: Function) {
@@ -93,6 +130,7 @@ namespace AppGDK {
 	class BannerAd implements GDK.IBannerAd {
 		adUnitId?: string
 		viewId?: number
+		placementName?: string
 
 		style: GDK.BannerStyleAccessor = new GDK.BannerStyleAccessor()
 
@@ -100,53 +138,55 @@ namespace AppGDK {
 		protected _errorFuncList: Function[] = []
 		protected _resizeFuncList: Function[] = []
 
-		protected _destroy: boolean = false;
+		constructor(params: { placementName?: string, style?: { x: number, y?: number, left?: number, top?: number } }) {
+			SDKProxy.nativeAdvert.createBanner(params)
+			SDKProxy.nativeAdvert.setBannerListener()
+			SDKProxy.nativeAdvert.loadBanner(params)
 
-		protected _ad: HTMLImageElement = null;//假装的广告
-
-		constructor(params: { viewId: number, style?: { x: number, y?: number, left?: number, top?: number } }) {
-			setTimeout(() => {
-				for (let f of this._loadFuncList) {
-					f();
-				}
-			}, 1000)
 			this.style.x = params.style.x
 			this.style.y = params.style.y
 			this.style.left = params.style.left
 			this.style.top = params.style.top
+
+			SDKProxy.nativeAdvert.onBannerAdLoaded(() => {
+				this.onBannerAdLoaded()
+			})
+			SDKProxy.nativeAdvert.onBannerAdLoadFailed((error) => {
+				this.onBannerAdLoadFailed(error)
+			})
+			SDKProxy.nativeAdvert.onBannerAdLoadFailed((error) => {
+				this.onBannerAdLoadFailed(error)
+			})
+		}
+
+		onBannerAdLoaded() {
+			for (let f of this._loadFuncList) {
+				try {
+					f()
+				} catch (e) {
+					console.error('条幅广告加载成功回调异常', e)
+				}
+			}
+		}
+
+		onBannerAdLoadFailed(error: IronSrc.IronSourceError) {
+			let err = new GDK.RewardedVideoAdOnErrorParam()
+			err.errCode = error.errorCode
+			err.errMsg = error.errorMsg
+			for (let f of this._errorFuncList) {
+				f(err)
+			}
 		}
 
 		async show(): Promise<void> {
-			if (this._ad) {
-				return;
-			}
-			const ret = new GDK.RPromise<void>()
-			if (this._destroy) {
-				ret.fail("已经调用过destroy")
-			} else {
-
-				//假装显示一个广告
-				this._ad = document.createElement("img")
-				this._ad.style.position = "absolute"
-				this._ad.style.bottom = "0px"
-				this._ad.style.width = "500px"
-				this._ad.style.height = "100px"
-				this._ad.src = "https://www.baidu.com/img/bd_logo1.png"
-
-				document.body.appendChild(this._ad)
-
-				ret.success(undefined)
-			}
-			return ret.promise
+			await SDKProxy.nativeAdvert.setBannerAdvertVisibility({ visible: true })
 		}
-		hide(): void {
-			if (this._ad) {
-				this._ad.remove();
-				this._ad = null;
-			}
+		async hide(): Promise<void> {
+			await SDKProxy.nativeAdvert.setBannerAdvertVisibility({ visible: false })
 		}
-		destroy(): void {
-			this._destroy = true;
+
+		async destroy(): Promise<void> {
+			await SDKProxy.nativeAdvert.destroyBanner()
 		}
 		onResize(callback: Function) {
 			this._resizeFuncList.push(callback)
@@ -172,6 +212,15 @@ namespace AppGDK {
 	export class Advert implements GDK.IAdvert {
 
 		api?: GDK.UserAPI
+		init?(data?: any) {
+			SDKProxy.nativeAdvert.init({
+				appKey: "8a88a50d", modules: {
+					REWARDED_VIDEO: true,
+					BANNER: true,
+				}
+			})
+			SDKProxy.nativeAdvert.setRewardedVideoListener()
+		}
 
 		protected static _videoAd: VideoAd
 		protected static _bannerAd: BannerAd
@@ -194,7 +243,6 @@ namespace AppGDK {
 				Advert._bannerAd = new BannerAd(params)
 			}
 			return Advert._bannerAd
-			// return new BannerAd(params)
 		}
 	}
 }

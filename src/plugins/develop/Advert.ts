@@ -139,13 +139,13 @@ namespace DevelopGDK {
 			}
 			return ret.promise
 		}
-		hide(): void {
+		async hide() {
 			if (this._ad) {
 				this._ad.remove();
 				this._ad = null;
 			}
 		}
-		destroy(): void {
+		async destroy() {
 			this._destroy = true;
 		}
 		onResize(callback: Function) {

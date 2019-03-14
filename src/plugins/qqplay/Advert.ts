@@ -140,10 +140,10 @@ namespace QQPlayGDK {
 			ret.success(undefined)
 			return ret.promise
 		}
-		hide(): void {
+		async hide() {
 			this._advertObj.hide()
 		}
-		destroy(): void {
+		async destroy() {
 			this._advertObj.destory()
 		}
 		onResize(callback: Function) {
