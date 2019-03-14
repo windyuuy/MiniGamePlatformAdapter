@@ -31,7 +31,9 @@ namespace AppGDK {
 				//查找ID相同的记录，或者是游客登陆，则是第一条
 				let record = userRecords.find(a => a.openId == data.data.openId) || userRecords[0]
 				record.openId = data.data.openId;
-				// record.name = data.data.nickname
+				if (record.name == "" || record.name == null) {
+					record.name = data.data.nickname
+				}
 				record.userId = data.data.userId
 				record.createTime = data.data.createTime
 				record.token = data.data.token
