@@ -127,7 +127,7 @@ namespace AppGDK {
 				} else if (type == "facebook") {
 					this.server.loginFB({ openId: openId, token: token }, loginComplete);
 				} else if (type == "visitor") {
-					this.server.loginOpenId({ openId: null }, loginComplete);
+					this.server.loginOpenId({ openId: openId }, loginComplete);
 				}
 			})
 
