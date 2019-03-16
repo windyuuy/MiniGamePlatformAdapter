@@ -1,3 +1,5 @@
+/// <reference path="./native/NativeAdvert.ts" />
+/// <reference path="./native/NativePay.ts" />
 
 /**
  * 用户信息本地存储的key
@@ -262,5 +264,6 @@ class SDKProxy {
 	}
 
 	static nativeAdvert: AppGDK.NativeAdvert = new AppGDK.NativeAdvert()
+	static nativePay: AppGDK.NativePay = new AppGDK.NativePay()
 
 }

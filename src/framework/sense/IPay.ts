@@ -11,6 +11,8 @@ namespace GDK {
 		goodsId: number = 0
 		/** 后台二级货币ID */
 		coinId?: number = 0
+		/** 商品第三方id */
+		productId?: string
 		/** 支付金额 */
 		money: number = 0
 		/** 购买商品数量 */
