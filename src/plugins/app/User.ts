@@ -119,7 +119,7 @@ namespace AppGDK {
 				}
 				userRecords.unshift(record)//当前玩家记录放在第一条
 
-				SDKProxy.showLogining(record.name);//显示正在登陆
+				SDKProxy.showLogining(record.name == null || record.name == "" ? "欢迎" : record.name);//显示正在登陆
 				isDelayLogin = true;
 
 				SDKProxy.saveUserRecord(userRecords);
