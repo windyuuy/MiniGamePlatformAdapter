@@ -1,6 +1,15 @@
-import { Login } from "./Login";
-import { RegisterListTemp } from "../../frame/RegisterListTemp";
 
-export class RegisterList extends RegisterListTemp {
-	Login = Login
+namespace OPPOGDK {
+	export class RegisterList extends GDK.ModuleClassMap {
+		Advert = Advert
+		User = User
+		Pay = Pay
+		Share = Share
+		UserData = UserData
+		Widgets = Widgets
+		Support = Support
+		SubContext = SubContext
+		Except = Except
+		SystemInfo = SystemInfo
+	}
 }

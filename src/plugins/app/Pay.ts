@@ -9,37 +9,32 @@ namespace AppGDK {
 		payPurchase(config: GDK.PayItemInfo): Promise<GDK.PayResult> {
 			const ret = new GDK.RPromise<GDK.PayResult>()
 
-			this.api.showConfirm({ content: "确定充值吗？", title: "充值测试" }).then((ok) => {
-				if (ok) {
-					paylog.info("模拟充值成功", config)
+			let sku = config.productId
+			SDKProxy.nativePay.requestPay({ sku: sku }).then((payret) => {
+				if (payret.code == 0) {
+					paylog.info("原生充值成功", config)
 					ret.success({
 						result: {
 							errCode: 0,
 						},
-						extra: { errCode: 0, state: GDK.OrderState.ok },
+						extra: payret,
 					})
 				} else {
-					const cancel = this.api.showConfirm({ content: "确定取消充值吗？\n(点确定取消充值，点取消充值失败！)", title: "充值测试" }).then((cancel) => {
-						if (cancel) {
-							const res = {
-								errCode: -1,
+					if (payret.code == AppGDK.PayErrorCode.PURCHASE_CANCELLED) {
+						paylog.info("原生充值取消", payret, config)
+						ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_PAY_CANCEL))
+					} else {
+						paylog.warn("原生充值失败", payret, config)
+						ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_PAY_FAILED, {
+							data: {
+								extra: payret
 							}
-							paylog.info("模拟充值取消", res, config)
-							ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_PAY_CANCEL))
-						} else {
-							const res = {
-								errCode: 9999,
-							}
-							paylog.warn("模拟充值失败", res, config)
-							ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_PAY_FAILED, {
-								data: {
-									extra: res
-								}
-							}))
-						}
-					})
+						}))
+					}
 				}
-			});
+			}, (payret) => {
+				ret.fail(payret)
+			})
 
 			return ret.promise
 		}

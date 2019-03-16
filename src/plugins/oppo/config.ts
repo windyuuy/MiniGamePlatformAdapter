@@ -1,8 +1,9 @@
-import { RegisterList } from "./RegisterList";
-import { PackConfig } from "../../frame/PackConfig";
 
-// default config
-export const oppoapi: PackConfig = {
-	platform: 'oppo',
-	register: RegisterList,
+namespace OPPOGDK {
+	// default config
+	GDK.gdkManager.registPluginConfig('oppo', {
+		platform: 'oppo',
+		version: '1.0.0',
+		register: RegisterList,
+	})
 }

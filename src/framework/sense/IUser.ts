@@ -42,11 +42,12 @@ namespace GDK {
 	/** 登录结果模板 */
 	// export const LoginResultTemplates = new ResultTemplatesExtractor<ReqError>([
 	// 	...ReqResultTemplates.temps,
-	// 	{ errcode: LoginErrorCode.INVALID_OPENID, msg: '登录失败', reason: 'openId验证失败' },
+	// 	{ errCode: LoginErrorCode.INVALID_OPENID, msg: '登录失败', reason: 'openId验证失败' },
 	// ])
 
 	/** 登录请求参数 */
 	export class LoginParams extends ReqParams {
+		pkgName?: string // oppo 包名
 		/**
 		 * 是否禁止游客登陆
 		 */
@@ -102,7 +103,7 @@ namespace GDK {
 
 		/** 更新用户数据 */
 		update(): Promise<UserDataUpdateResult>
-		/** 获取用户云端数据 */
+		/** 获取用户云端数据 oppo未处理 */
 		getFriendCloudStorage(obj: {
 			keyList: string[],
 			/**
@@ -112,7 +113,7 @@ namespace GDK {
 			 **/
 			typeIndex: string[],
 		}): Promise<{ data: UserGameData[] }>;
-		/** 提交用户云端数据 */
+		/** 提交用户云端数据 oppo未处理 */
 		setUserCloudStorage(obj: {
 			KVDataList: KVData[],
 			/**

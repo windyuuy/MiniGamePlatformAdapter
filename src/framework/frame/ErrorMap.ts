@@ -2,7 +2,7 @@ namespace GDK {
 
 	/** 请求错误扩展参数 */
 	export class GDKErrorExtra {
-		errcode?: number
+		errCode?: number
 		message?: string
 		reason?: string
 		data?: any
@@ -10,10 +10,10 @@ namespace GDK {
 
 	/** 请求错误结果 */
 	export class GDKError extends Error {
-		errcode: number
+		errCode: number
 		reason: string
 		data?: any
-		message: string = '' 
+		message: string = ''
 
 		constructor() {
 			super("")
@@ -21,7 +21,7 @@ namespace GDK {
 		}
 
 		toString() {
-			return `${this.name}: ${this.errcode} ${this.message} ${this.reason}`
+			return `${this.name}: ${this.errCode} ${this.message} ${this.reason}`
 		}
 	}
 
@@ -41,11 +41,11 @@ namespace GDK {
 		/**
 		 * 根据错误码和扩展参数构造请求结果
 		 */
-		make<F extends GDKErrorExtra>(errcode: number, extra?: F): GDKError {
+		make<F extends GDKErrorExtra>(errCode: number, extra?: F): GDKError {
 			const err = new GDKError()
 			// 待优化
-			const item = this._temps.find((item) => item.errcode == errcode)
-			err.errcode = extra && extra.errcode !== undefined ? extra.errcode : item.errcode
+			const item = this._temps.find((item) => item.errCode == errCode)
+			err.errCode = extra && extra.errCode !== undefined ? extra.errCode : item.errCode
 			err.message = extra && extra.message !== undefined ? extra.message : item.message
 			err.reason = extra && extra.reason !== undefined ? extra.reason : item.reason
 			err.data = extra && extra.data !== undefined ? extra.data : item.data
