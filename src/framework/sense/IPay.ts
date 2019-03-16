@@ -21,6 +21,18 @@ namespace GDK {
 		title: string = ''
 		/** 支付货币单位 */
 		currencyUnit?: "CNY" | "Dollor" = "CNY"
+		/** oppo包名 */
+		pkgName?: string
+		/** oppo登录返回的token */
+		token?: string
+		/** 订单创建时间 */
+		timestamp?: string
+		/** 支付签名 */
+		paySign?: string
+		/** oppo快游戏返回的订单号 */
+		orderNo?: string
+		/** 游戏在oppo快游戏的id */
+		oppoId?: string
 	}
 
 	// 订单信息
