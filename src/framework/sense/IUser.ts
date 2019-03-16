@@ -42,7 +42,7 @@ namespace GDK {
 	/** 登录结果模板 */
 	// export const LoginResultTemplates = new ResultTemplatesExtractor<ReqError>([
 	// 	...ReqResultTemplates.temps,
-	// 	{ errcode: LoginErrorCode.INVALID_OPENID, msg: '登录失败', reason: 'openId验证失败' },
+	// 	{ errCode: LoginErrorCode.INVALID_OPENID, msg: '登录失败', reason: 'openId验证失败' },
 	// ])
 
 	/** 登录请求参数 */

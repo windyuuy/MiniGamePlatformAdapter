@@ -24,7 +24,7 @@ namespace GDK {
 
 	// /** 请求错误扩展参数 */
 	// export class ExtraReqError {
-	// 	errcode?: number
+	// 	errCode?: number
 	// 	msg?: string
 	// 	reason?: string
 	// 	data?: any
@@ -32,14 +32,14 @@ namespace GDK {
 
 	// /** 请求错误结果 */
 	// export class ReqError extends Error {
-	// 	errcode: number
+	// 	errCode: number
 	// 	msg: string
 	// 	reason: string
 	// 	data?: any
 
-	// 	constructor(errcode: number, msg: string, reason: string, data?: any) {
+	// 	constructor(errCode: number, msg: string, reason: string, data?: any) {
 	// 		super(msg)
-	// 		this.errcode = errcode
+	// 		this.errCode = errCode
 	// 		this.reason = reason;
 	// 		this.data = data;
 	// 	}
@@ -61,7 +61,7 @@ namespace GDK {
 	// 	/**
 	// 	 * 根据错误码和扩展参数构造请求结果
 	// 	 */
-	// 	make<F extends ExtraReqError>(errcode: number, extra?: F): T {
+	// 	make<F extends ExtraReqError>(errCode: number, extra?: F): T {
 	// 		return null
 	// 	}
 	// }
@@ -72,14 +72,14 @@ namespace GDK {
 	 * - ```typescript
 	export const LoginResultTemplates = new ResultTemplatesExtractor<ReqError>([
 		...ReqResultTemplates.temps,
-		{ errcode: LoginErrorCode.INVALID_OPENID, msg: '登录失败', reason: 'openId验证失败' },
+		{ errCode: LoginErrorCode.INVALID_OPENID, msg: '登录失败', reason: 'openId验证失败' },
 	])
 	```
 	 **/
 	// export const ReqResultTemplates = new ResultTemplatesExtractor<ReqError>([
-	// 	{ errcode: ReqErrorCode.SUCCESS, msg: '请求成功', reason: '请求成功', data: null },
-	// 	{ errcode: ReqErrorCode.UNKNOWN, msg: '请求失败', reason: '未知错误' },
-	// 	{ errcode: ReqErrorCode.TIMEOUT, msg: '请求超时', reason: '请求超时' },
+	// 	{ errCode: ReqErrorCode.SUCCESS, msg: '请求成功', reason: '请求成功', data: null },
+	// 	{ errCode: ReqErrorCode.UNKNOWN, msg: '请求失败', reason: '未知错误' },
+	// 	{ errCode: ReqErrorCode.TIMEOUT, msg: '请求超时', reason: '请求超时' },
 	// ])
 
 	// export class ReqCallbacks {
