@@ -138,7 +138,7 @@ namespace AppGDK {
 		protected _errorFuncList: Function[] = []
 		protected _resizeFuncList: Function[] = []
 
-		constructor(params: { placementName?: string, style?: { x: number, y?: number, left?: number, top?: number } }) {
+		constructor(params: { placementName?: string, style?: GDK.BannerStyle }) {
 			SDKProxy.nativeAdvert.createBanner(params)
 			SDKProxy.nativeAdvert.setBannerListener()
 			SDKProxy.nativeAdvert.loadBanner(params)

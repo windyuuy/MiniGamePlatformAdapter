@@ -1,13 +1,13 @@
 namespace GDK {
 	export class BannerStyle {
 		/** banner 广告组件的左下角横坐标 */
-		x: number
+		x?: number
 		/** banner 广告组件的左下角纵坐标 */
-		y: number
+		y?: number
 		/** banner 广告组件的宽度 */
-		width: number
+		width?: number
 		/** banner 广告组件的高度 */
-		height: number
+		height?: number
 		/** banner 广告组件的左上角纵坐标 */
 		top?: number
 		/** banner 广告组件的左下角横坐标 */
