@@ -1,6 +1,8 @@
 namespace DevelopGDK {
 	class VideoAd implements GDK.IRewardedVideoAd {
 
+		api?: GDK.UserAPI
+
 		protected _loadFuncList: Function[] = []
 		protected _errorFuncList: Function[] = []
 		protected _closeFuncList: Function[] = []
@@ -8,25 +10,30 @@ namespace DevelopGDK {
 		protected _isLoad: boolean = false;
 
 		adUnitId: string
-		constructor(params: {
-			adUnitId: string
-		}) {
-			this.adUnitId = this.adUnitId
+		constructor(
+			params: {
+				adUnitId: string
+			},
+			api: GDK.UserAPI
+		) {
+			this.adUnitId = params.adUnitId
+			this.api = api
 		}
 
-		load(): Promise<void> {
+		async load(): Promise<void> {
 			if (this._isLoad) {
 				return;
 			}
 			const ret = new GDK.RPromise<void>()
 			setTimeout(() => {
 				if (Math.random() > 0.9) {
-					ret.fail();
+					const reason = { errCode: -1, errMsg: "10%的概率模拟广告加载失败" }
+					ret.fail(reason);
 					for (let f of this._errorFuncList) {
-						f({ errCode: -1, errMsg: "1%的概率模拟广告加载失败" })
+						f(reason)
 					}
 				} else {
-					this._isLoad;
+					this._isLoad = true;
 					ret.success(undefined);
 					for (let f of this._loadFuncList) {
 						f()
@@ -43,12 +50,19 @@ namespace DevelopGDK {
 			if (!this._isLoad) {
 				ret.fail("请先加载，再显示");
 			} else {
+				this._isLoad = false;
 				setTimeout(() => {
-					let r = confirm("你是否观看完广告？")
-					for (let f of this._closeFuncList) {
-						f({ isEnded: r });
-					}
-				}, 1000)
+					this.api.showConfirm({ title: "你是否观看完广告？", content: "你是否观看完广告？" }).then((value) => {
+						let r = value.confirm
+						ret.success(undefined)
+						for (let f of this._closeFuncList) {
+							f({ isEnded: r });
+						}
+						setTimeout(() => {
+							this.load()
+						}, 1)
+					})
+				}, 100)
 			}
 
 			return ret.promise
@@ -80,6 +94,8 @@ namespace DevelopGDK {
 		adUnitId?: string
 		viewId?: number
 
+		style: GDK.BannerStyleAccessor = new GDK.BannerStyleAccessor()
+
 		protected _loadFuncList: Function[] = []
 		protected _errorFuncList: Function[] = []
 		protected _resizeFuncList: Function[] = []
@@ -88,12 +104,16 @@ namespace DevelopGDK {
 
 		protected _ad: HTMLImageElement = null;//假装的广告
 
-		constructor(params: { viewId: number, style?: { x: number, y: number } }) {
+		constructor(params: { viewId: number, style?: { x: number, y?: number, left?: number, top?: number } }) {
 			setTimeout(() => {
 				for (let f of this._loadFuncList) {
 					f();
 				}
 			}, 1000)
+			this.style.x = params.style.x
+			this.style.y = params.style.y
+			this.style.left = params.style.left
+			this.style.top = params.style.top
 		}
 
 		async show(): Promise<void> {
@@ -119,13 +139,13 @@ namespace DevelopGDK {
 			}
 			return ret.promise
 		}
-		hide(): void {
+		async hide() {
 			if (this._ad) {
 				this._ad.remove();
 				this._ad = null;
 			}
 		}
-		destroy(): void {
+		async destroy() {
 			this._destroy = true;
 		}
 		onResize(callback: Function) {
@@ -151,11 +171,18 @@ namespace DevelopGDK {
 
 	export class Advert implements GDK.IAdvert {
 
+		api?: GDK.UserAPI
+
+		protected static _videoAd: VideoAd
+		protected static _bannerAd: BannerAd
 		createRewardedVideoAd(params: {
 			/** 广告单元 id */
 			adUnitId: string
 		}): GDK.IRewardedVideoAd {
-			return new VideoAd(params)
+			if (!Advert._videoAd) {
+				Advert._videoAd = new VideoAd(params, this.api)
+			}
+			return Advert._videoAd
 		}
 
 		createBannerAd(params: {
@@ -163,7 +190,11 @@ namespace DevelopGDK {
 			viewId: number,
 			style: GDK.BannerStyle
 		}): GDK.IBannerAd {
-			return new BannerAd(params)
+			if (!Advert._bannerAd) {
+				Advert._bannerAd = new BannerAd(params)
+			}
+			return Advert._bannerAd
+			// return new BannerAd(params)
 		}
 	}
 }

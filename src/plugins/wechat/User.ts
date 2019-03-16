@@ -1,5 +1,7 @@
 
 namespace WechatGDK {
+	const devlog = Common.devlog
+
 	export class User extends GDK.UserBase {
 		api?: GDK.UserAPI
 		get server(): MServer {
@@ -15,9 +17,9 @@ namespace WechatGDK {
 			wx.login({
 				success: (res) => {
 					// 解密数据
-					const system = this.api.systemInfo.system == "android" ? 0 : 1
+					const system = this.api.systemInfo.platform == "android" ? 1 : this.api.systemInfo.platform == "ios" ? 2 : 0
 					let option = wx.getLaunchOptionsSync()
-					console.log("LaunchOptions", option);
+					devlog.info("LaunchOptions", option);
 					let launchOptionsPath = option.path
 					let launchOptionsQuery = option.query
 					let extraData = option.referrerInfo ? option.referrerInfo.extraData : null;
@@ -68,6 +70,9 @@ namespace WechatGDK {
 				}
 			})
 			return ret.promise
+		}
+
+		async showUserCenter() {
 		}
 
 		checkSession() {

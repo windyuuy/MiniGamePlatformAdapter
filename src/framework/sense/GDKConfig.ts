@@ -85,6 +85,8 @@ namespace GDK {
 		 * 游戏类型(手Q7.6.5及以上支持) 0: 普通游戏 1：红包游戏
 		 **/
 		gameType: number
+	}
+	export class GDKAPPConfig extends GDKConfigBase {
 
 	}
 
@@ -98,6 +100,7 @@ namespace GDK {
 		qqplay?: GDKQQPlayConfig
 
 		oppokyx?: GDKOPPOConfig
+		app?: GDKAPPConfig
 	}
 
 

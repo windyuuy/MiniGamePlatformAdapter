@@ -50,6 +50,9 @@ namespace DevelopGDK {
 			return ret.promise
 		}
 
+		async showUserCenter() {
+		}
+
 		update(): Promise<GDK.UserDataUpdateResult> {
 			const ret = new GDK.RPromise<GDK.UserDataUpdateResult>()
 			ret.success({})

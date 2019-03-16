@@ -62,7 +62,7 @@ function copyLibsTask(ossSrcDir, ossDestDir, tip) {
 		const result = await client.list({ prefix: `${ossSrcDir}/` })
 		for await (let info of result.objects) {
 			console.log(`${ossDestDir}/${path.basename(info.name)}`, '<-', `${info.name}`)
-			client.copy(`${ossDestDir}/${path.basename(info.name)}`, `${info.name}`)
+			await client.copy(`${ossDestDir}/${path.basename(info.name)}`, `${info.name}`)
 		}
 		console.log(tip)
 	}
@@ -95,6 +95,7 @@ gulp.task("compile", async () => {
 		execon("./framework", () => exec("tsc"))
 		execon("./plugins/wechat", () => exec("tsc"))
 		execon("./plugins/qqplay", () => exec("tsc"))
+		execon("./plugins/app", () => exec("tsc"))
 		execon("./plugins/develop", () => exec("tsc"))
 	})
 
@@ -106,7 +107,7 @@ gulp.task("uploadVersion", async () => {
 
 	let list = fs.readdirSync("../dist")
 	for await (let n of list) {
-		client.put(`${ossFolderLibTest}/` + n, "../dist/" + n)
+		await client.put(`${ossFolderLibTest}/` + n, "../dist/" + n)
 		console.log("上传完成", "../dist/" + n)
 	}
 

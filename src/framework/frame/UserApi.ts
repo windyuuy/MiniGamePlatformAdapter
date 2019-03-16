@@ -137,7 +137,7 @@ namespace GDK {
 		 * - 0 未关注
 		 * - 1 已关注
 		 **/
-		get followGzh(): number {
+		get followGzh(): 0 | 1 {
 			if (!this.checkModuleAttr("userData", "followGzh")) {
 				return undefined;
 			}
@@ -151,7 +151,7 @@ namespace GDK {
 			return this._m.userData.channelId;
 		}
 		/** 创建时间 */
-		get createTime(): string {
+		get createTime(): number {
 			if (!this.checkModuleAttr("userData", "createTime")) {
 				return undefined;
 			}
@@ -204,6 +204,16 @@ namespace GDK {
 				return this.createNonePromise("[user.login]");
 			}
 			return this._m.user.login(params);
+		}
+		/**
+		 * 显示用户中心
+		 * * APP平台支持
+		 */
+		showUserCenter(): Promise<void> {
+			if (!this.checkModuleAttr("user", "showUserCenter", "function")) {
+				return this.createNonePromise("[user.showUserCenter]");
+			}
+			return this._m.user.showUserCenter();
 		}
 		/** 检查登录态是否过期 */
 		checkSession?(params?: ReqParams): Promise<void> {
@@ -858,6 +868,15 @@ namespace GDK {
 			return this._m.widgets.showAlert(object);
 		}
 		/**
+		 * 隐藏启动画面
+		 */
+		hideLaunchingView(): Promise<void> {
+			if (!this.checkModuleAttr("widgets", "hideLaunchingView", "function")) {
+				return this.createNonePromise("[widgets.hideLaunchingView]");
+			}
+			return this._m.widgets.hideLaunchingView();
+		}
+		/**
 		 * 监听主域发送的消息
 		 */
 		onMessage(callback: (message: OpenDataContextMessage) => void) {
@@ -877,25 +896,26 @@ namespace GDK {
 			}
 			return this._m.subContext.getOpenDataContext();
 		}
-		/** api平台名称 */
-		get apiPlatform():
-			| "wechatgame"
-			| "browser"
-			| "qqplay"
-			| "unknown"
-			| string {
+		/**
+		 * api平台名称
+		 * * browser 浏览器
+		 * * native APP原生
+		 * * wechatgame 微信
+		 * * qqplay QQ玩一玩
+		 * * unknown 未知平台
+		 */
+		get apiPlatform(): string {
 			if (!this.checkModuleAttr("support", "apiPlatform")) {
 				return undefined;
 			}
 			return this._m.support.apiPlatform;
 		}
 		/**
-		 * - 插件名，如：
-		 * ```
-		 * develop(网页版)
-		 * wechat(微信)
-		 * qqplay(玩一玩)
-		 * ```
+		 * 插件名
+		 * * develop 网页开发测试
+		 * * wechat 微信
+		 * * qqplay 玩一玩
+		 * * app 原生APP
 		 **/
 		get pluginName(): string {
 			if (!this.checkModuleAttr("support", "pluginName")) {
@@ -1043,6 +1063,15 @@ namespace GDK {
 				return undefined;
 			}
 			return this._m.hardware.screenTouch;
+		}
+		/**
+		 * 提交日志
+		 */
+		commitLog(key: string, params: { [key: string]: String }): Promise<void> {
+			if (!this.checkModuleAttr("log", "commitLog", "function")) {
+				return undefined;
+			}
+			return this._m.log.commitLog(key, params);
 		}
 
 		// $batch_export() end

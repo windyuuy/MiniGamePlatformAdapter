@@ -61,16 +61,46 @@ namespace WechatGDK {
 		}
 
 		/**
-		 * 判断今天是否分享过。这里未实现。
+		 * 判断今天是否分享过。这里未实现。 用于V1分享
 		 */
 		protected _isLastTimeYeasterDay: boolean = false;
 
 		/**
-		 * 上次分享失败，则下次必然成功
+		 * 上次分享失败，则下次必然成功。 用于V1分享
 		 */
 		protected _shareDefeated: boolean = false;
 
+		/**
+		 * 分享成功次数 用于V2分享
+		 */
+		protected _shareSucceedCount: number = 0;
+
+
+		/**
+		 * 微信分享
+		 * @param data 
+		 */
 		async share(data: GDK.ShareData): Promise<GDK.ShareResult> {
+			if (data.wxShareVersion == 1) {
+				return this.shareV1(data);
+			} else if (data.wxShareVersion == 2) {
+				return this.shareV2(data);
+			} else if (data.wxShareVersion == 3) {
+				return this.shareV3(data);
+			} else {
+				//默认分享版本
+				return this.shareV1(data);
+			}
+		}
+
+		/**
+		 * 第一代微信分享解决方案
+		 * * ios 判断玩家是否在2秒后才回到游戏
+		 * * 安卓 判定玩家是否成功加载到了远程图片，加载到则认为成功
+		 * * 额外有一定概率分享失败
+		 * @param data 
+		 */
+		async shareV1(data: GDK.ShareData): Promise<GDK.ShareResult> {
 			return new Promise<GDK.ShareResult>((resolve, reject) => {
 				let query = "";
 				if (data.data) {
@@ -152,7 +182,7 @@ namespace WechatGDK {
 					}
 
 					let ec = (Common.getServerTime().getTime() - beginShareTime) / 1000
-					console.log("分享间隔时间", ec, shareInvaterl)
+					devlog.info("分享间隔时间", ec, shareInvaterl)
 					let platform = wx.getSystemInfoSync().platform
 					if (platform == "android" || ec > shareInvaterl) {//安卓不需要验证时间
 
@@ -183,6 +213,190 @@ namespace WechatGDK {
 
 				}
 				wx.onShow(onShow);
+
+			})
+		}
+
+		/**
+		 * 第二代微信分享解决方案
+		 * * 通过微信分享按钮的cancel，来判定是否收到了分享取消回调。取消则必然失败
+		 * * 提供一定的概率来判断分享
+		 * 
+		 * 1. 如果当天是第一次分享成功，则必定判定为成功
+		 * 2. 如果当天是第二次分享成功，则有70%的概率判定为成功，30%的概率判定为失败，出现系统提示框   请分享到不同群  左边按钮是取消  右边 按钮是重试
+		 * 3. 如果当天是第二次成功以后的分享成功，则有90%的概率判定成功，10%概率判定为失败，出现系统提示框   请分享到不同群  左边按钮是取消  右边 按钮是重试
+		 * @param data 
+		 */
+		async shareV2(data: GDK.ShareData): Promise<GDK.ShareResult> {
+			return new Promise<GDK.ShareResult>((resolve, reject) => {
+				let query = "";
+				if (data.data) {
+					for (let k in data.data) {
+						query += `${k}=${data.data[k]}&`
+					}
+					query = query.substr(0, query.length - 1)//去除结尾&符号
+				}
+
+
+
+				let isCancel: boolean = false;
+
+				let imageUrl = data.imageUrl
+
+				devlog.info("share", {
+					title: data.title,
+					imageUrl: imageUrl,
+					query: query,
+				})
+				wx.shareAppMessage({
+					title: data.title,
+					imageUrl: imageUrl,
+					query: query,
+					cancel: () => {
+						//有些时候回触发取消
+						isCancel = true;
+					}
+				})
+
+				let onShow = () => {
+					wx.offShow(onShow);
+
+					let sharesSucPro1: number = 0.7  //第一次分享成功概率
+					let sharesSucPro2: number = 0.9  //第二次分享成功概率
+
+					let shareMaySuc = () => {
+						let r = Math.random()
+
+						if (this._shareSucceedCount == 0) {
+							shareSuc()
+						} else if (this._shareSucceedCount == 1) {
+							if (r < sharesSucPro1) {
+								shareSuc()
+							} else {
+								shareFail()
+							}
+						} else {
+							if (r < sharesSucPro2) {
+								shareSuc()
+							} else {
+								shareFail()
+							}
+						}
+					}
+
+					let shareSuc = () => {
+						this._shareSucceedCount++;
+
+						let result = new GDK.ShareResult()
+						result.result = 0;
+						resolve(result)
+					}
+					let shareFail = (r: number = 1, msg: string = "请分享到不同群") => {
+						let result = new GDK.ShareResult()
+						result.result = r;
+						result.message = msg;
+						resolve(result)
+					}
+
+					setTimeout(() => {
+						if (isCancel) {
+							shareFail(2, "分享失败，请分享到群哦");
+						} else {
+							shareMaySuc();
+						}
+					}, 200)
+
+				}
+				wx.onShow(onShow);
+
+			})
+		}
+
+
+		/**
+		 * 第三代微信分享解决方案
+		 * * 通过微信的活动卡片，服务器修改活动卡片信息，如果修改成功则说明分享成功
+		 * @param data 
+		 */
+		async shareV3(data: GDK.ShareData): Promise<GDK.ShareResult> {
+			return new Promise<GDK.ShareResult>((resolve, reject) => {
+				// 	let query = "";
+				// 	if (data.data) {
+				// 		for (let k in data.data) {
+				// 			query += `${k}=${data.data[k]}&`
+				// 		}
+				// 		query = query.substr(0, query.length - 1)//去除结尾&符号
+				// 	}
+
+				// 	let isCancel: boolean = false;
+
+				// 	let imageUrl = data.imageUrl
+
+				// 	devlog.info("share", {
+				// 		title: data.title,
+				// 		imageUrl: imageUrl,
+				// 		query: query,
+				// 	})
+				// 	wx.shareAppMessage({
+				// 		title: data.title,
+				// 		imageUrl: imageUrl,
+				// 		query: query,
+				// 		cancel: () => {
+				// 			//有些时候回触发取消
+				// 			isCancel = true;
+				// 		}
+				// 	})
+
+				// 	let onShow = () => {
+				// 		wx.offShow(onShow);
+
+				// 		let sharesSucPro1: number = 0.7  //第一次分享成功概率
+				// 		let sharesSucPro2: number = 0.9  //第二次分享成功概率
+
+				// 		let shareMaySuc = () => {
+				// 			let r = Math.random()
+
+				// 			if (this._shareSucceedCount == 0) {
+				// 				shareSuc()
+				// 			} else if (this._shareSucceedCount == 1) {
+				// 				if (r < sharesSucPro1) {
+				// 					shareSuc()
+				// 				} else {
+				// 					shareFail()
+				// 				}
+				// 			} else {
+				// 				if (r < sharesSucPro2) {
+				// 					shareSuc()
+				// 				} else {
+				// 					shareFail()
+				// 				}
+				// 			}
+				// 		}
+
+				// 		let shareSuc = () => {
+				// 			this._shareSucceedCount++;
+
+				// 			let result = new GDK.ShareResult()
+				// 			result.result = 0;
+				// 			resolve(result)
+				// 		}
+				// 		let shareFail = (r: number = 1, msg: string = "请分享到不同群") => {
+				// 			let result = new GDK.ShareResult()
+				// 			result.result = r;
+				// 			result.message = msg;
+				// 			resolve(result)
+				// 		}
+
+				// 		setTimeout(() => {
+				// 			if (isCancel) {
+				// 				shareFail(2, "分享失败，请分享到群哦");
+				// 			} else {
+				// 				shareMaySuc();
+				// 			}
+				// 		}, 200)
+
+				// 	}
+				// 	wx.onShow(onShow);
 
 			})
 		}

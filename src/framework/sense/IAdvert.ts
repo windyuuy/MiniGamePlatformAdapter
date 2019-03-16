@@ -8,6 +8,39 @@ namespace GDK {
 		width: number
 		/** banner 广告组件的高度 */
 		height: number
+		/** banner 广告组件的左上角纵坐标 */
+		top?: number
+		/** banner 广告组件的左下角横坐标 */
+		left?: number
+	}
+
+	export class BannerStyleAccessor {
+		x?: number
+		y?: number
+		/**
+		 * banner 广告组件的左上角横坐标
+		 */
+		left: number
+		/**
+		 * banner 广告组件的左上角纵坐标
+		 */
+		top: number
+		/**
+		 * banner 广告组件的宽度。最小 300，最大至 屏幕宽度（屏幕宽度可以通过 wx.getSystemInfoSync() 获取）。
+		 */
+		width: number
+		/**
+		 * banner 广告组件的高度
+		 */
+		height: number
+		/**
+		 * banner 广告组件经过缩放后真实的宽度
+		 */
+		realWidth: number
+		/**
+		 * banner 广告组件经过缩放后真实的高度
+		 */
+		realHeight: number
 	}
 
 	export class RewardedVideoAdOnErrorParam {
@@ -48,13 +81,19 @@ namespace GDK {
 		 * 	- 1003: （仅在手机qq 7.8.5支持）支持原生游戏（cocos/laya/ergret），支持H5游戏（使用DOM的游戏）
 		 **/
 		viewId?: number
+		/**
+		 * 原生平台选填
+		 */
+		placementName?: string
+
+		style: BannerStyleAccessor
 
 		/** 显示 banner 广告。 banner 广告将从屏幕下方推入。 */
 		show(): Promise<void>
 		/** 隐藏 banner 广告。 banner 广告将从屏幕下方推入。 */
-		hide(): void
+		hide(): Promise<void>
 		/** 销毁 banner 广告 */
-		destroy(): void
+		destroy(): Promise<void>
 		/** 监听隐藏 banner 广告 */
 		onResize(callback: Function)
 		/** 取消监听隐藏 banner 广告 */
@@ -72,6 +111,8 @@ namespace GDK {
 	export interface VideoAdCreateParam {
 		/** 广告单元 id */
 		adUnitId?: string
+		/** app平原生聚合广告填 */
+		placementName?: string
 	}
 
 	export interface BannerAdCreateParam {
@@ -79,6 +120,8 @@ namespace GDK {
 		adUnitId?: string,
 		/** QQ玩一玩 必填。1001静态banner，1002动态banner，1003 广点通banner(7.8.0) */
 		viewId?: number,
+		/** app平原生聚合广告填 */
+		placementName?: string
 		/** banner 广告组件的样式 */
 		style: BannerStyle
 	}

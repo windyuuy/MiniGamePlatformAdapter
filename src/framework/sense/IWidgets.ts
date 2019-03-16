@@ -114,5 +114,10 @@ namespace GDK {
 		 * - 只有`确定`一个按钮
 		 */
 		showAlert(object: ShowAlertOptions): Promise<ShowAlertResult>
+
+		/**
+		 * 隐藏启动画面
+		 */
+		hideLaunchingView(): Promise<void>;
 	}
 }
