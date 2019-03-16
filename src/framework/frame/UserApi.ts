@@ -229,7 +229,10 @@ namespace GDK {
 			}
 			return this._m.user.update();
 		}
-		/** 获取用户云端数据 */
+		/** 
+		 * 获取用户云端数据
+		 * - oppo未处理
+		*/
 		getFriendCloudStorage(obj: {
 			keyList: string[];
 			/**
@@ -244,7 +247,10 @@ namespace GDK {
 			}
 			return this._m.user.getFriendCloudStorage(obj);
 		}
-		/** 提交用户云端数据 */
+		/**
+		 * 提交用户云端数据
+		 * - oppo未处理
+		 */
 		setUserCloudStorage(obj: {
 			KVDataList: KVData[];
 			/**
@@ -1069,7 +1075,7 @@ namespace GDK {
 		 */
 		commitLog(key: string, params: { [key: string]: String }): Promise<void> {
 			if (!this.checkModuleAttr("log", "commitLog", "function")) {
-				return undefined;
+				return this.createNonePromise("[log.commitLog]");
 			}
 			return this._m.log.commitLog(key, params);
 		}
