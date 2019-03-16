@@ -103,7 +103,10 @@ namespace GDK {
 
 		/** 更新用户数据 */
 		update(): Promise<UserDataUpdateResult>
-		/** 获取用户云端数据 oppo未处理 */
+		/**
+		 * 获取用户云端数据
+		 * - oppo未处理
+		 */
 		getFriendCloudStorage(obj: {
 			keyList: string[],
 			/**
@@ -113,7 +116,10 @@ namespace GDK {
 			 **/
 			typeIndex: string[],
 		}): Promise<{ data: UserGameData[] }>;
-		/** 提交用户云端数据 oppo未处理 */
+		/**
+		 * 提交用户云端数据
+		 * - oppo未处理
+		 */
 		setUserCloudStorage(obj: {
 			KVDataList: KVData[],
 			/**

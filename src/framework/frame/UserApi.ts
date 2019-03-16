@@ -229,10 +229,10 @@ namespace GDK {
 			}
 			return this._m.user.update();
 		}
-		/** 
+		/**
 		 * 获取用户云端数据
 		 * - oppo未处理
-		*/
+		 */
 		getFriendCloudStorage(obj: {
 			keyList: string[];
 			/**

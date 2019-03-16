@@ -132,7 +132,14 @@ namespace AppGDK {
 		viewId?: number
 		placementName?: string
 
-		style: GDK.BannerStyleAccessor = new GDK.BannerStyleAccessor()
+		protected _style: GDK.BannerStyleAccessor = new GDK.BannerStyleAccessor()
+		get style(): GDK.BannerStyleAccessor {
+			return this._style
+		}
+		set style(value: GDK.BannerStyleAccessor) {
+			this._style = value
+			SDKProxy.nativeAdvert.setBannerStyle(value)
+		}
 
 		protected _loadFuncList: Function[] = []
 		protected _errorFuncList: Function[] = []

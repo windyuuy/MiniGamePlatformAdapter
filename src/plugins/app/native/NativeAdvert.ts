@@ -25,10 +25,17 @@ namespace AppGDK {
 
 	export class NativeAdvert {
 
+		/**
+		 * @param params.appKey 可选参数，如果安卓项目中已经填写 ironsource_advert_appkey ，那么此处可不传入
+		 * @param params.modules 指定支持的广告模块，可选 key 为：`REWARDED_VIDEO`,`BANNER`,`INTERSTITIAL`,`OFFERWALL`
+		 */
 		async init(params: { appKey: string, modules: { [key: string]: boolean } }) {
 			return nativeHelper.callAction("ironsrc:IronSource.init", params)
 		}
 
+		/**
+		 * 验证广告集成
+		 */
 		async validateIntegration() {
 			return nativeHelper.callAction("ironsrc:IntegrationHelper.validateIntegration", {})
 		}
@@ -47,9 +54,15 @@ namespace AppGDK {
 			return nativeHelper.callAction("ironsrc:IronSource.setRewardedVideoListener", {})
 		}
 
+		/**
+		 * 监听广告打开播放
+		 */
 		async onRewardedVideoAdOpened(callback: Function) {
 			return nativeHelper.onDoneEvent("ironsrc:onRewardedVideoAdOpened", callback)
 		}
+		/**
+		 * 监听广告关闭
+		 */
 		async onRewardedVideoAdClosed(callback: Function) {
 			return nativeHelper.onDoneEvent("ironsrc:onRewardedVideoAdClosed", callback)
 		}
@@ -59,12 +72,21 @@ namespace AppGDK {
 		async onRewardedVideoAvailabilityChanged(callback: (data: { available: boolean }) => void) {
 			return nativeHelper.onEvent("ironsrc:onRewardedVideoAvailabilityChanged", callback)
 		}
+		/**
+		 * 监听广告开始播放
+		 */
 		async onRewardedVideoAdStarted(callback: Function) {
 			return nativeHelper.onDoneEvent("ironsrc:onRewardedVideoAdStarted", callback)
 		}
+		/**
+		 * 监听广告播放结束
+		 */
 		async onRewardedVideoAdEnded(callback: Function) {
 			return nativeHelper.onDoneEvent("ironsrc:onRewardedVideoAdEnded", callback)
 		}
+		/**
+		 * 监听广告可发放奖励
+		 */
 		async onRewardedVideoAdRewarded(callback: (data: IronSrc.Placement) => void) {
 			return nativeHelper.onEvent("ironsrc:onRewardedVideoAdRewarded", callback)
 		}
@@ -106,6 +128,10 @@ namespace AppGDK {
 
 		async loadBanner(params: { placementName?: string }) {
 			return nativeHelper.callAction("ironsrc:IronSource.loadBanner", params)
+		}
+
+		async setBannerStyle(style: GDK.BannerStyle) {
+			return nativeHelper.callAction("ironsrc:IronSource.setBannerStyle", style)
 		}
 
 		async destroyBanner() {
