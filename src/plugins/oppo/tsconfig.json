@@ -1,18 +1,14 @@
 {
+	"extends": "../../base",
 	"compilerOptions": {
-		"module": "none",
-		// "noImplicitAny": true,
-		// "removeComments": true,
-		"target": "es5",
-		"lib": [
-			"es6",
-			"dom",
-			"es2015.promise"
-		],
-		"preserveConstEnums": true,
-		"sourceMap": true
+		"outFile": "../../../dist/oppokyx.js"
 	},
-	"globFiles": [
+	"files": [
+		"./Common.ts",
+	],
+	"include": [
+		"../../libs/**.ts",
+		"../../framework",
 		"./**/*.ts"
 	]
 }

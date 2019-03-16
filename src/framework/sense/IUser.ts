@@ -47,6 +47,7 @@ namespace GDK {
 
 	/** 登录请求参数 */
 	export class LoginParams extends ReqParams {
+		pkgName?: string // oppo 包名
 	}
 
 	export class LoginPromise extends Promise<LoginResult>{ }
@@ -65,12 +66,12 @@ namespace GDK {
 	export interface IUser extends IModule {
 		/** 登录 */
 		login(params?: LoginParams): Promise<LoginResult>
-		/** 检查登录态是否过期 */
+		/** 检查登录态是否过期 oppo未处理 */
 		checkSession?(params?: ReqParams): Promise<void>
 
 		/** 更新用户数据 */
 		update(): Promise<UserDataUpdateResult>
-		/** 获取用户云端数据 */
+		/** 获取用户云端数据 oppo未处理 */
 		getFriendCloudStorage(obj: {
 			keyList: string[],
 			/**
@@ -80,7 +81,7 @@ namespace GDK {
 			 **/
 			typeIndex: string[],
 		}): Promise<{ data: UserGameData[] }>;
-		/** 提交用户云端数据 */
+		/** 提交用户云端数据 oppo未处理 */
 		setUserCloudStorage(obj: {
 			KVDataList: KVData[],
 			/**
