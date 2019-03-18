@@ -8,6 +8,7 @@ const path = require("path")
 const gdkapi = require('./gdkapi')
 const buildApi = gdkapi.buildApi
 const genDoc = gdkapi.genDoc
+const injectVersion = gdkapi.injectVersion
 
 const ossFolderLibTest = 'libs-test'
 const ossFolderLibNext = 'libs-next'
@@ -97,8 +98,18 @@ gulp.task("compile", async () => {
 		execon("./plugins/qqplay", () => exec("tsc"))
 		execon("./plugins/app", () => exec("tsc"))
 		execon("./plugins/develop", () => exec("tsc"))
+		// execon("./plugins/oppo", () => exec("tsc"))
 	})
 
+})
+
+var glob = require("glob")
+gulp.task("makeVersion",async()=>{
+	execon("../dist",()=>{
+		glob.sync("./*.js").concat(glob.sync('./*.ts')).forEach(filename=>{
+			injectVersion(filename)
+		})
+	})
 })
 
 
@@ -116,7 +127,7 @@ gulp.task("uploadVersion", async () => {
 gulp.task('buildapi', buildApi)
 gulp.task('gendoc', genDoc)
 
-gulp.task("build", gulp.series("buildapi", "compile", "mini"));
+gulp.task("build", gulp.series("buildapi", "compile", "mini", "makeVersion"));
 gulp.task("convdoc", async () => {
 	execon("../docs/", () => exec("gitbook build"))
 });

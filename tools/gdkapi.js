@@ -5,6 +5,15 @@ const glob = require('glob')
 
 const baseDir = "../src"
 
+const loadJsonFromFile = (srcfile) => {
+	const content = fs.readFileSync(srcfile, { encoding: 'utf-8' })
+	return JSON.parse(content)
+}
+
+const writeJsonToFile = (srcfile, json) => {
+	fs.writeFileSync(srcfile, JSON.stringify(json), { encoding: 'utf-8' })
+}
+
 function cutline(text, range) {
 	return text.substr(range[0], range[1] - range[0])
 }
@@ -183,6 +192,24 @@ function makeModuleBody(moduleList) {
 		}
 	}
 	return exportList
+}
+
+function makeBuildInfo(){
+	let version = loadJsonFromFile('./build.json')
+	version.buildno++
+	writeJsonToFile('./build.json',version)
+
+	let info = `version: ${version.version}-build-${version.buildno}, timestamp: ${Date.now()}, date: ${new Date()}`
+	return info
+}
+let buildInfo = makeBuildInfo()
+console.log('build info:', buildInfo)
+
+function injectVersion(filename){
+	// console.log('inject version to ',filename)
+	let content = fs.readFileSync(filename, { encoding: 'utf-8' })
+	content = `${content}\n/** ${buildInfo}, file: ${filename} */`
+	fs.writeFileSync(filename,content,{encoding:'utf-8'})
 }
 
 async function buildApi() {
@@ -537,5 +564,6 @@ ${declareLines.join('\n')}
 
 module.exports = {
 	buildApi,
+	injectVersion,
 	genDoc,
 }
