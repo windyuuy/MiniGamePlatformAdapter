@@ -52,7 +52,8 @@ namespace OPPOGDK {
 			//BK.UI.showAlert(object)
 
 			return ret.promise
-
 		}
+
+		hideLaunchingView(): Promise<void> { return }
 	}
 }
