@@ -8,6 +8,7 @@ namespace AppGDK {
 		protected _closeFuncList: Function[] = []
 
 		protected _isLoad: boolean = false;
+		protected _isShowing: boolean = false
 
 		adUnitId: string
 		constructor(
@@ -42,6 +43,8 @@ namespace AppGDK {
 
 		}
 		onRewardedVideoAdShowFailed(error: IronSrc.IronSourceError) {
+			this._isShowing = false
+
 			let err = new GDK.RewardedVideoAdOnErrorParam()
 			err.errCode = error.errorCode
 			err.errMsg = error.errorMsg
@@ -55,6 +58,8 @@ namespace AppGDK {
 			this._isEnded = true
 		}
 		onRewardedVideoAdClosed() {
+			this._isShowing = false
+
 			let isEnded = this._isEnded
 			this._isEnded = false
 			for (let f of this._closeFuncList) {
@@ -64,6 +69,12 @@ namespace AppGDK {
 					console.error('视频广告发放奖励回调异常：', e)
 				}
 			}
+
+			setTimeout(async () => {
+				// ironsource广告只要第一次加载到，后面如果没有加载
+				let { available } = await SDKProxy.nativeAdvert.isRewardedVideoAvailable()
+				this.onRewardedVideoAvailabilityChanged(available)
+			}, 1)
 		}
 
 		protected _onLoadedCallbacks: Function[] = []
@@ -102,6 +113,8 @@ namespace AppGDK {
 
 		async show(): Promise<void> {
 			console.log('ironsrc:show video advert')
+			this._isShowing = true
+
 			await SDKProxy.nativeAdvert.showRewardedVideo({ placementName: "DefaultRewardedVideo" })
 		}
 
