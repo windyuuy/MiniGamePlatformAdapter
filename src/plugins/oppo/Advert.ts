@@ -131,9 +131,17 @@ namespace OPPOGDK {
 		adUnitId?: string
 		viewId?: number
 
+		protected _style: GDK.BannerStyleAccessor = new GDK.BannerStyleAccessor()
+		get style(): GDK.BannerStyleAccessor {
+			return this._style
+		}
+		set style(value: GDK.BannerStyleAccessor) {
+			this._style = value
+		}
+
 		//protected _advertObj: BK.Advertisement.BannerAd
 		protected _advertObj = null
-		constructor(params: { viewId: number, style?: { x: number, y: number } }) {
+		constructor(params: { viewId: number, style?: GDK.BannerStyle }) {
 			//this._advertObj = BK.Advertisement.createBannerAd(params)
 			this._advertObj = null
 		}
@@ -144,10 +152,10 @@ namespace OPPOGDK {
 			ret.success(undefined)
 			return ret.promise
 		}
-		hide(): void {
+		async hide() {
 			this._advertObj.hide()
 		}
-		destroy(): void {
+		async destroy() {
 			this._advertObj.destory()
 		}
 		onResize(callback: Function) {

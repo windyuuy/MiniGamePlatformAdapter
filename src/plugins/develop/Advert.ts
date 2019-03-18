@@ -104,7 +104,7 @@ namespace DevelopGDK {
 
 		protected _ad: HTMLImageElement = null;//假装的广告
 
-		constructor(params: { viewId: number, style?: { x: number, y?: number, left?: number, top?: number } }) {
+		constructor(params: { viewId: number, style?: GDK.BannerStyle }) {
 			setTimeout(() => {
 				for (let f of this._loadFuncList) {
 					f();
