@@ -148,7 +148,7 @@ class SDKProxy {
 		if (gdkjsb.bridge == undefined) return;
 
 		userInfo = userInfo || this.loadUserRecord()[0];
-		gdkjsb.bridge.callAction("showUserCenter", JSON.stringify({ info: userInfo, support: this.support }), (data: string) => { });
+		gdkjsb.bridge.callAction("showUserCenter", JSON.stringify({ info: userInfo, support: this.support, records: this.loadUserRecord(true) }), (data: string) => { });
 	}
 
 	/**
