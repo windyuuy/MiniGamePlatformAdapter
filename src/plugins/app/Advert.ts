@@ -28,7 +28,10 @@ namespace AppGDK {
 				this.onRewardedVideoAdRewarded()
 			})
 			SDKProxy.nativeAdvert.onRewardedVideoAdClosed(() => {
-				this.onRewardedVideoAdClosed()
+				// 避免可能的黑屏
+				setTimeout(() => {
+					this.onRewardedVideoAdClosed()
+				}, 0)
 			})
 
 			SDKProxy.nativeAdvert.onRewardedVideoAdOpened(() => {
