@@ -10,7 +10,7 @@ namespace AppGDK {
 			const ret = new GDK.RPromise<GDK.PayResult>()
 
 			let sku = config.productId
-			SDKProxy.nativePay.requestPay({ sku: sku }).then((payret) => {
+			SDKProxy.nativePay.requestPay({ sku: sku, price: config.money, count: 1, currency: "dollar" }).then((payret) => {
 				if (payret.code == 0) {
 					paylog.info("原生充值成功", config)
 					ret.success({

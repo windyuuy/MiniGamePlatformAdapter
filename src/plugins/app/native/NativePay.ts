@@ -17,7 +17,7 @@ namespace AppGDK {
 		/**
 		 * @param sku: 商品id
 		 */
-		async requestPay(params: { sku: string }) {
+		async requestPay(params: { sku: string, price: number, count: number, currency: string }) {
 			return nativeHelper.callAction<NativePayResult>("paywrapper:requestPay", params)
 		}
 	}
