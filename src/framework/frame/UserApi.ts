@@ -1080,6 +1080,13 @@ namespace GDK {
 			return this._m.log.commitLog(key, params);
 		}
 
+		commitChannelsLog(logType: "PayLog", params: PayLogParams): Promise<void> {
+			if (!this.checkModuleAttr("log", "commitChannelsLog", "function")) {
+				return this.createNonePromise("[log.commitChannelsLog]");
+			}
+			return this._m.log.commitChannelsLog(logType, params);
+		}
+
 		// $batch_export() end
 	}
 }
