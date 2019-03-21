@@ -1,4 +1,6 @@
 namespace AppGDK {
+	const devlog = Common.devlog
+
 	class VideoAd implements GDK.IRewardedVideoAd {
 
 		api?: GDK.UserAPI
@@ -69,7 +71,7 @@ namespace AppGDK {
 				try {
 					f({ isEnded: isEnded });
 				} catch (e) {
-					console.error('视频广告发放奖励回调异常：', e)
+					devlog.error('视频广告发放奖励回调异常：', e)
 				}
 			}
 
@@ -77,7 +79,7 @@ namespace AppGDK {
 				// ironsource广告只要第一次加载到，后面如果没有加载
 				let { available } = await SDKProxy.nativeAdvert.isRewardedVideoAvailable()
 				this.onRewardedVideoAvailabilityChanged(available)
-			}, 1)
+			}, 0)
 		}
 
 		protected _onLoadedCallbacks: Function[] = []
@@ -92,7 +94,7 @@ namespace AppGDK {
 					try {
 						f()
 					} catch (e) {
-						console.error('广告已加载回调异常：', e)
+						devlog.error('广告已加载回调异常：', e)
 					}
 				}
 				// onLoaded 回调
@@ -115,10 +117,32 @@ namespace AppGDK {
 		}
 
 		async show(): Promise<void> {
-			console.log('ironsrc:show video advert')
+			devlog.info('ironsrc:show video advert')
 			this._isShowing = true
 
-			await SDKProxy.nativeAdvert.showRewardedVideo({ placementName: "DefaultRewardedVideo" })
+			let waitting = true
+			const ret = new GDK.RPromise<void>()
+			setTimeout(() => {
+				if (!waitting) {
+					return
+				}
+				waitting = false
+				ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_SHOW_ADVERT_TIMEOUT))
+			}, 5000);
+			SDKProxy.nativeAdvert.showRewardedVideo({ placementName: "DefaultRewardedVideo" }).then(() => {
+				if (!waitting) {
+					return
+				}
+				waitting = false
+				ret.success()
+			}).catch((e) => {
+				if (!waitting) {
+					return
+				}
+				waitting = false
+				ret.fail(e)
+			})
+			return ret.promise
 		}
 
 		onLoad(callback: Function) {
@@ -187,7 +211,7 @@ namespace AppGDK {
 				try {
 					f()
 				} catch (e) {
-					console.error('条幅广告加载成功回调异常', e)
+					devlog.error('条幅广告加载成功回调异常', e)
 				}
 			}
 		}

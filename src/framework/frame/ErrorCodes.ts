@@ -80,6 +80,11 @@ namespace GDK {
 		 */
 		API_SHARE_UNSUPPORTED_PLATFORM: 30202,
 
+		/**
+		 * 请求打开并播放广告超时
+		 */
+		API_SHOW_ADVERT_TIMEOUT: 30304,
+
 	}
 
 	/**
@@ -120,6 +125,8 @@ namespace GDK {
 
 		{ errCode: GDKErrorCode.API_SHARE_UNSUPPORTED, message: '分享不被支持' },
 		{ errCode: GDKErrorCode.API_SHARE_UNSUPPORTED_PLATFORM, message: '不支持的平台' },
+
+		{ errCode: GDKErrorCode.API_SHOW_ADVERT_TIMEOUT, message: '打开并播放广告超时' },
 	])
 
 
