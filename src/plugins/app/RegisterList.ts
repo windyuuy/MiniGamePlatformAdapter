@@ -14,5 +14,6 @@ namespace AppGDK {
 		Except = Except
 		Auth = Auth
 		APISystem = APISystem
+		Log = Log
 	}
 }

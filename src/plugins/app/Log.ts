@@ -1,5 +1,5 @@
 namespace AppGDK {
-	export class LogBase implements GDK.ILog {
+	export class Log implements GDK.ILog {
 
 		/**
 		 * 提交自定义日志到服务器
