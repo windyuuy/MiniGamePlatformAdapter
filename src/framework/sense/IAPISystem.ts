@@ -70,6 +70,12 @@ namespace GDK {
 		 * 剪切板
 		 */
 		clipboard?: IClipboard
+
+		/**
+		 * 获取屏幕的安全区域，单位像素
+		 * @param callback 
+		 */
+		getSafeArea?(callback: (data: { left: number, right: number, top: number, bottom: number }) => void): void;
 	}
 
 }

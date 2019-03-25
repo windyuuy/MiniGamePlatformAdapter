@@ -112,5 +112,9 @@ namespace GDK {
 			this._onHideEvent.off(<slib.EventHandler<void>>callback)
 		}
 
+		getSafeArea?(callback: (data: { left: number, right: number, top: number, bottom: number }) => void): void {
+			callback({ left: 0, right: 0, top: 0, bottom: 0 });
+		}
+
 	}
 }
