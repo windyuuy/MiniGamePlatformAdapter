@@ -76,6 +76,11 @@ namespace GDK {
 		 * @param callback 
 		 */
 		getSafeArea?(callback: (data: { left: number, right: number, top: number, bottom: number }) => void): void;
+
+		/**
+		 * 原生版本号，具体看C++
+		 */
+		readonly nativeVersion: number;
 	}
 
 }

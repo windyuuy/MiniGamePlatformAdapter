@@ -19,6 +19,10 @@ namespace GDK {
 			this._initEvents()
 		}
 
+		get nativeVersion() {
+			return -1;
+		}
+
 		async setEnableDebug(res: { enableDebug: boolean }) {
 			devlog.info(`unsupoort action: setEnableDebug -> ${res.enableDebug} `)
 		}

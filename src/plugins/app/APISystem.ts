@@ -5,11 +5,6 @@ namespace AppGDK {
 
 		init() {
 			super.init();
-
-			//兼容旧版包
-			if (gdkjsb.nativeVersion === undefined) {
-				gdkjsb.nativeVersion = 0;
-			}
 		}
 
 		getSafeArea?(callback: (data: { left: number, right: number, top: number, bottom: number }) => void): void {
@@ -24,6 +19,10 @@ namespace AppGDK {
 					callback({ left: 0, right: 0, top: 0, bottom: 0 });
 				}
 			}
+		}
+
+		get nativeVersion() {
+			return gdkjsb.nativeVersion || 0;
 		}
 
 	}
