@@ -1,6 +1,13 @@
 declare namespace gdkjsb {
 
 	/**
+	 * 当前原生包的版本号
+	 * * 0 或 undefined 表示最初始版本，不包含新的的GooglePay支付
+	 * * 1 新的googlepay支付，并添加了 getSafeArea 接口
+	 */
+	export var nativeVersion: number
+
+	/**
 	 * 显示对话框
 	 * @param content 
 	 * @param title 
@@ -39,8 +46,9 @@ declare namespace gdkjsb {
 		 * @param action 名称
 		 * @param data 输入数据
 		 * @param callback 回掉函数
+		 * @returns action是否存在
 		 */
-		static callAction(action: string, data: string, callback: (/**返回结果 */data: string) => void);
+		static callAction(action: string, data: string, callback: (/**返回结果 */data: string) => void): boolean;
 
 		/**
 		 * 发送事件
@@ -62,5 +70,11 @@ declare namespace gdkjsb {
 		 * @param id 事件的id
 		 */
 		static off(id: number);
+
+		/**
+		 * 检查action是否存在
+		 * @param action 动作名称
+		 */
+		static checkActionExist(action: string): boolean;
 	}
 }
