@@ -700,6 +700,15 @@ namespace GDK {
 			return this._m.apiSystem.getSafeArea(callback);
 		}
 		/**
+		 * 原生版本号，具体看C++
+		 */
+		get nativeVersion(): number {
+			if (!this.checkModuleAttr("apiSystem", "nativeVersion")) {
+				return undefined;
+			}
+			return this._m.apiSystem.nativeVersion;
+		}
+		/**
 		 * 分享到聊天窗口
 		 * * 如果目标平台没有明确的聊天窗口，则进行社会化分享。
 		 * * 如果当前环境无法分享，则分享失败
