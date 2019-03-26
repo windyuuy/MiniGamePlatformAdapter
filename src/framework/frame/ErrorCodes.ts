@@ -13,6 +13,9 @@ namespace GDK {
 		/** 网络错误 */
 		NETWORK_ERROR: 102,
 
+		/** api不可用 */
+		API_INVALID: 203,
+
 		// /** -----------GameHttpClient Error----------- */
 		/** 无效的OPENID */
 		INVALID_OPENID: 2001,
@@ -95,6 +98,8 @@ namespace GDK {
 		{ errCode: GDKErrorCode.UNKNOWN, message: '请求失败', reason: '未知错误' },
 		{ errCode: GDKErrorCode.TIMEOUT, message: '请求超时', reason: '请求超时' },
 		{ errCode: GDKErrorCode.NETWORK_ERROR, message: '网络错误', reason: '网络错误' },
+
+		{ errCode: GDKErrorCode.API_INVALID, message: 'api不可用', reason: 'api不可用' },
 
 		{ errCode: GDKErrorCode.INVALID_OPENID, message: '登录失败', reason: 'openId验证失败' },
 

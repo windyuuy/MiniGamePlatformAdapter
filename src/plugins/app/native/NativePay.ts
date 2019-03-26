@@ -17,8 +17,18 @@ namespace AppGDK {
 		/**
 		 * @param sku: 商品id
 		 */
-		async requestPay(params: { sku: string, price: number, count: number, currency: string }) {
-			return nativeHelper.callAction<NativePayResult>("paywrapper:requestPay", params)
+		async requestPay(params: { sku: string, price: number, count: number, currency: string }): Promise<NativePayResult> {
+			return nativeHelper.callAction("paywrapper:requestPay", params)
+		}
+
+		async consumePurchase?(params: { purchaseToken: string }): Promise<GDK.ConsumePurchaseResult> {
+			return nativeHelper.callAction("paywrapper:consumePurchase", params)
+		}
+		/**
+		 * 获取未消耗商品列表
+		 */
+		async queryItemInfo?(params: { sku: string }): Promise<GDK.PayQueryItemInfoResult> {
+			return nativeHelper.callAction("paywrapper:queryItemInfo", params)
 		}
 	}
 }

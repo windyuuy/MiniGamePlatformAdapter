@@ -70,6 +70,22 @@ namespace GDK {
 		extra?: any
 	}
 
+
+	export class ConsumePurchaseResult {
+		code: number
+	}
+	export class PayQueryItemInfoResultData {
+		productId: string
+		purchaseToken: string
+		purchaseData: string
+		dataSignature: string
+	}
+	export class PayQueryItemInfoResult {
+		code: number
+		data: PayQueryItemInfoResultData
+		message: string
+	}
+
 	export const enum WebViewOrientation {
 		portrait = 1,
 		landscapeLeft = 2,
@@ -120,11 +136,24 @@ namespace GDK {
 		imagePath?: string
 	}
 
+	export class ConsumePurchaseParams { purchaseToken: string }
+	export class PayQueryItemInfoParams { productId: string }
+
 	export interface IPay extends IModule {
 		/**
 		 * 调起支付
 		 */
 		payPurchase(item: PayItemInfo, options?: PayOptions): Promise<PayResult>
+
+
+		/**
+		 * 消耗商品
+		 */
+		consumePurchase?(params: ConsumePurchaseParams): Promise<ConsumePurchaseResult>
+		/**
+		 * 查询未消耗商品信息
+		 */
+		queryItemInfo?(params: PayQueryItemInfoParams): Promise<PayQueryItemInfoResult>
 	}
 
 }

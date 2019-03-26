@@ -39,5 +39,19 @@ namespace AppGDK {
 			return ret.promise
 		}
 
+
+		/**
+		 * 消耗商品
+		 */
+		async consumePurchase?(params: GDK.ConsumePurchaseParams): Promise<GDK.ConsumePurchaseResult> {
+			return SDKProxy.nativePay.consumePurchase(params)
+		}
+		/**
+		 * 获取未消耗商品列表
+		 */
+		async queryItemInfo?(params: GDK.PayQueryItemInfoParams): Promise<GDK.PayQueryItemInfoResult> {
+			return SDKProxy.nativePay.queryItemInfo({ sku: params.productId })
+		}
+
 	}
 }
