@@ -23,6 +23,9 @@ namespace GDK {
 		isFirstInstall?: number
 		devPlatform?: string = "devtools"
 
+		deviceId?: string
+		gameDeviceId?: string
+
 		abstract fetchNetworkInfo(): Promise<void>
 
 		clone(): ISystemInfo {
