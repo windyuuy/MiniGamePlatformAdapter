@@ -42,7 +42,9 @@ namespace GDK {
 		 **/
 		language: string
 		/**
-		 * 平台(微信、QQ等）版本号
+		 * 版本号
+		 * * 微信版本号
+		 * * 安卓版本号
 		 **/
 		version: string
 		/**
@@ -59,7 +61,8 @@ namespace GDK {
 		 **/
 		fontSizeSetting?: number
 		/**
-		 * 客户端基础库版本
+		 * - wx 客户端基础库版本
+		 * - app nativeVersion
 		 **/
 		SDKVersion: string
 		/**
@@ -99,6 +102,17 @@ namespace GDK {
 		 * 仅在开发环境下可以，手q环境下无该字段
 		 **/
 		devPlatform?: string
+
+		/**
+		 * 设备ID
+		 */
+		deviceId?: string
+
+		/**
+		 * 游戏设备ID，每次重新安装游戏都会改变
+		 */
+		gameDeviceId?: string
+
 
 		init?()
 

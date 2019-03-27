@@ -1,6 +1,9 @@
 
 namespace AppGDK {
 	export class SystemInfo extends GDK.SystemInfoBase {
+
+		api: GDK.UserAPI
+
 		platform = "browser 1.0.0"
 		brand: string = 'unknown'
 		model: string = 'unknown'
@@ -23,8 +26,26 @@ namespace AppGDK {
 		isFirstInstall?: number
 		devPlatform?: string = "browser"
 
+		deviceId?: string
+		gameDeviceId?: string
+
 		async fetchNetworkInfo(): Promise<void> {
 
+		}
+
+		init() {
+			if (window["gdkjsb"] == null) {
+				return;
+			}
+			this.deviceId = gdkjsb.deviceId
+			this.gameDeviceId = gdkjsb.gameDeviceId
+			this.system = gdkjsb.platform + gdkjsb.systemVersion
+			this.platform = gdkjsb.platform
+			this.brand = gdkjsb.brand
+			this.model = gdkjsb.model
+			this.version = gdkjsb.systemVersion
+			this.SDKVersion = this.api.nativeVersion.toString();
+			this.language = gdkjsb.language
 		}
 	}
 }

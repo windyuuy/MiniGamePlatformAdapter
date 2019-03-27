@@ -8,6 +8,43 @@ declare namespace gdkjsb {
 	export var nativeVersion: number
 
 	/**
+	 * 语言
+	 */
+	export var language: string
+
+	/**
+	 * 平台
+	 */
+	export var platform: string
+
+	/**
+	 * 设备ID
+	 */
+	export var deviceId: string
+
+	/**
+	 * 游戏设备ID
+	 */
+	export var gameDeviceId: string
+
+
+	/**
+	 * 手机品牌
+	 */
+	export var brand: string
+
+	/**
+	 * 手机型号
+	 */
+	export var model: string
+
+	/**
+	 * 系统版本号
+	 */
+	export var systemVersion: string
+
+
+	/**
 	 * 显示对话框
 	 * @param content 
 	 * @param title 
