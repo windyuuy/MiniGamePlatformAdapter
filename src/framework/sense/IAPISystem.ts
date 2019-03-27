@@ -35,6 +35,9 @@ namespace GDK {
 		setData(res: ClipboardData): Promise<void>
 	}
 
+	/**
+	 * 支持各种系统调用、系统事件侦听
+	 */
 	export interface IAPISystem {
 		init?()
 		/**

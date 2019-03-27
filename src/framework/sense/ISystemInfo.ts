@@ -1,4 +1,7 @@
 namespace GDK {
+	/**
+	 * 用于获取系统、设备信息
+	 */
 	export interface ISystemInfo {
 		/**
 		 * 手机品牌
@@ -100,7 +103,7 @@ namespace GDK {
 		init?()
 
 		/**
-		 * 获取网络状况信息
+		 * 刷新网络状况信息
 		 */
 		fetchNetworkInfo(): Promise<void>
 		clone(): ISystemInfo
