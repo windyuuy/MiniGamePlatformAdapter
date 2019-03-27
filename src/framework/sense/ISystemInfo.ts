@@ -113,6 +113,15 @@ namespace GDK {
 		 */
 		gameDeviceId?: string
 
+		/**
+		 * 版本号
+		 */
+		versionCode?: number
+
+		/**
+		 * 版本名称
+		 */
+		versionName?: number
 
 		init?()
 

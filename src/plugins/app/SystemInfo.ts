@@ -29,6 +29,9 @@ namespace AppGDK {
 		deviceId?: string
 		gameDeviceId?: string
 
+		versionCode?: number
+		versionName?: number
+
 		async fetchNetworkInfo(): Promise<void> {
 
 		}
@@ -46,6 +49,8 @@ namespace AppGDK {
 			this.version = gdkjsb.systemVersion
 			this.SDKVersion = this.api.nativeVersion.toString();
 			this.language = gdkjsb.language
+			this.versionCode = gdkjsb.versionCode
+			this.versionName = gdkjsb.versionName
 		}
 	}
 }

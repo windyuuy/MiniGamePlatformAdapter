@@ -26,6 +26,9 @@ namespace GDK {
 		deviceId?: string
 		gameDeviceId?: string
 
+		versionCode?: number
+		versionName?: number
+
 		abstract fetchNetworkInfo(): Promise<void>
 
 		clone(): ISystemInfo {
