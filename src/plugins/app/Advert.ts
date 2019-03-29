@@ -106,6 +106,8 @@ namespace AppGDK {
 
 		async load(): Promise<void> {
 			const ret = new GDK.RPromise<void>()
+			let { available } = await SDKProxy.nativeAdvert.isRewardedVideoAvailable()
+			this._available = available
 			if (this._available) {
 				ret.success(undefined)
 			} else {
