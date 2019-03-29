@@ -45,6 +45,16 @@ declare namespace gdkjsb {
 
 
 	/**
+	 * 版本号
+	 */
+	export var versionCode: number
+
+	/**
+	 * 版本名称
+	 */
+	export var versionName: number
+
+	/**
 	 * 显示对话框
 	 * @param content 
 	 * @param title 
