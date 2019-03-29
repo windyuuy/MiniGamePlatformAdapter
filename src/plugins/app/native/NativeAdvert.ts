@@ -157,5 +157,52 @@ namespace AppGDK {
 		async onBannerAdLeftApplication(callback: Function) {
 			return nativeHelper.onDoneEvent("ironsrc:onBannerAdLeftApplication", callback)
 		}
+
+		// Interstitial
+		/**
+		 * 验证广告集成
+		 */
+		async setInterstitialListener() {
+			return nativeHelper.callAction("ironsrc:IronSource.setInterstitialListener", {})
+		}
+		async loadInterstitial() {
+			return nativeHelper.callAction("ironsrc:IronSource.loadInterstitial", {})
+		}
+		async isInterstitialReady() {
+			return nativeHelper.callAction<{ available: boolean }>("ironsrc:IronSource.isInterstitialReady", {})
+		}
+		async showInterstitial(params: { placementName: string }) {
+			return nativeHelper.callAction("ironsrc:IronSource.showInterstitial", params)
+		}
+
+		// Interstitial advert 事件
+		async onInterstitialAdRewarded(callback: Function) {
+			return nativeHelper.onDoneEvent("ironsrc:onInterstitialAdRewarded", callback)
+		}
+		async onInterstitialAdClosed(callback: Function) {
+			return nativeHelper.onDoneEvent("ironsrc:onInterstitialAdClosed", callback)
+		}
+		/**
+		 * Invoked when there is no Interstitial Ad available after calling load function.
+		 */
+		async onInterstitialAdReady(callback: Function) {
+			return nativeHelper.onDoneEvent("ironsrc:onInterstitialAdReady", callback)
+		}
+		async onInterstitialAdLoadFailed(callback: (error: IronSrc.IronSourceError) => void) {
+			return nativeHelper.onEvent("ironsrc:onInterstitialAdLoadFailed", callback)
+		}
+		async onInterstitialAdClicked(callback: Function) {
+			return nativeHelper.onDoneEvent("ironsrc:onInterstitialAdClicked", callback)
+		}
+		async onInterstitialAdOpened(callback: Function) {
+			return nativeHelper.onDoneEvent("ironsrc:onInterstitialAdOpened", callback)
+		}
+		async onInterstitialAdShowSucceeded(callback: Function) {
+			return nativeHelper.onDoneEvent("ironsrc:onInterstitialAdShowSucceeded", callback)
+		}
+		async onInterstitialAdShowFailed(callback: (error: IronSrc.IronSourceError) => void) {
+			return nativeHelper.onEvent("ironsrc:onInterstitialAdShowFailed", callback)
+		}
+
 	}
 }
