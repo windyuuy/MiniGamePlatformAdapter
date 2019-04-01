@@ -457,7 +457,9 @@ namespace AppGDK {
 		api?: GDK.UserAPI
 		async init?(data?: any) {
 			await SDKProxy.nativeAdvert.setRewardedVideoListener()
-			await SDKProxy.nativeAdvert.setInterstitialListener()
+			if (this.supportInterstitial) {
+				await SDKProxy.nativeAdvert.setInterstitialListener()
+			}
 			await SDKProxy.nativeAdvert.init({
 				appKey: "ironsrcappkey", modules: {
 					REWARDED_VIDEO: !this.supportInterstitial,
