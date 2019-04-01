@@ -134,6 +134,10 @@ namespace GDK {
 		 * - 客服跳转支付，会话内消息卡片图片路径
 		 */
 		imagePath?: string
+		/**
+		 * 客服跳转支付自定义附加参数
+		 */
+		customExtra?: string
 	}
 
 	export class ConsumePurchaseParams { purchaseToken: string }

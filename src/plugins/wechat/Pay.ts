@@ -27,6 +27,7 @@ namespace WechatGDK {
 		title: string,
 		field: number,
 		payUrl: string
+		customExtra?: string,
 	}
 
 	export class Pay extends GDK.PayBase {
@@ -178,6 +179,7 @@ namespace WechatGDK {
 			const payUrl = options.payUrl || null
 			const subTitle = options.subTitle
 			const imagePath = options.imagePath
+			const customExtra = options.customExtra || null
 
 			const launchParams: MiniAppPayLaunchParams = {
 				appId: myAppId,
@@ -187,6 +189,7 @@ namespace WechatGDK {
 				title: title,
 				field: field,
 				payUrl: payUrl,
+				customExtra: customExtra,
 			}
 			const extraData = {
 				launchParams: launchParams,
@@ -194,7 +197,7 @@ namespace WechatGDK {
 
 			checkEssentialParam(launchParams, ['payUrl', 'appId'])
 
-			const jpPath = `../index/index?appId=${myAppId}&userId=${userId}&goodsId=${goodsId}&quantity=${quantity}&title=${title}&field=${field}&payUrl=${payUrl}`
+			const jpPath = `../index/index?appId=${myAppId}&userId=${userId}&goodsId=${goodsId}&quantity=${quantity}&title=${title}&field=${field}&payUrl=${payUrl}&customExtra=${customExtra}`
 			const info = this.api.gameInfo
 			let envVersion = 'release'
 			if (info.mode == 'develop') {
