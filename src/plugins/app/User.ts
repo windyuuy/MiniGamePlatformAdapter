@@ -12,6 +12,7 @@ namespace AppGDK {
 	var self: User
 
 	var isDelayLogin = false;
+	var loginStartTime = 0;
 
 	let loginComplete = (data: LoginCallbackData) => {
 		if (isCancelLogin) {
@@ -69,9 +70,15 @@ namespace AppGDK {
 
 		if (isDelayLogin) {
 			//延迟一秒
-			setTimeout(() => {
-				loginLogic();
-			}, 1000);
+			let time = new Date().getTime() - loginStartTime;
+			if (time < 0) time = 0;
+			if (time >= 1000) {
+				loginLogic();//没必要延迟
+			} else {
+				setTimeout(() => {
+					loginLogic();
+				}, Math.max(0, 1000 - time));
+			}
 		} else {
 			loginLogic();
 		}
@@ -121,6 +128,7 @@ namespace AppGDK {
 
 				SDKProxy.showLogining(record.name == null || record.name == "" ? "欢迎" : record.name);//显示正在登陆
 				isDelayLogin = true;
+				loginStartTime = new Date().getTime()
 
 				SDKProxy.saveUserRecord(userRecords);
 
@@ -201,10 +209,12 @@ namespace AppGDK {
 						//自动游客登陆
 						SDKProxy.showLogining(currentUser.name);
 						isDelayLogin = true;
+						loginStartTime = new Date().getTime()
 						this.server.loginOpenId({ openId: currentUser.openId }, loginComplete);
 					} else {
 						//执行SDK自动登陆
 						isDelayLogin = true;
+						loginStartTime = new Date().getTime()
 						SDKProxy.showLogining(currentUser.name);
 						SDKProxy.autoLogin(currentUser);
 					}
@@ -245,6 +255,7 @@ namespace AppGDK {
 					userRecords.unshift(record)//当前玩家记录放在第一条
 					SDKProxy.saveUserRecord(userRecords);
 					isDelayLogin = true;
+					loginStartTime = new Date().getTime()
 					this.server.loginOpenId({ openId: null }, loginComplete);
 				} else {
 					//打开登陆弹框
