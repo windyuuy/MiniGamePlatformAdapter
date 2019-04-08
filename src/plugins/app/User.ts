@@ -136,6 +136,8 @@ namespace AppGDK {
 					this.server.loginGoogle({ openId: openId, token: token, avatar: head, userName: nickName, email: email }, loginComplete);
 				} else if (type == "facebook") {
 					this.server.loginFB({ openId: openId, token: token }, loginComplete);
+				} else if (type == "gamecenter") {
+					this.server.loginGC({ openId: openId, token: token }, loginComplete);
 				} else if (type == "visitor") {
 					this.server.loginOpenId({ openId: openId }, loginComplete);
 				}
