@@ -15,5 +15,6 @@ namespace AppGDK {
 		Auth = Auth
 		APISystem = APISystem
 		Log = Log
+		LocalPush = LocalPush
 	}
 }

@@ -5,7 +5,7 @@ namespace AppGDK {
 		/**
 		 * 推送ID
 		 */
-		identifier: string = null
+		identifier: number = null
 		/**
 		 * 推送标题
 		 */
@@ -49,7 +49,7 @@ namespace AppGDK {
 		 * 初始化
 		 */
 		async init(): Promise<void> {
-			return nativeHelper.callAction("pushwrapper:init", {})
+			return nativeHelper.callAction("pushwrapper:initLocalNotice", {})
 		}
 
 		/**
@@ -61,29 +61,29 @@ namespace AppGDK {
 		/**
 		 * 移除对应的推送
 		 */
-		async removeOneNoticeWithID?(params: { identifier: string }): Promise<void> {
-			return nativeHelper.callAction("pushwrapper:removeOneNoticeWithID", params)
+		async removeLocalNoticeWithID?(params: { identifier: number }): Promise<void> {
+			return nativeHelper.callAction("pushwrapper:removeLocalNoticeWithID", params)
 		}
 
 		/**
 		 * 移除所有推送
 		 */
-		async removeAllNotification?(): Promise<void> {
-			return nativeHelper.callAction("pushwrapper:removeAllNotification", {})
+		async removeAllLocalNotices?(): Promise<void> {
+			return nativeHelper.callAction("pushwrapper:removeAllLocalNotices", {})
 		}
 
 		/**
 		 * 检查推送设置，如果没有权限则提示用户跳转开启
 		 */
-		async checkUserNotificationEnable?(): Promise<void> {
-			return nativeHelper.callAction("pushwrapper:checkUserNotificationEnable", {})
+		async requireLocalNoticePermission?(): Promise<void> {
+			return nativeHelper.callAction("pushwrapper:requireLocalNoticePermission", {})
 		}
 
 		/**
 		 * 用户是否开启通知权限
 		 */
-		async isUserNotificationEnabled?(): Promise<{ enabled: boolean }> {
-			return nativeHelper.callAction("pushwrapper:isUserNotificationEnabled", {})
+		async isLocalNoticeEnabled?(): Promise<{ enabled: boolean }> {
+			return nativeHelper.callAction("pushwrapper:isLocalNoticeEnabled", {})
 		}
 	}
 }

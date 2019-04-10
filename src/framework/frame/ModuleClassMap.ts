@@ -16,5 +16,6 @@ namespace GDK {
 		Auth?: new () => IAuth
 		Hardware?: new () => IHardware = HardwareBase
 		Log?: new () => ILog = LogBase
+		LocalPush?: new () => ILocalPush
 	}
 }
