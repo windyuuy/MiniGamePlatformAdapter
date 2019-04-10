@@ -147,6 +147,22 @@ namespace AppGDK {
          * * userId 
          * * token
          */
+		loginGC(
+			data: {
+				openId: string,
+				token: string
+			},
+			callback: (data: LoginCallbackData) => void,
+			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
+			this.gameClient.request("user/loginGC", data, (data) => {
+				callback(data);
+			}, { modal: modal, errorCallback: errorCallback })
+		}
+		/**
+         * FB登陆
+         * * userId 
+         * * token
+         */
 		loginGoogle(
 			data: {
 				openId: string,
