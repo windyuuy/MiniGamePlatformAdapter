@@ -56,6 +56,8 @@ namespace AppGDK {
 			// 	await this.api.addLocalNotices([{
 			// 		identifier: "4343",
 			// 		interval: 2332,
+			// 		enableVibrateTip: true,
+			// 		enableLightTip: true,
 			// 	}])
 			// 	await this.api.addLocalNotices([bundles[0], bundles[1], bundles[2],])
 			// 	await this.api.removeLocalNoticeWithID({ identifier: "3" })

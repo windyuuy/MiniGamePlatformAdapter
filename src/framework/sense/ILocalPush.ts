@@ -26,7 +26,7 @@ namespace GDK {
 		 */
 		interval: number = null
 		/**
-		 * 重复推送方式
+		 * 重复推送方式（仅ios支持）
 		 * - 0 不重复
 		 * - 1 重复推送
 		 * - 大于1 其他重复方式
@@ -53,7 +53,7 @@ namespace GDK {
 		 */
 		enableVibrateTip?: boolean = false
 		/**
-		 * 呼吸灯提示
+		 * 呼吸灯提示（仅安卓）
 		 */
 		enableLightTip?: boolean = false
 	}
