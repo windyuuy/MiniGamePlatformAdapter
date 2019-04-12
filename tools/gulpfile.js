@@ -99,6 +99,7 @@ gulp.task("compile", async () => {
 		execon("./plugins/qqplay", () => exec("tsc"))
 		execon("./plugins/develop", () => exec("tsc"))
 		// execon("./plugins/oppo", () => exec("tsc"))
+		execon("./test",()=>exec("tsc"))
 	})
 
 })
