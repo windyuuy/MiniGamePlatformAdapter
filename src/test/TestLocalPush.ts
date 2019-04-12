@@ -52,7 +52,7 @@ namespace TestGDK {
 				interval: 2332,
 			}])
 			await this.api.addLocalNotices([bundles[0], bundles[1], bundles[2],])
-			await this.api.removeLocalNoticeWithID({ identifier: 3 })
+			await this.api.removeLocalNoticeWithID({ identifier: "3" })
 			await this.api.addLocalNotices([bundles[3]])
 			return new TestResult()
 		}

@@ -69,7 +69,7 @@ namespace GDK {
 		/**
 		 * 移除对应的推送
 		 */
-		removeLocalNoticeWithID?(params: { identifier: number }): Promise<void>;
+		removeLocalNoticeWithID?(params: { identifier: string }): Promise<void>;
 
 		/**
 		 * 移除所有推送

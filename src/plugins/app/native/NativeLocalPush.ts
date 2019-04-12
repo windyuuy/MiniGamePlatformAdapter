@@ -27,7 +27,7 @@ namespace AppGDK {
 		/**
 		 * 移除对应的推送
 		 */
-		async removeLocalNoticeWithID?(params: { identifier: number }): Promise<void> {
+		async removeLocalNoticeWithID?(params: { identifier: string }): Promise<void> {
 			return nativeHelper.callAction("pushwrapper:removeLocalNoticeWithID", params)
 		}
 
