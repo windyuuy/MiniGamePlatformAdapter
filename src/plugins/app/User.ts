@@ -150,6 +150,8 @@ namespace AppGDK {
 					typeNumb = 1
 				} else if (type == "google") {
 					typeNumb = 2
+				} else if (type == "gamecenter") {
+					typeNumb = 3
 				}
 
 
