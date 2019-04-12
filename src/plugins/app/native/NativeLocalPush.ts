@@ -19,6 +19,10 @@ namespace AppGDK {
 		 */
 		content?: string = '内容'
 		/**
+		 * 顶栏标题
+		 */
+		ticker?: string = ""
+		/**
 		 * 推送间隔
 		 */
 		interval: number = null
@@ -55,8 +59,11 @@ namespace AppGDK {
 		/**
 		 * 添加本地推送
 		 */
-		async addLocalNotice?(params: NativeLocalPushStyle): Promise<void> {
-			return nativeHelper.callAction("pushwrapper:addLocalNotice", params)
+		async addLocalNotices?(notices: NativeLocalPushStyle[]): Promise<void> {
+			let params = {
+				notices: notices || [],
+			}
+			return nativeHelper.callAction("pushwrapper:addLocalNotices", params)
 		}
 		/**
 		 * 移除对应的推送

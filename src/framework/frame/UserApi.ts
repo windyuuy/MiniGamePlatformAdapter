@@ -1173,11 +1173,11 @@ namespace GDK {
 		/**
 		 * 添加本地推送
 		 */
-		addLocalNotice?(params: LocalPushBundle): Promise<void> {
-			if (!this.checkModuleAttr("localPush", "addLocalNotice", "function")) {
-				return this.createNonePromise("[localPush.addLocalNotice]");
+		addLocalNotices?(notices: LocalPushBundle[]): Promise<void> {
+			if (!this.checkModuleAttr("localPush", "addLocalNotices", "function")) {
+				return this.createNonePromise("[localPush.addLocalNotices]");
 			}
-			return this._m.localPush.addLocalNotice(params);
+			return this._m.localPush.addLocalNotices(notices);
 		}
 		/**
 		 * 移除对应的推送

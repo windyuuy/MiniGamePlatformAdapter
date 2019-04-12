@@ -18,6 +18,10 @@ namespace GDK {
 		 */
 		content?: string = '内容'
 		/**
+		 * 顶栏标题
+		 */
+		ticker?: string = ""
+		/**
 		 * 推送间隔
 		 */
 		interval: number = null
@@ -49,7 +53,7 @@ namespace GDK {
 		/**
 		 * 添加本地推送
 		 */
-		addLocalNotice?(params: LocalPushBundle): Promise<void>;
+		addLocalNotices?(notices: LocalPushBundle[]): Promise<void>;
 		/**
 		 * 移除对应的推送
 		 */
