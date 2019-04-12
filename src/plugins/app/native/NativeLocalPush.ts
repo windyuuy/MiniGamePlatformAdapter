@@ -1,50 +1,9 @@
 /// <reference path="./NativeHelper.ts" />
+/// <reference path="../../../framework/sense/ILocalPush.ts" />
 
 namespace AppGDK {
-	export class NativeLocalPushStyle {
-		/**
-		 * 推送ID
-		 */
-		identifier: number = null
-		/**
-		 * 推送标题
-		 */
-		title?: string = '标题'
-		/**
-		 * 推送副标题
-		 */
-		subtitle?: string = ''
-		/**
-		 * 推送文本内容
-		 */
-		content?: string = '内容'
-		/**
-		 * 顶栏标题
-		 */
-		ticker?: string = ""
-		/**
-		 * 推送间隔
-		 */
-		interval: number = null
-		/**
-		 * 重复推送方式
-		 * - 0 不重复
-		 * - 1 重复推送
-		 * - 大于1 其他重复方式
-		 */
-		repeat?: number = 0
-		/**
-		 * 图标样式
-		 */
-		badge?: number = 1
-		/**
-		 * 附加信息
-		 */
-		userInfo?: string = '{}'
-		/**
-		 * 声音文件名
-		 */
-		soundName?: string = null
+	export class NativeLocalPushStyle extends GDK.LocalPushBundle {
+
 	}
 
 	export class NativeLocalPush {

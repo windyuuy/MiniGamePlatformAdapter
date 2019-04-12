@@ -4,7 +4,7 @@ namespace GDK {
 		/**
 		 * 推送ID
 		 */
-		identifier: number = null
+		identifier: string = null
 		/**
 		 * 推送标题
 		 */
@@ -44,6 +44,18 @@ namespace GDK {
 		 * 声音文件名
 		 */
 		soundName?: string = null
+		/**
+		 * 开启声音提示
+		 */
+		enableSoundTip?: boolean = true
+		/**
+		 * 振动提示
+		 */
+		enableVibrateTip?: boolean = false
+		/**
+		 * 呼吸灯提示
+		 */
+		enableLightTip?: boolean = false
 	}
 
 	/**
