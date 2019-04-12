@@ -189,7 +189,7 @@ namespace AppGDK {
 
 		login(params?: GDK.LoginParams) {
 			isCancelLogin = false;
-
+			isLoginEnd = false
 			if (params.autoLogin === undefined) {
 				params.autoLogin = true;//默认允许自动登陆
 			}

@@ -402,6 +402,16 @@ namespace AppGDK {
 			})
 		}
 
+		reset(params: { placementName?: string, style?: GDK.BannerStyle }) {
+			this.destroy()
+			SDKProxy.nativeAdvert.createBanner(params)
+			SDKProxy.nativeAdvert.loadBanner(params)
+			this.style.x = params.style.x
+			this.style.y = params.style.y
+			this.style.left = params.style.left
+			this.style.top = params.style.top
+		}
+
 		onBannerAdLoaded() {
 			for (let f of this._loadFuncList) {
 				try {
@@ -500,6 +510,8 @@ namespace AppGDK {
 		}): GDK.IBannerAd {
 			if (!Advert._bannerAd) {
 				Advert._bannerAd = new BannerAd(params)
+			} else {
+				Advert._bannerAd.reset(params)
 			}
 			return Advert._bannerAd
 		}
