@@ -135,7 +135,7 @@ namespace GDK {
 		 */
 		imagePath?: string
 		/**
-		 * 客服跳转支付自定义附加参数
+		 * 自定义附加参数
 		 */
 		customExtra?: string
 	}
