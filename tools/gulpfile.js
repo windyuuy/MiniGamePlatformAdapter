@@ -10,6 +10,8 @@ const buildApi = gdkapi.buildApi
 const genDoc = gdkapi.genDoc
 const injectVersion = gdkapi.injectVersion
 
+const tempDir = './temp'
+
 const ossFolderLibTest = 'libs-test'
 const ossFolderLibNext = 'libs-next'
 const ossFolderLibPub = 'libs'
@@ -61,16 +63,56 @@ function copyLibsTask(ossSrcDir, ossDestDir, tip) {
 		let client = getOssClient();
 
 		const result = await client.list({ prefix: `${ossSrcDir}/` })
-		for await (let info of result.objects) {
+		await Promise.all(result.objects.map(info => {
 			console.log(`${ossDestDir}/${path.basename(info.name)}`, '<-', `${info.name}`)
-			client.copy(`${ossDestDir}/${path.basename(info.name)}`, `${info.name}`)
-		}
+			return client.copy(`${ossDestDir}/${path.basename(info.name)}`, `${info.name}`)
+		}))
 		console.log(tip)
 	}
 }
 
 gulp.task("pubNext", copyLibsTask(ossFolderLibTest, ossFolderLibNext, "发布next版完成"))
 gulp.task("pubPub", copyLibsTask(ossFolderLibNext, ossFolderLibPub, "发布public版完成"))
+
+gulp.task("verifyUpload", async () => {
+	let client = getOssClient();
+
+	const sourcefiles = glob.sync(`../dist/*`).map(filepath => path.basename(filepath))
+
+	if (!fs.existsSync(tempDir)) {
+		fs.mkdirSync(tempDir)
+	}
+
+	console.log("clean before verify")
+	glob.sync(tempDir).forEach(filepath => {
+		if (!fs.statSync(filepath).isDirectory) {
+			fs.unlinkSync(`${filepath}`)
+		}
+	})
+
+	console.log("downloading uploaded files")
+	await Promise.all(sourcefiles.map(name => {
+		console.log(`${tempDir}/${path.basename(name)}`, '<-', `${ossFolderLibPub}/${name}`)
+		return client.get(`${ossFolderLibPub}/${name}`, `${tempDir}/${path.basename(name)}`)
+	}))
+
+	console.log("compare uploaded files")
+	const unmatchedFiles = []
+	sourcefiles.forEach((filepath) => {
+		let name = path.basename(filepath)
+		let c1 = fs.readFileSync(`${tempDir}/${name}`, { encoding: 'UTF-8' })
+		let c2 = fs.readFileSync(`../dist/${name}`, { encoding: 'UTF-8' })
+		if (c1 != c2) {
+			unmatchedFiles.push(name)
+			console.error(`file unmatched: ${name}`, c1.length, c2.length)
+		}
+	})
+	if (unmatchedFiles.length > 0) {
+		console.error("some file unmatched")
+	} else {
+		console.error('all file uploaded verified')
+	}
+})
 
 
 gulp.task("mini", () => {
@@ -99,15 +141,15 @@ gulp.task("compile", async () => {
 		execon("./plugins/qqplay", () => exec("tsc"))
 		execon("./plugins/develop", () => exec("tsc"))
 		// execon("./plugins/oppo", () => exec("tsc"))
-		execon("./test",()=>exec("tsc"))
+		execon("./test", () => exec("tsc"))
 	})
 
 })
 
 var glob = require("glob")
-gulp.task("makeVersion",async()=>{
-	execon("../dist",()=>{
-		glob.sync("./*.js").concat(glob.sync('./*.ts')).forEach(filename=>{
+gulp.task("makeVersion", async () => {
+	execon("../dist", () => {
+		glob.sync("./*.js").concat(glob.sync('./*.ts')).forEach(filename => {
 			injectVersion(filename)
 		})
 	})
@@ -118,11 +160,11 @@ gulp.task("uploadVersion", async () => {
 	let client = getOssClient();
 
 	let list = fs.readdirSync("../dist")
-	for await (let n of list) {
-		client.put(`${ossFolderLibTest}/` + n, "../dist/" + n)
-		console.log("上传完成", "../dist/" + n)
-	}
-
+	await Promise.all(list.map(n => {
+		console.log(`${ossFolderLibTest}/` + n, "<-", "../dist/" + n)
+		return client.put(`${ossFolderLibTest}/` + n, "../dist/" + n)
+	}))
+	console.log("上传完成", "../dist/", list)
 })
 
 gulp.task('buildapi', buildApi)
@@ -135,4 +177,4 @@ gulp.task("convdoc", async () => {
 gulp.task('builddoc', gulp.series("gendoc", "convdoc"))
 
 gulp.task("publish", gulp.series("build", "uploadVersion"));
-gulp.task("pubOne", gulp.series("publish", "pubNext", "pubPub"))
+gulp.task("pubOne", gulp.series("publish", "pubNext", "pubPub", "verifyUpload"))
