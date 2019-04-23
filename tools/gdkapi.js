@@ -99,7 +99,16 @@ const parseModule = (parent, moduleName) => {
 								for (let p of params_def) {
 									params.push(p['name'])
 								}
-								const typeAnnotation = member['typeAnnotation']
+
+								let typeAnnotation = member['typeAnnotation']
+								if (!typeAnnotation) {
+									if (member['returnType']) {
+										const returnTypeInfo = member['returnType']
+										if (returnTypeInfo['type'] == 'TSTypeAnnotation') {
+											typeAnnotation = returnTypeInfo
+										}
+									}
+								}
 								if (typeAnnotation) {
 									const typeName = typeAnnotation['typeAnnotation']['typeName']
 									if (typeName) {
@@ -119,6 +128,9 @@ const parseModule = (parent, moduleName) => {
 								explainText = cutline(text, explain['range'])
 							}
 
+							// if (key == 'showConfirm') {
+							// 	console.log(key, membertype, member)
+							// }
 							// console.log(memberHead)
 							exportList.push({
 								text: text,
