@@ -52,7 +52,7 @@ declare namespace gdkjsb {
 	/**
 	 * 版本名称
 	 */
-	export var versionName: number
+	export var versionName: string
 
 	/**
 	 * 显示对话框

@@ -121,7 +121,7 @@ namespace GDK {
 		/**
 		 * 版本名称
 		 */
-		versionName?: number
+		versionName?: string
 
 		init?()
 

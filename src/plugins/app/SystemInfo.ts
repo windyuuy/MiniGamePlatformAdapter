@@ -30,7 +30,7 @@ namespace AppGDK {
 		gameDeviceId?: string
 
 		versionCode?: number
-		versionName?: number
+		versionName?: string
 
 		async fetchNetworkInfo(): Promise<void> {
 
