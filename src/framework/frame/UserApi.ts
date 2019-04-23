@@ -612,7 +612,7 @@ namespace GDK {
 		/**
 		 * 版本名称
 		 */
-		get versionName(): number {
+		get versionName(): string {
 			if (!this.checkModuleAttr("systemInfo", "versionName")) {
 				return undefined;
 			}

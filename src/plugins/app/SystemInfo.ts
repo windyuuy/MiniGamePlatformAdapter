@@ -4,7 +4,7 @@ namespace AppGDK {
 
 		api: GDK.UserAPI
 
-		platform = "browser 1.0.0"
+		platform = "unknown"
 		brand: string = 'unknown'
 		model: string = 'unknown'
 		pixelRatio: number = -1
@@ -30,7 +30,7 @@ namespace AppGDK {
 		gameDeviceId?: string
 
 		versionCode?: number
-		versionName?: number
+		versionName?: string
 
 		async fetchNetworkInfo(): Promise<void> {
 

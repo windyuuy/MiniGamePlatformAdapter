@@ -27,7 +27,7 @@ namespace GDK {
 		gameDeviceId?: string
 
 		versionCode?: number
-		versionName?: number
+		versionName?: string
 
 		abstract fetchNetworkInfo(): Promise<void>
 
