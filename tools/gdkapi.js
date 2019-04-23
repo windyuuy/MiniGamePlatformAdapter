@@ -100,14 +100,14 @@ const parseModule = (parent, moduleName) => {
 									params.push(p['name'])
 								}
 
-								let typeAnnotation = member['typeAnnotation']
-								if (!typeAnnotation) {
-									if (member['returnType']) {
-										const returnTypeInfo = member['returnType']
-										if (returnTypeInfo['type'] == 'TSTypeAnnotation') {
-											typeAnnotation = returnTypeInfo
-										}
+								let typeAnnotation = null
+								if (member['returnType']) {
+									const returnTypeInfo = member['returnType']
+									if (returnTypeInfo['type'] == 'TSTypeAnnotation') {
+										typeAnnotation = returnTypeInfo
 									}
+								} else {
+									typeAnnotation = member['typeAnnotation']
 								}
 								if (typeAnnotation) {
 									const typeName = typeAnnotation['typeAnnotation']['typeName']
