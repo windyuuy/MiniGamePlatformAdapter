@@ -10,6 +10,15 @@ namespace AppGDK {
 			const ret = new GDK.RPromise<GDK.PayResult>()
 
 			let sku = config.productId
+			if (sku == null) {
+				const msg = 'productId 为空， 原生app需要传入productId'
+				paylog.error(msg)
+				ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_PAY_FAILED, {
+					message: msg
+				}))
+				return ret.promise
+			}
+
 			SDKProxy.nativePay.requestPay({ sku: sku, price: config.money, count: 1, currency: "dollar" }).then((payret) => {
 				if (payret.code == 0) {
 					paylog.info("原生充值成功", config)
