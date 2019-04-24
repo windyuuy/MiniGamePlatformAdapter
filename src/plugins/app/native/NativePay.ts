@@ -8,6 +8,7 @@ namespace AppGDK {
 		PURCHASE_CANCELLED,
 		ON_CODE_REQUEST_GPV3,
 		OWNED_SUCH_ITEM,
+		INVALID_PARAMS,
 	}
 	export class NativePayResult {
 		code: PayErrorCode
