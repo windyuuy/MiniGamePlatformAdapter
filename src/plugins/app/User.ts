@@ -133,13 +133,13 @@ namespace AppGDK {
 				SDKProxy.saveUserRecord(userRecords);
 
 				if (type == "google") {
-					this.server.loginGoogle({ openId: openId, token: token, avatar: head, userName: nickName, email: email }, loginComplete);
+					this.server.loginGoogle({ openId: openId, token: token, avatar: head, userName: nickName, email: email, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
 				} else if (type == "facebook") {
-					this.server.loginFB({ openId: openId, token: token }, loginComplete);
+					this.server.loginFB({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
 				} else if (type == "gamecenter") {
-					this.server.loginGC({ openId: openId, token: token }, loginComplete);
+					this.server.loginGC({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
 				} else if (type == "visitor") {
-					this.server.loginOpenId({ openId: openId }, loginComplete);
+					this.server.loginOpenId({ openId: openId, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
 				}
 			})
 
@@ -155,7 +155,7 @@ namespace AppGDK {
 				}
 
 
-				this.server.bindingAccount({ visitorOpenId: visitorOpenId, openId: openId, token: token, type: typeNumb }, (data) => {
+				this.server.bindingAccount({ visitorOpenId: visitorOpenId, openId: openId, token: token, type: typeNumb, clientSystemInfo: this.api.systemInfo.clone() }, (data) => {
 					if (data.succeed) {
 						SDKProxy.hideUserCenter();
 						SDKProxy.hideBindDialog();
@@ -208,13 +208,13 @@ namespace AppGDK {
 					if (currentUser.loginType == "silent") {
 						//自动静默登陆
 						isDelayLogin = false;
-						this.server.loginOpenId({ openId: currentUser.openId }, loginComplete);
+						this.server.loginOpenId({ openId: currentUser.openId, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
 					} else if (currentUser.loginType == "visitor") {
 						//自动游客登陆
 						SDKProxy.showLogining(currentUser.name);
 						isDelayLogin = true;
 						loginStartTime = new Date().getTime()
-						this.server.loginOpenId({ openId: currentUser.openId }, loginComplete);
+						this.server.loginOpenId({ openId: currentUser.openId, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
 					} else {
 						//执行SDK自动登陆
 						isDelayLogin = true;
@@ -242,7 +242,7 @@ namespace AppGDK {
 					userRecords.unshift(record)//当前玩家记录放在第一条
 					SDKProxy.saveUserRecord(userRecords);
 					isDelayLogin = false;
-					this.server.loginOpenId({ openId: null }, loginComplete);
+					this.server.loginOpenId({ openId: null, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
 
 				} else if (params.autoLogin) {
 					//自动游客登陆
@@ -260,7 +260,7 @@ namespace AppGDK {
 					SDKProxy.saveUserRecord(userRecords);
 					isDelayLogin = true;
 					loginStartTime = new Date().getTime()
-					this.server.loginOpenId({ openId: null }, loginComplete);
+					this.server.loginOpenId({ openId: null, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
 				} else {
 					//打开登陆弹框
 					SDKProxy.showLoginDialog();

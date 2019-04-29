@@ -123,6 +123,16 @@ namespace GDK {
 		 */
 		versionName?: string
 
+		/**
+		 * 渠道ID
+		 */
+		channel?: string
+
+		/**
+		 * 地区国家
+		 */
+		country?: string
+
 		init?()
 
 		/**

@@ -32,6 +32,9 @@ namespace AppGDK {
 		versionCode?: number
 		versionName?: string
 
+		channel?: string
+		country?: string
+
 		async fetchNetworkInfo(): Promise<void> {
 
 		}
@@ -51,6 +54,9 @@ namespace AppGDK {
 			this.language = gdkjsb.language
 			this.versionCode = gdkjsb.versionCode
 			this.versionName = gdkjsb.versionName
+
+			this.channel = gdkjsb.channel
+			this.country = gdkjsb.country
 		}
 	}
 }

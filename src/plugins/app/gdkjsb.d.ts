@@ -55,6 +55,16 @@ declare namespace gdkjsb {
 	export var versionName: string
 
 	/**
+	 * 渠道
+	 */
+	export var channel: string
+
+	/**
+	 * 国家
+	 */
+	export var country: string
+
+	/**
 	 * 显示对话框
 	 * @param content 
 	 * @param title 

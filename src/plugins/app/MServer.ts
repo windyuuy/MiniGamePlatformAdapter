@@ -116,7 +116,8 @@ namespace AppGDK {
          */
 		loginOpenId(
 			data: {
-				openId: string
+				openId: string,
+				clientSystemInfo: any
 			},
 			callback: (data: LoginCallbackData) => void,
 			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
@@ -133,7 +134,8 @@ namespace AppGDK {
 		loginFB(
 			data: {
 				openId: string,
-				token: string
+				token: string,
+				clientSystemInfo: any
 			},
 			callback: (data: LoginCallbackData) => void,
 			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
@@ -150,7 +152,8 @@ namespace AppGDK {
 		loginGC(
 			data: {
 				openId: string,
-				token: string
+				token: string,
+				clientSystemInfo: any
 			},
 			callback: (data: LoginCallbackData) => void,
 			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
@@ -169,7 +172,8 @@ namespace AppGDK {
 				token: string,
 				userName: string,
 				avatar: string,
-				email: string
+				email: string,
+				clientSystemInfo: any
 			},
 			callback: (data: LoginCallbackData) => void,
 			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
@@ -196,7 +200,9 @@ namespace AppGDK {
 				/**
 				 * 第三方账号类别（1:facebook 2:google）
 				 */
-				type: number
+				type: number,
+
+				clientSystemInfo: any
 			},
 			callback: (data: LoginCallbackData) => void,
 			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {

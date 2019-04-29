@@ -29,6 +29,9 @@ namespace GDK {
 		versionCode?: number
 		versionName?: string
 
+		channel?: string
+		country?: string
+
 		abstract fetchNetworkInfo(): Promise<void>
 
 		clone(): ISystemInfo {

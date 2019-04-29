@@ -618,6 +618,24 @@ namespace GDK {
 			}
 			return this._m.systemInfo.versionName;
 		}
+		/**
+		 * 渠道ID
+		 */
+		get channel(): string {
+			if (!this.checkModuleAttr("systemInfo", "channel")) {
+				return undefined;
+			}
+			return this._m.systemInfo.channel;
+		}
+		/**
+		 * 地区国家
+		 */
+		get country(): string {
+			if (!this.checkModuleAttr("systemInfo", "country")) {
+				return undefined;
+			}
+			return this._m.systemInfo.country;
+		}
 
 		/**
 		 * 刷新网络状况信息
