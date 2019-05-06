@@ -1,8 +1,20 @@
 
 namespace GDK {
+	export enum LocalPushAvailableStage {
+		/**
+		 * 允许后台通知
+		 */
+		BACKGROUND = 1,
+		/**
+		 * 允许前台通知
+		 */
+		FOREGROUND = 2,
+	}
+
 	export class LocalPushBundle {
 		/**
-		 * 推送ID
+		 * 推送ID，最好填纯数字
+		 * - 相同id的通知会被覆盖更新
 		 */
 		identifier: string = null
 		/**
@@ -11,6 +23,7 @@ namespace GDK {
 		title?: string = '标题'
 		/**
 		 * 推送副标题
+		 * - 某些手机不显示副标题
 		 */
 		subtitle?: string = ''
 		/**
@@ -56,6 +69,13 @@ namespace GDK {
 		 * 呼吸灯提示（仅安卓）
 		 */
 		enableLightTip?: boolean = false
+
+		/**
+		 * 设置某些情景推送权限
+		 * - 只支持安卓
+		 * - 可以叠加，比如：info.availableStage=LocalPushAvailableStage.BACKGROUND | LocalPushAvailableStage.FOREGROUND
+		 */
+		availableStage?: number = LocalPushAvailableStage.BACKGROUND
 	}
 
 	/**
