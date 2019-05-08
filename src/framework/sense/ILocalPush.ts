@@ -76,6 +76,12 @@ namespace GDK {
 		 * - 可以叠加，比如：info.availableStage=LocalPushAvailableStage.BACKGROUND | LocalPushAvailableStage.FOREGROUND
 		 */
 		availableStage?: number = LocalPushAvailableStage.BACKGROUND
+
+		/**
+		 * 支持长文本完整显示
+		 * - 目前仅安卓生效
+		 */
+		isBigText?: boolean = false
 	}
 
 	/**
