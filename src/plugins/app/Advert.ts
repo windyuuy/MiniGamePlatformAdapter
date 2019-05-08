@@ -89,17 +89,23 @@ namespace AppGDK {
 			if (available) {
 				// load() promise 回调
 				let onLoadedCallbacks = this._onLoadedCallbacks
+				// 清空避免重复 promise
 				this._onLoadedCallbacks = []
 				for (let f of onLoadedCallbacks) {
 					try {
 						f()
 					} catch (e) {
-						devlog.error('广告已加载回调异常：', e)
+						devlog.error('广告已加载 promise 回调异常：', e)
 					}
 				}
-				// onLoaded 回调
-				for (let f of this._loadFuncList) {
-					f()
+
+				try {
+					// onLoaded 回调
+					for (let f of this._loadFuncList) {
+						f()
+					}
+				} catch (e) {
+					devlog.error('广告 onLoad 回调中发生异常:', e)
 				}
 			}
 		}
@@ -110,6 +116,9 @@ namespace AppGDK {
 			this._available = available
 			if (this._available) {
 				ret.success(undefined)
+
+				// 和微信一致，每次 load 都调用 onLoad
+				this.onRewardedVideoAvailabilityChanged(this._available)
 			} else {
 				this._onLoadedCallbacks.push(() => {
 					ret.success(undefined);
