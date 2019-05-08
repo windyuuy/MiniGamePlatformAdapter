@@ -744,12 +744,9 @@ namespace GDK {
 		 * @param callback
 		 */
 		getSafeArea?(
-			callback: (data: {
-				left: number;
-				right: number;
-				top: number;
-				bottom: number;
-			}) => void
+			callback: (
+				data: { left: number; right: number; top: number; bottom: number }
+			) => void
 		): void {
 			if (!this.checkModuleAttr("apiSystem", "getSafeArea", "function")) {
 				return undefined;

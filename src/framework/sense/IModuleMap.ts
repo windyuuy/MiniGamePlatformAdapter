@@ -30,7 +30,7 @@ namespace GDK {
 		auth: IAuth
 		/** 硬件附加功能管理 */
 		hardware: IHardware
-		/**原生统计日志 */
+		/** 原生统计日志 */
 		log: ILog
 		/** 本地推送通知 */
 		localPush: ILocalPush

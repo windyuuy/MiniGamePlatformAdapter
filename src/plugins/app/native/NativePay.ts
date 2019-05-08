@@ -19,10 +19,20 @@ namespace AppGDK {
 		/**
 		 * @param sku: 商品id
 		 */
+		async initPay(params: {}): Promise<void> {
+			return nativeHelper.callAction("paywrapper:initPay", params)
+		}
+
+		/**
+		 * @param sku: 商品id
+		 */
 		async requestPay(params: { sku: string, price: number, count: number, currency: string }): Promise<NativePayResult> {
 			return nativeHelper.callAction("paywrapper:requestPay", params)
 		}
 
+		/**
+		 * 消耗商品
+		 */
 		async consumePurchase?(params: { purchaseToken: string }): Promise<GDK.ConsumePurchaseResult> {
 			return nativeHelper.callAction("paywrapper:consumePurchase", params)
 		}

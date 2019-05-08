@@ -8,6 +8,9 @@ namespace GDK {
 		currency: string,
 	}
 
+	/**
+	 * 埋点统计
+	 */
 	export interface ILog {
 		/**
 		 * 提交日志
