@@ -526,13 +526,14 @@ ${code}
 			declareLines.push(line)
 		}
 		if (declareLines.length > 0) {
-			declareLines.unshift('- 参数定义')
+			declareLines.unshift('- ***参数定义***')
 		}
 
 		const docs = moduleDocs[moduleName] ? moduleDocs[moduleName] : moduleDocs[moduleName] = []
 		// template
+		// 接口声明行
 		const line =
-			`### **${interfaceLine}**
+			`### ** * ${interfaceLine}**
 ${comment}
 ${declareLines.join('\n')}
 `
