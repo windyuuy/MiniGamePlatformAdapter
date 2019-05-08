@@ -47,6 +47,9 @@ namespace GDK {
 		errMsg: string
 		errCode: number
 	}
+	export class InterstitialAdOnErrorParam extends RewardedVideoAdOnErrorParam {
+	}
+
 	export interface IRewardedVideoAd {
 		//属性
 		adUnitId: string

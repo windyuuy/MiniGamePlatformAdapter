@@ -133,6 +133,7 @@ namespace AppGDK {
 
 			let waitting = true
 			const ret = new GDK.RPromise<void>()
+			// 5秒没有播出来，那么就报超时错误
 			setTimeout(() => {
 				if (!waitting) {
 					return
@@ -200,35 +201,35 @@ namespace AppGDK {
 			this.api = api
 
 			SDKProxy.nativeAdvert.onInterstitialAdReady(() => {
-				this.onRewardedVideoAvailabilityChanged(true)
+				this.onInterstitialAvailabilityChanged(true)
 			})
 			SDKProxy.nativeAdvert.onInterstitialAdLoadFailed((error) => {
 				this.onInterstitialAdLoadFailed(error)
 			})
 
 			SDKProxy.nativeAdvert.onInterstitialAdRewarded((data) => {
-				this.onRewardedVideoAdRewarded()
+				this.onInterstitialAdRewarded()
 			})
 			SDKProxy.nativeAdvert.onInterstitialAdClosed(() => {
 				// 避免可能的黑屏
 				setTimeout(() => {
-					this.onRewardedVideoAdClosed()
+					this.onInterstitialAdClosed()
 				}, 0)
 			})
 
 			SDKProxy.nativeAdvert.onInterstitialAdOpened(() => {
-				this.onRewardedVideoAdOpened()
+				this.onInterstitialAdOpened()
 			})
 			SDKProxy.nativeAdvert.onInterstitialAdShowFailed((error) => {
-				this.onRewardedVideoAdShowFailed(error)
+				this.onInterstitialAdShowFailed(error)
 			})
 			SDKProxy.nativeAdvert.onInterstitialAdShowSucceeded(() => {
-				this.onRewardedVideoAdShowSucceeded()
+				this.onInterstitialAdShowSucceeded()
 			})
 		}
 
 		protected onReceivedError(error: IronSrc.IronSourceError) {
-			let err = new GDK.RewardedVideoAdOnErrorParam()
+			let err = new GDK.InterstitialAdOnErrorParam()
 			err.errCode = error.errorCode
 			err.errMsg = error.errorMsg
 			for (let f of this._errorFuncList) {
@@ -241,10 +242,10 @@ namespace AppGDK {
 		}
 
 		protected _isEnded: boolean = false
-		onRewardedVideoAdRewarded() {
+		onInterstitialAdRewarded() {
 			this._isEnded = true
 		}
-		onRewardedVideoAdClosed() {
+		onInterstitialAdClosed() {
 			this._isShowing = false
 
 			let isEnded = this._isEnded
@@ -259,14 +260,14 @@ namespace AppGDK {
 
 			setTimeout(async () => {
 				// ironsource广告只要第一次加载到，后面如果没有加载
-				let { available } = await SDKProxy.nativeAdvert.isRewardedVideoAvailable()
-				this.onRewardedVideoAvailabilityChanged(available)
+				let { available } = await SDKProxy.nativeAdvert.isInterstitialReady()
+				this.onInterstitialAvailabilityChanged(available)
 			}, 0)
 		}
 
 		protected _onLoadedCallbacks: Function[] = []
 		protected _available: boolean = false
-		protected onRewardedVideoAvailabilityChanged(available: boolean) {
+		protected onInterstitialAvailabilityChanged(available: boolean) {
 			this._available = available
 			if (available) {
 				// load() promise 回调
@@ -287,7 +288,7 @@ namespace AppGDK {
 		}
 
 		onInterstitialAdLoadFailed(error) {
-			this.onRewardedVideoAvailabilityChanged(false)
+			this.onInterstitialAvailabilityChanged(false)
 			this.onReceivedError(error)
 		}
 
@@ -307,11 +308,11 @@ namespace AppGDK {
 			return ret.promise
 		}
 
-		onRewardedVideoAdOpened() {
+		onInterstitialAdOpened() {
 
 		}
 
-		onRewardedVideoAdShowSucceeded() {
+		onInterstitialAdShowSucceeded() {
 			let onShownCallbacks = this._onShownCallbacks
 			this._onShownCallbacks = []
 			for (let ret of onShownCallbacks) {
@@ -323,7 +324,7 @@ namespace AppGDK {
 			}
 		}
 
-		onRewardedVideoAdShowFailed(error: IronSrc.IronSourceError) {
+		onInterstitialAdShowFailed(error: IronSrc.IronSourceError) {
 			this._isShowing = false
 
 			let onShownCallbacks = this._onShownCallbacks
@@ -357,7 +358,7 @@ namespace AppGDK {
 			this._loadFuncList.splice(this._loadFuncList.indexOf(callback), 1)
 		}
 
-		onError(callback: (res: GDK.RewardedVideoAdOnErrorParam) => void) {
+		onError(callback: (res: GDK.InterstitialAdOnErrorParam) => void) {
 			this._errorFuncList.push(callback)
 		}
 		offError(callback: Function) {
