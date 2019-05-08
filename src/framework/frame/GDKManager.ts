@@ -39,6 +39,9 @@ namespace GDK {
 			return api;
 		}
 
+		/**
+		 * 设置默认插件
+		 */
 		setDefaultGdk(name: string) {
 			const api: UserAPI = this._pluginMap[name]
 			slib.assert(!!api, `invalid api instance [${name}]`)
@@ -53,13 +56,20 @@ namespace GDK {
 			return slib.assert(this._pluginMap[name], `plugin [${name}] not exist`)
 		}
 
+		/**
+		 * 传入配置并初始化
+		 */
 		initWithGDKConfig(info: GDKConfig) {
 			for (let k in this._pluginMap) {
 				const plugin = this.getPlugin(k)
+				// 初始化插件内各个模块
 				plugin['_initWithConfig'](info)
 			}
 		}
 
+		/**
+		 * 创建插件对象
+		 */
 		initializeGDKInstance() {
 			for (let k in this._configMap) {
 				const plugin = this.genGdk(new this._configMap[k].register)
@@ -70,6 +80,9 @@ namespace GDK {
 
 	export const gdkManager = new GDKManager()
 
+	/**
+	 * 初始入口
+	 */
 	class FakeUserApi {
 		get pluginName(): string {
 			return defaultGDKName
