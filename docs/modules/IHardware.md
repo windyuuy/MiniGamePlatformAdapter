@@ -1,6 +1,6 @@
-### **vibration: IVibration**
+### ** * vibration: IVibration**
 - 振动器
-- 参数定义
+- ***参数定义***
 
 ```typescript
 type IVibration = {
@@ -17,9 +17,9 @@ type IVibration = {
 ```
 
 
-### **performance: IPerformance**
+### ** * performance: IPerformance**
 - 性能
-- 参数定义
+- ***参数定义***
 
 ```typescript
 type IPerformance = {
@@ -31,9 +31,9 @@ type IPerformance = {
 ```
 
 
-### **screen: IScreen**
+### ** * screen: IScreen**
 - 屏幕亮度
-- 参数定义
+- ***参数定义***
 
 ```typescript
 type IScreen = {
@@ -45,9 +45,9 @@ type IScreen = {
 ```
 
 
-### **gyroscope: IGyroscope**
+### ** * gyroscope: IGyroscope**
 - 陀螺仪
-- 参数定义
+- ***参数定义***
 
 ```typescript
 type IGyroscope = {
@@ -59,9 +59,9 @@ type IGyroscope = {
 ```
 
 
-### **compass: ICompass**
+### ** * compass: ICompass**
 - 罗盘
-- 参数定义
+- ***参数定义***
 
 ```typescript
 type ICompass = {
@@ -73,9 +73,9 @@ type ICompass = {
 ```
 
 
-### **battery: IBattery**
+### ** * battery: IBattery**
 - 电池
-- 参数定义
+- ***参数定义***
 
 ```typescript
 type IBattery = {
@@ -86,9 +86,9 @@ type IBattery = {
 ```
 
 
-### **accelerometer: IAccelerometer**
+### ** * accelerometer: IAccelerometer**
 - 加速计
-- 参数定义
+- ***参数定义***
 
 ```typescript
 type IAccelerometer = {
@@ -100,11 +100,11 @@ type IAccelerometer = {
 ```
 
 
-### **gravity: IGravity**
+### ** * gravity: IGravity**
 - 设备方向
 - 转屏相关
 - 重力感应
-- 参数定义
+- ***参数定义***
 
 ```typescript
 type IGravity = {
@@ -134,9 +134,9 @@ type IGravity = {
 ```
 
 
-### **screenTouch: IScreenTouch**
+### ** * screenTouch: IScreenTouch**
 - 触屏
-- 参数定义
+- ***参数定义***
 
 ```typescript
 type IScreenTouch = {

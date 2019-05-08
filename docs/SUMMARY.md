@@ -15,3 +15,5 @@
 * [13.全局错误处理](modules/IExcept.md)
 * [14.用户授权相关](modules/IAuth.md)
 * [15.硬件附加功能管理](modules/IHardware.md)
+* [16.原生统计日志](modules/ILog.md)
+* [17.本地推送通知](modules/ILocalPush.md)

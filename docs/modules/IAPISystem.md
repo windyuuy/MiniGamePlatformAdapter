@@ -1,6 +1,6 @@
-### **navigateToApp(params: AppCallUpParams): Promise**
+### ** * navigateToApp(params: AppCallUpParams): Promise**
 - 跳转游戏
-- 参数定义
+- ***参数定义***
 
 ```typescript
 type AppCallUpParams = {
@@ -30,42 +30,42 @@ type AppCallUpParams = {
 ```
 
 
-### **exitProgram(): Promise**
+### ** * exitProgram(): Promise**
 - 退出当前游戏
 
 
-### **onShow(callback: (data: any) => void): void**
+### ** * onShow(callback: (data: any) => void): void**
 - onShow(callback: (data: any) => void): void
 
 
-### **offShow(callback: Function): void**
+### ** * offShow(callback: Function): void**
 - offShow(callback: Function): void
 
 
-### **onHide(callback: Function): void**
+### ** * onHide(callback: Function): void**
 - onHide(callback: Function): void
 
 
-### **offHide(callback: Function): void**
+### ** * offHide(callback: Function): void**
 - offHide(callback: Function): void
 
 
-### **updateProgramForce(): Promise**
+### ** * updateProgramForce(): Promise**
 - 强制更新
 
 
-### **setEnableDebug(res: { enableDebug: boolean }): Promise**
+### ** * setEnableDebug(res: { enableDebug: boolean }): Promise**
 - 设置是否打开调试开关。此开关对正式版也能生效。
 
 
-### **setFPS(fps: number): void**
+### ** * setFPS(fps: number): void**
 - 设置帧率
 	- 可能和cocos的会冲突
 
 
-### **clipboard: IClipboard**
+### ** * clipboard: IClipboard**
 - 剪切板
-- 参数定义
+- ***参数定义***
 
 ```typescript
 type IClipboard = {
@@ -74,4 +74,21 @@ type IClipboard = {
 }
 
 ```
+
+
+### ** * getSafeArea(callback: ParamType): void**
+获取屏幕的安全区域，单位像素
+@param callback
+- ***参数定义***
+
+```typescript
+type ParamType = (
+	data: { left: number; right: number; top: number; bottom: number }
+) => void
+
+```
+
+
+### ** * nativeVersion: number**
+- 原生版本号，具体看C++
 

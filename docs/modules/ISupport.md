@@ -1,28 +1,32 @@
-### **apiPlatform: "wechatgame" | "browser" | "qqplay" | "unknown" | string**
-- api平台名称
+### ** * apiPlatform: string**
+api平台名称
+* browser 浏览器
+* native APP原生
+* wechatgame 微信
+* qqplay QQ玩一玩
+* unknown 未知平台
 
 
-### **pluginName: string**
-- 插件名，如：
-```
-develop(网页版)
-wechat(微信)
-qqplay(玩一玩)
-```
+### ** * pluginName: string**
+插件名
+* develop 网页开发测试
+* wechat 微信
+* qqplay 玩一玩
+* app 原生APP
 
 
-### **supportShareTickets: boolean**
+### ** * supportShareTickets: boolean**
 - 是否支持群分享
 
 
-### **requireSubDomainRank: boolean**
+### ** * requireSubDomainRank: boolean**
 - 是否需要支持子域
 
 
-### **requireAuthorize: boolean**
+### ** * requireAuthorize: boolean**
 - 是否需要鉴权认证
 
 
-### **apiNameLocale: string**
+### ** * apiNameLocale: string**
 - api本地化名字
 

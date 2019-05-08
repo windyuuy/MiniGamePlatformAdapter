@@ -1,6 +1,6 @@
-### **payPurchase(item: PayItemInfo,options: PayOptions): Promise**
+### ** * payPurchase(item: PayItemInfo,options: PayOptions): Promise**
 - 调起支付
-- 参数定义
+- ***参数定义***
 
 ```typescript
 type PayOptions = {
@@ -43,6 +43,10 @@ type PayOptions = {
 	 * - 客服跳转支付，会话内消息卡片图片路径
 	 */
 	imagePath?: string
+	/**
+	 * 自定义附加参数
+	 */
+	customExtra?: string
 }
 
 ```
@@ -70,6 +74,8 @@ type PayItemInfo = {
 	goodsId: number = 0
 	/** 后台二级货币ID */
 	coinId?: number = 0
+	/** 第三方后台商品id，原生app版该项必传 */
+	productId?: string
 	/** 支付金额 */
 	money: number = 0
 	/** 购买商品数量 */
@@ -78,6 +84,42 @@ type PayItemInfo = {
 	title: string = ""
 	/** 支付货币单位 */
 	currencyUnit?: "CNY" | "Dollor" = "CNY"
+	/** oppo包名 */
+	pkgName?: string
+	/** oppo登录返回的token */
+	token?: string
+	/** 订单创建时间 */
+	timestamp?: string
+	/** 支付签名 */
+	paySign?: string
+	/** oppo快游戏返回的订单号 */
+	orderNo?: string
+	/** 游戏在oppo快游戏的id */
+	oppoId?: string
+}
+
+```
+
+
+### ** * consumePurchase(params: ConsumePurchaseParams): Promise**
+- 消耗商品
+- ***参数定义***
+
+```typescript
+type ConsumePurchaseParams = {
+	purchaseToken: string
+}
+
+```
+
+
+### ** * queryItemInfo(params: PayQueryItemInfoParams): Promise**
+- 查询未消耗商品信息
+- ***参数定义***
+
+```typescript
+type PayQueryItemInfoParams = {
+	productId: string
 }
 
 ```
