@@ -96,7 +96,7 @@ namespace WechatGDK {
 						wx.showModal(
 							{
 								title: "提示",
-								content: "已更新到新版本了呦~",
+								content: "新版本已经下载完成！",
 								confirmText: "重启游戏",
 								cancelText: "重启游戏",
 								showCancel: false, success: (res) => {
