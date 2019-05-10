@@ -101,6 +101,16 @@ namespace AppGDK {
 			return nativeHelper.callAction("ironsrc:IronSource.shouldTrackNetworkState", params)
 		}
 
+		async loadRewardVideoAd(): Promise<{}> {
+			const key = "ironsrc:IronSource.loadRewardVideoAd"
+			if (nativeHelper.checkActionExist(key)) {
+				return nativeHelper.callAction<{}>(key, {})
+			} else {
+				console.log(`skip call <${key}> function, which not implement for current sdk version`)
+			}
+			return {}
+		}
+
 		async isRewardedVideoAvailable() {
 			return nativeHelper.callAction<{ available: boolean }>("ironsrc:IronSource.isRewardedVideoAvailable", {})
 		}

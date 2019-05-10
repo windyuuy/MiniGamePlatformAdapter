@@ -123,6 +123,7 @@ namespace AppGDK {
 				this._onLoadedCallbacks.push(() => {
 					ret.success(undefined);
 				})
+				await SDKProxy.nativeAdvert.loadRewardVideoAd()
 			}
 			return ret.promise
 		}

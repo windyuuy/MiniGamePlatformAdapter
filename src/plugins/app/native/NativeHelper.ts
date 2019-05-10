@@ -1,6 +1,14 @@
 namespace AppGDK {
 	export class NativeHelper {
-		async callAction<T=void>(key: string, params: Object): Promise<T> {
+
+		checkActionExist(key: string): boolean {
+			if (gdkjsb.nativeVersion && gdkjsb.nativeVersion >= 1) {
+				return gdkjsb.bridge.checkActionExist(key)
+			}
+			return false
+		}
+
+		async callAction<T = void>(key: string, params: Object): Promise<T> {
 			return new Promise<T>((resolve, reject) => {
 				gdkjsb.bridge.callAction(key, JSON.stringify(params), (data) => {
 					resolve(JSON.parse(data || null))
