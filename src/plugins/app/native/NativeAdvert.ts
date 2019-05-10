@@ -103,12 +103,12 @@ namespace AppGDK {
 
 		async loadRewardVideoAd(): Promise<{}> {
 			const key = "ironsrc:IronSource.loadRewardVideoAd"
-			if (nativeHelper.checkActionExist(key)) {
-				return nativeHelper.callAction<{}>(key, {})
-			} else {
-				console.log(`skip call <${key}> function, which not implement for current sdk version`)
-			}
-			return {}
+			// if (nativeHelper.checkActionExist(key)) {
+			// 	return nativeHelper.callAction<{}>(key, {})
+			// } else {
+			// 	console.log(`skip call <${key}> function, which not implement for current sdk version`)
+			// }
+			return nativeHelper.safeCallAction<{}>(key, {}) || {}
 		}
 
 		async isRewardedVideoAvailable() {
