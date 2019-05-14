@@ -87,7 +87,12 @@ namespace GDK {
 		gameType: number
 	}
 	export class GDKAPPConfig extends GDKConfigBase {
-
+		/**
+		 * 广告平台
+		 * - ironsource
+		 * - adtiming
+		 */
+		advertPlatform: "ironsource" | "adtiming" = "ironsource"
 	}
 
 

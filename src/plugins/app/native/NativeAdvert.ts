@@ -214,5 +214,14 @@ namespace AppGDK {
 			return nativeHelper.onEvent("ironsrc:onInterstitialAdShowFailed", callback)
 		}
 
+
+		/**
+		  * 广告平台选择
+		 */
+		async advertPlatformSelect(platform: string) {
+			if (gdkjsb.bridge == undefined) return;
+			return nativeHelper.safeCallAction("advertPlatformSelect", { message: platform });
+		}
+
 	}
 }
