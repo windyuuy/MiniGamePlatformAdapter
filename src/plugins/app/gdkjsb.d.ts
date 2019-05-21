@@ -65,6 +65,16 @@ declare namespace gdkjsb {
 	export var country: string
 
 	/**
+	 * 安装时间
+	 */
+	export var installTime: number
+
+	/**
+	 * imei 信息
+	 */
+	export var imei: string
+
+	/**
 	 * 显示对话框
 	 * @param content 
 	 * @param title 
