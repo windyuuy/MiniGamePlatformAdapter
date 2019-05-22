@@ -478,10 +478,10 @@ namespace AppGDK {
 		api?: GDK.UserAPI
 		async initWithConfig?(_info: GDK.GDKConfig) {
 
-			let info = _info as GDK.GDKAPPConfig
+			let info = _info //as GDK.GDKAPPConfig
 			// 选择广告平台
-			if (info.advertPlatform != undefined) {
-				await SDKProxy.nativeAdvert.advertPlatformSelect(info.advertPlatform)
+			if (info.app && info.app.advertPlatform != undefined) {
+				await SDKProxy.nativeAdvert.advertPlatformSelect(info.app.advertPlatform)
 			} else {
 				await SDKProxy.nativeAdvert.advertPlatformSelect("ironsource")
 			}
