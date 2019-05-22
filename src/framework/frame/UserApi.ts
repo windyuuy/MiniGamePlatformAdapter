@@ -641,6 +641,24 @@ namespace GDK {
 			}
 			return this._m.systemInfo.country;
 		}
+		/**
+		 * 安装时间
+		 */
+		get installTime(): number {
+			if (!this.checkModuleAttr("systemInfo", "installTime")) {
+				return undefined;
+			}
+			return this._m.systemInfo.installTime;
+		}
+		/**
+		 * imei
+		 */
+		get imei(): string {
+			if (!this.checkModuleAttr("systemInfo", "imei")) {
+				return undefined;
+			}
+			return this._m.systemInfo.imei;
+		}
 
 		/**
 		 * 刷新网络状况信息
@@ -749,9 +767,12 @@ namespace GDK {
 		 * @param callback
 		 */
 		getSafeArea?(
-			callback: (
-				data: { left: number; right: number; top: number; bottom: number }
-			) => void
+			callback: (data: {
+				left: number;
+				right: number;
+				top: number;
+				bottom: number;
+			}) => void
 		): void {
 			if (!this.checkModuleAttr("apiSystem", "getSafeArea", "function")) {
 				return undefined;
