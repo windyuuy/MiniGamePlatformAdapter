@@ -15,6 +15,7 @@ const tempDir = './temp'
 const ossFolderLibTest = 'libs-test'
 const ossFolderLibNext = 'libs-next'
 const ossFolderLibPub = 'libs'
+const ossFolderGDKDocs = 'gdk'
 
 const execon = (dir, fn) => {
 	const pwd = path.resolve(process.cwd())
@@ -167,6 +168,22 @@ gulp.task("uploadVersion", async () => {
 	console.log("上传完成", "../dist/", list)
 })
 
+gulp.task("uploadDocs", async () => {
+	let client = getOssClient();
+
+	let docdir = "../docs/_book/"
+	let list = glob.sync(docdir+'**/*')
+	await Promise.all(list.map(n => {
+		n=n.substring(docdir.length)
+		if (fs.statSync(docdir + n).isDirectory()){
+			return
+		}
+		console.log(`${ossFolderGDKDocs}/` + n, "<-", docdir + n)
+		return client.put(`${ossFolderGDKDocs}/` + n, docdir + n)
+	}))
+	console.log("上传完成", docdir, list)
+})
+
 gulp.task('buildapi', buildApi)
 gulp.task('gendoc', genDoc)
 
@@ -178,3 +195,4 @@ gulp.task('builddoc', gulp.series("gendoc", "convdoc"))
 
 gulp.task("publish", gulp.series("build", "uploadVersion"));
 gulp.task("pubOne", gulp.series("publish", "pubNext", "pubPub", "verifyUpload"))
+gulp.task("pubDocs", gulp.series("builddoc", "uploadDocs"))
