@@ -16,8 +16,8 @@ const writeJsonToFile = (srcfile, json) => {
 
 function makeBuildInfo() {
 	let version = loadJsonFromFile('./build.json')
-	version.buildno++
-	writeJsonToFile('./build.json', version)
+	// version.buildno++
+	// writeJsonToFile('./build.json', version)
 
 	let info = `version: ${version.version}-build-${version.buildno}, timestamp: ${Date.now()}, date: ${new Date()}`
 	return info
