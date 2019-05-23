@@ -9,7 +9,7 @@ namespace DevelopGDK.Common {
 	 */
 	export let getServerTime: () => Date;
 
-	export const devlog = new slib.Log({ tags: ["[gdk]", "[wechat]"] });
-	export const paylog = new slib.Log({ tags: ["[gdk]", "[wepay]"] });
+	export const devlog = new slib.Log({ tags: ["[gdk]", "[develop]"] });
+	export const paylog = new slib.Log({ tags: ["[gdk]", "[devpay]"] });
 
 }
