@@ -133,6 +133,16 @@ namespace GDK {
 		 */
 		country?: string
 
+		/**
+		 * 安装时间
+		 */
+		installTime?: number
+
+		/**
+		 * imei
+		 */
+		imei?: string
+
 		init?()
 
 		/**

@@ -32,6 +32,10 @@ namespace GDK {
 		channel?: string
 		country?: string
 
+		installTime?: number
+
+		imei?: string
+
 		abstract fetchNetworkInfo(): Promise<void>
 
 		clone(): ISystemInfo {

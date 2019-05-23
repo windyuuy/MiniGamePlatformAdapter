@@ -476,7 +476,16 @@ namespace AppGDK {
 	export class Advert implements GDK.IAdvert {
 
 		api?: GDK.UserAPI
-		async init?(data?: any) {
+		async initWithConfig?(_info: GDK.GDKConfig) {
+
+			let info = _info //as GDK.GDKAPPConfig
+			// 选择广告平台
+			if (info.app && info.app.advertPlatform != undefined) {
+				await SDKProxy.nativeAdvert.advertPlatformSelect(info.app.advertPlatform)
+			} else {
+				await SDKProxy.nativeAdvert.advertPlatformSelect("ironsource")
+			}
+
 			await SDKProxy.nativeAdvert.setRewardedVideoListener()
 			if (this.supportInterstitial) {
 				await SDKProxy.nativeAdvert.setInterstitialListener()
