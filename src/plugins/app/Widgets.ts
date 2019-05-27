@@ -68,7 +68,7 @@ namespace AppGDK {
 					r.cancel = isOk == false
 					r.result = result
 					resolve(r);
-				}, object.defaultValue)
+				}, object.defaultValue || "")
 			})
 		}
 
