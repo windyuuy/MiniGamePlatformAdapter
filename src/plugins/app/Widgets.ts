@@ -52,6 +52,26 @@ namespace AppGDK {
 			})
 		}
 
+		showPrompt(object: GDK.ShowPromptOptions): Promise<GDK.ShowPromptResult> {
+			return new Promise<GDK.ShowPromptResult>((resolve, reject) => {
+				if (gdkjsb.showPrompt == null) {
+					let r = new GDK.ShowPromptResult()
+					r.cancel = true;
+					r.confirm = false;
+					r.result = null;
+					resolve(r);
+					return;
+				}
+				gdkjsb.showPrompt(object.content, object.title || "友情提示", object.okLabel || "确定", object.cancelLabel || "取消", (isOk, result) => {
+					let r = new GDK.ShowPromptResult()
+					r.confirm = isOk == true
+					r.cancel = isOk == false
+					r.result = result
+					resolve(r);
+				}, object.defaultValue)
+			})
+		}
+
 		async hideLaunchingView(): Promise<void> {
 			SDKProxy.hideLaunchingView()
 		}

@@ -71,6 +71,10 @@ namespace WechatGDK {
 			return ret.promise
 		}
 
+		showPrompt(object: GDK.ShowPromptOptions): Promise<GDK.ShowPromptResult> {
+			return null;
+		}
+
 		async hideLaunchingView(): Promise<void> {
 
 		}

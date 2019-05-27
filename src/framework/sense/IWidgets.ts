@@ -16,6 +16,26 @@ namespace GDK {
 		 */
 		extra?: any
 	}
+	export class ShowPromptResult {
+		/**
+		 * 点击了确定按钮
+		 */
+		confirm: boolean
+		/**
+		 * 点击了取消按钮
+		 */
+		cancel: boolean
+
+		/**
+		 * 输入结果
+		 */
+		result: string
+
+		/**
+		 * 原始数据
+		 */
+		extra?: any
+	}
 
 	export class ShowAlertResult {
 		/**
@@ -70,6 +90,34 @@ namespace GDK {
 		cancelLabel?: string;
 	}
 
+	export interface ShowPromptOptions {
+
+		/**
+		 * 提示的标题
+		 */
+		title: string;
+
+		/**
+		 * 提示的内容
+		 */
+		content: string;
+
+		/**
+		 * 确认按钮文字
+		 */
+		okLabel?: string;
+
+		/**
+		 * 取消按钮文字
+		 */
+		cancelLabel?: string;
+
+		/**
+		 * 默认值
+		 */
+		defaultValue?: string;
+	}
+
 	export interface ShowAlertOptions {
 
 		/**
@@ -109,6 +157,13 @@ namespace GDK {
 		 * - 有`确定`和`取消`两个按钮
 		 */
 		showConfirm(object: ShowConfirmOptions): Promise<ShowConfirmResult>
+
+		/**
+		 * 显示模态对话框
+		 * - 有`确定`和`取消`两个按钮
+		 */
+		showPrompt(object: ShowPromptOptions): Promise<ShowPromptResult>
+
 		/**
 		 * 显示模态对话框
 		 * - 只有`确定`一个按钮

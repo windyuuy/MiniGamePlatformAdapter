@@ -767,12 +767,9 @@ namespace GDK {
 		 * @param callback
 		 */
 		getSafeArea?(
-			callback: (data: {
-				left: number;
-				right: number;
-				top: number;
-				bottom: number;
-			}) => void
+			callback: (
+				data: { left: number; right: number; top: number; bottom: number }
+			) => void
 		): void {
 			if (!this.checkModuleAttr("apiSystem", "getSafeArea", "function")) {
 				return undefined;
@@ -990,6 +987,16 @@ namespace GDK {
 				return this.createNonePromise("[widgets.showConfirm]");
 			}
 			return this._m.widgets.showConfirm(object);
+		}
+		/**
+		 * 显示模态对话框
+		 * - 有`确定`和`取消`两个按钮
+		 */
+		showPrompt(object: ShowPromptOptions): Promise<ShowPromptResult> {
+			if (!this.checkModuleAttr("widgets", "showPrompt", "function")) {
+				return this.createNonePromise("[widgets.showPrompt]");
+			}
+			return this._m.widgets.showPrompt(object);
 		}
 		/**
 		 * 显示模态对话框

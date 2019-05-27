@@ -54,6 +54,10 @@ namespace OPPOGDK {
 			return ret.promise
 		}
 
+		showPrompt(object: GDK.ShowPromptOptions): Promise<GDK.ShowPromptResult> {
+			return null;
+		}
+
 		hideLaunchingView(): Promise<void> { return }
 	}
 }

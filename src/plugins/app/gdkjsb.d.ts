@@ -93,6 +93,17 @@ declare namespace gdkjsb {
 	 */
 	export function showConfirm(content: string, title: string, okLabel: string, cancelLabel: string, callback: (isOk: boolean) => void);
 
+	/**
+	 * 显示输入框
+	 * @param content 
+	 * @param title 
+	 * @param okLabel 
+	 * @param cancelLabel 
+	 * @param callback 
+	 * @param defaultValue
+	 */
+	export function showPrompt(content: string, title: string, okLabel: string, cancelLabel: string, callback: (isOk: boolean, result: string) => void, defaultValue: string);
+
 	export class bridge {
 		/**
 		 * 注册action

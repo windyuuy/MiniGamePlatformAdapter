@@ -45,6 +45,19 @@ namespace DevelopGDK {
 			})
 		}
 
+		showPrompt(object: GDK.ShowPromptOptions): Promise<GDK.ShowPromptResult> {
+			return new Promise<GDK.ShowPromptResult>((resolve, reject) => {
+				setTimeout(() => {
+					let result = prompt(object.title + ";" + object.content, object.defaultValue)
+					let r = new GDK.ShowPromptResult()
+					r.confirm = result != null;
+					r.cancel = result == null;
+					r.result = result;
+					resolve(r);
+				}, 1000)
+			})
+		}
+
 		async hideLaunchingView(): Promise<void> {
 
 		}
