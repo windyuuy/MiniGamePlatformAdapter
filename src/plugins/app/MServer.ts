@@ -68,6 +68,11 @@ namespace AppGDK {
 			 **/
 			followGzh: 0 | 1
 
+			/**
+			 * app端的测试证书
+			 */
+			qa?: string
+
 		}
 	}
 

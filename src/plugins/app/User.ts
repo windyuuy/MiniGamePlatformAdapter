@@ -58,6 +58,14 @@ namespace AppGDK {
 					extra: data.data,
 				})
 
+				//qa证书
+				if (data.data.qa && data.data.qa != null) {
+					//保存证书
+					gdkjsb.makeTestCertificate && gdkjsb.makeTestCertificate(data.data.qa);
+				} else {
+					//清除证书
+					gdkjsb.clearTestCerificate && gdkjsb.clearTestCerificate();
+				}
 
 			} else {
 				loginRet.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN, {

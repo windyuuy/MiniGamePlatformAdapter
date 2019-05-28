@@ -104,6 +104,17 @@ declare namespace gdkjsb {
 	 */
 	export function showPrompt(content: string, title: string, okLabel: string, cancelLabel: string, callback: (isOk: boolean, result: string) => void, defaultValue: string);
 
+	/**
+	 * 将qa证书保存至本地
+	 * @param cert 
+	 */
+	export function makeTestCertificate(cert: string);
+
+	/**
+	 * 清除本地的QA证书
+	 */
+	export function clearTestCerificate();
+
 	export class bridge {
 		/**
 		 * 注册action
