@@ -30,6 +30,8 @@ namespace GDK {
 			token: string,//登陆token
 			heart: number,//心数量
 			gametoken: string,
+			qa?: string,//测试证书
+			ad?: string,//服务器需要日志附带的参数
 		}
 	}
 
