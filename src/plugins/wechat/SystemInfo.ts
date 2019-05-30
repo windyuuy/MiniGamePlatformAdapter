@@ -68,6 +68,9 @@ namespace WechatGDK {
 		networkType: string
 		networkClass: number
 
+		deviceId?: string
+		gameDeviceId?: string
+
 		fetchNetworkInfo() {
 			const ret = new GDK.RPromise<void>()
 			wx.getNetworkType({
@@ -96,6 +99,9 @@ namespace WechatGDK {
 		}
 
 		init() {
+
+			wx.getUserInfo({})
+
 			const info = wx.getSystemInfoSync()
 			slib.JSHelper.merge(info, this)
 			this.fetchNetworkInfo()
