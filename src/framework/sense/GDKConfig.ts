@@ -119,8 +119,9 @@ namespace GDK {
 		 * 广告平台
 		 * - ironsource
 		 * - adtiming
+		 * - gdtadvert 腾讯广点通
 		 */
-		advertPlatform: "ironsource" | "adtiming" = "ironsource"
+		advertPlatform: "ironsource" | "adtiming" | "gdtadvert" = "ironsource"
 	}
 
 
