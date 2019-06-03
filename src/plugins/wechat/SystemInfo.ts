@@ -107,6 +107,11 @@ namespace WechatGDK {
 			this.fetchNetworkInfo()
 			this.updateNetworkInfo(this.networkType)
 
+			//修改 language 和 country 的用途
+			this['_country'] = this.country
+			this.country = this.language.split("_")[1]
+			this.language = this.language.split("_")[0]
+
 			devlog.info('wx systeminfo:', this)
 
 			wx.onNetworkStatusChange((res) => {
