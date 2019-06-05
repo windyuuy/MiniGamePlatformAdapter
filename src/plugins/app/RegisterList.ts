@@ -16,5 +16,6 @@ namespace AppGDK {
 		APISystem = APISystem
 		Log = Log
 		LocalPush = LocalPush
+		Hardware = Hardware
 	}
 }

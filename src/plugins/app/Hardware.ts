@@ -13,7 +13,7 @@ namespace AppGDK {
 			window['jsb'].device.vibrate(0.015)
 		}
 	}
-	export class HardwareBase extends GDK.HardwareBase {
+	export class Hardware extends GDK.HardwareBase {
 		vibration: GDK.IVibration = new Vibration()
 	}
 }
