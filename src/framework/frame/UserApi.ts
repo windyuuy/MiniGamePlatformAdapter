@@ -211,11 +211,11 @@ namespace GDK {
 			return this._m.user.login(params);
 		}
 		/** 绑定回调 */
-		get bindCallback(): (succ: boolean, data?) => void {
-			if (!this.checkModuleAttr("user", "bindCallback")) {
+		setBindCallback(callback: (succ: boolean, data?) => void) {
+			if (!this.checkModuleAttr("user", "setBindCallback", "function")) {
 				return undefined;
 			}
-			return this._m.user.bindCallback;
+			return this._m.user.setBindCallback(callback);
 		}
 		/**
 		 * 显示用户中心

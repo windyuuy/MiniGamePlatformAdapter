@@ -144,6 +144,8 @@ namespace AppGDK {
 					this.server.loginGoogle({ openId: openId, token: token, avatar: head, userName: nickName, email: email, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
 				} else if (type == "facebook") {
 					this.server.loginFB({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
+				} else if (type == "wxapp") {
+					this.server.loginAppWX({ openId: openId, code: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
 				} else if (type == "gamecenter") {
 					this.server.loginGC({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
 				} else if (type == "visitor") {
@@ -160,6 +162,8 @@ namespace AppGDK {
 					typeNumb = 2
 				} else if (type == "gamecenter") {
 					typeNumb = 3
+				} else if (type == "wxapp") {
+					typeNumb = 4;
 				}
 
 

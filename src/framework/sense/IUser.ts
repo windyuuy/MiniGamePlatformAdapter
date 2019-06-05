@@ -94,7 +94,7 @@ namespace GDK {
 		/** 登录 */
 		login(params?: LoginParams): Promise<LoginResult>
 		/** 绑定回调 */
-		bindCallback: (succ: boolean, data?) => void
+		setBindCallback(callback: (succ: boolean, data?) => void)
 
 		/**
 		 * 显示用户中心

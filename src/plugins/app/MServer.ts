@@ -154,6 +154,25 @@ namespace AppGDK {
 		}
 
 		/**
+         * WX app登陆
+         * * userId 
+         * * token
+         */
+		loginAppWX(
+			data: {
+				openId: string,
+				code: string,
+				clientSystemInfo: any
+			},
+			callback: (data: LoginCallbackData) => void,
+			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
+			this.gameClient.request("user/loginAppWx", data, (data) => {
+				callback(data);
+			}, { modal: modal, errorCallback: errorCallback })
+		}
+
+
+		/**
          * FB登陆
          * * userId 
          * * token
