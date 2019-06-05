@@ -178,8 +178,16 @@ namespace AppGDK {
 
 						this.api.showAlert({ title: "友情提示", content: "绑定成功" });
 
+						if (this.bindCallback) {
+							this.bindCallback(true, data.data)
+						}
+
 					} else {
 						this.api.showAlert({ title: "BIND ERROR", content: data.message });
+
+						if (this.bindCallback) {
+							this.bindCallback(false)
+						}
 					}
 				})
 			})

@@ -93,6 +93,8 @@ namespace GDK {
 	export interface IUser extends IModule {
 		/** 登录 */
 		login(params?: LoginParams): Promise<LoginResult>
+		/** 绑定回调 */
+		bindCallback: (succ: boolean, data?) => void
 
 		/**
 		 * 显示用户中心

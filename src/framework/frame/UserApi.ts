@@ -210,6 +210,13 @@ namespace GDK {
 			}
 			return this._m.user.login(params);
 		}
+		/** 绑定回调 */
+		get bindCallback(): (succ: boolean, data?) => void {
+			if (!this.checkModuleAttr("user", "bindCallback")) {
+				return undefined;
+			}
+			return this._m.user.bindCallback;
+		}
 		/**
 		 * 显示用户中心
 		 * * APP平台支持
@@ -767,9 +774,12 @@ namespace GDK {
 		 * @param callback
 		 */
 		getSafeArea?(
-			callback: (
-				data: { left: number; right: number; top: number; bottom: number }
-			) => void
+			callback: (data: {
+				left: number;
+				right: number;
+				top: number;
+				bottom: number;
+			}) => void
 		): void {
 			if (!this.checkModuleAttr("apiSystem", "getSafeArea", "function")) {
 				return undefined;

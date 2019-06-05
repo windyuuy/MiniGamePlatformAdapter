@@ -2,6 +2,8 @@
 namespace GDK {
 	export abstract class UserBase implements IUser {
 		abstract login(params?: LoginParams): Promise<LoginResult>
+		bindCallback: (succ: boolean, data?) => void
+
 		abstract showUserCenter(): Promise<void>;
 		checkSession(params?: ReqParams) {
 			const ret = new RPromise<void>()
