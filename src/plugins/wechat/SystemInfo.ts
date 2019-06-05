@@ -68,6 +68,9 @@ namespace WechatGDK {
 		networkType: string
 		networkClass: number
 
+		deviceId?: string
+		gameDeviceId?: string
+
 		fetchNetworkInfo() {
 			const ret = new GDK.RPromise<void>()
 			wx.getNetworkType({
@@ -96,10 +99,18 @@ namespace WechatGDK {
 		}
 
 		init() {
+
+			wx.getUserInfo({})
+
 			const info = wx.getSystemInfoSync()
 			slib.JSHelper.merge(info, this)
 			this.fetchNetworkInfo()
 			this.updateNetworkInfo(this.networkType)
+
+			//修改 language 和 country 的用途
+			this['_country'] = this.country
+			this.country = this.language.split("_")[1]
+			this.language = this.language.split("_")[0]
 
 			devlog.info('wx systeminfo:', this)
 
