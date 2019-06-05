@@ -210,6 +210,23 @@ class SDKProxy {
 		});
 	}
 
+
+
+	protected static rebootLoginId: number = undefined
+	static onRebootLogin(
+		callback: (/**登陆的类型 */ type: LoginType,/**用户ID */ openId: string, token: string, nickName: string, email: string, head: string) => void
+	) {
+		if (gdkjsb.bridge == undefined) return;
+
+		if (this.rebootLoginId !== undefined) {
+			gdkjsb.bridge.off(this.rebootLoginId);
+		}
+		this.rebootLoginId = gdkjsb.bridge.on("rebootLogin", (data) => {
+			let json = JSON.parse(data);
+			callback(json.type, json.openId, json.token, json.nickName, json.email, json.head);
+		});
+	}
+
 	protected static bindId: number = undefined
 	static onBind(
 		callback: (/**登陆的类型 */ type: LoginType,/**游客OpenId */visitorOpenId: string,/**用户ID */ openId: string, token: string) => void

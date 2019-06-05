@@ -156,6 +156,43 @@ namespace AppGDK {
 				}
 			})
 
+
+			SDKProxy.onRebootLogin((type, openId, token, nickName, email, head) => {
+				//玩家SDK登陆完成
+				SDKProxy.hideLoginDialog();//隐藏登陆弹框
+				isCancelLogin = false;
+
+				//生成玩家登陆记录
+				let userRecords = SDKProxy.loadUserRecord()
+				let record = userRecords.find(a => a.openId == openId)
+				if (type == "wxapp") {
+					record = userRecords.find(a => a.loginType == type)
+				}
+				if (record) {
+					userRecords.remove(record)
+				} else {
+					record = {
+						userId: null,
+						openId: openId,
+						loginType: type,
+						name: nickName,
+						createTime: new Date().getTime(),
+						token: token,
+					}
+				}
+				userRecords.unshift(record)//当前玩家记录放在第一条
+
+				loginStartTime = new Date().getTime()
+
+				SDKProxy.saveUserRecord(userRecords);
+
+				//do login in reload
+				if (this.rebootCallback) {
+					this.rebootCallback()
+				}
+			})
+
+
 			SDKProxy.onBind((type, visitorOpenId, openId, token) => {
 				//玩家SDK绑定完成
 				let typeNumb = null

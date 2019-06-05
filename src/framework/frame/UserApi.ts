@@ -217,6 +217,13 @@ namespace GDK {
 			}
 			return this._m.user.setBindCallback(callback);
 		}
+		/** 绑定回调 */
+		setRebootCallback(callback: () => void) {
+			if (!this.checkModuleAttr("user", "setRebootCallback", "function")) {
+				return undefined;
+			}
+			return this._m.user.setRebootCallback(callback);
+		}
 		/**
 		 * 显示用户中心
 		 * * APP平台支持

@@ -96,6 +96,8 @@ namespace GDK {
 		/** 绑定回调 */
 		setBindCallback(callback: (succ: boolean, data?) => void)
 
+		/** 绑定回调 */
+		setRebootCallback(callback: () => void)
 		/**
 		 * 显示用户中心
 		 * * APP平台支持
