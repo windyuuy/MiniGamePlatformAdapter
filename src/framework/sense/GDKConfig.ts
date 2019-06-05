@@ -114,6 +114,8 @@ namespace GDK {
 		 **/
 		gameType: number
 	}
+
+	export type AdvertsAllPlatforms = "ironsource" | "adtiming" | "gdtadvert"
 	export class GDKAPPConfig extends GDKConfigBase {
 		/**
 		 * 广告平台
@@ -121,7 +123,8 @@ namespace GDK {
 		 * - adtiming
 		 * - gdtadvert 腾讯广点通
 		 */
-		advertPlatform: "ironsource" | "adtiming" | "gdtadvert" = "ironsource"
+		advertPlatform?: AdvertsAllPlatforms = "ironsource"
+		advertPlatforms?: AdvertsAllPlatforms[] = []
 	}
 
 

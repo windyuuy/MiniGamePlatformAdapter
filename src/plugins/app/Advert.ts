@@ -84,6 +84,14 @@ namespace AppGDK {
 
 		protected _onLoadedCallbacks: Function[] = []
 		protected _available: boolean = false
+		get isAvailable() {
+			return this._available
+		}
+		async checkAvailable?(): Promise<boolean> {
+			let { available } = await SDKProxy.nativeAdvert.isRewardedVideoAvailable()
+			this._available = available
+			return available
+		}
 		onRewardedVideoAvailabilityChanged(available: boolean) {
 			this._available = available
 			if (available) {
@@ -479,27 +487,56 @@ namespace AppGDK {
 		async initWithConfig?(_info: GDK.GDKConfig) {
 
 			let info = _info //as GDK.GDKAPPConfig
-			// 选择广告平台
-			if (info.app && info.app.advertPlatform != undefined) {
-				await SDKProxy.nativeAdvert.advertPlatformSelect(info.app.advertPlatform)
-			} else {
-				await SDKProxy.nativeAdvert.advertPlatformSelect("ironsource")
+
+			info.app.advertPlatforms = info.app.advertPlatforms || []
+			if (info.app.advertPlatforms.length == 0) {
+				info.app.advertPlatform = info.app.advertPlatform || 'ironsource'
+			}
+			if (info.app.advertPlatform) {
+				info.app.advertPlatforms.remove(info.app.advertPlatform)
+				info.app.advertPlatforms.push(info.app.advertPlatform)
+			}
+			for (let key of info.app.advertPlatforms) {
+				// 选择广告平台
+				await SDKProxy.nativeAdvert.advertPlatformSelect(key)
+
+				await SDKProxy.nativeAdvert.setRewardedVideoListener()
+				if (this.supportInterstitial) {
+					await SDKProxy.nativeAdvert.setInterstitialListener()
+				}
+				await SDKProxy.nativeAdvert.init({
+					appKey: "ironsrcappkey", modules: {
+						REWARDED_VIDEO: !this.supportInterstitial,
+						BANNER: true,
+						INTERSTITIAL: this.supportInterstitial,
+					}
+				})
+				let debug = true
+				SDKProxy.nativeAdvert.setAdaptersDebug({ debug: debug })
+				SDKProxy.nativeAdvert.shouldTrackNetworkState({ track: debug })
 			}
 
-			await SDKProxy.nativeAdvert.setRewardedVideoListener()
-			if (this.supportInterstitial) {
-				await SDKProxy.nativeAdvert.setInterstitialListener()
-			}
-			await SDKProxy.nativeAdvert.init({
-				appKey: "ironsrcappkey", modules: {
-					REWARDED_VIDEO: !this.supportInterstitial,
-					BANNER: true,
-					INTERSTITIAL: this.supportInterstitial,
-				}
-			})
-			let debug = true
-			SDKProxy.nativeAdvert.setAdaptersDebug({ debug: debug })
-			SDKProxy.nativeAdvert.shouldTrackNetworkState({ track: debug })
+			// // 选择广告平台
+			// if (info.app && info.app.advertPlatform != undefined) {
+			// 	await SDKProxy.nativeAdvert.advertPlatformSelect(info.app.advertPlatform)
+			// } else {
+			// 	await SDKProxy.nativeAdvert.advertPlatformSelect("ironsource")
+			// }
+
+			// await SDKProxy.nativeAdvert.setRewardedVideoListener()
+			// if (this.supportInterstitial) {
+			// 	await SDKProxy.nativeAdvert.setInterstitialListener()
+			// }
+			// await SDKProxy.nativeAdvert.init({
+			// 	appKey: "ironsrcappkey", modules: {
+			// 		REWARDED_VIDEO: !this.supportInterstitial,
+			// 		BANNER: true,
+			// 		INTERSTITIAL: this.supportInterstitial,
+			// 	}
+			// })
+			// let debug = true
+			// SDKProxy.nativeAdvert.setAdaptersDebug({ debug: debug })
+			// SDKProxy.nativeAdvert.shouldTrackNetworkState({ track: debug })
 		}
 
 		protected static _videoAd: GDK.IRewardedVideoAd
@@ -534,6 +571,10 @@ namespace AppGDK {
 				Advert._bannerAd.reset(params)
 			}
 			return Advert._bannerAd
+		}
+
+		selectAdvertPlatform(params: { platform: string }): Promise<void> {
+			return SDKProxy.nativeAdvert.advertPlatformSelect(params.platform)
 		}
 	}
 }

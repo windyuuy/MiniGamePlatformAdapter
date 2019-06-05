@@ -938,6 +938,15 @@ namespace GDK {
 			return this._m.advert.createBannerAd(params);
 		}
 		/**
+		 * 切换广告平台
+		 */
+		selectAdvertPlatform?(params: { platform: string }): Promise<void> {
+			if (!this.checkModuleAttr("advert", "selectAdvertPlatform", "function")) {
+				return this.createNonePromise("[advert.selectAdvertPlatform]");
+			}
+			return this._m.advert.selectAdvertPlatform(params);
+		}
+		/**
 		 * - 进入客服会话。
 		 * 	- 微信小游戏要求在用户发生过至少一次 touch 事件后才能调用。后台接入方式与小程序一致
 		 */

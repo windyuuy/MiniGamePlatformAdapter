@@ -72,6 +72,9 @@ namespace GDK {
 		}) => void)
 		/** 取消监听用户点击 关闭广告 按钮的事件 */
 		offClose(callback: Function)
+
+		readonly isAvailable?: boolean
+		checkAvailable?(): Promise<boolean>
 	}
 
 	export interface IBannerAd {
@@ -138,5 +141,10 @@ namespace GDK {
 
 		/** 创建条幅广告对象 */
 		createBannerAd(params: BannerAdCreateParam): IBannerAd
+
+		/**
+		 * 切换广告平台
+		 */
+		selectAdvertPlatform?(params: { platform: string }): Promise<void>
 	}
 }
