@@ -120,6 +120,9 @@ namespace AppGDK {
 				//生成玩家登陆记录
 				let userRecords = SDKProxy.loadUserRecord()
 				let record = userRecords.find(a => a.openId == openId)
+				if (type == "wxapp") {
+					record = userRecords.find(a => a.loginType == type)
+				}
 				if (record) {
 					userRecords.remove(record)
 				} else {
