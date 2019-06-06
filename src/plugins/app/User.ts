@@ -233,7 +233,7 @@ namespace AppGDK {
 						}
 
 					} else {
-						this.api.showAlert({ title: "BIND ERROR", content: data.message });
+						this.api.showAlert({ title: "绑定错误", content: data.message });
 
 						if (this.bindCallback) {
 							this.bindCallback(false)
