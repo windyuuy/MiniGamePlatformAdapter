@@ -214,8 +214,14 @@ namespace AppGDK {
 
 						let users = SDKProxy.loadUserRecord()
 						let user = users.find(a => a.openId == visitorOpenId);
-						user.openId = openId
-						user.token = token
+						if (typeNumb != 4) {
+							user.openId = openId
+							//wxapp no need save token
+							user.token = token
+						} else {
+							user.openId = data.data.openId
+							user.token = null
+						}
 						user.name = data.data.nickname//绑定后使用绑定账号的昵称
 						user.loginType = type
 						SDKProxy.saveUserRecord(users);
