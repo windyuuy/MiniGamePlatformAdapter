@@ -32,7 +32,7 @@ namespace AppGDK {
 				//查找ID相同的记录，或者是游客登陆，则是第一条
 				let record = userRecords.find(a => a.openId == data.data.openId) || userRecords[0]
 				record.openId = data.data.openId;
-				if (record.name == "" || record.name == null) {
+				if (record.name == "" || record.name == null || record.loginType == "wxapp") {
 					record.name = data.data.nickname
 				}
 				record.userId = data.data.userId
@@ -125,7 +125,6 @@ namespace AppGDK {
 				}
 				if (record) {
 					userRecords.remove(record)
-					record.name = ""
 				} else {
 					record = {
 						userId: null,
