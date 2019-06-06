@@ -125,6 +125,7 @@ namespace AppGDK {
 				}
 				if (record) {
 					userRecords.remove(record)
+					record.name = ""
 				} else {
 					record = {
 						userId: null,
