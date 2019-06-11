@@ -1,7 +1,7 @@
 {
 	"extends": "../../base",
 	"compilerOptions": {
-		"outFile": "../../../dist/oppokyx.js"
+		"outFile": "../../../dist/oppo.js"
 	},
 	"files": [
 		"./Common.ts",

@@ -159,10 +159,10 @@ namespace OPPOGDK {
 			this._advertObj.destory()
 		}
 		onResize(callback: Function) {
-			devlog.warn('oppokyx bannerAd dose not support resize')
+			devlog.warn('oppo bannerAd dose not support resize')
 		}
 		offResize(callback: Function) {
-			devlog.warn('oppokyx bannerAd dose not support resize')
+			devlog.warn('oppo bannerAd dose not support resize')
 		}
 		onLoad(callback: Function) {
 			this._advertObj.onLoad(callback)

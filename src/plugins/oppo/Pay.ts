@@ -51,15 +51,15 @@ namespace OPPOGDK {
 				appId: items.oppoId,
 				success: (res) => {
 					// pay success
-					//console.info("oppokyx 支付成功")
-					//successCall(res);
+					console.info("oppo 支付成功")
+					// successCall(res);
 					this._payReturnCallback = null
 					this._isPaying = false
 					callback && callback(0, res)
 				},
 				fail: (res) => {
 					// pay fail
-					//console.error("oppokyx 支付失败")
+					console.error("oppo 支付失败")
 					//console.log(JSON.stringify(res));
 					this._payReturnCallback = null
 					this._isPaying = false

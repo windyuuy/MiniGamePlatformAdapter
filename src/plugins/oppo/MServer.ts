@@ -70,7 +70,7 @@ namespace OPPOGDK {
 						diamond: string,
 						seed: string
 					},
-					createTime: string,//创建时间
+					createTime: number,//创建时间
 					channelId: number,//渠道id
 
 					encryptKey: string,//存档加密key
@@ -80,11 +80,22 @@ namespace OPPOGDK {
 				}
 			}) => void,
 			errorCallback: (error: any, retry: () => void) => void = null) {
+			console.warn(`this.gameClient.request("user/loginOpenId"`, JSON.stringify(data))
 			Common.httpClient.request("user/loginOpenId", data, (data) => {
+				console.warn(`login back user/loginOpenId"`, data)
 				callback(data);
 			}, { errorCallback: errorCallback })
 		}
 
+		loginTest(
+			data: {
+				loginCode: number
+			},
+			callback: (data: any) => void, errorCallback: (error: any, retry: () => void) => void = null) {
+			this.gameClient.request("user/loginTest", data, (data) => {
+				callback(data);
+			}, { modal: false, errorCallback: errorCallback })
+		}
 	}
 
 }

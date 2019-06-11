@@ -142,7 +142,7 @@ gulp.task("compile", async () => {
 		execon("./plugins/app", () => exec("tsc"))
 		execon("./plugins/qqplay", () => exec("tsc"))
 		execon("./plugins/develop", () => exec("tsc"))
-		// execon("./plugins/oppo", () => exec("tsc"))
+		execon("./plugins/oppo", () => exec("tsc"))
 		// execon("./test", () => exec("tsc"))
 	})
 
@@ -173,10 +173,10 @@ gulp.task("uploadDocs", async () => {
 	let client = getOssClient();
 
 	let docdir = "../docs/_book/"
-	let list = glob.sync(docdir+'**/*')
+	let list = glob.sync(docdir + '**/*')
 	await Promise.all(list.map(n => {
-		n=n.substring(docdir.length)
-		if (fs.statSync(docdir + n).isDirectory()){
+		n = n.substring(docdir.length)
+		if (fs.statSync(docdir + n).isDirectory()) {
 			return
 		}
 		console.log(`${ossFolderGDKDocs}/` + n, "<-", docdir + n)

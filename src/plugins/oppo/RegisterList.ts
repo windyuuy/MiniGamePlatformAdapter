@@ -1,15 +1,20 @@
-
 namespace OPPOGDK {
 	export class RegisterList extends GDK.ModuleClassMap {
 		Advert = Advert
+		GameInfo = GameInfo
 		User = User
 		Pay = Pay
 		Share = Share
-		UserData = UserData
-		Widgets = Widgets
-		Support = Support
-		SubContext = SubContext
-		Except = Except
 		SystemInfo = SystemInfo
+		UserData = UserData
+		// Customer = Customer
+		Widgets = Widgets
+		SubContext = SubContext
+		Support = Support
+		Except = Except
+		// Auth = Auth
+		// Hardware = Hardware
+		APISystem = APISystem
+
 	}
 }

@@ -28,12 +28,12 @@ namespace OPPOGDK {
 		}
 
 		initWithConfig(info: GDK.GDKConfig) {
-			for (let k in info.oppokyx) {
-				this[k] = info.oppokyx[k]
+			for (let k in info.oppo) {
+				this[k] = info.oppo[k]
 			}
 
-			Common.getServerTime = info.oppokyx.getServerTime
-			Common.httpClient = info.oppokyx.httpClient
+			Common.getServerTime = info.oppo.getServerTime
+			Common.httpClient = info.oppo.httpClient
 		}
 
 	}

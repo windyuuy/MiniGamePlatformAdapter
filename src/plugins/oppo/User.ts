@@ -8,12 +8,53 @@ namespace OPPOGDK {
 	const devlog = Common.devlog
 
 	export class User extends GDK.UserBase {
+		showUserCenter(): Promise<void> {
+			throw new Error("Method not implemented.");
+		}
 		api?: GDK.UserAPI
 		get server(): MServer {
 			return MServer.inst
 		}
 
 		get userdata() { return this.api.userData }
+		login0(params?: GDK.LoginParams) {
+			const ret = new GDK.RPromise<GDK.LoginResult>()
+
+			let userId = localStorage.getItem('sdk_glee_userId')
+			let nUserId = parseInt(userId)
+			if (isNaN(nUserId)) {
+				nUserId = undefined
+			}
+
+			this.server.loginTest({ loginCode: nUserId }, (resp) => {
+				//玩家数据
+				if (resp.succeed) {
+					const data = resp.data
+					const userdata = this.api.userData
+					userdata.channelId = data.channelId
+					userdata.createTime = data.createTime
+					userdata.userId = data.userId
+					localStorage.setItem('sdk_glee_userId', `${data.userId}`)
+					userdata.followGzh = data.followGzh
+					userdata.nickName = data.nickname
+					userdata.isNewUser = data.userNew
+
+					ret.success({
+						extra: data,
+					})
+				} else {
+					ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN, {
+						data: {
+							extra: resp,
+						}
+					}))
+				}
+			}, () => {
+				ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.NETWORK_ERROR))
+			})
+
+			return ret.promise
+		}
 
 		login(params?: GDK.LoginParams) {
 			const ret = new GDK.RPromise<GDK.LoginResult>()
@@ -60,14 +101,17 @@ namespace OPPOGDK {
 									}
 								}))
 							}
-						}, () => {
+						}, (err) => {
+							console.error("serverlogin rep failed", err)
 							ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.NETWORK_ERROR))
 						})
 				},
-				fail: () => {
+				fail: (res) => {
+					// console.warn('qg.login fail', JSON.stringify(res))
 					ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_LOGIN_FAILED))
 				},
 				complete: (res) => {
+					// console.warn('qg.login complete', JSON.stringify(res))
 					// login complete
 				}
 			})

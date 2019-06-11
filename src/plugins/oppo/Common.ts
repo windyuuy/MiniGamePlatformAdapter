@@ -9,6 +9,6 @@ namespace OPPOGDK.Common {
 	 */
 	export let getServerTime: () => Date;
 
-	export const devlog = new slib.Log({ tags: ["[gdk]", "[oppokyx]"] });
-	export const paylog = new slib.Log({ tags: ["[gdk]", "[oppokyx]"] });
+	export const devlog = new slib.Log({ tags: ["[gdk]", "[oppo]"] });
+	export const paylog = new slib.Log({ tags: ["[gdk]", "[oppo]"] });
 }
