@@ -138,6 +138,8 @@ namespace GDK {
 		 * 自定义附加参数
 		 */
 		customExtra?: string
+
+		
 	}
 
 	export class ConsumePurchaseParams { purchaseToken: string }

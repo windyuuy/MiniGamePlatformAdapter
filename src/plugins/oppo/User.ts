@@ -63,6 +63,8 @@ namespace OPPOGDK {
 				pkgName: params.pkgName,
 				success: (res) => {
 					// 解密数据
+					console.warn("qg.login rep", JSON.stringify(res));
+					(this.api.userData as UserData).token = res.token
 					//const system = this.api.systemInfo.system == "android" ? 0 : 1
 					//let option = qg.getLaunchOptionsSync()
 					//console.log("LaunchOptions", option);
@@ -70,6 +72,7 @@ namespace OPPOGDK {
 						openId: res.uid,
 						userName: res.nickName,
 						avatar: res.avatar,
+						token: res.token,
 					},
 						(resp) => {
 							if (resp.succeed) {

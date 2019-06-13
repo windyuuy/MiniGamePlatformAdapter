@@ -42,16 +42,26 @@ namespace OPPOGDK {
 				}
 			}
 
-			qg.pay({
+			let token = (this.api.userData as UserData).token
+			paylog.info('payPurchase call qg.pay:', {
 				pkgName: items.pkgName,
-				token: items.token,
+				token: token,
 				timestamp: items.timestamp,
 				paySign: items.paySign,
 				orderNo: items.orderNo,
-				appId: items.oppoId,
+				appId: this.api.appId
+			}, items)
+
+			qg.pay({
+				pkgName: items.pkgName,
+				token: token,
+				timestamp: items.timestamp,
+				paySign: items.paySign,
+				orderNo: items.orderNo,
+				appId: this.api.appId,
 				success: (res) => {
 					// pay success
-					console.info("oppo 支付成功")
+					paylog.info("oppo 支付成功", res)
 					// successCall(res);
 					this._payReturnCallback = null
 					this._isPaying = false
@@ -59,7 +69,7 @@ namespace OPPOGDK {
 				},
 				fail: (res) => {
 					// pay fail
-					console.error("oppo 支付失败")
+					paylog.error("oppo 支付失败", res)
 					//console.log(JSON.stringify(res));
 					this._payReturnCallback = null
 					this._isPaying = false
@@ -71,7 +81,7 @@ namespace OPPOGDK {
 		/**
 		 * 使用二级货币购买
 		 */
-		payPurchase(item: GDK.PayItemInfo, options?: { gameOrientation?: GDK.WebViewOrientation }): Promise<GDK.PayResult> {
+		payPurchase(item: GDK.PayItemInfo, options?: GDK.PayOptions): Promise<GDK.PayResult> {
 			const ret = new GDK.RPromise<GDK.PayResult>()
 
 			this._payPurchase(item, (errCode, data) => {
