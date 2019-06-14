@@ -611,6 +611,15 @@ namespace GDK {
 			return this._m.systemInfo.deviceId;
 		}
 		/**
+		 * 设备ID
+		 */
+		get uuid(): string {
+			if (!this.checkModuleAttr("systemInfo", "uuid")) {
+				return undefined;
+			}
+			return this._m.systemInfo.uuid;
+		}
+		/**
 		 * 游戏设备ID，每次重新安装游戏都会改变
 		 */
 		get gameDeviceId(): string {

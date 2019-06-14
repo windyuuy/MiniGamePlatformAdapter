@@ -152,8 +152,8 @@ namespace AppGDK {
 				} else if (type == "gamecenter") {
 					this.server.loginGC({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
 				} else if (type == "visitor") {
-					let sysinfo = this.api.systemInfo.clone()
-					this.server.loginOpenId({ openId: openId, uuId: sysinfo.uuid, clientSystemInfo: sysinfo }, loginComplete);
+					let sysInfo = this.api.systemInfo.clone()
+					this.server.loginOpenId({ openId: openId, uuId: sysInfo.uuid, clientSystemInfo: sysInfo }, loginComplete);
 				}
 			})
 
@@ -275,13 +275,15 @@ namespace AppGDK {
 					if (currentUser.loginType == "silent") {
 						//自动静默登陆
 						isDelayLogin = false;
-						this.server.loginOpenId({ openId: currentUser.openId, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
+						let sysInfo = this.api.systemInfo.clone()
+						this.server.loginOpenId({ openId: currentUser.openId, uuId: sysInfo.uuid, clientSystemInfo: sysInfo }, loginComplete);
 					} else if (currentUser.loginType == "visitor") {
 						//自动游客登陆
 						SDKProxy.showLogining(currentUser.name);
 						isDelayLogin = true;
 						loginStartTime = new Date().getTime()
-						this.server.loginOpenId({ openId: currentUser.openId, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
+						let sysInfo = this.api.systemInfo.clone()
+						this.server.loginOpenId({ openId: currentUser.openId, uuId: sysInfo.uuid, clientSystemInfo: sysInfo }, loginComplete);
 					} else {
 						//执行SDK自动登陆
 						isDelayLogin = true;
@@ -309,7 +311,8 @@ namespace AppGDK {
 					userRecords.unshift(record)//当前玩家记录放在第一条
 					SDKProxy.saveUserRecord(userRecords);
 					isDelayLogin = false;
-					this.server.loginOpenId({ openId: null, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
+					let sysInfo = this.api.systemInfo.clone()
+					this.server.loginOpenId({ openId: null, uuId: sysInfo.uuid, clientSystemInfo: sysInfo }, loginComplete);
 
 				} else if (params.autoLogin) {
 					//自动游客登陆
@@ -327,7 +330,8 @@ namespace AppGDK {
 					SDKProxy.saveUserRecord(userRecords);
 					isDelayLogin = true;
 					loginStartTime = new Date().getTime()
-					this.server.loginOpenId({ openId: null, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
+					let sysInfo = this.api.systemInfo.clone()
+					this.server.loginOpenId({ openId: null, uuId: sysInfo.uuid, clientSystemInfo: sysInfo }, loginComplete);
 				} else {
 					//打开登陆弹框
 					SDKProxy.showLoginDialog();
