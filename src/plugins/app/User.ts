@@ -152,7 +152,8 @@ namespace AppGDK {
 				} else if (type == "gamecenter") {
 					this.server.loginGC({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
 				} else if (type == "visitor") {
-					this.server.loginOpenId({ openId: openId, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
+					let sysinfo = this.api.systemInfo.clone()
+					this.server.loginOpenId({ openId: openId, uuId: sysinfo.uuid, clientSystemInfo: sysinfo }, loginComplete);
 				}
 			})
 

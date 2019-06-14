@@ -27,6 +27,7 @@ namespace AppGDK {
 		devPlatform?: string = "browser"
 
 		deviceId?: string
+		uuid?: string
 		gameDeviceId?: string
 
 		versionCode?: number
@@ -37,7 +38,7 @@ namespace AppGDK {
 
 		installTime?: number
 
-		imei?:string
+		imei?: string
 
 		async fetchNetworkInfo(): Promise<void> {
 
@@ -48,6 +49,7 @@ namespace AppGDK {
 				return;
 			}
 			this.deviceId = gdkjsb.deviceId
+			this.uuid = gdkjsb.uuid
 			this.gameDeviceId = gdkjsb.gameDeviceId
 			this.system = gdkjsb.platform + gdkjsb.systemVersion
 			this.platform = gdkjsb.platform
@@ -62,7 +64,7 @@ namespace AppGDK {
 			this.channel = gdkjsb.channel
 			this.country = gdkjsb.country
 			this.installTime = gdkjsb.installTime;
-			this.imei=gdkjsb.imei
+			this.imei = gdkjsb.imei
 		}
 	}
 }

@@ -126,6 +126,7 @@ namespace AppGDK {
 		loginOpenId(
 			data: {
 				openId: string,
+				uuId?: string,
 				clientSystemInfo: any
 			},
 			callback: (data: LoginCallbackData) => void,

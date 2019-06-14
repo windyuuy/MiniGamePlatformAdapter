@@ -24,6 +24,7 @@ namespace GDK {
 		devPlatform?: string = "devtools"
 
 		deviceId?: string
+		uuid?: string
 		gameDeviceId?: string
 
 		versionCode?: number

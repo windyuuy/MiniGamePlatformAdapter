@@ -22,6 +22,12 @@ declare namespace gdkjsb {
 	 */
 	export var deviceId: string
 
+
+	/**
+	 * 设备uuid
+	 */
+	export var uuid: string
+
 	/**
 	 * 游戏设备ID
 	 */

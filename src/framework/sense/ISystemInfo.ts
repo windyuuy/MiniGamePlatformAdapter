@@ -109,6 +109,11 @@ namespace GDK {
 		deviceId?: string
 
 		/**
+	     * 设备ID
+	    */
+		uuid?: string
+
+		/**
 		 * 游戏设备ID，每次重新安装游戏都会改变
 		 */
 		gameDeviceId?: string
