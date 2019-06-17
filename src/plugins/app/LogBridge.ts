@@ -11,9 +11,9 @@ class LogBridge {
 	/**
 	 * 自定义日志
 	 */
-	static logLogin(type: LoginType) {
+	static logLogin(type: LoginType, userId: number) {
 		if (gdkjsb.bridge == undefined) return;
-		gdkjsb.bridge.callAction("AppsFlyerSDK:logLogin", JSON.stringify({ type }), (data) => { })
+		gdkjsb.bridge.callAction("AppsFlyerSDK:logLogin", JSON.stringify({ type, userId }), (data) => { })
 	}
 
 	/**

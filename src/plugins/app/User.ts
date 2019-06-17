@@ -52,7 +52,7 @@ namespace AppGDK {
 				if (data.data.userNew) {
 					LogBridge.logRegister(record.loginType)//注册日志
 				}
-				LogBridge.logLogin(record.loginType)//登陆日志
+				LogBridge.logLogin(record.loginType, record.userId)//登陆日志
 
 				loginRet.success({
 					extra: data.data,
