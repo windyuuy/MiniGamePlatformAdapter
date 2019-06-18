@@ -294,7 +294,10 @@ namespace GDK {
 			}
 			return this._m.user.setUserCloudStorage(obj);
 		}
-
+		/**
+		 * 判断openId对应的用户是否绑定过社交账号
+		 * @param openId 登录时服务器返回的openId
+		 */
 		checkIsUserBind(openId: string): boolean {
 			if (!this.checkModuleAttr("user", "checkIsUserBind", "function")) {
 				return undefined;
