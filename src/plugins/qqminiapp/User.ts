@@ -134,5 +134,12 @@ namespace QQMiniAppGDK {
 			})
 			return ret.promise
 		}
+		/**
+		 * 判断openId对应的用户是否绑定过社交账号
+		 * @param openId 登录时服务器返回的openId
+		 */
+		checkIsUserBind(openId: string): boolean {
+			throw new Error("Method not implemented.");
+		}
 	}
 }

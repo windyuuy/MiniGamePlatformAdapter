@@ -140,6 +140,7 @@ namespace GDK {
 			 * 	- [null, 'goldRank', 'seedRank', 'unlockRank', 'sceneRank',]
 			 **/
 			typeIndex: string[],
-		}): Promise<void>
+		}): Promise<void>;
+		checkIsUserBind(openId: string): boolean;
 	}
 }

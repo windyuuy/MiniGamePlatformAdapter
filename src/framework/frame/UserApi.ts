@@ -294,6 +294,13 @@ namespace GDK {
 			}
 			return this._m.user.setUserCloudStorage(obj);
 		}
+
+		checkIsUserBind(openId: string): boolean {
+			if (!this.checkModuleAttr("user", "checkIsUserBind", "function")) {
+				return undefined;
+			}
+			return this._m.user.checkIsUserBind(openId);
+		}
 		/**
 		 * 游戏的启动模式，可以是：
 		 * - 开发
