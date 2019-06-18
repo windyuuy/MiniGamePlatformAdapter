@@ -14,6 +14,7 @@ namespace GDK {
 
 
 		abstract showUserCenter(): Promise<void>;
+		abstract showBindDialog(): Promise<void>;
 		checkSession(params?: ReqParams) {
 			const ret = new RPromise<void>()
 			ret.success(undefined)

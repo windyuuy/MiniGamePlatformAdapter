@@ -11,6 +11,9 @@ namespace OPPOGDK {
 		showUserCenter(): Promise<void> {
 			throw new Error("Method not implemented.");
 		}
+		showBindDialog(): Promise<void> {
+			throw new Error("Method not implemented.");
+		}
 		api?: GDK.UserAPI
 		get server(): MServer {
 			return MServer.inst

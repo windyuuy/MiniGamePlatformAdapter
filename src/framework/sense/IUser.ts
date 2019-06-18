@@ -104,6 +104,12 @@ namespace GDK {
 		 */
 		showUserCenter(): Promise<void>;
 
+		/**
+		 * 显示账号绑定
+		 * * APP平台支持
+		 */
+		showBindDialog(): Promise<void>;
+
 		/** 检查登录态是否过期 */
 		checkSession?(params?: ReqParams): Promise<void>
 

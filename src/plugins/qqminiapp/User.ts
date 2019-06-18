@@ -74,6 +74,8 @@ namespace QQMiniAppGDK {
 
 		async showUserCenter() {
 		}
+		async showBindDialog() {
+		}
 
 		checkSession() {
 			return wrapReq((obj: wx.CheckSessionOptions) => {

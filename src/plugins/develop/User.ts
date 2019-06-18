@@ -52,6 +52,8 @@ namespace DevelopGDK {
 
 		async showUserCenter() {
 		}
+		async showBindDialog() {
+		}
 
 		update(): Promise<GDK.UserDataUpdateResult> {
 			const ret = new GDK.RPromise<GDK.UserDataUpdateResult>()

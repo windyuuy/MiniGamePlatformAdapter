@@ -170,6 +170,13 @@ class SDKProxy {
 		gdkjsb.bridge.callAction("hideBindDialog", "{}", (data) => { });
 	}
 
+	static showBindDialog(userInfo?: UserInfo) {
+		if (gdkjsb.bridge == undefined) return;
+
+		userInfo = userInfo || this.loadUserRecord()[0];
+		gdkjsb.bridge.callAction("showBindDialog", JSON.stringify({ info: userInfo, support: this.support, records: this.loadUserRecord(true) }), (data) => { });
+	}
+
 
 	protected static cancelLoginingId: number = undefined;
 	/**

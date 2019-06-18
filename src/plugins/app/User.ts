@@ -346,6 +346,11 @@ namespace AppGDK {
 			SDKProxy.showUserCenter(user);
 		}
 
+		async showBindDialog() {
+			let user = SDKProxy.loadUserRecord()[0];
+			SDKProxy.showBindDialog(user);
+		}
+
 		update(): Promise<GDK.UserDataUpdateResult> {
 			const ret = new GDK.RPromise<GDK.UserDataUpdateResult>()
 			ret.success({})

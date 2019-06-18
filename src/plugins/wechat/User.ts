@@ -79,6 +79,8 @@ namespace WechatGDK {
 
 		async showUserCenter() {
 		}
+		async showBindDialog() {
+		}
 
 		checkSession() {
 			return wrapReq((obj: wx.CheckSessionOptions) => {

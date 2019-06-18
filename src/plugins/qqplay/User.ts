@@ -68,6 +68,8 @@ namespace QQPlayGDK {
 
 		async showUserCenter() {
 		}
+		async showBindDialog() {
+		}
 
 		setStorageSync(key: string, value: string): void {
 			BK.sessionStorage.setItem(key, value)
@@ -258,7 +260,7 @@ namespace QQPlayGDK {
 				let order = 1;     //排序的方法：[ 1: 从大到小(单局)，2: 从小到大(单局)，3: 由大到小(累积)]
 				let rankType = 0
 				// 必须配置好周期规则后，才能使用数据上报和排行榜功能
-				BK.QQ.getRankListWithoutRoom(attr, order, rankType, function (errCode, cmd, data) {
+				BK.QQ.getRankListWithoutRoom(attr, order, rankType, function(errCode, cmd, data) {
 					rankLog.info("-[FriendRank] getRankListWithoutRoom callback  cmd" + cmd + " errCode:" + errCode + "  data:" + JSON.stringify(data));
 					// 返回错误码信息
 					if (errCode !== 0) {
@@ -545,7 +547,7 @@ namespace QQPlayGDK {
 			}
 
 			rankLog.info('-[BusinessData] 提交运营数据: ' + JSON.stringify(gameResultData))
-			BK.QQ.reportGameResult(gameResultData, function (errCode, cmd, data) {
+			BK.QQ.reportGameResult(gameResultData, function(errCode, cmd, data) {
 				if (errCode !== 0) {
 					//上报运营结果失败
 					rankLog.info(`-[BusinessData] 上报运营结果失败: code: ${errCode} cmd: ${cmd} data:${data}`)

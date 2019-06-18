@@ -234,6 +234,16 @@ namespace GDK {
 			}
 			return this._m.user.showUserCenter();
 		}
+		/**
+		 * 显示账号绑定
+		 * * APP平台支持
+		 */
+		showBindDialog(): Promise<void> {
+			if (!this.checkModuleAttr("user", "showBindDialog", "function")) {
+				return this.createNonePromise("[user.showBindDialog]");
+			}
+			return this._m.user.showBindDialog();
+		}
 		/** 检查登录态是否过期 */
 		checkSession?(params?: ReqParams): Promise<void> {
 			if (!this.checkModuleAttr("user", "checkSession", "function")) {
