@@ -6,7 +6,7 @@
 		{
 			"label": "gulp: publish",
 			"type": "shell",
-			"command": "gulp publish",
+			"command": "gulp pubOne",
 			"options": {
 				"cwd": "./tools"
 			},
