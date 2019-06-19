@@ -33,6 +33,10 @@ declare namespace qg {
 	export function showKeyboard(params: object): void;
 	export function hideKeyboard(params: object): void;
 
+	export function initAdService(params: object): void;
+	export function createRewardedVideoAd(params: object): object;
+	export function createBannerAd(params: object): object;
+
 	//https://developers.weixin.qq.com/minigame/dev/document/open-api/data/KVData.html
 	export class KVData {
 		key: string
