@@ -480,12 +480,13 @@ namespace AppGDK {
 			return ret.promise
 		}
 		/**
-		 * 判断openId对应的用户是否绑定过社交账号
-		 * @param openId 登录时服务器返回的openId
+		 * 判断userId对应的用户是否绑定过社交账号
+		 * @param userId 登录时服务器返回的userId
 		 */
-		checkIsUserBind(openId: string): boolean {
-			let user = SDKProxy.loadUserRecord().find(u => u.openId == openId);
-			return user && user.loginType != "silent" && user.loginType != "visitor";
+		checkIsUserBind(userId): boolean {
+			let users = SDKProxy.loadUserRecord().where(u => u.userId == userId);
+
+			return users.length > 0 && !!users.find(user => user.loginType != "silent" && user.loginType != "visitor");
 		}
 	}
 }
