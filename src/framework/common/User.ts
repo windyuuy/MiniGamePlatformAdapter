@@ -24,6 +24,6 @@ namespace GDK {
 		abstract update(): Promise<UserDataUpdateResult>
 		abstract getFriendCloudStorage(obj: { keyList: string[], typeIndex: string[] }): Promise<{ data: UserGameData[] }>;
 		abstract setUserCloudStorage(obj: { KVDataList: KVData[], typeIndex: string[] }): Promise<void>;
-		abstract checkIsUserBind(openId: string): boolean;
+		abstract checkIsUserBind(userId: number): boolean;
 	}
 }

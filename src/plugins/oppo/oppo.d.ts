@@ -28,7 +28,7 @@ declare namespace qg {
 	export function exitApplication(params: object): void;
 
 	export function getLaunchOptionsSync(): object;
-	export function getSystemInfoSync(): OPPO_SystemInfo;
+	export function getSystemInfoSync(): any;
 
 	export function showKeyboard(params: object): void;
 	export function hideKeyboard(params: object): void;
