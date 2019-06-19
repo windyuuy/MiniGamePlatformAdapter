@@ -77,6 +77,12 @@ namespace GDK {
 		checkAvailable?(): Promise<boolean>
 	}
 
+	/**
+	 * 插屏广告（展示网页广告）
+	 */
+	export interface IInterstitialVideoAd extends IRewardedVideoAd {
+	}
+
 	export interface IBannerAd {
 		//属性
 		/** 微信，广告单元ID，用于后台配置统计相关 */
@@ -141,6 +147,12 @@ namespace GDK {
 
 		/** 创建条幅广告对象 */
 		createBannerAd(params: BannerAdCreateParam): IBannerAd
+
+		readonly supportInterstitial?: boolean
+		createInterstitialVideoAd?(params: {
+			/** 广告单元 id */
+			adUnitId: string
+		}): GDK.IInterstitialVideoAd
 
 		/**
 		 * 切换广告平台
