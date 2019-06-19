@@ -32,5 +32,9 @@ namespace OPPOGDK {
 		offHide?(callback: Function): void {
 			qg.offHide(callback)
 		}
+		getSafeArea?(callback: (data: { left: number, right: number, top: number, bottom: number }) => void): void {
+			let sysInfo = qg.getSystemInfoSync()
+			callback({ left: 0, right: 0, top: sysInfo.notchHeight, bottom: 0 });
+		}
 	}
 }
