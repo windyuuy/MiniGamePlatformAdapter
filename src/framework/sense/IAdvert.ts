@@ -49,6 +49,8 @@ namespace GDK {
 	}
 	export class InterstitialAdOnErrorParam extends RewardedVideoAdOnErrorParam {
 	}
+	export class FullscreenAdOnErrorParam extends RewardedVideoAdOnErrorParam {
+	}
 
 	export interface IRewardedVideoAd {
 		//属性
@@ -81,6 +83,8 @@ namespace GDK {
 	 * 插屏广告（展示网页广告）
 	 */
 	export interface IInterstitialVideoAd extends IRewardedVideoAd {
+	}
+	export interface IFullscreedVideoAd extends IRewardedVideoAd {
 	}
 
 	export interface IBannerAd {
@@ -148,7 +152,7 @@ namespace GDK {
 		/** 创建条幅广告对象 */
 		createBannerAd(params: BannerAdCreateParam): IBannerAd
 
-		readonly supportInterstitial?: boolean
+		readonly supportInterstitialAd?: boolean
 		createInterstitialVideoAd?(params: {
 			/** 广告单元 id */
 			adUnitId: string

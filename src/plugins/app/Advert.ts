@@ -21,14 +21,14 @@ namespace AppGDK {
 				await SDKProxy.nativeAdvert.advertPlatformSelect(key)
 
 				await SDKProxy.nativeAdvert.setRewardedVideoListener()
-				if (this.supportInterstitial) {
+				if (this.supportInterstitialAd) {
 					await SDKProxy.nativeAdvert.setInterstitialListener()
 				}
 				await SDKProxy.nativeAdvert.init({
 					appKey: "ironsrcappkey", modules: {
 						REWARDED_VIDEO: true,
 						BANNER: true,
-						INTERSTITIAL: this.supportInterstitial,
+						INTERSTITIAL: this.supportInterstitialAd,
 					}
 				})
 				let debug = true
@@ -45,14 +45,14 @@ namespace AppGDK {
 			// }
 
 			// await SDKProxy.nativeAdvert.setRewardedVideoListener()
-			// if (this.supportInterstitial) {
+			// if (this.supportInterstitialAd) {
 			// 	await SDKProxy.nativeAdvert.setInterstitialListener()
 			// }
 			// await SDKProxy.nativeAdvert.init({
 			// 	appKey: "ironsrcappkey", modules: {
-			// 		REWARDED_VIDEO: !this.supportInterstitial,
+			// 		REWARDED_VIDEO: !this.supportInterstitialAd,
 			// 		BANNER: true,
-			// 		INTERSTITIAL: this.supportInterstitial,
+			// 		INTERSTITIAL: this.supportInterstitialAd,
 			// 	}
 			// })
 			// let debug = true
@@ -63,13 +63,14 @@ namespace AppGDK {
 
 		protected static _videoAd: GDK.IRewardedVideoAd
 		protected static _interstitialAd: GDK.IInterstitialVideoAd
+		protected static _fullscreenAd: GDK.IFullscreedVideoAd
 		protected static _bannerAd: BannerAd
 		createRewardedVideoAd(params: {
 			/** 广告单元 id */
 			adUnitId: string
 		}): GDK.IRewardedVideoAd {
 			if (!Advert._videoAd) {
-				// if (this.supportInterstitial) {
+				// if (this.supportInterstitialAd) {
 				// 	Advert._videoAd = new InterstitialAd(params, this.api)
 				// } else {
 				Advert._videoAd = new VideoAd(params, this.api)
@@ -78,7 +79,25 @@ namespace AppGDK {
 			return Advert._videoAd
 		}
 
-		get supportInterstitial(): boolean {
+		get supportFullscreenAd(): boolean {
+			return nativeHelper.checkActionExist("ironsrc:IronSource.loadFullScreenVideoAd")
+		}
+		createFullscreenVideoAd(params: {
+			/** 广告单元 id */
+			adUnitId: string
+		}): GDK.IFullscreedVideoAd {
+			if (!Advert._fullscreenAd) {
+				if (this.supportFullscreenAd) {
+					Advert._fullscreenAd = new FullscreenVedioAd(params, this.api)
+				} else {
+					// Advert._fullscreenAd = new VideoAd(params, this.api)
+					devlog.error("当前app版本过低，不支持插屏广告(Interstitial)")
+				}
+			}
+			return Advert._fullscreenAd
+		}
+
+		get supportInterstitialAd(): boolean {
 			return nativeHelper.checkActionExist("ironsrc:IronSource.loadInterstitial")
 		}
 
@@ -87,7 +106,7 @@ namespace AppGDK {
 			adUnitId: string
 		}): GDK.IInterstitialVideoAd {
 			if (!Advert._interstitialAd) {
-				if (this.supportInterstitial) {
+				if (this.supportInterstitialAd) {
 					Advert._interstitialAd = new InterstitialAd(params, this.api)
 				} else {
 					// Advert._interstitialAd = new VideoAd(params, this.api)

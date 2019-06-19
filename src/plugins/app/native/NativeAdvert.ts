@@ -40,6 +40,10 @@ namespace AppGDK {
 			return nativeHelper.callAction("ironsrc:IntegrationHelper.validateIntegration", {})
 		}
 
+		async shouldTrackNetworkState(params: { track: boolean }) {
+			return nativeHelper.callAction("ironsrc:IronSource.shouldTrackNetworkState", params)
+		}
+
 		/**
 		 * 事件通知流程
 		 * # 从播放视频到重新加载
@@ -97,10 +101,6 @@ namespace AppGDK {
 			return nativeHelper.onEvent("ironsrc:onRewardedVideoAdClicked", callback)
 		}
 
-		async shouldTrackNetworkState(params: { track: boolean }) {
-			return nativeHelper.callAction("ironsrc:IronSource.shouldTrackNetworkState", params)
-		}
-
 		async loadRewardVideoAd(): Promise<{}> {
 			const key = "ironsrc:IronSource.loadRewardVideoAd"
 			// if (nativeHelper.checkActionExist(key)) {
@@ -118,6 +118,105 @@ namespace AppGDK {
 		async showRewardedVideo(params: { placementName: string }) {
 			return nativeHelper.callAction("ironsrc:IronSource.showRewardedVideo", params)
 		}
+
+
+
+
+
+
+
+
+
+
+		/**
+		 * 事件通知流程
+		 * # 从播放视频到重新加载
+		 * - onFullScreenVideoAvailabilityChanged -> true
+		 * - onFullScreenVideoAdStarted
+		 * - onFullScreenVideoAdSkipped
+		 * - onFullScreenVideoAdComplete
+		 * - onFullScreenVideoAdClosed
+		 * - onFullScreenVideoAvailabilityChanged -> false
+		 * - load
+		 * - onFullScreenVideoAvailabilityChanged -> true
+		 * - onFullScreenVideoAdCached
+		 */
+		async setFullScreenVideoListener() {
+			return nativeHelper.callAction("ironsrc:IronSource.setFullScreenVideoListener", {})
+		}
+
+		// /**
+		//  * 监听广告打开播放
+		//  */
+		// async onFullScreenVideoAdOpened(callback: Function) {
+		// 	return nativeHelper.onDoneEvent("ironsrc:onFullScreenVideoAdOpened", callback)
+		// }
+		/**
+		 * 监听广告关闭
+		 */
+		async onFullScreenVideoAdClosed(callback: Function) {
+			return nativeHelper.onDoneEvent("ironsrc:onFullScreenVideoAdClosed", callback)
+		}
+		/**
+		 * 通知当前视频是否已加载
+		 */
+		async onFullScreenVideoAvailabilityChanged(callback: (data: { available: boolean }) => void) {
+			return nativeHelper.onEvent("ironsrc:onFullScreenVideoAvailabilityChanged", callback)
+		}
+		/**
+		 * 监听广告开始播放
+		 */
+		async onFullScreenVideoAdStarted(callback: Function) {
+			return nativeHelper.onDoneEvent("ironsrc:onFullScreenVideoAdStarted", callback)
+		}
+		// /**
+		//  * 监听广告播放结束
+		//  */
+		// async onFullScreenVideoAdEnded(callback: Function) {
+		// 	return nativeHelper.onDoneEvent("ironsrc:onFullScreenVideoAdEnded", callback)
+		// }
+		/**
+		 * 全屏广告完全播完会回调
+		 */
+		async onFullScreenVideoAdComplete(callback: (data: IronSrc.Placement) => void) {
+			return nativeHelper.onEvent("ironsrc:onFullScreenVideoAdComplete", callback)
+		}
+		async onFullScreenVideoAdShowFailed(callback: (data: IronSrc.IronSourceError) => void) {
+			return nativeHelper.onEvent<IronSrc.IronSourceError>("ironsrc:onFullScreenVideoAdShowFailed", callback)
+		}
+		// async onFullScreenVideoAdClicked(callback: (data: IronSrc.Placement) => void) {
+		// 	return nativeHelper.onEvent("ironsrc:onFullScreenVideoAdClicked", callback)
+		// }
+
+		async loadFullScreenVideoAd(): Promise<{}> {
+			const key = "ironsrc:IronSource.loadFullScreenVideoAd"
+			// if (nativeHelper.checkActionExist(key)) {
+			// 	return nativeHelper.callAction<{}>(key, {})
+			// } else {
+			// 	console.log(`skip call <${key}> function, which not implement for current sdk version`)
+			// }
+			return nativeHelper.safeCallAction<{}>(key, {}) || {}
+		}
+
+		async isFullScreenVideoAvailable() {
+			return nativeHelper.callAction<{ available: boolean }>("ironsrc:IronSource.isFullScreenVideoAvailable", {})
+		}
+
+		async showFullScreenVideo(params: { placementName: string }) {
+			return nativeHelper.callAction("ironsrc:IronSource.showFullScreenVideo", params)
+		}
+
+
+
+
+
+
+
+
+
+
+
+
 
 		// banner advert
 		async createBanner(params: {}) {
