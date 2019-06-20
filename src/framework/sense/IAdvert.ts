@@ -159,6 +159,18 @@ namespace GDK {
 		}): GDK.IInterstitialVideoAd
 
 		/**
+		 * 是否支持全屏广告
+		 */
+		readonly supportFullscreenAd?: boolean
+		/**
+		 * 创建全屏广告
+		 */
+		createFullscreenVideoAd?(params: {
+			/** 广告单元 id */
+			adUnitId: string
+		}): GDK.IInterstitialVideoAd
+
+		/**
 		 * 切换广告平台
 		 */
 		selectAdvertPlatform?(params: { platform: string }): Promise<void>
