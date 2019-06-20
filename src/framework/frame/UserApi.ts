@@ -973,6 +973,48 @@ namespace GDK {
 			}
 			return this._m.advert.createBannerAd(params);
 		}
+
+		get supportInterstitialAd(): boolean {
+			if (!this.checkModuleAttr("advert", "supportInterstitialAd")) {
+				return undefined;
+			}
+			return this._m.advert.supportInterstitialAd;
+		}
+
+		createInterstitialVideoAd?(params: {
+			/** 广告单元 id */
+			adUnitId: string;
+		}): GDK.IInterstitialVideoAd {
+			if (
+				!this.checkModuleAttr("advert", "createInterstitialVideoAd", "function")
+			) {
+				return undefined;
+			}
+			return this._m.advert.createInterstitialVideoAd(params);
+		}
+		/**
+		 * 是否支持全屏广告
+		 */
+		get supportFullscreenAd(): boolean {
+			if (!this.checkModuleAttr("advert", "supportFullscreenAd")) {
+				return undefined;
+			}
+			return this._m.advert.supportFullscreenAd;
+		}
+		/**
+		 * 创建全屏广告
+		 */
+		createFullscreenVideoAd?(params: {
+			/** 广告单元 id */
+			adUnitId: string;
+		}): GDK.IInterstitialVideoAd {
+			if (
+				!this.checkModuleAttr("advert", "createFullscreenVideoAd", "function")
+			) {
+				return undefined;
+			}
+			return this._m.advert.createFullscreenVideoAd(params);
+		}
 		/**
 		 * 切换广告平台
 		 */
