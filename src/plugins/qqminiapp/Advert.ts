@@ -7,13 +7,7 @@ namespace QQMiniAppGDK {
 			adUnitId: string
 		}): GDK.IRewardedVideoAd {
 
-			if (!this.compareVersion(gdk.SDKVersion, "2.0.4")) {
-				//不是最新版本直接下发奖励
-				console.log("微信不是最新版本，请升级！(微信基础库 2.0.4 开始支持，低版本需做兼容处理。)")
-				return null
-			}
-
-			return wx.createRewardedVideoAd(params)
+			return typeof wx.createRewardedVideoAd == `function` ? wx.createRewardedVideoAd(params) : null;
 		}
 
 		createBannerAd(params: {
