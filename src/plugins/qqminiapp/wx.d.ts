@@ -1975,13 +1975,9 @@ declare namespace wx {
 	export function requestPayment(options: RequestPaymentOptions): void;
 
 	export interface MidasPaymentParams {
-		mode: string//		是	支付的类型，不同的支付类型有各自额外要传的附加参数。	
-		env?: number//	0	否	环境配置	
-		offerId: string//		是	在米大师侧申请的应用 id	
-		currencyType: string//		是	币种	
-		platform?: string//		否	申请接入时的平台，platform 与应用id有关。	
-		buyQuantity?: number//		否	购买数量。mode=game 时必填。购买数量。详见 buyQuantity 限制说明。	
-		zoneId?: string//	1	否	分区 ID	
+		prepayId: string,//预下单获取的预下单ID
+		starCurrency: number,//需要消耗的游戏币数量
+
 	}
 	/**
 	 * [发起米大师支付](https://developers.weixin.qq.com/minigame/dev/document/midas-payment/wx.requestMidasPayment.html)

@@ -33,6 +33,8 @@ namespace GDK {
 		orderNo?: string
 		/** 游戏在oppo快游戏的id */
 		oppoId?: string
+		/** 手q后台生成的预支付id */
+		prepayId?: string
 	}
 
 	// 订单信息
@@ -139,7 +141,7 @@ namespace GDK {
 		 */
 		customExtra?: string
 
-		
+
 	}
 
 	export class ConsumePurchaseParams { purchaseToken: string }
