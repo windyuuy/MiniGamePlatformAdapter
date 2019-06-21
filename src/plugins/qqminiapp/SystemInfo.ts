@@ -68,6 +68,10 @@ namespace QQMiniAppGDK {
 		networkType: string
 		networkClass: number
 
+
+		deviceId?: string
+		gameDeviceId?: string
+
 		fetchNetworkInfo() {
 			const ret = new GDK.RPromise<void>()
 			wx.getNetworkType({
