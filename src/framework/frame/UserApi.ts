@@ -822,6 +822,15 @@ namespace GDK {
 			}
 			return this._m.apiSystem.getSafeArea(callback);
 		}
+		// 设置加载进度
+		setLoadingProgress?(params: { progress: number }): void {
+			if (
+				!this.checkModuleAttr("apiSystem", "setLoadingProgress", "function")
+			) {
+				return undefined;
+			}
+			return this._m.apiSystem.setLoadingProgress(params);
+		}
 		/**
 		 * 原生版本号，具体看C++
 		 */

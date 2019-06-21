@@ -36,5 +36,25 @@ namespace OPPOGDK {
 			let sysInfo = qg.getSystemInfoSync()
 			callback({ left: 0, right: 0, top: sysInfo.notchHeight, bottom: 0 });
 		}
+		setLoadingProgress(param:{progress:number}){
+			qg.setLoadingProgress(param);
+			if(param && param.progress && param.progress>=100){
+				this.loadComplete({});
+			}
+		}
+		loadComplete(param:object){
+			qg.loadingComplete({});
+		}
+		setEnableDebug(res: { enableDebug: boolean }) {
+			const ret = new GDK.RPromise<void>()
+			qg.setEnableDebug({
+				enableDebug: res.enableDebug,
+				success: () => {
+					ret.success(undefined)
+				},
+				fail: ret.fail
+			})
+			return ret.promise
+		}
 	}
 }

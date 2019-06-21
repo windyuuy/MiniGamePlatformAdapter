@@ -37,6 +37,10 @@ declare namespace qg {
 	export function createRewardedVideoAd(params: object): object;
 	export function createBannerAd(params: object): object;
 
+	export function setLoadingProgress(params:object);
+	export function loadingComplete(params:object);
+	export function setEnableDebug(params:object);
+
 	//https://developers.weixin.qq.com/minigame/dev/document/open-api/data/KVData.html
 	export class KVData {
 		key: string
