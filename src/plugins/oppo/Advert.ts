@@ -265,14 +265,16 @@ namespace OPPOGDK {
 		createRewardedVideoAd(params: {
 			adUnitId: string
 		}): GDK.IRewardedVideoAd {
-			// if (!this.compareVersion(gdk.SDKVersion, "2.0.4")) {
-			// 	//不是最新版本直接下发奖励
-			// 	console.log("微信不是最新版本，请升级！(微信基础库 2.0.4 开始支持，低版本需做兼容处理。)")
-			// 	return null
-			// }
-			const adv = qg.createRewardedVideoAd({ posId: params.adUnitId }) as GDK.IRewardedVideoAd
-			adv.adUnitId = params.adUnitId
-			return adv
+			if (params.adUnitId === "35667") {
+				if (!this._video) {
+					this._video = new VideoAd(params, this.api)
+				}
+				return this._video;
+			} else {
+				const adv = qg.createRewardedVideoAd({ posId: params.adUnitId }) as GDK.IRewardedVideoAd
+				adv.adUnitId = params.adUnitId
+				return adv
+			}
 		}
 
 		createBannerAd(params: {
