@@ -577,7 +577,7 @@ namespace QQPlayGDK {
 		 * @param userId 登录时服务器返回的userId
 		 */
 		checkIsUserBind(userId: number): boolean {
-			throw new Error("Method not implemented.");
+			return false;
 		}
 	}
 }

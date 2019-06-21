@@ -1,4 +1,3 @@
-
 namespace OPPOGDK {
 
 	const devlog = Common.devlog
@@ -27,14 +26,14 @@ namespace OPPOGDK {
 			this.api = api
 
 			qg.initAdService({
-				appId:gdk.appId,
-				isDebug:false,
-				success: (res)=>{
+				appId: gdk.appId,
+				isDebug: false,
+				success: (res) => {
 					this._isAdInited = true;
 					console.log("gdk oppo 广告初始化成功~");
 					this.createVideoAd(this.adUnitId);
 				},
-				fail: (err)=>{
+				fail: (err) => {
 					this._isAdInited = false;
 					console.log("gdk oppo 广告初始化失败~");
 				}
@@ -42,18 +41,18 @@ namespace OPPOGDK {
 
 		}
 
-		createVideoAd(posId:string){
-			this._videoAd = qg.createRewardedVideoAd({posId:this.adUnitId});
+		createVideoAd(posId: string) {
+			this._videoAd = qg.createRewardedVideoAd({ posId: this.adUnitId });
 
-			this._videoAd.onLoad(()=>{
+			this._videoAd.onLoad(() => {
 				console.log("gdk oppo videoad load success!");
 				this.onRewardedVideoAvailabilityChanged(true);
 			})
-			this._videoAd.onVideoStart(()=>{
+			this._videoAd.onVideoStart(() => {
 				console.log("gdk oppo videoad start play");
 				this.onRewardedVideoAdOpened();
 			})
-			this._videoAd.onClose((res)=>{
+			this._videoAd.onClose((res) => {
 				console.log("gdk oppo videoad closed")
 				console.log(res);
 				this._isEnded = res.isEnded;
@@ -61,7 +60,7 @@ namespace OPPOGDK {
 					this.onRewardedVideoAdClosed()
 				}, 0)
 			})
-			this._videoAd.onError((err)=>{
+			this._videoAd.onError((err) => {
 				console.log("gdk oppo videoad error")
 				console.log(err);
 				this.onRewardedVideoAdShowFailed(err)
@@ -150,7 +149,7 @@ namespace OPPOGDK {
 				this._onLoadedCallbacks.push(() => {
 					ret.success(undefined);
 				})
-				if(this._videoAd){
+				if (this._videoAd) {
 					this._videoAd.load();
 				}
 			}
@@ -160,7 +159,7 @@ namespace OPPOGDK {
 		async show(): Promise<void> {
 			console.log("gdk oppo show videoad")
 			const ret = new GDK.RPromise<void>()
-			if(this._videoAd){
+			if (this._videoAd) {
 				console.log("gdk oppo videoad call show")
 				this._isShowing = true
 				this._videoAd.show();
@@ -202,17 +201,17 @@ namespace OPPOGDK {
 			this._style = value
 		}
 
-		
+
 		protected _bannerAd = null
-		constructor(params: {adUnitId: string, viewId: number, style?: GDK.BannerStyle }) {
+		constructor(params: { adUnitId: string, viewId: number, style?: GDK.BannerStyle }) {
 			this.adUnitId = params.adUnitId || "35668"; // 默认是彩虹岛的banner
 			this.viewId = params.viewId;
-			this._bannerAd = qg.createBannerAd({posId:params.adUnitId});
+			this._bannerAd = qg.createBannerAd({ posId: params.adUnitId });
 		}
 
 		show(): Promise<void> {
 			const ret = new GDK.RPromise<void>()
-			if(this._bannerAd){
+			if (this._bannerAd) {
 				console.log("gdk oppo show banner");
 				this._bannerAd.show();
 			}
@@ -220,7 +219,7 @@ namespace OPPOGDK {
 			return ret.promise
 		}
 		async hide() {
-			if(this._bannerAd){
+			if (this._bannerAd) {
 				this._bannerAd.hide()
 			}
 		}
@@ -234,26 +233,26 @@ namespace OPPOGDK {
 			devlog.warn('oppo bannerAd dose not support resize')
 		}
 		onLoad(callback: Function) {
-			
+
 		}
 
 		offLoad(callback: Function) {
-			
+
 		}
 		onError(callback: (code: number, msg: string) => void) {
-			if(this._bannerAd){
+			if (this._bannerAd) {
 				this._bannerAd.onError(callback)
 			}
 		}
 		offError(callback: Function) {
-			if(this._bannerAd){
+			if (this._bannerAd) {
 				this._bannerAd.offError(callback)
 			}
 		}
 	}
 
 	export class Advert implements GDK.IAdvert {
-		
+
 		api?: GDK.UserAPI
 		async initWithConfig?(_info: GDK.GDKConfig) {
 			console.log("gdk oppo advert initConfig");
@@ -266,10 +265,14 @@ namespace OPPOGDK {
 		createRewardedVideoAd(params: {
 			adUnitId: string
 		}): GDK.IRewardedVideoAd {
-			if(!this._video){
-				this._video = new VideoAd(params,this.api)
-			}
-			return this._video;
+			// if (!this.compareVersion(gdk.SDKVersion, "2.0.4")) {
+			// 	//不是最新版本直接下发奖励
+			// 	console.log("微信不是最新版本，请升级！(微信基础库 2.0.4 开始支持，低版本需做兼容处理。)")
+			// 	return null
+			// }
+			const adv = qg.createRewardedVideoAd({ posId: params.adUnitId }) as GDK.IRewardedVideoAd
+			adv.adUnitId = params.adUnitId
+			return adv
 		}
 
 		createBannerAd(params: {
