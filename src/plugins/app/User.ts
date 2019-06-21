@@ -279,8 +279,12 @@ namespace AppGDK {
 						this.server.loginOpenId({ openId: currentUser.openId, uuId: sysInfo.uuid, clientSystemInfo: sysInfo }, loginComplete);
 					} else if (currentUser.loginType == "visitor") {
 						//自动游客登陆
-						SDKProxy.showLogining(currentUser.name);
-						isDelayLogin = true;
+						if (params.silent) {
+							isDelayLogin = false;
+						} else {
+							SDKProxy.showLogining(currentUser.name);
+							isDelayLogin = true;
+						}
 						loginStartTime = new Date().getTime()
 						let sysInfo = this.api.systemInfo.clone()
 						this.server.loginOpenId({ openId: currentUser.openId, uuId: sysInfo.uuid, clientSystemInfo: sysInfo }, loginComplete);
