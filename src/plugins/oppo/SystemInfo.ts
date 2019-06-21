@@ -20,6 +20,9 @@ namespace OPPOGDK {
 		networkClass: number
 		networkType: string
 
+		deviceId?: string
+		gameDeviceId?: string
+
 		isFirstInstall?: number
 		devPlatform?: string
 
