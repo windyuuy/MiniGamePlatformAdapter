@@ -155,7 +155,7 @@ namespace GDK {
 		// 	wechat: boolean,
 		// 	gamecenter: boolean,
 		// }
-		setLoginSupport(loginSupport?: {
+		setLoginSupport?(loginSupport: {
 			google: boolean,
 			visitor: boolean,
 			facebook: boolean,
