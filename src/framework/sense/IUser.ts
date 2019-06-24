@@ -146,5 +146,14 @@ namespace GDK {
 		 * @param userId 登录时服务器返回的userId
 		 */
 		checkIsUserBind(userId: number): boolean;
+
+
+		loginSupport?: {
+			google: boolean,
+			visitor: boolean,
+			facebook: boolean,
+			wechat: boolean,
+			gamecenter: boolean,
+		}
 	}
 }

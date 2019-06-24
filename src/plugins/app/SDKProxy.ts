@@ -47,8 +47,10 @@ class SDKProxy {
 	static support: {
 		google: boolean,
 		visitor: boolean,
-		facebook: boolean
-	} = { google: true, visitor: true, facebook: true }
+		facebook: boolean,
+		wechat: boolean,
+		gamecenter: boolean,
+	} = { google: true, visitor: true, facebook: true, wechat: true, gamecenter: true }
 
 
 	/**

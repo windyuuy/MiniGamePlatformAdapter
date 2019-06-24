@@ -492,5 +492,38 @@ namespace AppGDK {
 
 			return users.length > 0 && !!users.find(user => user.loginType != "silent" && user.loginType != "visitor");
 		}
+
+		private _loginSupport?: {
+			google: boolean,
+			visitor: boolean,
+			facebook: boolean,
+			wechat: boolean,
+			gamecenter: boolean,
+		} = {
+				google: true,
+				visitor: true,
+				facebook: true,
+				wechat: true,
+				gamecenter: true,
+			};
+		public get loginSupport(): {
+			google: boolean,
+			visitor: boolean,
+			facebook: boolean,
+			wechat: boolean,
+			gamecenter: boolean,
+		} {
+			return this._loginSupport;
+		}
+		public set loginSupport(value: {
+			google: boolean,
+			visitor: boolean,
+			facebook: boolean,
+			wechat: boolean,
+			gamecenter: boolean,
+		}) {
+			this._loginSupport = value;
+			SDKProxy.support = value;
+		}
 	}
 }
