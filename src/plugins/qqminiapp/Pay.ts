@@ -33,6 +33,7 @@ namespace QQMiniAppGDK {
 					devlog.error("充值回调中发生异常:", e)
 				}
 			}
+			devlog.info(`qqnimiapp pay params : prepayId:${config.prepayId},starCurrency:${config.money * 10}`);
 			wx.requestMidasPayment({
 				prepayId: config.prepayId,
 				starCurrency: config.money * 10,
@@ -61,10 +62,6 @@ namespace QQMiniAppGDK {
 							}
 						}))
 					}
-				}, complete: (res) => {
-					this._payReturnCallback = null; 
-					this._isPaying = false;
-					devlog.warn(`手q充值结果:`, res);
 				}
 			})
 
