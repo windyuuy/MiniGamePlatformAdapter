@@ -112,7 +112,7 @@ namespace AppGDK {
 				SDKProxy.showLoginDialog();
 			})
 
-			SDKProxy.onLogin((type, openId, token, nickName, email, head) => {
+			SDKProxy.onLogin((type, openId, token, nickName, email, head, platform?) => {
 				//玩家SDK登陆完成
 				SDKProxy.hideLoginDialog();//隐藏登陆弹框
 				isCancelLogin = false;
@@ -148,7 +148,12 @@ namespace AppGDK {
 				} else if (type == "facebook") {
 					this.server.loginFB({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
 				} else if (type == "wxapp") {
-					this.server.loginAppWX({ openId: openId, code: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
+					if (platform && platform == "android") {
+						this.server.loginAppWXAndroid({ openId: openId, code: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
+					} else {
+						this.server.loginAppWX({ openId: openId, code: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
+
+					}
 				} else if (type == "gamecenter") {
 					this.server.loginGC({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
 				} else if (type == "visitor") {
@@ -194,7 +199,7 @@ namespace AppGDK {
 			})
 
 
-			SDKProxy.onBind((type, visitorOpenId, openId, token) => {
+			SDKProxy.onBind((type, visitorOpenId, openId, token, platform?) => {
 				//玩家SDK绑定完成
 				let typeNumb = null
 				if (type == "facebook") {
@@ -204,7 +209,11 @@ namespace AppGDK {
 				} else if (type == "gamecenter") {
 					typeNumb = 3
 				} else if (type == "wxapp") {
-					typeNumb = 4;
+					if (platform && platform == "android") {
+						typeNumb = 5;
+					} else {
+						typeNumb = 4;
+					}
 				}
 
 
