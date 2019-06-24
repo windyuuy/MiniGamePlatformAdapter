@@ -148,12 +148,19 @@ namespace GDK {
 		checkIsUserBind(userId: number): boolean;
 
 
-		loginSupport?: {
+		// loginSupport?: {
+		// 	google: boolean,
+		// 	visitor: boolean,
+		// 	facebook: boolean,
+		// 	wechat: boolean,
+		// 	gamecenter: boolean,
+		// }
+		setLoginSupport(loginSupport?: {
 			google: boolean,
 			visitor: boolean,
 			facebook: boolean,
 			wechat: boolean,
 			gamecenter: boolean,
-		}
+		})
 	}
 }
