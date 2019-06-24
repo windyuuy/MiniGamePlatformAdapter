@@ -33,8 +33,16 @@ namespace GDK {
 		orderNo?: string
 		/** 游戏在oppo快游戏的id */
 		oppoId?: string
+		/** 游戏在该平台的appid */
+		channelAppId?: string
+		merchantId?: string
 		/** 手q后台生成的预支付id */
 		prepayId?: string
+
+		/** 商户id */
+		partnerId?: string
+		/** 随机字符串 */
+		nonceStr?: string
 	}
 
 	// 订单信息

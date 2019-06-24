@@ -10,8 +10,8 @@ namespace AppGDK {
 			const ret = new GDK.RPromise<GDK.PayResult>()
 
 			let sku = config.productId
-			if (sku == null) {
-				const msg = 'productId 为空， 原生app需要传入productId'
+			if (!sku) {
+				const msg = 'payPurchase: productId 为空， 原生app需要传入productId'
 				paylog.error(msg)
 				ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_PAY_FAILED, {
 					message: msg
@@ -19,7 +19,20 @@ namespace AppGDK {
 				return ret.promise
 			}
 
-			SDKProxy.nativePay.requestPay({ sku: sku, price: config.money, count: 1, currency: "dollar" }).then((payret) => {
+			SDKProxy.nativePay.requestPay({
+				sku: sku,
+				price: config.money,
+				count: 1,
+				currency: "dollar",
+
+				channelAppId: config.channelAppId,
+				packageValue: "Sign=WXPay",
+				nonceStr: config.nonceStr,
+				partnerId: config.partnerId,
+				paySign: config.paySign,
+				prepayId: config.prepayId,
+				timestamp: config.timestamp,
+			}).then((payret) => {
 				if (payret.code == 0) {
 					paylog.info("原生充值成功", config)
 					ret.success({
@@ -59,6 +72,18 @@ namespace AppGDK {
 		 * 获取未消耗商品列表
 		 */
 		async queryItemInfo?(params: GDK.PayQueryItemInfoParams): Promise<GDK.PayQueryItemInfoResult> {
+
+			let sku = params.productId
+			if (!sku) {
+				const msg = 'queryItemInfo: productId 为空， 原生app需要传入productId'
+				paylog.error(msg)
+				const ret = new GDK.RPromise<GDK.PayQueryItemInfoResult>()
+				ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_PAY_QUERYITEMINFO_FAILED, {
+					message: msg
+				}))
+				return ret.promise
+			}
+
 			return SDKProxy.nativePay.queryItemInfo({ sku: params.productId })
 		}
 

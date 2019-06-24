@@ -34,6 +34,7 @@ namespace GDK {
 		API_PAY_FAILED: 30012,
 		/** API 取消支付 */
 		API_PAY_CANCEL: 30013,
+		API_PAY_QUERYITEMINFO_FAILED: 30021,
 
 		// /** API 更新用户数据 */
 		/** API 更新用户数据失败 */
