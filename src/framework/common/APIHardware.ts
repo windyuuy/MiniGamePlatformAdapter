@@ -8,6 +8,9 @@ namespace GDK {
 		async vibrateShort() {
 			devlog.info("vibrateShort")
 		}
+		async vibrate(params: { duration: number }) {
+			devlog.info("vibrate", params)
+		}
 	}
 	class Performance implements IPerformance {
 		getMicroTime(): TMicroSecond {

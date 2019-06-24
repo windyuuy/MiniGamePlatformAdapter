@@ -11,6 +11,11 @@ namespace GDK {
 		 * 使手机发生较短时间的振动（15 ms）。仅在 iPhone 7 / 7 Plus 以上及 Android 机型生效
 		 */
 		vibrateShort(): Promise<void>
+
+		/**
+		 * 当前仅原生平台支持
+		 */
+		vibrate?(params: { duration: number }): Promise<void>
 	}
 
 	export interface MemoryWarningInfo {
