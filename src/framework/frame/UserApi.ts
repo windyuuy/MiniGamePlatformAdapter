@@ -304,6 +304,19 @@ namespace GDK {
 			}
 			return this._m.user.checkIsUserBind(userId);
 		}
+		// }
+		setLoginSupport?(loginSupport: {
+			google: boolean;
+			visitor: boolean;
+			facebook: boolean;
+			wechat: boolean;
+			gamecenter: boolean;
+		}) {
+			if (!this.checkModuleAttr("user", "setLoginSupport", "function")) {
+				return undefined;
+			}
+			return this._m.user.setLoginSupport(loginSupport);
+		}
 		/**
 		 * 游戏的启动模式，可以是：
 		 * - 开发
