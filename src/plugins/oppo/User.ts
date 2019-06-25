@@ -95,8 +95,7 @@ namespace OPPOGDK {
 								}
 								//添加openId日志
 								this.api.systemInfo.deviceId = data.openId;
-								this.api.systemInfo.gameDeviceId = data.openId;
-								
+
 								const userdata = this.api.userData
 								for (let key in newdata) {
 									userdata[key] = newdata[key]

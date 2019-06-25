@@ -37,6 +37,13 @@ namespace OPPOGDK {
 
 		init() {
 			this.update()
+
+			var gameDeviceId = localStorage.getItem("glee_systeminfo_gameDeviceId");
+			if (gameDeviceId == null || gameDeviceId == "") {
+				gameDeviceId = new Date().getTime().toString(36) + (Math.random() * 2 ** 64).toString(36) + (Math.random() * 2 ** 64).toString(36);
+				localStorage.setItem("glee_systeminfo_gameDeviceId", gameDeviceId);
+			}
+			this.gameDeviceId = gameDeviceId;
 		}
 
 		protected initSysInfo(sysinfo: qg.OPPO_SystemInfo) {
