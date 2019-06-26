@@ -9,6 +9,10 @@ namespace AppGDK {
 		ON_CODE_REQUEST_GPV3,
 		OWNED_SUCH_ITEM,
 		INVALID_PARAMS,
+		/**
+		 * 依赖的app未安装
+		 */
+		DEPENDENCE_APP_NOT_INSTALLED,
 	}
 	export class NativePayResult {
 		code: PayErrorCode
