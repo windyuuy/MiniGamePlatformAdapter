@@ -81,6 +81,11 @@ declare namespace gdkjsb {
 	export var imei: string
 
 	/**
+	 * 包名
+	 */
+	export var packageName: string
+
+	/**
 	 * 显示对话框
 	 * @param content 
 	 * @param title 

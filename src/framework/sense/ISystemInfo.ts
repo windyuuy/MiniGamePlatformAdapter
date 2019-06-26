@@ -148,6 +148,11 @@ namespace GDK {
 		 */
 		imei?: string
 
+		/**
+		 * 包名
+		 */
+		packageName?: string
+
 		init?()
 
 		/**

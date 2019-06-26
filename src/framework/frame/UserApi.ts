@@ -715,6 +715,15 @@ namespace GDK {
 			}
 			return this._m.systemInfo.imei;
 		}
+		/**
+		 * 包名
+		 */
+		get packageName(): string {
+			if (!this.checkModuleAttr("systemInfo", "packageName")) {
+				return undefined;
+			}
+			return this._m.systemInfo.packageName;
+		}
 
 		/**
 		 * 刷新网络状况信息
