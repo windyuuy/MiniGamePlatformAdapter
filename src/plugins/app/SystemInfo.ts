@@ -41,6 +41,7 @@ namespace AppGDK {
 		imei?: string
 		packageName?: string
 
+
 		async fetchNetworkInfo(): Promise<void> {
 
 		}
@@ -61,6 +62,7 @@ namespace AppGDK {
 			this.language = gdkjsb.language
 			this.versionCode = gdkjsb.versionCode
 			this.versionName = gdkjsb.versionName
+			this.packageName = gdkjsb.packageName
 
 			this.channel = gdkjsb.channel
 			this.country = gdkjsb.country

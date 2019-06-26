@@ -726,6 +726,16 @@ namespace GDK {
 		}
 
 		/**
+		 * packageName
+		 */
+		get packageName(): string {
+			if (!this.checkModuleAttr("systemInfo", "packageName")) {
+				return undefined;
+			}
+			return this._m.systemInfo.packageName;
+		}
+
+		/**
 		 * 刷新网络状况信息
 		 */
 		fetchNetworkInfo(): Promise<void> {
