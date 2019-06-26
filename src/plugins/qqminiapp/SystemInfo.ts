@@ -110,6 +110,14 @@ namespace QQMiniAppGDK {
 			wx.onNetworkStatusChange((res) => {
 				this.updateNetworkInfo(res.networkType, res.isConnected)
 			})
+
+			var gameDeviceId = wx.getStorageSync("glee_systeminfo_gameDeviceId");
+			if (gameDeviceId == null || gameDeviceId == "") {
+				gameDeviceId = new Date().getTime().toString(36) + (Math.random() * 2 ** 64).toString(36) + (Math.random() * 2 ** 64).toString(36);
+				wx.setStorageSync("glee_systeminfo_gameDeviceId", gameDeviceId);
+			}
+			this.gameDeviceId = gameDeviceId;
+
 		}
 	}
 }

@@ -9,9 +9,11 @@ namespace QQMiniAppGDK {
 			//回到前台后响应
 			wx.onShow(() => {
 				devlog.info("-[QQMINIAPP] onEnterforeground");
-				if (this._isPaying) {
-					this._payReturnCallback && this._payReturnCallback()
-				}
+				setTimeout(() => {
+					if (this._isPaying) {
+						this._payReturnCallback && this._payReturnCallback()
+					}
+				}, 1500);
 			})
 		}
 
@@ -41,12 +43,14 @@ namespace QQMiniAppGDK {
 					devlog.info("手q充值成功", config);
 					this._payReturnCallback = null;
 					this._isPaying = false;
-					ret.success({
-						result: {
-							errCode: 0,
-						},
-						extra: { errCode: 0, state: GDK.OrderState.ok },
-					})
+					setTimeout(() => {
+						ret.success({
+							result: {
+								errCode: 0,
+							},
+							extra: { errCode: 0, state: GDK.OrderState.ok },
+						})
+					}, 1500);
 				},
 				fail: (res: { errMsg: string, errCode: number }) => {
 					this._payReturnCallback = null;

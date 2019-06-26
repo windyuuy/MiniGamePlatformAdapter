@@ -81,7 +81,14 @@ namespace GDK {
 		getSafeArea?(callback: (data: { left: number, right: number, top: number, bottom: number }) => void): void;
 
 		// 设置加载进度
-		setLoadingProgress?(params:{progress:number}):void;
+		setLoadingProgress?(params: { progress: number }): void;
+
+		/**
+		 * 网页跳转
+		 * @param url 
+		 */
+		openURL?(url: string): void;
+
 		/**
 		 * 原生版本号，具体看C++
 		 */

@@ -36,6 +36,7 @@ namespace GDK {
 		installTime?: number
 
 		imei?: string
+		packageName?: string
 
 		abstract fetchNetworkInfo(): Promise<void>
 

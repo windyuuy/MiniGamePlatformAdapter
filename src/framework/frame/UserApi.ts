@@ -304,6 +304,19 @@ namespace GDK {
 			}
 			return this._m.user.checkIsUserBind(userId);
 		}
+		// }
+		setLoginSupport?(loginSupport: {
+			google: boolean;
+			visitor: boolean;
+			facebook: boolean;
+			wechat: boolean;
+			gamecenter: boolean;
+		}) {
+			if (!this.checkModuleAttr("user", "setLoginSupport", "function")) {
+				return undefined;
+			}
+			return this._m.user.setLoginSupport(loginSupport);
+		}
 		/**
 		 * 游戏的启动模式，可以是：
 		 * - 开发
@@ -702,6 +715,15 @@ namespace GDK {
 			}
 			return this._m.systemInfo.imei;
 		}
+		/**
+		 * 包名
+		 */
+		get packageName(): string {
+			if (!this.checkModuleAttr("systemInfo", "packageName")) {
+				return undefined;
+			}
+			return this._m.systemInfo.packageName;
+		}
 
 		/**
 		 * 刷新网络状况信息
@@ -830,6 +852,16 @@ namespace GDK {
 				return undefined;
 			}
 			return this._m.apiSystem.setLoadingProgress(params);
+		}
+		/**
+		 * 网页跳转
+		 * @param url
+		 */
+		openURL?(url: string): void {
+			if (!this.checkModuleAttr("apiSystem", "openURL", "function")) {
+				return undefined;
+			}
+			return this._m.apiSystem.openURL(url);
 		}
 		/**
 		 * 原生版本号，具体看C++

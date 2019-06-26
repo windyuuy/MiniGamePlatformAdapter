@@ -39,6 +39,7 @@ namespace AppGDK {
 		installTime?: number
 
 		imei?: string
+		packageName?: string
 
 		async fetchNetworkInfo(): Promise<void> {
 
@@ -65,6 +66,7 @@ namespace AppGDK {
 			this.country = gdkjsb.country
 			this.installTime = gdkjsb.installTime;
 			this.imei = gdkjsb.imei
+			this.packageName = gdkjsb.packageName
 		}
 	}
 }
