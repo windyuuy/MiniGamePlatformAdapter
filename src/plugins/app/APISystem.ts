@@ -52,6 +52,9 @@ namespace AppGDK {
 			return gdkjsb.nativeVersion || 0;
 		}
 
+		openURL(url: string) {
+			gdkjsb.openURL(url);
+		}
 
 		onShow?(callback: (data: any) => void): void {
 			this._showList.push(callback);

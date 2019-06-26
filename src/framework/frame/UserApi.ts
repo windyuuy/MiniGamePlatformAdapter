@@ -854,6 +854,16 @@ namespace GDK {
 			return this._m.apiSystem.setLoadingProgress(params);
 		}
 		/**
+		 * 网页跳转
+		 * @param url
+		 */
+		openURL?(url: string): void {
+			if (!this.checkModuleAttr("apiSystem", "openURL", "function")) {
+				return undefined;
+			}
+			return this._m.apiSystem.openURL(url);
+		}
+		/**
 		 * 原生版本号，具体看C++
 		 */
 		get nativeVersion(): number {

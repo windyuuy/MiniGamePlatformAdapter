@@ -86,6 +86,12 @@ declare namespace gdkjsb {
 	export var packageName: string
 
 	/**
+	 * 打开网页地址
+	 * @param url 
+	 */
+	export function openURL(url: string);
+
+	/**
 	 * 显示对话框
 	 * @param content 
 	 * @param title 
