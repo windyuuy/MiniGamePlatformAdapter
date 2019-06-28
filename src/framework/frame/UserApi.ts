@@ -725,6 +725,8 @@ namespace GDK {
 			return this._m.systemInfo.packageName;
 		}
 
+
+
 		/**
 		 * 刷新网络状况信息
 		 */

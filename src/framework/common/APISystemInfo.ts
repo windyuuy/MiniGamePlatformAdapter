@@ -38,6 +38,8 @@ namespace GDK {
 		imei?: string
 		packageName?: string
 
+
+
 		abstract fetchNetworkInfo(): Promise<void>
 
 		clone(): ISystemInfo {

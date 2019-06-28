@@ -41,6 +41,7 @@ namespace AppGDK {
 		imei?: string
 		packageName?: string
 
+
 		async fetchNetworkInfo(): Promise<void> {
 
 		}
