@@ -32,7 +32,7 @@ namespace GDK {
 		 * 优先只启用小程序跳转支付
 		 * 只支持安卓
 		 */
-		requireMiniAppPay: boolean = true
+		requireMiniAppPay: boolean = false
 
 		/**
 		 * 获取当前服务器时间
