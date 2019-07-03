@@ -59,15 +59,4 @@ declare namespace qg {
 
 	export function getStorageSync(params: { key: string, value?: string }): string;
 	export function setStorageSync(params: { key: string, value?: string }): string;
-
-	//https://developers.weixin.qq.com/minigame/dev/document/open-api/data/KVData.html
-	export class KVData {
-		key: string
-		value: string
-	}
-
-
-
-
-
 }

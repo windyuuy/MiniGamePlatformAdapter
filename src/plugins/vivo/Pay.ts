@@ -10,7 +10,7 @@ namespace VIVOGDK {
 		init() {
 			//回到前台后响应
 			qg.onShow(() => {
-				paylog.info("-[OPPOAPI] onEnterforeground");
+				paylog.info("-[VIVOAPI] onEnterforeground");
 				if (this._isPaying) {
 					this._payReturnCallback && this._payReturnCallback()
 				}
@@ -30,7 +30,7 @@ namespace VIVOGDK {
 				this._isPaying = false
 				const code = -1
 				try {
-					paylog.info('-[OPPOAPI] callback cancel onShow')
+					paylog.info('-[VIVOAPI] callback cancel onShow')
 					callback(code, {
 						code: code,
 						itemList: items,
@@ -53,15 +53,10 @@ namespace VIVOGDK {
 			}, items)
 
 			qg.pay({
-				pkgName: items.pkgName,
-				token: token,
-				timestamp: items.timestamp,
-				paySign: items.paySign,
-				orderNo: items.orderNo,
-				appId: this.api.appId,
+				orderInfo: items.vivoOrderInfo,
 				success: (res) => {
 					// pay success
-					paylog.info("oppo 支付成功", res)
+					paylog.info("vivo 支付成功", res)
 					// successCall(res);
 					this._payReturnCallback = null
 					this._isPaying = false
@@ -69,7 +64,7 @@ namespace VIVOGDK {
 				},
 				fail: (res) => {
 					// pay fail
-					paylog.error("oppo 支付失败", res)
+					paylog.error("vivo 支付失败", res)
 					//console.log(JSON.stringify(res));
 					this._payReturnCallback = null
 					this._isPaying = false

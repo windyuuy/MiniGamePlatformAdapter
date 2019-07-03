@@ -123,15 +123,15 @@ namespace VIVOGDK {
 
 		protected loginTime = null
 		protected uploadingUserScore = false
-		_setUserCloudStorage(obj: { KVDataList: qg.KVData[], typeIndex: string[], success?: Function, fail?: Function, complete?: Function }) {
+		_setUserCloudStorage(obj: { KVDataList: GDK.KVData[], typeIndex: string[], success?: Function, fail?: Function, complete?: Function }) {
 			//
 		}
 
-		uploadBusinessData(obj: { KVDataList: qg.KVData[], typeIndex: string[], success?: Function, fail?: Function, complete?: Function }) {
+		uploadBusinessData(obj: { KVDataList: GDK.KVData[], typeIndex: string[], success?: Function, fail?: Function, complete?: Function }) {
 
 		}
 
-		setUserCloudStorage(obj: { KVDataList: qg.KVData[], typeIndex: string[] }): Promise<void> {
+		setUserCloudStorage(obj: { KVDataList: GDK.KVData[], typeIndex: string[] }): Promise<void> {
 			const ret = new GDK.RPromise<void>()
 
 			return ret.promise
