@@ -118,6 +118,14 @@ namespace QQMiniAppGDK {
 			}
 			this.gameDeviceId = gameDeviceId;
 
+
+			var installTime = wx.getStorageSync("glee_systeminfo_installTime");
+			if (installTime == null || installTime == "") {
+				installTime = new Date().getTime().toString();
+				wx.setStorageSync("glee_systeminfo_installTime", installTime);
+			}
+			this.installTime = parseInt(installTime);
+
 		}
 	}
 }

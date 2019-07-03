@@ -71,6 +71,8 @@ namespace WechatGDK {
 		deviceId?: string
 		gameDeviceId?: string
 
+		installTime?: number
+
 		fetchNetworkInfo() {
 			const ret = new GDK.RPromise<void>()
 			wx.getNetworkType({
@@ -124,6 +126,13 @@ namespace WechatGDK {
 				wx.setStorageSync("glee_systeminfo_gameDeviceId", gameDeviceId);
 			}
 			this.gameDeviceId = gameDeviceId;
+
+			var installTime = wx.getStorageSync("glee_systeminfo_installTime");
+			if (installTime == null || installTime == "") {
+				installTime = new Date().getTime().toString();
+				wx.setStorageSync("glee_systeminfo_installTime", installTime);
+			}
+			this.installTime = parseInt(installTime);
 		}
 	}
 }

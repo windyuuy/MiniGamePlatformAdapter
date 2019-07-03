@@ -1,3 +1,86 @@
+// Type definitions for pako 1.0.4
+// Project: https://github.com/nodeca/pako
+// Definitions by: Denis Cappellin <https://github.com/cappellin>, Caleb Eggensperger <https://github.com/calebegg>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+declare namespace pako {
+	export interface DeflateOptions {
+		level?: number;
+		windowBits?: number;
+		memLevel?: number;
+		strategy?: number;
+		dictionary?: any;
+		raw?: boolean;
+		to?: 'string';
+	}
+
+	export interface InflateOptions {
+		windowBits?: number;
+		raw?: boolean;
+		to?: 'string';
+	}
+
+	export type Data = Uint8Array | Array<number> | string;
+
+	/**
+	 * Compress data with deflate algorithm and options.
+	 */
+	export function deflate(data: Data, options: DeflateOptions & { to: 'string' }): string;
+	export function deflate(data: Data, options?: DeflateOptions): Uint8Array;
+
+	/**
+	 * The same as deflate, but creates raw data, without wrapper (header and adler32 crc).
+	 */
+	export function deflateRaw(data: Data, options: DeflateOptions & { to: 'string' }): string;
+	export function deflateRaw(data: Data, options?: DeflateOptions): Uint8Array;
+
+	/**
+	 * The same as deflate, but create gzip wrapper instead of deflate one.
+	 */
+	export function gzip(data: Data, options: DeflateOptions & { to: 'string' }): string;
+	export function gzip(data: Data, options?: DeflateOptions): Uint8Array;
+
+	/**
+	 * Decompress data with inflate/ungzip and options. Autodetect format via wrapper header
+	 * by default. That's why we don't provide separate ungzip method.
+	 */
+	export function inflate(data: Data, options: InflateOptions & { to: 'string' }): string;
+	export function inflate(data: Data, options?: InflateOptions): Uint8Array;
+
+	/**
+	 * The same as inflate, but creates raw data, without wrapper (header and adler32 crc).
+	 */
+	export function inflateRaw(data: Data, options: InflateOptions & { to: 'string' }): string;
+	export function inflateRaw(data: Data, options?: InflateOptions): Uint8Array;
+
+	/**
+	 * Just shortcut to inflate, because it autodetects format by header.content. Done for convenience.
+	 */
+	export function ungzip(data: Data, options: InflateOptions & { to: 'string' }): string;
+	export function ungzip(data: Data, options?: InflateOptions): Uint8Array;
+
+	export class Deflate {
+		constructor(options?: DeflateOptions);
+		err: number;
+		msg: string;
+		result: Uint8Array | Array<number>;
+		onData(chunk: Data): void;
+		onEnd(status: number): void;
+		push(data: Data | ArrayBuffer, mode?: number | boolean): boolean;
+	}
+
+	export class Inflate {
+		constructor(options?: InflateOptions);
+		err: number;
+		msg: string;
+		result: Data;
+		onData(chunk: Data): void;
+		onEnd(status: number): void;
+		push(data: Data | ArrayBuffer, mode?: number | boolean): boolean;
+	}
+}
+
+
 // Type definitions for bignumber.js >=6.0.0
 // Project: https://github.com/MikeMcl/bignumber.js
 // Definitions by: Michael Mclaughlin <https://github.com/MikeMcl>
@@ -316,6 +399,18 @@ declare namespace BigNumber {
   export type ModuloMode = 0 | 1 | 3 | 6 | 9;
   export type RoundingMode = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
   export type Value = string | number | BigNumber;
+
+  /**
+   * 开启简化精度
+   * @param precision 精度 默认 10
+   */
+  export function enableSimplifyCalculate(precision: number);
+
+  /**
+   * 关闭精度简化
+   */
+  export function disableSimplifyCalculate();
+
 }
 
 declare class BigNumber {
@@ -1898,6 +1993,12 @@ interface Array<T> {
      * 例:[[1,2,3],[4,5,6]]=>[1,2,3,4,5,6]
      */
     unpack(): T;
+
+    /**
+     * 兼容es5浏览器
+     * @param callback 
+     */
+    find(callback: (a: T) => boolean): T
 }
 
 
@@ -1906,6 +2007,24 @@ interface Date{
 	rawformat(format:string):string;
 }
 
+interface String {
+    /**
+     * 为了兼容es6
+     */
+	repeat(count: number): String;
+
+	/**
+	 * 为了兼容es6
+	 * @param str 
+	 */
+	startsWith(str: string): boolean;
+
+	/**
+	 * 为了兼容es6
+	 * @param str 
+	 */
+	endsWith(str: string): boolean;
+}
 declare namespace slib {
     function assert(cond: any, tip?: string): any;
     function defaultValue<T>(kv: T, dv: T): T;
@@ -1913,17 +2032,33 @@ declare namespace slib {
 declare namespace slib {
     class I18N {
         static readonly instance: I18N;
-        langMap: {
+        /**
+         * 当前语言
+         */
+        language: string;
+        /**
+         * 界面和程序所使用的语言信息
+         */
+        stringsMap: {
+            [key: string]: string;
+        };
+        /**
+         * 根资源路径，用于缩短路径填写
+         */
+        resRootPath: string;
+        readonly langMap: {
             [key: string]: string;
         };
         /**
          * 应用语言表
-         * @param list 语言列表 必须是 key value 的形式
+         * @param data 语言列表 必须是 key value 的形式的数组 或是个map
          */
-        applyTable(list: {
+        applyTable(data: {
             key: string;
             value: string;
-        }[]): void;
+        }[] | {
+            [key: string]: string;
+        }): void;
         /**
          * 根据key获取文字内容
          * @param key
@@ -1934,13 +2069,18 @@ declare namespace slib {
          * ###例如
          * * key="pet.get"
          * * value="恭喜你获得${petName},好好保护它吧！"
-         * * format("pet.get",petName)
+         * * format("pet.get",{petName:"波波"}) 得到 "恭喜你获得波波,好好保护它吧！"
          * @param key 语言key
          * @param args 参数，支持字符串数组
          */
         format(key: string, args: {
             [key: string]: any;
         }): string;
+        /**
+         * 获取资源url，结果等于 resRootPath+value
+         * @param key
+         */
+        locUrl(key: string): string;
     }
     var i18n: I18N;
 }
@@ -2047,8 +2187,9 @@ declare namespace slib {
      * @param fieldMap 表的字段列表
      * @param ekey 解密key
      * @param datastr 数据字符串
+     * @param unzip 是否需要解压数据
      */
-    function decryptTable(objf: () => object, fieldMap: string[], ekey: string, datastr: string): any[];
+    function decryptTable(objf: () => object, fieldMap: string[], ekey: string, datastr: string, unzip?: boolean): any[];
 }
 declare namespace slib {
     /**
@@ -2097,6 +2238,14 @@ declare namespace slib {
         static convertNumStr2UnitStr(value: string, offset?: number, fixedNum?: number): string;
     }
 }
+declare namespace slib.EncryptHelper {
+    /**
+     * 加密时，是否开启压缩
+     */
+    var enableZip: boolean;
+    function decrypt(value: string, key: string): string;
+    function encrypt(value: string, key: string, extdata?: any): string;
+}
 declare namespace slib.JSHelper {
     function clone<T extends Object>(srcObj: T): T;
     function merge<T extends Object>(srcObj: Object, destObj: T): T;
@@ -2128,11 +2277,13 @@ declare namespace slib {
 }
 declare namespace slib {
     let xxtea: {
-        utf8Encode: (str: string) => string;
-        utf8Decode: (str: string) => string;
-        encrypt: (str: string, key: string) => number[];
+        toBytes: (str: string) => Uint8Array;
+        toString: (str: Uint8Array) => string;
+        encrypt: (str: string | Uint8Array, key: string | Uint8Array) => Uint8Array;
+        encryptToString: (str: string | Uint8Array, key: string | Uint8Array) => string;
+        decrypt: (str: string | Uint8Array, key: string | Uint8Array) => Uint8Array;
+        decryptToString: (str: string | Uint8Array, key: string | Uint8Array) => string;
         encryptToBase64: (str: string, key: string) => string;
-        decrypt: (str: number[], key: string) => string;
         decryptFromBase64: (str: string, key: string) => string;
         encryptToBase64Ex1: (str: string, key: string) => string;
         decryptFromBase64Ex1: (str: string, key: string) => string;
@@ -2227,6 +2378,10 @@ declare namespace slib {
         constructor();
         connect(): void;
         /**
+         * 获取是否添加日志测试标记
+         */
+        getLogTest: () => boolean;
+        /**
          * 获取token对外接口
          */
         getToken: () => string;
@@ -2257,22 +2412,30 @@ declare namespace slib {
          * @param data 请求的数据
          * @param callback 请求的回调
          * ### 扩展数据
+         * * version 访问云函数的版本号
+         * * tag 访问云函数的tag
+         * * name 访问云函数的名称
          * * modal 是否模态窗口
          * * downloadProgress 下载进度
          * * uploadProgress 上传进度
          * * errorCallback 错误回调 这里可以拿到retry函数
          */
-        request(action: any, data: any, callback: (data: HttpResponseData) => void, { modal, downloadProgress, uploadProgress, errorCallback }?: {
+        request(action: any, data: any, callback: (data: HttpResponseData) => void, { version, tag, name, modal, downloadProgress, uploadProgress, errorCallback, customUrl }?: {
+            version?: number;
+            tag?: string;
+            name?: string;
             modal?: boolean;
             downloadProgress?: (loaded: number, total: number) => void;
             uploadProgress?: (loaded: number, total: number) => void;
             errorCallback?: (error: any, retry: () => void) => void;
+            customUrl?: string;
         }): void;
-        protected requestFromData(action: any, requestData: HttpRequestData, callback: (data: HttpResponseData) => void, { modal, downloadProgress, uploadProgress, errorCallback }?: {
+        protected requestFromData(action: any, requestData: HttpRequestData, callback: (data: HttpResponseData) => void, { modal, downloadProgress, uploadProgress, errorCallback, customUrl }?: {
             modal?: boolean;
             downloadProgress?: (loaded: number, total: number) => void;
             uploadProgress?: (loaded: number, total: number) => void;
             errorCallback?: (error: any, retry: () => void) => void;
+            customUrl?: string;
         }, isRetry?: boolean, modalIndex?: number): void;
         retryCount: number;
         readonly client: HttpClient;

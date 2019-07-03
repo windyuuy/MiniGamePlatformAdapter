@@ -26,6 +26,8 @@ namespace OPPOGDK {
 		isFirstInstall?: number
 		devPlatform?: string
 
+		installTime?: number
+
 		update() {
 			let data = qg.getSystemInfoSync()
 			this.initSysInfo(data)
@@ -44,6 +46,14 @@ namespace OPPOGDK {
 				localStorage.setItem("glee_systeminfo_gameDeviceId", gameDeviceId);
 			}
 			this.gameDeviceId = gameDeviceId;
+
+
+			var installTime = localStorage.getItem("glee_systeminfo_installTime");
+			if (installTime == null || installTime == "") {
+				installTime = new Date().getTime().toString();
+				localStorage.setItem("glee_systeminfo_installTime", installTime);
+			}
+			this.installTime = parseInt(installTime)
 		}
 
 		protected initSysInfo(sysinfo: qg.OPPO_SystemInfo) {
