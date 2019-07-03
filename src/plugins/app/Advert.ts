@@ -62,7 +62,7 @@ namespace AppGDK {
 		}
 
 		protected static _videoAd: GDK.IRewardedVideoAd
-		protected static _interstitialAd: GDK.IInterstitialVideoAd
+		protected static _interstitialAd: GDK.IInterstitialAd
 		protected static _fullscreenAd: GDK.IFullscreedVideoAd
 		protected static _bannerAd: BannerAd
 		createRewardedVideoAd(params: {
@@ -101,10 +101,10 @@ namespace AppGDK {
 			return nativeHelper.checkActionExist("ironsrc:IronSource.loadInterstitial")
 		}
 
-		createInterstitialVideoAd(params: {
+		createInterstitialAd(params: {
 			/** 广告单元 id */
 			adUnitId: string
-		}): GDK.IInterstitialVideoAd {
+		}): GDK.IInterstitialAd {
 			if (!Advert._interstitialAd) {
 				if (this.supportInterstitialAd) {
 					Advert._interstitialAd = new InterstitialAd(params, this.api)
