@@ -1,7 +1,7 @@
 namespace AppGDK {
 	const devlog = Common.devlog
 
-	export class InterstitialAd implements GDK.IInterstitialVideoAd {
+	export class InterstitialAd implements GDK.IInterstitialAd {
 
 		api?: GDK.UserAPI
 

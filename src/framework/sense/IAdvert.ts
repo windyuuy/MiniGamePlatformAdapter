@@ -82,7 +82,7 @@ namespace GDK {
 	/**
 	 * 插屏广告（展示网页广告）
 	 */
-	export interface IInterstitialVideoAd extends IRewardedVideoAd {
+	export interface IInterstitialAd extends IRewardedVideoAd {
 	}
 	export interface IFullscreedVideoAd extends IRewardedVideoAd {
 	}
@@ -130,7 +130,10 @@ namespace GDK {
 		/** app平原生聚合广告填 */
 		placementName?: string
 	}
-
+	export interface FullscreenVideoAdCreateParam extends VideoAdCreateParam {
+	}
+	export interface InterstitialAdCreateParam extends VideoAdCreateParam {
+	}
 	export interface BannerAdCreateParam {
 		/** 广告单元 id */
 		adUnitId?: string,
@@ -153,10 +156,7 @@ namespace GDK {
 		createBannerAd(params: BannerAdCreateParam): IBannerAd
 
 		readonly supportInterstitialAd?: boolean
-		createInterstitialVideoAd?(params: {
-			/** 广告单元 id */
-			adUnitId: string
-		}): GDK.IInterstitialVideoAd
+		createInterstitialAd?(params: InterstitialAdCreateParam): GDK.IInterstitialAd
 
 		/**
 		 * 是否支持全屏广告
@@ -165,10 +165,7 @@ namespace GDK {
 		/**
 		 * 创建全屏广告
 		 */
-		createFullscreenVideoAd?(params: {
-			/** 广告单元 id */
-			adUnitId: string
-		}): GDK.IInterstitialVideoAd
+		createFullscreenVideoAd?(params: FullscreenVideoAdCreateParam): GDK.IInterstitialAd
 
 		/**
 		 * 切换广告平台
