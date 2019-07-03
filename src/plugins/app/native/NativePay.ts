@@ -31,17 +31,28 @@ namespace AppGDK {
 		 * @param sku: 商品id
 		 */
 		async requestPay(params: {
+			/** 商品id，即productId */
 			sku: string,
+			/** 价格 */
 			price: number,
+			/** 数量 */
 			count: number,
+			/** 货币单位 */
 			currency: string,
 
+			/** 合作商id */
 			partnerId: string,
+			/** 预付款订单 */
 			prepayId: string,
+			/** 包名 */
 			packageValue: string,
+			/** 随机字符串 */
 			nonceStr: string,
+			/** 事件戳 */
 			timestamp: string,
+			/** 支付签名 */
 			paySign: string,
+			/** 渠道appid */
 			channelAppId: string,
 		}): Promise<NativePayResult> {
 			return nativeHelper.callAction("paywrapper:requestPay", params)
@@ -50,13 +61,19 @@ namespace AppGDK {
 		/**
 		 * 消耗商品
 		 */
-		async consumePurchase?(params: { purchaseToken: string }): Promise<GDK.ConsumePurchaseResult> {
+		async consumePurchase?(params: {
+			/** 中间商品/订单的唯一token，用于查询、消耗等 */
+			purchaseToken: string
+		}): Promise<GDK.ConsumePurchaseResult> {
 			return nativeHelper.callAction("paywrapper:consumePurchase", params)
 		}
 		/**
 		 * 获取未消耗商品列表
 		 */
-		async queryItemInfo?(params: { sku: string }): Promise<GDK.PayQueryItemInfoResult> {
+		async queryItemInfo?(params: {
+			/** 商品id，即 productId */
+			sku: string
+		}): Promise<GDK.PayQueryItemInfoResult> {
 			return nativeHelper.callAction("paywrapper:queryItemInfo", params)
 		}
 	}
