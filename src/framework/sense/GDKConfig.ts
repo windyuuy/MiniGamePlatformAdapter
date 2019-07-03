@@ -137,6 +137,7 @@ namespace GDK {
 		qqplay?: GDKQQPlayConfig
 
 		oppo?: GDKOPPOConfig
+		vivo?: GDKOPPOConfig
 		app?: GDKAPPConfig
 		qqminiapp?: GDKQQMINIAPPConfig
 	}
