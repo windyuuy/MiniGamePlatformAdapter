@@ -161,7 +161,7 @@ function parseModuleList(moduleMapFile) {
 	const content = fs.readFileSync(moduleMapFile, { encoding: 'utf-8' })
 	let explain = ''
 	for (line of content.split('\n')) {
-		const ret = line.match(/^\s*(\w+)\: (\w+)$/)
+		const ret = line.match(/^[^\w]*(\w+)\: (\w+)[^\w]*/)
 		if (ret) {
 			moduleList.push({ varname: ret[1], typename: ret[2], explain: explain })
 			explain = ''

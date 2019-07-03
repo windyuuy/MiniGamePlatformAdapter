@@ -43,6 +43,8 @@ namespace GDK {
 		partnerId?: string
 		/** 随机字符串 */
 		nonceStr?: string
+		/** vivo订单信息 */
+		vivoOrderInfo?: string
 	}
 
 	// 订单信息
