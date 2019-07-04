@@ -153,6 +153,11 @@ namespace GDK {
 		 */
 		packageName?: string
 
+		/**
+		 * 发行渠道
+		 */
+		packageTag?: string
+
 		init?()
 
 		/**

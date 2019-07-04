@@ -86,6 +86,10 @@ declare namespace gdkjsb {
 	export var packageName: string
 
 	/**
+	 * 发行渠道
+	 */
+	export var packageTag: string
+	/**
 	 * 打开网页地址
 	 * @param url 
 	 */

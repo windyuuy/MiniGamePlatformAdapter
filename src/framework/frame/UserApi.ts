@@ -724,6 +724,16 @@ namespace GDK {
 			}
 			return this._m.systemInfo.packageName;
 		}
+		/**
+		 * 发行渠道
+		 */
+		get packageTag(): string {
+			if (!this.checkModuleAttr("systemInfo", "packageTag")) {
+				return undefined;
+			}
+			return this._m.systemInfo.packageTag;
+		}
+
 
 		/**
 		 * 刷新网络状况信息
