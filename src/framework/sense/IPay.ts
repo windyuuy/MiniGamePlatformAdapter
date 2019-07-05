@@ -15,6 +15,8 @@ namespace GDK {
 		productId?: string
 		/** 支付金额 */
 		money: number = 0
+		/** 支付金额 */
+		price: number = 0
 		/** 购买商品数量 */
 		amount: number = 0
 		/** 商品名称/标题 */
@@ -45,6 +47,8 @@ namespace GDK {
 		nonceStr?: string
 		/** vivo订单信息 */
 		vivoOrderInfo?: string
+		/** 支付宝支付特有 */
+		extraStr: string
 	}
 
 	// 订单信息
@@ -109,6 +113,12 @@ namespace GDK {
 	export class PayOptions {
 		/** 屏幕方向 */
 		gameOrientation?: WebViewOrientation
+		/**
+		 * 支付方式
+		 * - AliPay
+		 * - WechatPay
+		 */
+		payWay?: string
 		/**
 		 * 渠道
 		 * - 平台自带支付 'origion'
