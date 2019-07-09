@@ -20,7 +20,7 @@ namespace AppGDK {
 			SDKProxy.nativePay.requestPay({
 				sku: sku,
 				price: config.money,
-				count: 1,
+				count: config.amount,
 				currency: "dollar",
 				channelAppId: config.channelAppId,
 				packageValue: "Sign=WXPay",
@@ -30,7 +30,9 @@ namespace AppGDK {
 				prepayId: config.prepayId,
 				timestamp: config.timestamp,
 				payWay: options.payWay,
-				extraStr: config.extraStr
+				extraStr: config.extraStr,
+				title: config.title,
+				orderNo: config.orderNo
 			}).then((payret) => {
 				if (payret.code == 0) {
 					paylog.info("原生充值成功", config)
