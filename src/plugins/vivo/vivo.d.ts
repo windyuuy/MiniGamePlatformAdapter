@@ -49,7 +49,7 @@ declare namespace qg {
 	export function vibrateLong();
 	export function vibrateShort();
 	export function triggerGC();
-	export function getPerformance(): object;
+	export function getPerformance(): { now: Function };
 
 	export function getScreenBrightness(params: object);
 	export function setScreenBrightness(params: object);

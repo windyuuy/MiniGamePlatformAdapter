@@ -159,6 +159,8 @@ namespace AppGDK {
 				} else if (type == "visitor") {
 					let sysInfo = this.api.systemInfo.clone()
 					this.server.loginOpenId({ openId: openId, uuId: sysInfo.uuid, clientSystemInfo: sysInfo }, loginComplete);
+				} else if (type == "quick") {
+					this.server.loginQuick({ openId: openId, token: token, channel: Number(this.api.systemInfo.channel), clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
 				}
 			})
 
