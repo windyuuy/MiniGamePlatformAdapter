@@ -160,7 +160,7 @@ namespace AppGDK {
 					let sysInfo = this.api.systemInfo.clone()
 					this.server.loginOpenId({ openId: openId, uuId: sysInfo.uuid, clientSystemInfo: sysInfo }, loginComplete);
 				} else if (type == "quick") {
-					this.server.loginQuick({ openId: openId, token: token, channel: Number(this.api.systemInfo.channel), clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
+					this.server.loginQuick({ openId: openId, token: token, channelId: Number(this.api.systemInfo.channel), clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
 				}
 			})
 
