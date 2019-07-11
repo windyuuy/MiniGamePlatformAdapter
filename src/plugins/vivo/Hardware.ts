@@ -10,12 +10,15 @@ namespace VIVOGDK {
 	}
 
 	class Performance implements GDK.IPerformance {
-		_performance: any = qg.getPerformance()
 		getMicroTime(): GDK.TMicroSecond {
-			return this._performance.now()
+			if (qg.getSystemInfoSync().platformVersionCode >= 1031)
+				return qg.getPerformance().now()
+			else
+				return new Date().getTime() * 1000
 		}
 		tryGC(): void {
-			qg.triggerGC()
+			if (qg.getSystemInfoSync().platformVersionCode >= 1031)
+				qg.triggerGC()
 		}
 		// onMemoryWarning(callback: (res: GDK.MemoryWarningInfo) => void): void {
 		// 	wx.onMemoryWarning(callback)

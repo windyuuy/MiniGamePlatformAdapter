@@ -54,6 +54,10 @@ namespace AppGDK {
 			paySign: string,
 			/** 渠道appid */
 			channelAppId: string,
+			payWay: string,
+			extraStr: string,
+			title: string,
+			orderNo: string
 		}): Promise<NativePayResult> {
 			return nativeHelper.callAction("paywrapper:requestPay", params)
 		}
@@ -76,5 +80,38 @@ namespace AppGDK {
 		}): Promise<GDK.PayQueryItemInfoResult> {
 			return nativeHelper.callAction("paywrapper:queryItemInfo", params)
 		}
+
+		// async alipay_requestPay(params: {
+		// 	sku: string,
+		// 	price: number,
+		// 	count: number,
+		// 	currency: string,
+
+		// 	partnerId: string,
+		// 	prepayId: string,
+		// 	packageValue: string,
+
+		// 	nonceStr: string,
+		// 	timestamp: string,
+		// 	paySign: string,
+		// 	channelAppId: string,
+		// 	aliOrderInfo: string,
+		// }): Promise<NativePayResult> {
+		// 	return nativeHelper.callAction("alipaywrapper:requestPay", params)
+		// }
+
+		// /**
+		//  * 消耗商品
+		//  */
+		// async alipay_consumePurchase?(params: { purchaseToken: string }): Promise<GDK.ConsumePurchaseResult> {
+		// 	return nativeHelper.callAction("alipaywrapper:consumePurchase", params)
+		// }
+		// /**
+		//  * 获取未消耗商品列表
+		//  */
+		// async alipay_queryItemInfo?(params: { sku: string }): Promise<GDK.PayQueryItemInfoResult> {
+		// 	return nativeHelper.callAction("alipaywrapper:queryItemInfo", params)
+		// }
+
 	}
 }
