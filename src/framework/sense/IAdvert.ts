@@ -59,7 +59,15 @@ namespace GDK {
 		load(): Promise<void>
 		/** 显示 激励视频 广告 */
 		show(): Promise<void>
-		/** 隐藏 激励视频 广告 */
+		/**
+		 * - 监听 激励视频 广告加载完成
+		 * - 用法示例：
+		 * ```typescript
+		 * onLoad(()=>{
+		 * 	...
+		 * })
+		 * ```
+		 */
 		onLoad(callback: Function)
 		/** 取消监听 激励视频 广告加载事件 */
 		offLoad(callback: Function)
@@ -114,7 +122,10 @@ namespace GDK {
 		onResize(callback: Function)
 		/** 取消监听隐藏 banner 广告 */
 		offResize(callback: Function)
-		/** 监听 banner 广告加载事件 */
+		/**
+		 * - 监听 banner 广告加载事件
+		 * 	- 执行顺序：后加后执行
+		 **/
 		onLoad(callback: Function)
 		/** 取消监听 banner 广告加载事件 */
 		offLoad(callback: Function)

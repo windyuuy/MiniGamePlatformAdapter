@@ -84,9 +84,15 @@ namespace AppGDK {
 
 		protected _onLoadedCallbacks: Function[] = []
 		protected _available: boolean = false
+		/**
+		 * 获知视频广告是否加载成功
+		 */
 		get isAvailable() {
 			return this._available
 		}
+		/**
+		 * 获取`原生`视频广告是否加载成功
+		 */
 		async checkAvailable?(): Promise<boolean> {
 			let { available } = await SDKProxy.nativeAdvert.isRewardedVideoAvailable()
 			this._available = available
@@ -166,6 +172,15 @@ namespace AppGDK {
 			return ret.promise
 		}
 
+		/**
+		* - 监听 激励视频 广告加载完成
+		* - 用法示例：
+		* ```typescript
+		* onLoad(()=>{
+		* 	...
+		* })
+		* ```
+		*/
 		onLoad(callback: Function) {
 			this._loadFuncList.push(callback)
 		}

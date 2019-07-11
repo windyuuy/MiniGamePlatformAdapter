@@ -49,8 +49,24 @@ namespace GDK {
 		 */
 		exitProgram?(): Promise<void>
 
+		/**
+		 * 用法示例：
+		 * ```typescript
+		 * onShow((data)=>{
+		 * 	...
+		 * })
+		 * ```
+		 */
 		onShow?(callback: (data: any) => void): void
 		offShow?(callback: Function): void
+		/**
+		* 用法示例：
+		* ```typescript
+		* onHide(()=>{
+		* 	...
+		* })
+		* ```
+		*/
 		onHide?(callback: Function): void
 		offHide?(callback: Function): void
 
