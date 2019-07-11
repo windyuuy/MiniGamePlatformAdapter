@@ -89,8 +89,43 @@ namespace WechatGDK {
 				return this.shareV3(data);
 			} else {
 				//默认分享版本
-				return this.shareV1(data);
+				return this.shareV0(data);
 			}
+		}
+
+		/**
+		 * 必然分享成功
+		 * @param data 必然分享成功
+		 */
+		async shareV0(data: GDK.ShareData): Promise<GDK.ShareResult> {
+			return new Promise<GDK.ShareResult>((resolve, reject) => {
+				let query = "";
+				if (data.data) {
+					for (let k in data.data) {
+						query += `${k}=${data.data[k]}&`
+					}
+					query = query.substr(0, query.length - 1)//去除结尾&符号
+				}
+
+				devlog.info("share", {
+					title: data.title,
+					imageUrl: data.imageUrl,
+					query: query,
+				})
+				wx.shareAppMessage({
+					title: data.title,
+					imageUrl: data.imageUrl,
+					query: query,
+				})
+
+				let onShow = () => {
+					wx.offShow(onShow);
+					let result = new GDK.ShareResult()
+					result.result = 0;
+					resolve(result)
+				}
+				wx.onShow(onShow);
+			})
 		}
 
 		/**

@@ -734,7 +734,6 @@ namespace GDK {
 			return this._m.systemInfo.packageTag;
 		}
 
-
 		/**
 		 * 刷新网络状况信息
 		 */
@@ -770,7 +769,14 @@ namespace GDK {
 			}
 			return this._m.apiSystem.exitProgram();
 		}
-
+		/**
+		 * 用法示例：
+		 * ```typescript
+		 * onShow((data)=>{
+		 * 	...
+		 * })
+		 * ```
+		 */
 		onShow?(callback: (data: any) => void): void {
 			if (!this.checkModuleAttr("apiSystem", "onShow", "function")) {
 				return undefined;
@@ -784,7 +790,14 @@ namespace GDK {
 			}
 			return this._m.apiSystem.offShow(callback);
 		}
-
+		/**
+		 * 用法示例：
+		 * ```typescript
+		 * onHide(()=>{
+		 * 	...
+		 * })
+		 * ```
+		 */
 		onHide?(callback: Function): void {
 			if (!this.checkModuleAttr("apiSystem", "onHide", "function")) {
 				return undefined;
@@ -1032,16 +1045,13 @@ namespace GDK {
 			return this._m.advert.supportInterstitialAd;
 		}
 
-		createInterstitialVideoAd?(params: {
-			/** 广告单元 id */
-			adUnitId: string;
-		}): GDK.IInterstitialVideoAd {
-			if (
-				!this.checkModuleAttr("advert", "createInterstitialVideoAd", "function")
-			) {
+		createInterstitialAd?(
+			params: InterstitialAdCreateParam
+		): GDK.IInterstitialAd {
+			if (!this.checkModuleAttr("advert", "createInterstitialAd", "function")) {
 				return undefined;
 			}
-			return this._m.advert.createInterstitialVideoAd(params);
+			return this._m.advert.createInterstitialAd(params);
 		}
 		/**
 		 * 是否支持全屏广告
@@ -1055,10 +1065,9 @@ namespace GDK {
 		/**
 		 * 创建全屏广告
 		 */
-		createFullscreenVideoAd?(params: {
-			/** 广告单元 id */
-			adUnitId: string;
-		}): GDK.IInterstitialVideoAd {
+		createFullscreenVideoAd?(
+			params: FullscreenVideoAdCreateParam
+		): GDK.IInterstitialAd {
 			if (
 				!this.checkModuleAttr("advert", "createFullscreenVideoAd", "function")
 			) {
