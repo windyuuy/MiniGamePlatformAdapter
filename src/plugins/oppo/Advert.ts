@@ -2,7 +2,7 @@ namespace OPPOGDK {
 
 	const devlog = Common.devlog
 
-	class VideoAd implements GDK.IRewardedVideoAd {
+	class VideoAdForRelaxFarm implements GDK.IRewardedVideoAd {
 
 		api?: GDK.UserAPI
 
@@ -30,12 +30,12 @@ namespace OPPOGDK {
 				isDebug: false,
 				success: (res) => {
 					this._isAdInited = true;
-					console.log("gdk oppo 广告初始化成功~");
+					devlog.info("gdk oppo 广告初始化成功~");
 					this.createVideoAd(this.adUnitId);
 				},
 				fail: (err) => {
 					this._isAdInited = false;
-					console.log("gdk oppo 广告初始化失败~");
+					devlog.info("gdk oppo 广告初始化失败~");
 				}
 			});
 
@@ -45,24 +45,24 @@ namespace OPPOGDK {
 			this._videoAd = qg.createRewardedVideoAd({ posId: this.adUnitId });
 
 			this._videoAd.onLoad(() => {
-				console.log("gdk oppo videoad load success!");
+				devlog.info("gdk oppo videoad load success!");
 				this.onRewardedVideoAvailabilityChanged(true);
 			})
 			this._videoAd.onVideoStart(() => {
-				console.log("gdk oppo videoad start play");
+				devlog.info("gdk oppo videoad start play");
 				this.onRewardedVideoAdOpened();
 			})
 			this._videoAd.onClose((res) => {
-				console.log("gdk oppo videoad closed")
-				console.log(res);
+				devlog.info("gdk oppo videoad closed")
+				devlog.info(res);
 				this._isEnded = res.isEnded;
 				setTimeout(() => {
 					this.onRewardedVideoAdClosed()
 				}, 0)
 			})
 			this._videoAd.onError((err) => {
-				console.log("gdk oppo videoad error")
-				console.log(err);
+				devlog.info("gdk oppo videoad error")
+				devlog.info(err);
 				this.onRewardedVideoAdShowFailed(err)
 			})
 		}
@@ -138,14 +138,14 @@ namespace OPPOGDK {
 		}
 
 		async load(): Promise<void> {
-			console.log("gdk oppo load videoad")
+			devlog.info("gdk oppo load videoad")
 			const ret = new GDK.RPromise<void>()
 			if (this._available) {
-				console.log("gdk oppo videoad already cached")
+				devlog.info("gdk oppo videoad already cached")
 				ret.success(undefined)
 				this.onRewardedVideoAvailabilityChanged(this._available)
 			} else {
-				console.log("gdk oppo videoad start load")
+				devlog.info("gdk oppo videoad start load")
 				this._onLoadedCallbacks.push(() => {
 					ret.success(undefined);
 				})
@@ -157,10 +157,10 @@ namespace OPPOGDK {
 		}
 
 		async show(): Promise<void> {
-			console.log("gdk oppo show videoad")
+			devlog.info("gdk oppo show videoad")
 			const ret = new GDK.RPromise<void>()
 			if (this._videoAd) {
-				console.log("gdk oppo videoad call show")
+				devlog.info("gdk oppo videoad call show")
 				this._isShowing = true
 				this._videoAd.show();
 			}
@@ -212,7 +212,7 @@ namespace OPPOGDK {
 		show(): Promise<void> {
 			const ret = new GDK.RPromise<void>()
 			if (this._bannerAd) {
-				console.log("gdk oppo show banner");
+				devlog.info("gdk oppo show banner");
 				this._bannerAd.show();
 			}
 			ret.success(undefined)
@@ -251,12 +251,78 @@ namespace OPPOGDK {
 		}
 	}
 
+	export class RewardedVideoAd implements GDK.IRewardedVideoAd {
+		adUnitId: string;
+
+		protected _adv: GDK.IRewardedVideoAd
+		constructor(params: {
+			adUnitId: string
+		}) {
+			const adv = qg.createRewardedVideoAd({ posId: params.adUnitId }) as GDK.IRewardedVideoAd
+			adv.adUnitId = params.adUnitId
+			this._adv = adv
+			this.adUnitId = params.adUnitId
+
+			this.isAvailable = false
+			this.onLoad(() => {
+				this.isAvailable = true
+			})
+			this.onClose(() => {
+				this.isAvailable = false
+			})
+		}
+
+		async load(): Promise<void> {
+			if (!this.isAvailable) {
+				return this._adv.load()
+			}
+		}
+		async show(): Promise<void> {
+			this.isAvailable = false
+			return this._adv.show()
+		}
+		onLoad(callback: Function) {
+			return this._adv.onLoad(callback)
+		}
+		offLoad(callback: Function) {
+			return this._adv.offLoad(callback)
+		}
+		onError(callback: (res: GDK.RewardedVideoAdOnErrorParam) => void) {
+			return this._adv.onError(callback)
+		}
+		offError(callback: Function) {
+			return this._adv.offError(callback)
+		}
+		onClose(callback: (params: { isEnded: boolean; }) => void) {
+			return this._adv.onClose(callback)
+		}
+		offClose(callback: Function) {
+			return this._adv.offClose(callback)
+		}
+		isAvailable?: boolean;
+	}
+
 	export class Advert implements GDK.IAdvert {
 
 		api?: GDK.UserAPI
 		async initWithConfig?(_info: GDK.GDKConfig) {
-			console.log("gdk oppo advert initConfig");
-			console.log(_info);
+			devlog.info("gdk oppo advert initConfig");
+			devlog.info(_info);
+
+			// await new Promise((resolve, reject) => {
+			// 	qg.initAdService({
+			// 		appId: this.api.appId,
+			// 		isDebug: false,
+			// 		success: (res) => {
+			// 			devlog.info("gdk oppo 广告初始化成功~");
+			// 			resolve(res)
+			// 		},
+			// 		fail: (err) => {
+			// 			devlog.error("gdk oppo 广告初始化失败~");
+			// 			reject(err)
+			// 		}
+			// 	});
+			// })
 		}
 
 		protected _video: GDK.IRewardedVideoAd
@@ -266,14 +332,18 @@ namespace OPPOGDK {
 			adUnitId: string
 		}): GDK.IRewardedVideoAd {
 			if (params.adUnitId === "35667") {
+				// 农场先保持不变
 				if (!this._video) {
-					this._video = new VideoAd(params, this.api)
+					this._video = new VideoAdForRelaxFarm(params, this.api)
 				}
 				return this._video;
 			} else {
-				const adv = qg.createRewardedVideoAd({ posId: params.adUnitId }) as GDK.IRewardedVideoAd
-				adv.adUnitId = params.adUnitId
-				return adv
+				// const adv = qg.createRewardedVideoAd({ posId: params.adUnitId }) as GDK.IRewardedVideoAd
+				// adv.adUnitId = params.adUnitId
+				if (!this._video) {
+					this._video = new RewardedVideoAd(params)
+				}
+				return this._video
 			}
 		}
 
