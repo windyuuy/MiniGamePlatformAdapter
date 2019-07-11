@@ -172,15 +172,6 @@ namespace AppGDK {
 			return ret.promise
 		}
 
-		/**
-		* - 监听 激励视频 广告加载完成
-		* - 用法示例：
-		* ```typescript
-		* onLoad(()=>{
-		* 	...
-		* })
-		* ```
-		*/
 		onLoad(callback: Function) {
 			this._loadFuncList.push(callback)
 		}

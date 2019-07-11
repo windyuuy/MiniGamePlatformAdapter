@@ -61,6 +61,8 @@ namespace GDK {
 		show(): Promise<void>
 		/**
 		 * - 监听 激励视频 广告加载完成
+		 * - 执行顺序：
+		 *  - 后加后执行
 		 * - 用法示例：
 		 * ```typescript
 		 * onLoad(()=>{
