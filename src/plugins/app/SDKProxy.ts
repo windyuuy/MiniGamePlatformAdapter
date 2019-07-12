@@ -281,6 +281,20 @@ class SDKProxy {
 		});
 	}
 
+	protected static logoutId: number = undefined
+	static onLogout(
+		callback: () => void
+	) {
+		if (gdkjsb.bridge == undefined) return;
+
+		if (this.logoutId !== undefined) {
+			gdkjsb.bridge.off(this.logoutId);
+		}
+		this.logoutId = gdkjsb.bridge.on("logout", (data) => {
+			callback();
+		});
+	}
+
 	/**
 	 * 隐藏启动屏
 	 */
