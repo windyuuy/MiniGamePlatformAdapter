@@ -8,7 +8,7 @@
 const USER_INFO_KEY = "$OFNIRESU$";
 const USER_INFO_XXTEA_KEY = "key$OFNIRESU$key";
 
-type LoginType = "visitor" | "facebook" | "google" | "silent" | "gamecenter" | "wxapp" | "quick"
+type LoginType = "visitor" | "facebook" | "google" | "silent" | "gamecenter" | "wxapp" | "quick" | "huawei"
 
 /**
  * 登陆的用户信息结构
@@ -206,7 +206,7 @@ class SDKProxy {
 
 	protected static loginId: number = undefined
 	static onLogin(
-		callback: (/**登陆的类型 */ type: LoginType,/**用户ID */ openId: string, token: string, nickName: string, email: string, head: string, platform?: string) => void
+		callback: (/**登陆的类型 */ type: LoginType,/**用户ID */ openId: string, token: string, nickName: string, email: string, head: string, platform?: string, exAuthData?: string) => void
 	) {
 		if (gdkjsb.bridge == undefined) return;
 
@@ -215,7 +215,7 @@ class SDKProxy {
 		}
 		this.loginId = gdkjsb.bridge.on("login", (data) => {
 			let json = JSON.parse(data);
-			callback(json.type, json.openId, json.token, json.nickName, json.email, json.head, json.platform);
+			callback(json.type, json.openId, json.token, json.nickName, json.email, json.head, json.platform, json.exAuthData);
 		});
 	}
 

@@ -117,7 +117,7 @@ namespace AppGDK {
 				SDKProxy.showLoginDialog();
 			})
 
-			SDKProxy.onLogin((type, openId, token, nickName, email, head, platform?) => {
+			SDKProxy.onLogin((type, openId, token, nickName, email, head, platform?, exAuthData?) => {
 				//玩家SDK登陆完成
 				SDKProxy.hideLoginDialog();//隐藏登陆弹框
 				isCancelLogin = false;
@@ -164,6 +164,9 @@ namespace AppGDK {
 					this.server.loginOpenId({ openId: openId, uuId: sysInfo.uuid, clientSystemInfo: sysInfo }, loginComplete);
 				} else if (type == "quick") {
 					this.server.loginQuick({ openId: openId, token: token, channelId: Number(this.api.systemInfo.channel), clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
+				} else if (type == "huawei") {
+					let t: { playerLevel: string, ts: string } = JSON.parse(exAuthData)
+					this.server.loginHuawei({ openId: openId, token: token, playerLevel: t.playerLevel, ts: t.ts, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
 				}
 			})
 
