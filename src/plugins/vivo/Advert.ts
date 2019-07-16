@@ -66,6 +66,8 @@ namespace VIVOGDK {
 	export class RewardedVideoAd implements GDK.IRewardedVideoAd {
 		adUnitId: string;
 
+		lastLoadTime: number = -1;
+
 		protected _adv: GDK.IRewardedVideoAd
 		constructor(params: {
 			adUnitId: string
@@ -86,7 +88,11 @@ namespace VIVOGDK {
 
 		async load(): Promise<void> {
 			if (!this.isAvailable) {
-				return this._adv.load()
+				let now = new Date().getTime()
+				if (this.lastLoadTime == -1 || now - this.lastLoadTime > 60 * 1000) {
+					this.lastLoadTime = now
+					return this._adv.load()
+				}
 			}
 		}
 		async show(): Promise<void> {
