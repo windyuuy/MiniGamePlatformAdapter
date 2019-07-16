@@ -8,7 +8,7 @@
 const USER_INFO_KEY = "$OFNIRESU$";
 const USER_INFO_XXTEA_KEY = "key$OFNIRESU$key";
 
-type LoginType = "visitor" | "facebook" | "google" | "silent" | "gamecenter" | "wxapp" | "quick"
+type LoginType = "visitor" | "facebook" | "google" | "silent" | "gamecenter" | "wxapp" | "quick" | "huawei" | "vivoapp"
 
 /**
  * 登陆的用户信息结构
@@ -204,9 +204,19 @@ class SDKProxy {
 		gdkjsb.bridge.callAction("autoLogin", JSON.stringify(user), (data) => { });
 	}
 
+	/**
+	 * 对玩家执行自动登陆
+	 * @param user 
+	 */
+	static loginNative() {
+		if (gdkjsb.bridge == undefined) return;
+
+		gdkjsb.bridge.callAction("loginNative", JSON.stringify("{}"), (data) => { });
+	}
+
 	protected static loginId: number = undefined
 	static onLogin(
-		callback: (/**登陆的类型 */ type: LoginType,/**用户ID */ openId: string, token: string, nickName: string, email: string, head: string, platform?: string) => void
+		callback: (/**登陆的类型 */ type: LoginType,/**用户ID */ openId: string, token: string, nickName: string, email: string, head: string, platform?: string, exAuthData?: string) => void
 	) {
 		if (gdkjsb.bridge == undefined) return;
 
@@ -215,7 +225,7 @@ class SDKProxy {
 		}
 		this.loginId = gdkjsb.bridge.on("login", (data) => {
 			let json = JSON.parse(data);
-			callback(json.type, json.openId, json.token, json.nickName, json.email, json.head, json.platform);
+			callback(json.type, json.openId, json.token, json.nickName, json.email, json.head, json.platform, json.exAuthData);
 		});
 	}
 
@@ -278,6 +288,20 @@ class SDKProxy {
 		this.removeUserId = gdkjsb.bridge.on("removeUser", (data) => {
 			let json = JSON.parse(data);
 			callback(json.openId);
+		});
+	}
+
+	protected static logoutId: number = undefined
+	static onLogout(
+		callback: () => void
+	) {
+		if (gdkjsb.bridge == undefined) return;
+
+		if (this.logoutId !== undefined) {
+			gdkjsb.bridge.off(this.logoutId);
+		}
+		this.logoutId = gdkjsb.bridge.on("logout", (data) => {
+			callback();
 		});
 	}
 

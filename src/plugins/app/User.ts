@@ -1,4 +1,3 @@
-
 namespace AppGDK {
 	const unitNum = [null, 'K', 'M', 'B', 'T', 'aa', 'bb', 'cc', 'dd', 'ee', 'ff', 'gg', 'hh', 'ii', 'jj', 'kk', 'll', 'mm', 'nn', 'oo', 'pp', 'qq', 'rr', 'ss', 'tt', 'uu', 'vv', 'ww', 'xx', 'yy', 'zz', 'Aa', 'Bb', 'Cc', 'Dd', 'Ee', 'Ff', 'Gg', 'Hh', 'Ii', 'Jj', 'Kk', 'Ll', 'Mm', 'Nn', 'Oo', 'Pp', 'Qq', 'Rr', 'Ss', 'Tt', 'Uu', 'Vv', 'Ww', 'Xx', 'Yy', 'Zz', 'AA', 'BB', 'CC', 'DD', 'EE', 'FF', 'GG', 'HH', 'II', 'JJ', 'KK', 'LL', 'MM', 'NN', 'OO', 'PP', 'QQ', 'RR', 'SS', 'TT', 'UU', 'VV', 'WW', 'XX', 'YY', 'ZZ']
 	// const typeIndex = [null, 'goldRank', 'seedRank', 'unlockRank', 'sceneRank',]
@@ -14,6 +13,9 @@ namespace AppGDK {
 	var isDelayLogin = false;
 	var loginStartTime = 0;
 
+	var loginRecord: LoginCallbackData = null;
+	var fOnAccountChange: () => void = null
+
 	let loginComplete = (data: LoginCallbackData) => {
 		if (isCancelLogin) {
 			return;
@@ -26,7 +28,6 @@ namespace AppGDK {
 			}
 			isLoginEnd = true;
 			if (data.succeed) {
-
 				//刷新登陆记录中的信息
 				let userRecords = SDKProxy.loadUserRecord()
 				//查找ID相同的记录，或者是游客登陆，则是第一条
@@ -67,6 +68,10 @@ namespace AppGDK {
 					gdkjsb.clearTestCerificate && gdkjsb.clearTestCerificate();
 				}
 
+				if (loginRecord != null) {
+					fOnAccountChange && fOnAccountChange()
+				}
+				loginRecord = data
 			} else {
 				loginRet.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN, {
 					data: {
@@ -112,7 +117,7 @@ namespace AppGDK {
 				SDKProxy.showLoginDialog();
 			})
 
-			SDKProxy.onLogin((type, openId, token, nickName, email, head, platform?) => {
+			SDKProxy.onLogin((type, openId, token, nickName, email, head, platform?, exAuthData?) => {
 				//玩家SDK登陆完成
 				SDKProxy.hideLoginDialog();//隐藏登陆弹框
 				isCancelLogin = false;
@@ -136,12 +141,11 @@ namespace AppGDK {
 					}
 				}
 				userRecords.unshift(record)//当前玩家记录放在第一条
-
 				SDKProxy.showLogining(record.name == null || record.name == "" ? "欢迎" : record.name);//显示正在登陆
+				SDKProxy.saveUserRecord(userRecords);
+
 				isDelayLogin = true;
 				loginStartTime = new Date().getTime()
-
-				SDKProxy.saveUserRecord(userRecords);
 
 				if (type == "google") {
 					this.server.loginGoogle({ openId: openId, token: token, avatar: head, userName: nickName, email: email, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
@@ -152,7 +156,6 @@ namespace AppGDK {
 						this.server.loginAppWXAndroid({ openId: openId, code: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
 					} else {
 						this.server.loginAppWX({ openId: openId, code: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
-
 					}
 				} else if (type == "gamecenter") {
 					this.server.loginGC({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
@@ -161,9 +164,18 @@ namespace AppGDK {
 					this.server.loginOpenId({ openId: openId, uuId: sysInfo.uuid, clientSystemInfo: sysInfo }, loginComplete);
 				} else if (type == "quick") {
 					this.server.loginQuick({ openId: openId, token: token, channelId: Number(this.api.systemInfo.channel), clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
+				} else if (type == "huawei") {
+					let t: { playerLevel: string, ts: string } = JSON.parse(exAuthData)
+					this.server.loginHuawei({ openId: openId, token: token, playerLevel: t.playerLevel, ts: t.ts, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
+				} else if (type == "vivoapp") {
+					this.server.loginVivo({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
 				}
 			})
 
+			SDKProxy.onLogout(() => {
+				loginRecord = null
+				fOnAccountChange && fOnAccountChange()
+			})
 
 			SDKProxy.onRebootLogin((type, openId, token, nickName, email, head) => {
 				//玩家SDK登陆完成
@@ -277,76 +289,89 @@ namespace AppGDK {
 			const ret = new GDK.RPromise<GDK.LoginResult>()
 			loginRet = ret
 
-			let userRecords = SDKProxy.loadUserRecord();
+			if (loginRecord) {
+				loginRet.success({
+					extra: loginRecord.data,
+				})
+			} else {
+				let userRecords = SDKProxy.loadUserRecord();
 
-			if (userRecords.length > 0) {
-				//老用户
-				if (params.autoLogin) {
-					let currentUser = userRecords[0];
-					if (currentUser.loginType == "silent") {
-						//自动静默登陆
-						isDelayLogin = false;
-						let sysInfo = this.api.systemInfo.clone()
-						this.server.loginOpenId({ openId: currentUser.openId, uuId: sysInfo.uuid, clientSystemInfo: sysInfo }, loginComplete);
-					} else if (currentUser.loginType == "visitor") {
-						//自动游客登陆
-						if (params.silent) {
+				if (userRecords.length > 0) {
+					//老用户
+					if (params.autoLogin) {
+						let currentUser = userRecords[0];
+						if (currentUser.loginType == "silent") {
+							//自动静默登陆
 							isDelayLogin = false;
+							let sysInfo = this.api.systemInfo.clone()
+							this.server.loginOpenId({ openId: currentUser.openId, uuId: sysInfo.uuid, clientSystemInfo: sysInfo }, loginComplete);
+						} else if (currentUser.loginType == "visitor") {
+							//自动游客登陆
+							if (params.silent) {
+								isDelayLogin = false;
+							} else {
+								SDKProxy.showLogining(currentUser.name);
+								isDelayLogin = true;
+							}
+							loginStartTime = new Date().getTime()
+							let sysInfo = this.api.systemInfo.clone()
+							this.server.loginOpenId({ openId: currentUser.openId, uuId: sysInfo.uuid, clientSystemInfo: sysInfo }, loginComplete);
 						} else {
-							SDKProxy.showLogining(currentUser.name);
+							//执行SDK自动登陆
 							isDelayLogin = true;
+							loginStartTime = new Date().getTime()
+							SDKProxy.showLogining(currentUser.name);
+							SDKProxy.autoLogin(currentUser);
 						}
-						loginStartTime = new Date().getTime()
-						let sysInfo = this.api.systemInfo.clone()
-						this.server.loginOpenId({ openId: currentUser.openId, uuId: sysInfo.uuid, clientSystemInfo: sysInfo }, loginComplete);
 					} else {
-						//执行SDK自动登陆
-						isDelayLogin = true;
-						loginStartTime = new Date().getTime()
-						SDKProxy.showLogining(currentUser.name);
-						SDKProxy.autoLogin(currentUser);
+						//打开登陆弹框
+						SDKProxy.showLoginDialog();
 					}
 				} else {
-					//打开登陆弹框
-					SDKProxy.showLoginDialog();
-				}
-			} else {
-				//新用户
-				if (params.autoLogin && params.silent) {
-					//自动静默登陆
-					//创建一条登陆记录
-					let record = {
-						userId: null,
-						openId: null,
-						loginType: "silent",
-						name: null,
-						createTime: new Date().getTime(),
-						token: null,
-					} as any
-					userRecords.unshift(record)//当前玩家记录放在第一条
-					SDKProxy.saveUserRecord(userRecords);
-					isDelayLogin = false;
-					let sysInfo = this.api.systemInfo.clone()
-					this.server.loginOpenId({ openId: null, uuId: sysInfo.uuid, clientSystemInfo: sysInfo }, loginComplete);
+					//新用户
+					if (params.autoLogin && params.silent) {
+						//自动静默登陆
+						//创建一条登陆记录
+						let record = {
+							userId: null,
+							openId: null,
+							loginType: "silent",
+							name: null,
+							createTime: new Date().getTime(),
+							token: null,
+						} as any
+						userRecords.unshift(record)//当前玩家记录放在第一条
+						SDKProxy.saveUserRecord(userRecords);
+						isDelayLogin = false;
+						let sysInfo = this.api.systemInfo.clone()
+						this.server.loginOpenId({ openId: null, uuId: sysInfo.uuid, clientSystemInfo: sysInfo }, loginComplete);
 
 				} else if (params.autoLogin) {
 					//自动游客登陆
-					SDKProxy.showLogining("欢迎");
-					//创建一条登陆记录
-					let record = {
-						userId: null,
-						openId: null,
-						loginType: "visitor",
-						name: null,
-						createTime: new Date().getTime(),
-						token: null,
-					} as any
-					userRecords.unshift(record)//当前玩家记录放在第一条
-					SDKProxy.saveUserRecord(userRecords);
-					isDelayLogin = true;
-					loginStartTime = new Date().getTime()
-					let sysInfo = this.api.systemInfo.clone()
-					this.server.loginOpenId({ openId: null, uuId: sysInfo.uuid, clientSystemInfo: sysInfo }, loginComplete);
+					if (gdkjsb.nativeVersion >= 4) {
+						//travel to native
+						SDKProxy.loginNative()
+					} else {
+                                                //自动游客登陆
+                                                SDKProxy.showLogining("欢迎");
+						//创建一条登陆记录
+						let record = {
+							userId: null,
+							openId: null,
+							loginType: "visitor",
+							name: null,
+							createTime: new Date().getTime(),
+							token: null,
+						} as any
+						userRecords.unshift(record)//当前玩家记录放在第一条
+						SDKProxy.saveUserRecord(userRecords);
+						isDelayLogin = true;
+						loginStartTime = new Date().getTime()
+						let sysInfo = this.api.systemInfo.clone()
+						this.server.loginOpenId({ openId: null, uuId: sysInfo.uuid, clientSystemInfo: sysInfo }, loginComplete);
+					}
+
+
 				} else {
 					//打开登陆弹框
 					SDKProxy.showLoginDialog();
@@ -513,6 +538,10 @@ namespace AppGDK {
 			gamecenter: boolean,
 		}) {
 			SDKProxy.support = loginSupport
+		}
+
+		setAccountChangeListener?(f: () => void) {
+			fOnAccountChange = f
 		}
 	}
 }

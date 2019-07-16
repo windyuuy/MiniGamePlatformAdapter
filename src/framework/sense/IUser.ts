@@ -162,5 +162,7 @@ namespace GDK {
 			wechat: boolean,
 			gamecenter: boolean,
 		})
+
+		setAccountChangeListener?(f: () => void)
 	}
 }

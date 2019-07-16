@@ -317,6 +317,15 @@ namespace GDK {
 			}
 			return this._m.user.setLoginSupport(loginSupport);
 		}
+
+		setAccountChangeListener?(f: () => void) {
+			if (
+				!this.checkModuleAttr("user", "setAccountChangeListener", "function")
+			) {
+				return undefined;
+			}
+			return this._m.user.setAccountChangeListener(f);
+		}
 		/**
 		 * 游戏的启动模式，可以是：
 		 * - 开发

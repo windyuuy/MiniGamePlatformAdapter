@@ -2,7 +2,7 @@
 namespace VIVOGDK {
 	const devlog = Common.devlog
 
-	class VideoAd implements GDK.IRewardedVideoAd {
+	class DummyVideoAd implements GDK.IRewardedVideoAd {
 		protected _loadFuncList: Function[] = []
 		protected _errorFuncList: Function[] = []
 		protected _closeFuncList: Function[] = []
@@ -63,6 +63,63 @@ namespace VIVOGDK {
 		}
 	}
 
+	export class RewardedVideoAd implements GDK.IRewardedVideoAd {
+		adUnitId: string;
+
+		lastLoadTime: number = -1;
+
+		protected _adv: GDK.IRewardedVideoAd
+		constructor(params: {
+			adUnitId: string
+		}) {
+			const adv = qg.createRewardedVideoAd({ posId: params.adUnitId }) as GDK.IRewardedVideoAd
+			adv.adUnitId = params.adUnitId
+			this._adv = adv
+			this.adUnitId = params.adUnitId
+
+			this.isAvailable = false
+			this.onLoad(() => {
+				this.isAvailable = true
+			})
+			this.onClose(() => {
+				this.isAvailable = false
+			})
+		}
+
+		async load(): Promise<void> {
+			if (!this.isAvailable) {
+				let now = new Date().getTime()
+				if (this.lastLoadTime == -1 || now - this.lastLoadTime > 60 * 1000) {
+					this.lastLoadTime = now
+					return this._adv.load()
+				}
+			}
+		}
+		async show(): Promise<void> {
+			this.isAvailable = false
+			return this._adv.show()
+		}
+		onLoad(callback: Function) {
+			return this._adv.onLoad(callback)
+		}
+		offLoad(callback: Function) {
+			return this._adv.offLoad(callback)
+		}
+		onError(callback: (res: GDK.RewardedVideoAdOnErrorParam) => void) {
+			return this._adv.onError(callback)
+		}
+		offError(callback: Function) {
+			return this._adv.offError(callback)
+		}
+		onClose(callback: (params: { isEnded: boolean; }) => void) {
+			return this._adv.onClose(callback)
+		}
+		offClose(callback: Function) {
+			return this._adv.offClose(callback)
+		}
+		isAvailable?: boolean;
+	}
+
 	class BannerAd implements GDK.IBannerAd {
 		adUnitId?: string
 
@@ -114,9 +171,9 @@ namespace VIVOGDK {
 		}): GDK.IRewardedVideoAd {
 
 			if (qg.getSystemInfoSync().platformVersionCode >= 1041) {
-				return qg.createRewardedVideoAd({ posId: params.adUnitId })
+				return new RewardedVideoAd(params)
 			} else
-				return new VideoAd(params)
+				return new DummyVideoAd(params)
 		}
 
 		createBannerAd(params: {

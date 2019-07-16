@@ -175,6 +175,27 @@ namespace AppGDK {
 		}
 
 		/**
+         * huawei登陆
+         * * userId 
+         * * token
+		 * * channleId
+         */
+		loginHuawei(
+			data: {
+				openId: string,
+				token: string,
+				playerLevel: string,
+				ts: string
+				clientSystemInfo: any
+			},
+			callback: (data: LoginCallbackData) => void,
+			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
+			this.gameClient.request("user/loginHuawei", data, (data) => {
+				callback(data);
+			}, { modal: modal, errorCallback: errorCallback })
+		}
+
+		/**
          * WX app登陆
          * * userId 
          * * token
@@ -206,6 +227,24 @@ namespace AppGDK {
 			callback: (data: LoginCallbackData) => void,
 			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
 			this.gameClient.request("user/loginAppWxAndroid", data, (data) => {
+				callback(data);
+			}, { modal: modal, errorCallback: errorCallback })
+		}
+
+		/**
+         * WX app android 登陆
+         * * userId 
+         * * token
+         */
+		loginVivo(
+			data: {
+				openId: string,
+				token: string,
+				clientSystemInfo: any
+			},
+			callback: (data: LoginCallbackData) => void,
+			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
+			this.gameClient.request("user/loginVivoApp", data, (data) => {
 				callback(data);
 			}, { modal: modal, errorCallback: errorCallback })
 		}
