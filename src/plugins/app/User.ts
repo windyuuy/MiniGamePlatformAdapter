@@ -346,38 +346,38 @@ namespace AppGDK {
 						let sysInfo = this.api.systemInfo.clone()
 						this.server.loginOpenId({ openId: null, uuId: sysInfo.uuid, clientSystemInfo: sysInfo }, loginComplete);
 
-				} else if (params.autoLogin) {
-					//自动游客登陆
-					if (gdkjsb.nativeVersion >= 4) {
-						//travel to native
-						SDKProxy.loginNative()
+					} else if (params.autoLogin) {
+						//自动游客登陆
+						if (gdkjsb.nativeVersion >= 4) {
+							//travel to native
+							SDKProxy.loginNative()
+						} else {
+							//自动游客登陆
+							SDKProxy.showLogining("欢迎");
+							//创建一条登陆记录
+							let record = {
+								userId: null,
+								openId: null,
+								loginType: "visitor",
+								name: null,
+								createTime: new Date().getTime(),
+								token: null,
+							} as any
+							userRecords.unshift(record)//当前玩家记录放在第一条
+							SDKProxy.saveUserRecord(userRecords);
+							isDelayLogin = true;
+							loginStartTime = new Date().getTime()
+							let sysInfo = this.api.systemInfo.clone()
+							this.server.loginOpenId({ openId: null, uuId: sysInfo.uuid, clientSystemInfo: sysInfo }, loginComplete);
+						}
+
+
 					} else {
-                                                //自动游客登陆
-                                                SDKProxy.showLogining("欢迎");
-						//创建一条登陆记录
-						let record = {
-							userId: null,
-							openId: null,
-							loginType: "visitor",
-							name: null,
-							createTime: new Date().getTime(),
-							token: null,
-						} as any
-						userRecords.unshift(record)//当前玩家记录放在第一条
-						SDKProxy.saveUserRecord(userRecords);
-						isDelayLogin = true;
-						loginStartTime = new Date().getTime()
-						let sysInfo = this.api.systemInfo.clone()
-						this.server.loginOpenId({ openId: null, uuId: sysInfo.uuid, clientSystemInfo: sysInfo }, loginComplete);
+						//打开登陆弹框
+						SDKProxy.showLoginDialog();
 					}
-
-
-				} else {
-					//打开登陆弹框
-					SDKProxy.showLoginDialog();
 				}
 			}
-
 			return ret.promise
 		}
 
