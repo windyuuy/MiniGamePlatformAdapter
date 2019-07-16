@@ -2061,26 +2061,30 @@ declare namespace slib {
         }): void;
         /**
          * 根据key获取文字内容
-         * @param key
+         * @param key 查询键
+         * @param defaultValue 默认值
          */
-        locString(key: string): string;
+        locString(key: string, defaultValue?: string): string;
         /**
          * 根据多语言数据格式化文本
          * ###例如
          * * key="pet.get"
          * * value="恭喜你获得${petName},好好保护它吧！"
-         * * format("pet.get",{petName:"波波"}) 得到 "恭喜你获得波波,好好保护它吧！"
+         * * format("pet.get","恭喜你获得${波波},好好保护它吧！",{petName:"波波"}) 得到 "恭喜你获得波波,好好保护它吧！"
          * @param key 语言key
+         * @param defaultValueOrArgs 默认值
          * @param args 参数，支持字符串数组
          */
-        format(key: string, args: {
+        format(key: string, defaultValueOrArgs: string | {
+            [key: string]: any;
+        }, argsMap?: {
             [key: string]: any;
         }): string;
         /**
          * 获取资源url，结果等于 resRootPath+value
-         * @param key
+         * @param url
          */
-        locUrl(key: string): string;
+        locUrl(url: string): string;
     }
     var i18n: I18N;
 }
@@ -2090,6 +2094,9 @@ declare namespace slib {
         tags?: string[];
     };
     class Log {
+        private static _enablePlaneLog;
+        static enablePlaneLog: boolean;
+        static toPlaneLog(args: any[]): any[];
         protected static _instance: Log;
         static readonly instance: Log;
         protected time?: boolean;
