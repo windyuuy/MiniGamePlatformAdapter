@@ -182,15 +182,15 @@ namespace AppGDK {
          */
 		loginHuawei(
 			data: {
-				openId: string,
-				token: string,
+				ts: string,
+				playerId: string,
 				playerLevel: string,
-				ts: string
+				playerSSign: string
 				clientSystemInfo: any
 			},
 			callback: (data: LoginCallbackData) => void,
 			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
-			this.gameClient.request("user/loginHuawei", data, (data) => {
+			this.gameClient.request("user/loginHwApp", data, (data) => {
 				callback(data);
 			}, { modal: modal, errorCallback: errorCallback })
 		}
