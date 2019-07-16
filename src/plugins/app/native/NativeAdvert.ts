@@ -101,14 +101,18 @@ namespace AppGDK {
 			return nativeHelper.onEvent("ironsrc:onRewardedVideoAdClicked", callback)
 		}
 
-		async loadRewardVideoAd(): Promise<{}> {
+		async loadRewardVideoAd(loadParams?: GDK.RewardVideoAdLoadParams): Promise<{}> {
+			if (typeof loadParams != "object") {
+				loadParams = {}
+			}
+
 			const key = "ironsrc:IronSource.loadRewardVideoAd"
 			// if (nativeHelper.checkActionExist(key)) {
 			// 	return nativeHelper.callAction<{}>(key, {})
 			// } else {
 			// 	console.log(`skip call <${key}> function, which not implement for current sdk version`)
 			// }
-			return nativeHelper.safeCallAction<{}>(key, {}) || {}
+			return nativeHelper.safeCallAction<{}>(key, loadParams) || {}
 		}
 
 		async isRewardedVideoAvailable() {

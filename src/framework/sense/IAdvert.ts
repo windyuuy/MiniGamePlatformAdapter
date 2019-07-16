@@ -52,11 +52,15 @@ namespace GDK {
 	export class FullscreenAdOnErrorParam extends RewardedVideoAdOnErrorParam {
 	}
 
+	export class RewardVideoAdLoadParams {
+		placementId?: string
+	}
+
 	export interface IRewardedVideoAd {
 		//属性
 		adUnitId: string
 		/** 隐藏 激励视频 广告 */
-		load(): Promise<void>
+		load(loadParams?: RewardVideoAdLoadParams): Promise<void>
 		/** 显示 激励视频 广告 */
 		show(): Promise<void>
 		/**

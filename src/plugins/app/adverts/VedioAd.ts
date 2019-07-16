@@ -124,7 +124,8 @@ namespace AppGDK {
 			}
 		}
 
-		async load(): Promise<void> {
+		async load(loadParams?: GDK.RewardVideoAdLoadParams): Promise<void> {
+			loadParams = loadParams || {}
 			const ret = new GDK.RPromise<void>()
 			let { available } = await SDKProxy.nativeAdvert.isRewardedVideoAvailable()
 			this._available = available
@@ -137,7 +138,7 @@ namespace AppGDK {
 				this._onLoadedCallbacks.push(() => {
 					ret.success(undefined);
 				})
-				await SDKProxy.nativeAdvert.loadRewardVideoAd()
+				await SDKProxy.nativeAdvert.loadRewardVideoAd(loadParams)
 			}
 			return ret.promise
 		}
