@@ -8,7 +8,7 @@
 const USER_INFO_KEY = "$OFNIRESU$";
 const USER_INFO_XXTEA_KEY = "key$OFNIRESU$key";
 
-type LoginType = "visitor" | "facebook" | "google" | "silent" | "gamecenter" | "wxapp" | "quick" | "huawei"
+type LoginType = "visitor" | "facebook" | "google" | "silent" | "gamecenter" | "wxapp" | "quick" | "huawei" | "vivoapp"
 
 /**
  * 登陆的用户信息结构
@@ -202,6 +202,16 @@ class SDKProxy {
 		if (gdkjsb.bridge == undefined) return;
 
 		gdkjsb.bridge.callAction("autoLogin", JSON.stringify(user), (data) => { });
+	}
+
+	/**
+	 * 对玩家执行自动登陆
+	 * @param user 
+	 */
+	static loginNative() {
+		if (gdkjsb.bridge == undefined) return;
+
+		gdkjsb.bridge.callAction("loginNative", JSON.stringify("{}"), (data) => { });
 	}
 
 	protected static loginId: number = undefined

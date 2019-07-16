@@ -167,6 +167,8 @@ namespace AppGDK {
 				} else if (type == "huawei") {
 					let t: { playerLevel: string, ts: string } = JSON.parse(exAuthData)
 					this.server.loginHuawei({ openId: openId, token: token, playerLevel: t.playerLevel, ts: t.ts, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
+				} else if (type == "vivoapp") {
+					this.server.loginVivo({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
 				}
 			})
 
@@ -344,9 +346,14 @@ namespace AppGDK {
 						let sysInfo = this.api.systemInfo.clone()
 						this.server.loginOpenId({ openId: null, uuId: sysInfo.uuid, clientSystemInfo: sysInfo }, loginComplete);
 
-					} else if (params.autoLogin) {
-						//自动游客登陆
-						SDKProxy.showLogining("欢迎");
+				} else if (params.autoLogin) {
+					//自动游客登陆
+					if (gdkjsb.nativeVersion >= 4) {
+						//travel to native
+						SDKProxy.loginNative()
+					} else {
+                                                //自动游客登陆
+                                                SDKProxy.showLogining("欢迎");
 						//创建一条登陆记录
 						let record = {
 							userId: null,
@@ -362,10 +369,12 @@ namespace AppGDK {
 						loginStartTime = new Date().getTime()
 						let sysInfo = this.api.systemInfo.clone()
 						this.server.loginOpenId({ openId: null, uuId: sysInfo.uuid, clientSystemInfo: sysInfo }, loginComplete);
-					} else {
-						//打开登陆弹框
-						SDKProxy.showLoginDialog();
 					}
+
+
+				} else {
+					//打开登陆弹框
+					SDKProxy.showLoginDialog();
 				}
 			}
 
