@@ -118,9 +118,9 @@ class SDKProxy {
 	 * 显示正在登陆提示
 	 * @param message 提示信息
 	 */
-	static showLogining(message: string) {
+	static showLogining(message: string, loginType?: string) {
 		if (gdkjsb.bridge == undefined) return;
-		gdkjsb.bridge.callAction("showLogining", JSON.stringify({ message: message }), (data) => { })
+		gdkjsb.bridge.callAction("showLogining", JSON.stringify({ message: message, loginType: loginType }), (data) => { })
 	}
 
 	/**

@@ -141,7 +141,7 @@ namespace AppGDK {
 					}
 				}
 				userRecords.unshift(record)//当前玩家记录放在第一条
-				SDKProxy.showLogining(record.name == null || record.name == "" ? "欢迎" : record.name);//显示正在登陆
+				SDKProxy.showLogining(record.name == null || record.name == "" ? "欢迎" : record.name, record.loginType);//显示正在登陆
 				SDKProxy.saveUserRecord(userRecords);
 
 				isDelayLogin = true;
@@ -312,7 +312,7 @@ namespace AppGDK {
 							if (params.silent) {
 								isDelayLogin = false;
 							} else {
-								SDKProxy.showLogining(currentUser.name);
+								SDKProxy.showLogining(currentUser.name, currentUser.loginType);
 								isDelayLogin = true;
 							}
 							loginStartTime = new Date().getTime()
@@ -322,7 +322,7 @@ namespace AppGDK {
 							//执行SDK自动登陆
 							isDelayLogin = true;
 							loginStartTime = new Date().getTime()
-							SDKProxy.showLogining(currentUser.name);
+							SDKProxy.showLogining(currentUser.name, currentUser.loginType);
 							SDKProxy.autoLogin(currentUser);
 						}
 					} else {
@@ -355,7 +355,7 @@ namespace AppGDK {
 							SDKProxy.loginNative()
 						} else {
 							//自动游客登陆
-							SDKProxy.showLogining("欢迎");
+							SDKProxy.showLogining("欢迎", "visitor");
 							//创建一条登陆记录
 							let record = {
 								userId: null,
