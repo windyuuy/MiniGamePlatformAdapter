@@ -169,7 +169,7 @@ namespace AppGDK {
 					this.server.loginHuawei({ playerId: openId, playerSSign: token, playerLevel: t.playerLevel, ts: t.ts, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
 				} else if (type == "vivoapp") {
 					this.server.loginVivo({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
-				} else if (type == "oppoapp") {
+				} else if (type == "OppoApp") {
 					this.server.loginOppoApp({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
 				}
 			})
