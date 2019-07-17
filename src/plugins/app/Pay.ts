@@ -32,7 +32,8 @@ namespace AppGDK {
 				payWay: options.payWay,
 				extraStr: config.extraStr,
 				title: config.title,
-				orderNo: config.orderNo
+				orderNo: config.orderNo,
+				payUrl: options.payUrl,
 			}).then((payret) => {
 				if (payret.code == 0) {
 					paylog.info("原生充值成功", config)

@@ -57,7 +57,8 @@ namespace AppGDK {
 			payWay: string,
 			extraStr: string,
 			title: string,
-			orderNo: string
+			orderNo: string,
+			payUrl: string,
 		}): Promise<NativePayResult> {
 			return nativeHelper.callAction("paywrapper:requestPay", params)
 		}

@@ -33,6 +33,10 @@ namespace GDK {
 		paySign?: string
 		/** oppo快游戏返回的订单号 */
 		orderNo?: string
+		/**
+		 * 我们自己的订单号
+		 */
+		gleeOrderNo?: string
 		/** 游戏在oppo快游戏的id */
 		oppoId?: string
 		/** 游戏在该平台的appid */
