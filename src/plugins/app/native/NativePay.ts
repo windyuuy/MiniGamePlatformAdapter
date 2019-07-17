@@ -54,11 +54,24 @@ namespace AppGDK {
 			paySign: string,
 			/** 渠道appid */
 			channelAppId: string,
+			/**
+			 * 原生平台支付方式
+			 */
 			payWay: string,
 			extraStr: string,
+			/**
+			 * 标题
+			 */
 			title: string,
+			/** 第三方支付平台的订单号 */
 			orderNo: string,
+			/**
+			 * 支付服务器地址
+			 */
 			payUrl: string,
+			/**
+			 * glee自己的订单号
+			 */
 			gleeOrderNo?: string,
 		}): Promise<NativePayResult> {
 			return nativeHelper.callAction("paywrapper:requestPay", params)
