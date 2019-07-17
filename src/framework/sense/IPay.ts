@@ -31,7 +31,7 @@ namespace GDK {
 		timestamp?: string
 		/** 支付签名 */
 		paySign?: string
-		/** oppo快游戏返回的订单号 */
+		/** 第三方支付平台的订单号 */
 		orderNo?: string
 		/**
 		 * glee自己的订单号
