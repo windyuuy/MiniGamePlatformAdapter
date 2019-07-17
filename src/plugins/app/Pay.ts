@@ -34,6 +34,7 @@ namespace AppGDK {
 				title: config.title,
 				orderNo: config.orderNo,
 				payUrl: options.payUrl,
+				gleeOrderNo: config.gleeOrderNo,
 			}).then((payret) => {
 				if (payret.code == 0) {
 					paylog.info("原生充值成功", config)

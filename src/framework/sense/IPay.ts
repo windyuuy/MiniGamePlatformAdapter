@@ -34,7 +34,7 @@ namespace GDK {
 		/** oppo快游戏返回的订单号 */
 		orderNo?: string
 		/**
-		 * 我们自己的订单号
+		 * glee自己的订单号
 		 */
 		gleeOrderNo?: string
 		/** 游戏在oppo快游戏的id */

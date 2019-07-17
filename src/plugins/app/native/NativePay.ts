@@ -59,6 +59,7 @@ namespace AppGDK {
 			title: string,
 			orderNo: string,
 			payUrl: string,
+			gleeOrderNo?: string,
 		}): Promise<NativePayResult> {
 			return nativeHelper.callAction("paywrapper:requestPay", params)
 		}
