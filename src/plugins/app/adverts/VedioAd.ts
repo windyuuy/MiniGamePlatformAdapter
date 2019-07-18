@@ -91,7 +91,7 @@ namespace AppGDK {
 			return this._available
 		}
 		/**
-		 * 获取`原生`视频广告是否加载成功
+		 * 调用异步原生接口获取`原生`视频广告是否加载成功
 		 */
 		async checkAvailable?(): Promise<boolean> {
 			let { available } = await SDKProxy.nativeAdvert.isRewardedVideoAvailable()
@@ -124,9 +124,21 @@ namespace AppGDK {
 			}
 		}
 
+		/**
+		 * 原生平台广告位
+		 */
+		protected placementId: string = null
+
 		async load(loadParams?: GDK.RewardVideoAdLoadParams): Promise<void> {
 			loadParams = loadParams || {}
 			const ret = new GDK.RPromise<void>()
+			/** 避免重复调用load */
+			let isLoading = false
+			if (this.placementId != loadParams.placementId) {
+				this.placementId = loadParams.placementId
+				isLoading = true
+				await SDKProxy.nativeAdvert.loadRewardVideoAd(loadParams)
+			}
 			let { available } = await SDKProxy.nativeAdvert.isRewardedVideoAvailable()
 			this._available = available
 			if (this._available) {
@@ -138,7 +150,9 @@ namespace AppGDK {
 				this._onLoadedCallbacks.push(() => {
 					ret.success(undefined);
 				})
-				await SDKProxy.nativeAdvert.loadRewardVideoAd(loadParams)
+				if (!isLoading) {
+					await SDKProxy.nativeAdvert.loadRewardVideoAd(loadParams)
+				}
 			}
 			return ret.promise
 		}
