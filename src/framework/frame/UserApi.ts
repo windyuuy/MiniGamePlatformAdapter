@@ -698,6 +698,15 @@ namespace GDK {
 			return this._m.systemInfo.channel;
 		}
 		/**
+		 * quick渠道ID
+		 */
+		get quickChannelId(): string {
+			if (!this.checkModuleAttr("systemInfo", "quickChannelId")) {
+				return undefined;
+			}
+			return this._m.systemInfo.quickChannelId;
+		}
+		/**
 		 * 地区国家
 		 */
 		get country(): string {
