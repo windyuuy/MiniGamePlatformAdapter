@@ -31,6 +31,7 @@ namespace GDK {
 		versionName?: string
 
 		channel?: string
+		quickChannelId?: string
 		country?: string
 
 		installTime?: number

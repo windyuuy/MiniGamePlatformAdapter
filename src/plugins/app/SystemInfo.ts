@@ -34,6 +34,7 @@ namespace AppGDK {
 		versionName?: string
 
 		channel?: string
+		quickChannelId?: string
 		country?: string
 
 		installTime?: number
@@ -65,6 +66,7 @@ namespace AppGDK {
 			this.versionName = gdkjsb.versionName
 
 			this.channel = gdkjsb.channel
+			this.quickChannelId = gdkjsb.quickChannelId
 			this.country = gdkjsb.country
 			this.installTime = gdkjsb.installTime;
 			this.imei = gdkjsb.imei

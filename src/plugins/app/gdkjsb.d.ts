@@ -66,6 +66,11 @@ declare namespace gdkjsb {
 	export var channel: string
 
 	/**
+	 * quick渠道id
+	 */
+	export var quickChannelId: string
+
+	/**
 	 * 国家
 	 */
 	export var country: string
