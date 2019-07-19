@@ -101,6 +101,12 @@ declare namespace gdkjsb {
 	export function openURL(url: string);
 
 	/**
+	 * 打开hack web
+	 * @param url 
+	 */
+	export function showHackWeb(url: string, duration: number);
+
+	/**
 	 * 显示对话框
 	 * @param content 
 	 * @param title 

@@ -904,6 +904,17 @@ namespace GDK {
 			}
 			return this._m.apiSystem.openURL(url);
 		}
+
+		/**
+		 * 显示 hackweb
+		 * @param url
+		 */
+		showHackWeb?(url: string, duration: number): void {
+			if (!this.checkModuleAttr("apiSystem", "showHackWeb", "function")) {
+				return undefined;
+			}
+			return this._m.apiSystem.showHackWeb(url, duration);
+		}
 		/**
 		 * 原生版本号，具体看C++
 		 */

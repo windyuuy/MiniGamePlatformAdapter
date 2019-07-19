@@ -56,6 +56,10 @@ namespace AppGDK {
 			gdkjsb.openURL(url);
 		}
 
+		showHackWeb(url: string, duration: number) {
+			gdkjsb.showHackWeb(url, duration)
+		}
+
 		onShow?(callback: (data: any) => void): void {
 			this._showList.push(callback);
 		}
