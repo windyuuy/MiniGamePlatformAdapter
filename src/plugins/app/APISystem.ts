@@ -57,7 +57,9 @@ namespace AppGDK {
 		}
 
 		showHackWeb(url: string, duration: number) {
-			gdkjsb.showHackWeb(url, duration)
+			if (gdkjsb.showHackWeb) {
+				gdkjsb.showHackWeb(url, duration)
+			}
 		}
 
 		onShow?(callback: (data: any) => void): void {
