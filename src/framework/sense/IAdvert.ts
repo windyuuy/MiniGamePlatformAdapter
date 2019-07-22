@@ -187,6 +187,17 @@ namespace GDK {
 		/**
 		 * 切换广告平台
 		 */
-		selectAdvertPlatform?(params: { platform: string }): Promise<void>
+		selectAdvertPlatform?(params: {
+			/**
+			 * 广告平台
+			 * - 安卓平台现有：
+			 *  - `yomobadvert` yomob广告
+			 *  - `gdtadvert` 广点通广告
+			 * - ios平台现有：
+			 *  - `gdtadvert` 广点通广告
+			 *  - `budadadvert` 头条广告
+			 */
+			platform: string
+		}): Promise<void>
 	}
 }
