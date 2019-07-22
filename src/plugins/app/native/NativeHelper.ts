@@ -10,23 +10,19 @@ namespace AppGDK {
 
 		async safeCallAction<T = void>(key: string, params: Object): Promise<T> {
 			if (nativeHelper.checkActionExist(key)) {
-				return this._callAction<T>(key, params)
+				return this.callAction<T>(key, params)
 			} else {
 				console.log(`skip call <${key}> function, which not implement for current sdk version ${gdkjsb.nativeVersion}`)
 			}
 			return undefined
 		}
 
-		async _callAction<T = void>(key: string, params: Object): Promise<T> {
+		async callAction<T = void>(key: string, params: Object): Promise<T> {
 			return new Promise<T>((resolve, reject) => {
 				gdkjsb.bridge.callAction(key, JSON.stringify(params), (data) => {
 					resolve(JSON.parse(data || null))
 				});
 			})
-		}
-
-		async callAction<T = void>(key: string, params: Object): Promise<T> {
-			return this.safeCallAction(key, params)
 		}
 
 		async onEvent<T>(key: string, callback: (data: T) => void) {
