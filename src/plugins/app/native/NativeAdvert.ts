@@ -44,6 +44,10 @@ namespace AppGDK {
 			return nativeHelper.callAction("ironsrc:IronSource.shouldTrackNetworkState", params)
 		}
 
+		async setAdaptersDebug(params: { debug: boolean }) {
+			return nativeHelper.callAction("ironsrc:banner.setAdaptersDebug", params)
+		}
+
 		/**
 		 * 事件通知流程
 		 * # 从播放视频到重新加载
@@ -149,6 +153,24 @@ namespace AppGDK {
 			return nativeHelper.callAction("ironsrc:IronSource.setFullScreenVideoListener", {})
 		}
 
+		async loadFullScreenVideoAd(): Promise<{}> {
+			const key = "ironsrc:IronSource.loadFullScreenVideoAd"
+			// if (nativeHelper.checkActionExist(key)) {
+			// 	return nativeHelper.callAction<{}>(key, {})
+			// } else {
+			// 	console.log(`skip call <${key}> function, which not implement for current sdk version`)
+			// }
+			return nativeHelper.safeCallAction<{}>(key, {}) || {}
+		}
+
+		async isFullScreenVideoAvailable() {
+			return nativeHelper.callAction<{ available: boolean }>("ironsrc:IronSource.isFullScreenVideoAvailable", {})
+		}
+
+		async showFullScreenVideo(params: { placementName: string }) {
+			return nativeHelper.callAction("ironsrc:IronSource.showFullScreenVideo", params)
+		}
+
 		// /**
 		//  * 监听广告打开播放
 		//  */
@@ -192,24 +214,6 @@ namespace AppGDK {
 		// 	return nativeHelper.onEvent("ironsrc:onFullScreenVideoAdClicked", callback)
 		// }
 
-		async loadFullScreenVideoAd(): Promise<{}> {
-			const key = "ironsrc:IronSource.loadFullScreenVideoAd"
-			// if (nativeHelper.checkActionExist(key)) {
-			// 	return nativeHelper.callAction<{}>(key, {})
-			// } else {
-			// 	console.log(`skip call <${key}> function, which not implement for current sdk version`)
-			// }
-			return nativeHelper.safeCallAction<{}>(key, {}) || {}
-		}
-
-		async isFullScreenVideoAvailable() {
-			return nativeHelper.callAction<{ available: boolean }>("ironsrc:IronSource.isFullScreenVideoAvailable", {})
-		}
-
-		async showFullScreenVideo(params: { placementName: string }) {
-			return nativeHelper.callAction("ironsrc:IronSource.showFullScreenVideo", params)
-		}
-
 
 
 
@@ -233,10 +237,6 @@ namespace AppGDK {
 
 		async setBannerAdvertVisibility(params: { visible: boolean }) {
 			return nativeHelper.callAction("ironsrc:banner.setVisibility", params)
-		}
-
-		async setAdaptersDebug(params: { debug: boolean }) {
-			return nativeHelper.callAction("ironsrc:banner.setAdaptersDebug", params)
 		}
 
 		async loadBanner(params: { placementName?: string }) {
@@ -320,6 +320,8 @@ namespace AppGDK {
 
 		/**
 		  * 广告平台选择
+		  * - gdtadvert 广点通
+		  * - budadadvert 头条广告
 		 */
 		async advertPlatformSelect(platform: string) {
 			if (gdkjsb.bridge == undefined) return;
