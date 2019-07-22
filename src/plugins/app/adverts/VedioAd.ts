@@ -29,10 +29,10 @@ namespace AppGDK {
 			SDKProxy.nativeAdvert.onRewardedVideoAdRewarded((data) => {
 				this.onRewardedVideoAdRewarded()
 			})
-			SDKProxy.nativeAdvert.onRewardedVideoAdClosed(() => {
+			SDKProxy.nativeAdvert.onRewardedVideoAdClosed((data) => {
 				// 避免可能的黑屏
 				setTimeout(() => {
-					this.onRewardedVideoAdClosed()
+					this.onRewardedVideoAdClosed(data)
 				}, 0)
 			})
 
@@ -62,11 +62,18 @@ namespace AppGDK {
 		onRewardedVideoAdRewarded() {
 			this._isEnded = true
 		}
-		onRewardedVideoAdClosed() {
+		onRewardedVideoAdClosed(data?: { couldReward?: boolean }) {
+			data = data || {}
 			this._isShowing = false
 
 			let isEnded = this._isEnded
 			this._isEnded = false
+
+			// 如果有直接的参数，优先使用参数
+			if (data.couldReward != null) {
+				isEnded = !!data.couldReward
+			}
+
 			for (let f of this._closeFuncList) {
 				try {
 					f({ isEnded: isEnded });
