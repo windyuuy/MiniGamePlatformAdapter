@@ -129,8 +129,11 @@ namespace AppGDK {
 			return Advert._bannerAd
 		}
 
+		protected _lastAdvertPlatform: string = "ironsource"
 		selectAdvertPlatform(params: { platform: string }): Promise<void> {
-			return SDKProxy.nativeAdvert.advertPlatformSelect(params.platform || "ironsource")
+			let curPlatform = params.platform || this._lastAdvertPlatform
+			this._lastAdvertPlatform = curPlatform
+			return SDKProxy.nativeAdvert.advertPlatformSelect(curPlatform)
 		}
 	}
 }
