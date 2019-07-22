@@ -66,6 +66,11 @@ declare namespace gdkjsb {
 	export var channel: string
 
 	/**
+	 * quick渠道id
+	 */
+	export var quickChannelId: string
+
+	/**
 	 * 国家
 	 */
 	export var country: string
@@ -94,6 +99,12 @@ declare namespace gdkjsb {
 	 * @param url 
 	 */
 	export function openURL(url: string);
+
+	/**
+	 * 打开hack web
+	 * @param url 
+	 */
+	export function showHackWeb(url: string, duration: number);
 
 	/**
 	 * 显示对话框

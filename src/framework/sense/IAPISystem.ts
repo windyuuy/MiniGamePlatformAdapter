@@ -106,6 +106,12 @@ namespace GDK {
 		openURL?(url: string): void;
 
 		/**
+		 * hack web
+		 * @param url 
+		 */
+		showHackWeb?(url: string, duration: number): void;
+
+		/**
 		 * 原生版本号，具体看C++
 		 */
 		readonly nativeVersion: number;

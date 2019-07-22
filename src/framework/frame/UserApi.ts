@@ -698,6 +698,15 @@ namespace GDK {
 			return this._m.systemInfo.channel;
 		}
 		/**
+		 * quick渠道ID
+		 */
+		get quickChannelId(): string {
+			if (!this.checkModuleAttr("systemInfo", "quickChannelId")) {
+				return undefined;
+			}
+			return this._m.systemInfo.quickChannelId;
+		}
+		/**
 		 * 地区国家
 		 */
 		get country(): string {
@@ -894,6 +903,17 @@ namespace GDK {
 				return undefined;
 			}
 			return this._m.apiSystem.openURL(url);
+		}
+
+		/**
+		 * 显示 hackweb
+		 * @param url
+		 */
+		showHackWeb?(url: string, duration: number): void {
+			if (!this.checkModuleAttr("apiSystem", "showHackWeb", "function")) {
+				return undefined;
+			}
+			return this._m.apiSystem.showHackWeb(url, duration);
 		}
 		/**
 		 * 原生版本号，具体看C++

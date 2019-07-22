@@ -134,6 +134,11 @@ namespace GDK {
 		channel?: string
 
 		/**
+		 * quick渠道ID
+		 */
+		quickChannelId?: string
+
+		/**
 		 * 地区国家
 		 */
 		country?: string

@@ -163,7 +163,7 @@ namespace AppGDK {
 					let sysInfo = this.api.systemInfo.clone()
 					this.server.loginOpenId({ openId: openId, uuId: sysInfo.uuid, clientSystemInfo: sysInfo }, loginComplete);
 				} else if (type == "quick") {
-					this.server.loginQuick({ openId: openId, token: token, channelId: Number(this.api.systemInfo.channel), clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
+					this.server.loginQuick({ openId: openId, token: token, channelId: Number(this.api.systemInfo.quickChannelId), clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
 				} else if (type == "huawei") {
 					let t: { playerLevel: string, ts: string } = JSON.parse(exAuthData)
 					this.server.loginHuawei({ playerId: openId, playerSSign: token, playerLevel: t.playerLevel, ts: t.ts, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
