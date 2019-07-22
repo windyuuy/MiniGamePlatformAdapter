@@ -29,10 +29,10 @@ namespace AppGDK {
 			SDKProxy.nativeAdvert.onFullScreenVideoAdComplete((data) => {
 				this.onFullScreenVideoAdComplete()
 			})
-			SDKProxy.nativeAdvert.onFullScreenVideoAdClosed(() => {
+			SDKProxy.nativeAdvert.onFullScreenVideoAdClosed((data) => {
 				// 避免可能的黑屏
 				setTimeout(() => {
-					this.onFullScreenVideoAdClosed()
+					this.onFullScreenVideoAdClosed(data)
 				}, 0)
 			})
 
@@ -56,11 +56,19 @@ namespace AppGDK {
 		onFullScreenVideoAdComplete() {
 			this._isEnded = true
 		}
-		onFullScreenVideoAdClosed() {
+		onFullScreenVideoAdClosed(data?: { couldReward?: boolean }) {
+			data = data || {}
+
 			this._isShowing = false
 
 			let isEnded = this._isEnded
 			this._isEnded = false
+
+			// 如果有直接的参数，优先使用参数
+			if (data.couldReward != null) {
+				isEnded = !!data.couldReward
+			}
+
 			for (let f of this._closeFuncList) {
 				try {
 					f({ isEnded: isEnded });
