@@ -39,7 +39,11 @@ namespace GDK {
 		/**
 		 * 提示内容
 		 */
-		content: string
+		content: string,
+		/**
+		 * 是否弹系统确认框
+		 */
+		toShowChoices: boolean,
 	}
 
 	export interface IChooseDialogResult {
