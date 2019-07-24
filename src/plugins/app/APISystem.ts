@@ -75,5 +75,13 @@ namespace AppGDK {
 			this._hideList.remove(callback);
 		}
 
+		async gotoAppSystemSettings?(params: GDK.IChooseDialogParams): Promise<void> {
+			nativeHelper.safeCallAction("utils:gotoAppSystemSettings", params)
+		}
+
+		async checkPermissions?(params: GDK.ICheckPermissionParams): Promise<void> {
+			nativeHelper.safeCallAction("utils:checkPermissions", params)
+		}
+
 	}
 }

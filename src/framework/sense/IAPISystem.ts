@@ -35,6 +35,28 @@ namespace GDK {
 		setData(res: ClipboardData): Promise<void>
 	}
 
+	export interface IChooseDialogParams {
+		/**
+		 * 提示内容
+		 */
+		content: string
+	}
+
+	export interface ICheckPermissionParams {
+		/**
+		 * 要检查的权限，支持 Manifest.permission.XXXXX 中对应的字符串
+		 * - "android.permission.READ_PHONE_STATE"
+		 * - "android.permission.WRITE_EXTERNAL_STORAGE"
+		 * - "android.permission.ACCESS_FINE_LOCATION"
+		 */
+		permissions: string[],
+		/**
+		 * 如果有缺失的权限，同时试着申请
+		 * @default false
+		 */
+		requestAtSameTime?: boolean,
+	}
+
 	/**
 	 * 支持各种系统调用、系统事件侦听
 	 */
@@ -115,6 +137,17 @@ namespace GDK {
 		 * 原生版本号，具体看C++
 		 */
 		readonly nativeVersion: number;
+
+		/**
+		 * 跳转app设置界面
+		 * - 目前只支持 android
+		 */
+		gotoAppSystemSettings?(params: IChooseDialogParams): Promise<void>;
+		/**
+		 * 检查是否已授予权限
+		 * - 目前只支持 android
+		 */
+		checkPermissions?(params: ICheckPermissionParams): Promise<void>;
 	}
 
 }
