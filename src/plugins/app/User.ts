@@ -171,6 +171,8 @@ namespace AppGDK {
 					this.server.loginVivo({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
 				} else if (type == "OppoApp") {
 					this.server.loginOppoApp({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
+				} else if (type == "baiduapp") {
+					this.server.loginBaidu({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
 				}
 			})
 
