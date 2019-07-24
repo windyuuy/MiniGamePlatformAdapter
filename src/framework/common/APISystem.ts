@@ -120,11 +120,17 @@ namespace GDK {
 			callback({ left: 0, right: 0, top: 0, bottom: 0 });
 		}
 
-		async gotoAppSystemSettings?(params: IChooseDialogParams): Promise<void> {
-
+		async gotoAppSystemSettings?(params: IChooseDialogParams): Promise<IChooseDialogResult> {
+			return {
+				action: "cancel",
+				crashed: false,
+			}
 		}
-		async checkAppSystemPermissions?(params: ICheckPermissionParams): Promise<void> {
-
+		async checkAppSystemPermissions?(params: ICheckPermissionParams): Promise<ICheckPermissionResult> {
+			return {
+				lackedPermissions: [],
+				error: {},
+			}
 		}
 
 	}

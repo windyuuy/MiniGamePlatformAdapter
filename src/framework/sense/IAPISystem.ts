@@ -42,6 +42,19 @@ namespace GDK {
 		content: string
 	}
 
+	export interface IChooseDialogResult {
+		/**
+		 * 用户选择的动作
+		 * - cancel
+		 * - sure
+		 */
+		action: "cancel" | "sure",
+		/**
+		 * 调用过程中是否崩溃
+		 */
+		crashed: boolean,
+	}
+
 	export interface ICheckPermissionParams {
 		/**
 		 * 要检查的权限，支持 Manifest.permission.XXXXX 中对应的字符串
@@ -55,6 +68,17 @@ namespace GDK {
 		 * @default false
 		 */
 		requestAtSameTime?: boolean,
+	}
+
+	export interface ICheckPermissionResult {
+		/**
+		 * 缺失的权限列表
+		 */
+		lackedPermissions: string[],
+		error: {
+			message?: string,
+			stack?: string,
+		}
 	}
 
 	/**
@@ -142,12 +166,12 @@ namespace GDK {
 		 * 跳转app设置界面
 		 * - 目前只支持 android
 		 */
-		gotoAppSystemSettings?(params: IChooseDialogParams): Promise<void>;
+		gotoAppSystemSettings?(params: IChooseDialogParams): Promise<IChooseDialogResult>;
 		/**
 		 * 检查是否已授予权限
 		 * - 目前只支持 android
 		 */
-		checkAppSystemPermissions?(params: ICheckPermissionParams): Promise<void>;
+		checkAppSystemPermissions?(params: ICheckPermissionParams): Promise<ICheckPermissionResult>;
 	}
 
 }
