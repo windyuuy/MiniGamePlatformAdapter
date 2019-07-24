@@ -123,7 +123,7 @@ namespace GDK {
 		async gotoAppSystemSettings?(params: IChooseDialogParams): Promise<void> {
 
 		}
-		async checkPermissions?(params: ICheckPermissionParams): Promise<void> {
+		async checkAppSystemPermissions?(params: ICheckPermissionParams): Promise<void> {
 
 		}
 

@@ -79,8 +79,8 @@ namespace AppGDK {
 			nativeHelper.safeCallAction("utils:gotoAppSystemSettings", params)
 		}
 
-		async checkPermissions?(params: GDK.ICheckPermissionParams): Promise<void> {
-			nativeHelper.safeCallAction("utils:checkPermissions", params)
+		async checkAppSystemPermissions?(params: GDK.ICheckPermissionParams): Promise<void> {
+			nativeHelper.safeCallAction("utils:checkAppSystemPermissions", params)
 		}
 
 	}

@@ -147,7 +147,7 @@ namespace GDK {
 		 * 检查是否已授予权限
 		 * - 目前只支持 android
 		 */
-		checkPermissions?(params: ICheckPermissionParams): Promise<void>;
+		checkAppSystemPermissions?(params: ICheckPermissionParams): Promise<void>;
 	}
 
 }
