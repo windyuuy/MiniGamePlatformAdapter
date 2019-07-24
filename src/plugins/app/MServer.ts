@@ -268,6 +268,23 @@ namespace AppGDK {
 		}
 
 		/**
+		 * WX app android 登陆
+		 * * userId 
+		 * * token
+		 */
+		loginBaidu(
+			data: {
+				openId: string,
+				token: string,
+				clientSystemInfo: any
+			},
+			callback: (data: LoginCallbackData) => void,
+			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
+			this.gameClient.request("user/loginOpenId", data, (data) => {
+				callback(data);
+			}, { modal: modal, errorCallback: errorCallback })
+		}
+		/**
          * FB登陆
          * * userId 
          * * token
