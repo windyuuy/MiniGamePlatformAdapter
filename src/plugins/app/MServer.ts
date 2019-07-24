@@ -280,7 +280,7 @@ namespace AppGDK {
 			},
 			callback: (data: LoginCallbackData) => void,
 			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
-			this.gameClient.request("user/loginBaiduApp", data, (data) => {
+			this.gameClient.request("user/loginOpenId", data, (data) => {
 				callback(data);
 			}, { modal: modal, errorCallback: errorCallback })
 		}
