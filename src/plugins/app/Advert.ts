@@ -129,8 +129,13 @@ namespace AppGDK {
 			return Advert._bannerAd
 		}
 
-		selectAdvertPlatform(params: { platform: string }): Promise<void> {
-			return SDKProxy.nativeAdvert.advertPlatformSelect(params.platform || "ironsource")
+		async selectAdvertPlatform(params: { platform: string }): Promise<void> {
+			let ret = await SDKProxy.nativeAdvert.advertPlatformSelect(params.platform || "ironsource")
+			let videoAd = Advert._videoAd
+			if (videoAd != null && videoAd instanceof VideoAd) {
+				videoAd['onRewardedVideoAvailabilityChanged'](await videoAd.checkAvailable())
+			}
+			return ret
 		}
 	}
 }
