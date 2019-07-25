@@ -31,7 +31,7 @@ namespace AppGDK {
 						INTERSTITIAL: this.supportInterstitialAd,
 					}
 				})
-				let debug = true
+				let debug = false
 				SDKProxy.nativeAdvert.setAdaptersDebug({ debug: debug })
 				SDKProxy.nativeAdvert.shouldTrackNetworkState({ track: debug })
 			}
