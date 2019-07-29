@@ -90,7 +90,12 @@ namespace GDK {
 		offClose(callback: Function)
 
 		readonly isAvailable?: boolean
-		checkAvailable?(): Promise<boolean>
+		checkAvailable?(
+			/**
+			 * 目前仅广点通广告支持使用这个参数
+			 */
+			loadParams?: GDK.RewardVideoAdLoadParams
+		): Promise<boolean>
 	}
 
 	/**
