@@ -8,7 +8,7 @@
 const USER_INFO_KEY = "$OFNIRESU$";
 const USER_INFO_XXTEA_KEY = "key$OFNIRESU$key";
 
-type LoginType = "visitor" | "facebook" | "google" | "silent" | "gamecenter" | "wxapp" | "quick" | "huawei" | "vivoapp" | "OppoApp" | "baiduapp"
+type LoginType = "visitor" | "facebook" | "google" | "silent" | "gamecenter" | "wxapp" | "quick" | "huawei" | "vivoapp" | "OppoApp" | "baiduapp" | "aligame"
 
 /**
  * 登陆的用户信息结构
