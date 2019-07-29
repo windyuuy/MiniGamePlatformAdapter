@@ -119,8 +119,8 @@ namespace AppGDK {
 			return nativeHelper.safeCallAction<{}>(key, loadParams) || {}
 		}
 
-		async isRewardedVideoAvailable() {
-			return nativeHelper.callAction<{ available: boolean }>("ironsrc:IronSource.isRewardedVideoAvailable", {})
+		async isRewardedVideoAvailable(loadParams?: GDK.RewardVideoAdLoadParams) {
+			return nativeHelper.callAction<{ available: boolean }>("ironsrc:IronSource.isRewardedVideoAvailable", loadParams || {})
 		}
 
 		async showRewardedVideo(params: { placementName: string }) {

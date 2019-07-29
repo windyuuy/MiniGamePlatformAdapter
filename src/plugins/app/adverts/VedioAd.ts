@@ -100,8 +100,8 @@ namespace AppGDK {
 		/**
 		 * 调用异步原生接口获取`原生`视频广告是否加载成功
 		 */
-		async checkAvailable?(): Promise<boolean> {
-			let { available } = await SDKProxy.nativeAdvert.isRewardedVideoAvailable()
+		async checkAvailable?(loadParams?: GDK.RewardVideoAdLoadParams): Promise<boolean> {
+			let { available } = await SDKProxy.nativeAdvert.isRewardedVideoAvailable(loadParams)
 			this._available = available
 			return available
 		}
