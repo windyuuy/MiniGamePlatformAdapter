@@ -188,11 +188,11 @@ namespace GDK {
 		createInterstitialAd?(params: InterstitialAdCreateParam): GDK.IInterstitialAd
 
 		/**
-		 * @deprecated 是否支持全屏广告
+		 * @deprecated 是否支持全屏视频广告
 		 */
 		readonly supportFullscreenAd?: boolean
 		/**
-		 * 是否支持全屏广告
+		 * 是否支持全屏视频广告
 		 */
 		readonly supportFullscreenVideoAd?: boolean
 		/**
