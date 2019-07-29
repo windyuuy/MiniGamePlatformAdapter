@@ -80,6 +80,9 @@ namespace AppGDK {
 		}
 
 		get supportFullscreenAd(): boolean {
+			return this.supportFullscreenVideoAd
+		}
+		get supportFullscreenVideoAd(): boolean {
 			return nativeHelper.checkActionExist("ironsrc:IronSource.loadFullScreenVideoAd")
 		}
 		createFullscreenVideoAd(params: {
@@ -87,7 +90,7 @@ namespace AppGDK {
 			adUnitId: string
 		}): GDK.IFullscreedVideoAd {
 			if (!Advert._fullscreenAd) {
-				if (this.supportFullscreenAd) {
+				if (this.supportFullscreenVideoAd) {
 					Advert._fullscreenAd = new FullscreenVedioAd(params, this.api)
 				} else {
 					// Advert._fullscreenAd = new VideoAd(params, this.api)

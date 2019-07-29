@@ -62,7 +62,12 @@ namespace GDK {
 		/** 隐藏 激励视频 广告 */
 		load(loadParams?: RewardVideoAdLoadParams): Promise<void>
 		/** 显示 激励视频 广告 */
-		show(): Promise<void>
+		show(
+			/**
+			 * 目前仅广点通广告支持使用这个参数
+			 */
+			loadParams?: RewardVideoAdLoadParams
+		): Promise<void>
 		/**
 		 * - 监听 激励视频 广告加载完成
 		 * - 执行顺序：
@@ -176,14 +181,20 @@ namespace GDK {
 
 		/** 创建条幅广告对象 */
 		createBannerAd(params: BannerAdCreateParam): IBannerAd
-
+		/**
+		 * 是否支持插屏广告
+		 */
 		readonly supportInterstitialAd?: boolean
 		createInterstitialAd?(params: InterstitialAdCreateParam): GDK.IInterstitialAd
 
 		/**
-		 * 是否支持全屏广告
+		 * @deprecated 是否支持全屏广告
 		 */
 		readonly supportFullscreenAd?: boolean
+		/**
+		 * 是否支持全屏广告
+		 */
+		readonly supportFullscreenVideoAd?: boolean
 		/**
 		 * 创建全屏广告
 		 */
