@@ -173,6 +173,8 @@ namespace AppGDK {
 					this.server.loginOppoApp({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
 				} else if (type == "baiduapp") {
 					this.server.loginBaidu({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
+				} else if(type == "aligame") {
+					this.server.loginAligame({openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone()}, loginComplete);
 				}
 			})
 
