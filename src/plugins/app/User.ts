@@ -122,6 +122,13 @@ namespace AppGDK {
 				SDKProxy.hideLoginDialog();//隐藏登陆弹框
 				isCancelLogin = false;
 
+				// ---------------------------------------------------
+				// refresh local token, added by lichangshou
+				(this.api.userData as UserData).token = token
+				// ---------------------------------------------------
+
+				console.log("loginYYBApp yingyongbao1:" + openId + "," + token + "," + head)
+
 				//生成玩家登陆记录
 				let userRecords = SDKProxy.loadUserRecord()
 				let record = userRecords.find(a => a.openId == openId)
@@ -173,8 +180,12 @@ namespace AppGDK {
 					this.server.loginOppoApp({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
 				} else if (type == "baiduapp") {
 					this.server.loginBaidu({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
-				} else if(type == "aligame") {
-					this.server.loginAligame({openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone()}, loginComplete);
+
+				} else if (type == "aligame") {
+					this.server.loginAligame({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
+				} else if (type == "yingyongbaoApp") {
+					console.log("loginYYBApp yingyongbao2:" + openId + "," + token + "," + head)
+					this.server.loginYYBApp({ openId: openId, token: token, type: Number(head), clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
 				}
 			})
 
