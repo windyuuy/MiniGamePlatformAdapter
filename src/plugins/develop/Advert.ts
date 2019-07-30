@@ -223,7 +223,7 @@ namespace DevelopGDK {
 					Advert._fullscreenAd = new FullscreenVideoAd(params, this.api)
 				} else {
 					// Advert._fullscreenAd = new VideoAd(params, this.api)
-					devlog.error("当前app版本过低，不支持插屏广告(Interstitial)")
+					devlog.error("当前平台版本过低，不支持插屏广告(Interstitial)")
 				}
 			}
 			return Advert._fullscreenAd
@@ -242,7 +242,7 @@ namespace DevelopGDK {
 					Advert._interstitialAd = new InterstitialAd(params, this.api)
 				} else {
 					// Advert._interstitialAd = new VideoAd(params, this.api)
-					devlog.error("当前app版本过低，不支持插屏广告(Interstitial)")
+					devlog.error("当前平台版本过低，不支持插屏广告(Interstitial)")
 				}
 			}
 			return Advert._interstitialAd
