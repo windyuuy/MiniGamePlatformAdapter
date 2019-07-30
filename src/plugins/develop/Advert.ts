@@ -1,4 +1,6 @@
 namespace DevelopGDK {
+	const devlog = Common.devlog
+
 	class VideoAd implements GDK.IRewardedVideoAd {
 
 		api?: GDK.UserAPI
@@ -90,6 +92,13 @@ namespace DevelopGDK {
 		}
 	}
 
+	class FullscreenVideoAd extends VideoAd {
+
+	}
+	class InterstitialAd extends VideoAd {
+
+	}
+
 	class BannerAd implements GDK.IBannerAd {
 		adUnitId?: string
 		viewId?: number
@@ -175,6 +184,8 @@ namespace DevelopGDK {
 
 		protected static _videoAd: VideoAd
 		protected static _bannerAd: BannerAd
+		protected static _fullscreenAd: FullscreenVideoAd
+		protected static _interstitialAd: InterstitialAd
 		createRewardedVideoAd(params: {
 			/** 广告单元 id */
 			adUnitId: string
@@ -195,6 +206,52 @@ namespace DevelopGDK {
 			}
 			return Advert._bannerAd
 			// return new BannerAd(params)
+		}
+
+		get supportFullscreenAd(): boolean {
+			return this.supportFullscreenVideoAd
+		}
+		get supportFullscreenVideoAd(): boolean {
+			return true
+		}
+		createFullscreenVideoAd(params: {
+			/** 广告单元 id */
+			adUnitId: string
+		}): GDK.IFullscreedVideoAd {
+			if (!Advert._fullscreenAd) {
+				if (this.supportFullscreenVideoAd) {
+					Advert._fullscreenAd = new FullscreenVideoAd(params, this.api)
+				} else {
+					// Advert._fullscreenAd = new VideoAd(params, this.api)
+					devlog.error("当前app版本过低，不支持插屏广告(Interstitial)")
+				}
+			}
+			return Advert._fullscreenAd
+		}
+
+		get supportInterstitialAd(): boolean {
+			return true
+		}
+
+		createInterstitialAd(params: {
+			/** 广告单元 id */
+			adUnitId: string
+		}): GDK.IInterstitialAd {
+			if (!Advert._interstitialAd) {
+				if (this.supportInterstitialAd) {
+					Advert._interstitialAd = new InterstitialAd(params, this.api)
+				} else {
+					// Advert._interstitialAd = new VideoAd(params, this.api)
+					devlog.error("当前app版本过低，不支持插屏广告(Interstitial)")
+				}
+			}
+			return Advert._interstitialAd
+		}
+
+		protected _currentPlatform: string = null
+		async selectAdvertPlatform(params: { platform: string }): Promise<void> {
+			devlog.warn(`切换广告平台：${params.platform}`)
+			this._currentPlatform = params.platform
 		}
 	}
 }
