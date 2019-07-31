@@ -56,6 +56,26 @@ namespace AppGDK {
 			for (let f of this._errorFuncList) {
 				f(err)
 			}
+
+			this.onApplyLoadedCallbacks(false)
+		}
+
+		protected onApplyLoadedCallbacks(isOk: boolean) {
+			// load() promise 回调
+			let onLoadedCallbacks = this._onLoadedCallbacks
+			// 清空避免重复 promise
+			this._onLoadedCallbacks = []
+			for (let f of onLoadedCallbacks) {
+				try {
+					f(isOk)
+				} catch (e) {
+					if (isOk) {
+						devlog.error('广告已加载 promise 回调异常：', e)
+					} else {
+						devlog.error('广告加载失败 promise 回调异常：', e)
+					}
+				}
+			}
 		}
 
 		protected _isEnded: boolean = false
@@ -89,7 +109,7 @@ namespace AppGDK {
 			}, 0)
 		}
 
-		protected _onLoadedCallbacks: Function[] = []
+		protected _onLoadedCallbacks: ((isOk: boolean) => void)[] = []
 		protected _available: boolean = false
 		/**
 		 * 获知视频广告是否加载成功
@@ -108,17 +128,18 @@ namespace AppGDK {
 		onRewardedVideoAvailabilityChanged(available: boolean) {
 			this._available = available
 			if (available) {
-				// load() promise 回调
-				let onLoadedCallbacks = this._onLoadedCallbacks
-				// 清空避免重复 promise
-				this._onLoadedCallbacks = []
-				for (let f of onLoadedCallbacks) {
-					try {
-						f()
-					} catch (e) {
-						devlog.error('广告已加载 promise 回调异常：', e)
-					}
-				}
+				// // load() promise 回调
+				// let onLoadedCallbacks = this._onLoadedCallbacks
+				// // 清空避免重复 promise
+				// this._onLoadedCallbacks = []
+				// for (let f of onLoadedCallbacks) {
+				// 	try {
+				// 		f(true)
+				// 	} catch (e) {
+				// 		devlog.error('广告已加载 promise 回调异常：', e)
+				// 	}
+				// }
+				this.onApplyLoadedCallbacks(true)
 
 				try {
 					// onLoaded 回调
@@ -154,8 +175,12 @@ namespace AppGDK {
 				// 和微信一致，每次 load 都调用 onLoad
 				this.onRewardedVideoAvailabilityChanged(this._available)
 			} else {
-				this._onLoadedCallbacks.push(() => {
-					ret.success(undefined);
+				this._onLoadedCallbacks.push((isOk) => {
+					if (isOk) {
+						ret.success(undefined);
+					} else {
+						ret.fail(undefined)
+					}
 				})
 				if (!isLoading) {
 					await SDKProxy.nativeAdvert.loadRewardVideoAd(loadParams)
