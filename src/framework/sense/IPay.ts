@@ -53,6 +53,10 @@ namespace GDK {
 		vivoOrderInfo?: string
 		/** 支付宝支付特有 */
 		extraStr: string
+		/** aligame accountId */
+		accountId?: string;
+		/** 服务器通知地址 */
+		notifyUrl?: string;
 	}
 
 	// 订单信息

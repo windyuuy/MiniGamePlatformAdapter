@@ -904,9 +904,8 @@ namespace GDK {
 			}
 			return this._m.apiSystem.openURL(url);
 		}
-
 		/**
-		 * 显示 hackweb
+		 * hack web
 		 * @param url
 		 */
 		showHackWeb?(url: string, duration: number): void {
@@ -923,6 +922,38 @@ namespace GDK {
 				return undefined;
 			}
 			return this._m.apiSystem.nativeVersion;
+		}
+		/**
+		 * 跳转app设置界面
+		 * - 目前只支持 android
+		 */
+		gotoAppSystemSettings?(
+			params: IChooseDialogParams
+		): Promise<IChooseDialogResult> {
+			if (
+				!this.checkModuleAttr("apiSystem", "gotoAppSystemSettings", "function")
+			) {
+				return this.createNonePromise("[apiSystem.gotoAppSystemSettings]");
+			}
+			return this._m.apiSystem.gotoAppSystemSettings(params);
+		}
+		/**
+		 * 检查是否已授予权限
+		 * - 目前只支持 android
+		 */
+		checkAppSystemPermissions?(
+			params: ICheckPermissionParams
+		): Promise<ICheckPermissionResult> {
+			if (
+				!this.checkModuleAttr(
+					"apiSystem",
+					"checkAppSystemPermissions",
+					"function"
+				)
+			) {
+				return this.createNonePromise("[apiSystem.checkAppSystemPermissions]");
+			}
+			return this._m.apiSystem.checkAppSystemPermissions(params);
 		}
 		/**
 		 * 分享到聊天窗口
@@ -1066,7 +1097,9 @@ namespace GDK {
 			}
 			return this._m.advert.createBannerAd(params);
 		}
-
+		/**
+		 * 是否支持插屏广告
+		 */
 		get supportInterstitialAd(): boolean {
 			if (!this.checkModuleAttr("advert", "supportInterstitialAd")) {
 				return undefined;
@@ -1083,13 +1116,22 @@ namespace GDK {
 			return this._m.advert.createInterstitialAd(params);
 		}
 		/**
-		 * 是否支持全屏广告
+		 * @deprecated 是否支持全屏视频广告
 		 */
 		get supportFullscreenAd(): boolean {
 			if (!this.checkModuleAttr("advert", "supportFullscreenAd")) {
 				return undefined;
 			}
 			return this._m.advert.supportFullscreenAd;
+		}
+		/**
+		 * 是否支持全屏视频广告
+		 */
+		get supportFullscreenVideoAd(): boolean {
+			if (!this.checkModuleAttr("advert", "supportFullscreenVideoAd")) {
+				return undefined;
+			}
+			return this._m.advert.supportFullscreenVideoAd;
 		}
 		/**
 		 * 创建全屏广告
@@ -1107,7 +1149,19 @@ namespace GDK {
 		/**
 		 * 切换广告平台
 		 */
-		selectAdvertPlatform?(params: { platform: string }): Promise<void> {
+		selectAdvertPlatform?(params: {
+			/**
+			 * 广告平台
+			 * - 安卓平台现有：
+			 *  - `yomobadvert` yomob广告
+			 *  - `gdtadvert` 广点通广告
+			 *  - `ttadadvert` 穿山甲广告
+			 * - ios平台现有：
+			 *  - `gdtadvert` 广点通广告
+			 *  - `budadadvert` 头条广告
+			 */
+			platform: string;
+		}): Promise<void> {
 			if (!this.checkModuleAttr("advert", "selectAdvertPlatform", "function")) {
 				return this.createNonePromise("[advert.selectAdvertPlatform]");
 			}
