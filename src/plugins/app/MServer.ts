@@ -268,6 +268,25 @@ namespace AppGDK {
 		}
 
 		/**
+         * WX app android 登陆
+         * * userId 
+         * * token
+         */
+		loginYYBApp(
+			data: {
+				openId: string,
+				token: string,
+				type: number,
+				clientSystemInfo: any
+			},
+			callback: (data: LoginCallbackData) => void,
+			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
+			this.gameClient.request("user/loginYybApp", data, (data) => {
+				callback(data);
+			}, { modal: modal, errorCallback: errorCallback })
+		}
+
+		/**
 		 * WX app android 登陆
 		 * * userId 
 		 * * token
