@@ -29,7 +29,7 @@ namespace DevelopGDK {
 			// }
 			const ret = new GDK.RPromise<void>()
 			setTimeout(() => {
-				if ((!this._isLoad) && Math.random() > 0.9) {
+				if ((!this._isLoad) && Math.random() > 0.8) {
 					const reason = { errCode: -1, errMsg: "10%的概率模拟广告加载失败" }
 					ret.fail(reason);
 					for (let f of this._errorFuncList) {
