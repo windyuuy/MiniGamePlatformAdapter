@@ -55,6 +55,8 @@ namespace GDK {
 		extraStr: string
 		/** aligame accountId */
 		accountId?: string;
+		/** aligame aliamount */
+		aliamount?: string;
 		/** 服务器通知地址 */
 		notifyUrl?: string;
 	}
