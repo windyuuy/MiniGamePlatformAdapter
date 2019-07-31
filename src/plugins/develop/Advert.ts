@@ -23,13 +23,12 @@ namespace DevelopGDK {
 		}
 
 		async load(): Promise<void> {
-			// 每次load，不管是否已load，都进onLoad
-			// if (this._isLoad) {
-			// 	return;
-			// }
+			if (this._isLoad) {
+				return;
+			}
 			const ret = new GDK.RPromise<void>()
 			setTimeout(() => {
-				if ((!this._isLoad) && Math.random() > 0.8) {
+				if (Math.random() > 0.9) {
 					const reason = { errCode: -1, errMsg: "10%的概率模拟广告加载失败" }
 					ret.fail(reason);
 					for (let f of this._errorFuncList) {
