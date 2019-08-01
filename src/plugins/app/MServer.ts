@@ -286,6 +286,19 @@ namespace AppGDK {
 			}, { modal: modal, errorCallback: errorCallback })
 		}
 
+		loginMeituApp(
+			data: {
+				openId: string,
+				token: string,
+				clientSystemInfo: any
+			},
+			callback: (data: LoginCallbackData) => void,
+			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
+			this.gameClient.request("user/loginMtApp", data, (data) => {
+				callback(data);
+			}, { modal: modal, errorCallback: errorCallback })
+		}
+
 		/**
 		 * WX app android 登陆
 		 * * userId 
