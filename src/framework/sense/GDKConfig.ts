@@ -134,6 +134,9 @@ namespace GDK {
 		advertPlatforms?: AdvertsAllPlatforms[] = []
 	}
 
+	export class GDKGamepindConfig extends GDKConfigBase {
+
+	}
 
 	export class GDKConfig {
 
@@ -147,6 +150,7 @@ namespace GDK {
 		app?: GDKAPPConfig
 		qqminiapp?: GDKQQMINIAPPConfig
 		vivo?: GDKVIVOConfig
+		gamepind?: GDKGamepindConfig
 	}
 
 
