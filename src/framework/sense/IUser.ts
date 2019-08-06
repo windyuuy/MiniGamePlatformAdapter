@@ -75,6 +75,10 @@ namespace GDK {
 		 * * 否则，执行第三方账号的自动登陆
 		 */
 		autoLogin?: boolean = true;
+		/**
+        * gamepind 登录token
+        */
+		token?: string;
 	}
 
 	export class LoginPromise extends Promise<LoginResult>{ }

@@ -1,10 +1,10 @@
 
 namespace GamepindGDK {
 	export class Support implements GDK.ISupport {
-		pluginName = "Gamepind"
+		pluginName = "gamepind"
 		supportShareTickets: boolean = false
 		requireSubDomainRank: boolean = false
-		apiPlatform = "Gamepind"
+		apiPlatform = "gamepind"
 		requireAuthorize: boolean = false
 		apiNameLocale: string = "gampind"
 	}

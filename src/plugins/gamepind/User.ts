@@ -11,45 +11,6 @@ namespace GamepindGDK {
 			return MServer.inst
 		}
 
-		loginDefault(params?: GDK.LoginParams) {
-			const ret = new GDK.RPromise<GDK.LoginResult>()
-
-			let userId = localStorage.getItem('sdk_glee_userId')
-			let nUserId = parseInt(userId)
-			if (isNaN(nUserId)) {
-				nUserId = undefined
-			}
-
-			this.server.loginTest({ loginCode: nUserId }, (resp) => {
-				//玩家数据
-				if (resp.succeed) {
-					const data = resp.data
-					const userdata = this.api.userData
-					userdata.channelId = data.channelId
-					userdata.createTime = data.createTime
-					userdata.userId = data.userId
-					localStorage.setItem('sdk_glee_userId', `${data.userId}`)
-					userdata.followGzh = data.followGzh
-					userdata.nickName = data.nickname
-					userdata.isNewUser = data.userNew
-
-					ret.success({
-						extra: data,
-					})
-				} else {
-					ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN, {
-						data: {
-							extra: resp,
-						}
-					}))
-				}
-			}, () => {
-				ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.NETWORK_ERROR))
-			})
-
-			return ret.promise
-		}
-
 		login(params?: GDK.LoginParams) {
 			const ret = new GDK.RPromise<GDK.LoginResult>();
 
@@ -61,7 +22,7 @@ namespace GamepindGDK {
 			}
 			devlog.info("Gamepind login params end");
 
-			let access_token: string = (params && params.pkgName) ? params.pkgName : "";
+			let access_token: string = (params && params.token) ? params.token : "";
 			if (access_token) {
 				devlog.info("Gamepind login token: " + access_token);
 				this.server.userLogin({
@@ -106,8 +67,40 @@ namespace GamepindGDK {
 						ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.NETWORK_ERROR))
 					})
 			} else {
-				devlog.error("Gamepind 未传入token! go loginTest")
-				this.loginDefault(params);
+				devlog.warn("Gamepind 未传入token! go loginTest")
+
+				let userId = localStorage.getItem('sdk_glee_userId')
+				let nUserId = parseInt(userId)
+				if (isNaN(nUserId)) {
+					nUserId = undefined
+				}
+
+				this.server.loginTest({ loginCode: nUserId }, (resp) => {
+					//玩家数据
+					if (resp.succeed) {
+						const data = resp.data
+						const userdata = this.api.userData
+						userdata.channelId = data.channelId
+						userdata.createTime = data.createTime
+						userdata.userId = data.userId
+						localStorage.setItem('sdk_glee_userId', `${data.userId}`)
+						userdata.followGzh = data.followGzh
+						userdata.nickName = data.nickname
+						userdata.isNewUser = data.userNew
+
+						ret.success({
+							extra: data,
+						})
+					} else {
+						ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN, {
+							data: {
+								extra: resp,
+							}
+						}))
+					}
+				}, () => {
+					ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.NETWORK_ERROR))
+				})
 			}
 
 			return ret.promise;
