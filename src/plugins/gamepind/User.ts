@@ -7,6 +7,23 @@ namespace GamepindGDK {
 
 	export class User extends GDK.UserBase {
 		api?: GDK.UserAPI
+		/*
+		{
+			mv_cas_oauth_token:fffffff,
+			property:PP_APP,
+			device_id:ffffff,
+			pid:666666,
+			gp_playSource:gppreapp,
+			gp_campaignName:new_request,
+			utm_source:gppreapp,
+		}
+		 */
+		_query: any;
+		private debug_redirect_uri: string = "https://rainbowfarmstag.gamepind.com/";
+		private release_redirect_uri: string = "https://rainbowfarmstag.gamepind.com/";
+		private debug_domain: string = "https://securebox.gamepind.com/cas";
+		private release_domain: string = "https://secure.gamepind.com/cas";
+		private mode: string = "develop";
 		get server(): MServer {
 			return MServer.inst
 		}
@@ -22,12 +39,14 @@ namespace GamepindGDK {
 			}
 			devlog.info("Gamepind login params end");
 
-			let access_token: string = (params && params.token) ? params.token : "";
+			this.mode = (params && params.token) ? params.token : this.mode;
+			this.parseQuery();
+			let access_token: string = "";
+			access_token = (this._query && this._query["mv_cas_oauth_token"]) ? this._query["mv_cas_oauth_token"] : access_token;
 			if (access_token) {
 				devlog.info("Gamepind login token: " + access_token);
 				this.server.userLogin({
 					token: access_token,
-					clientSystemInfo: "",
 				},
 					(resp) => {
 						if (resp.succeed) {
@@ -64,6 +83,8 @@ namespace GamepindGDK {
 						}
 					}, (err) => {
 						console.error("Gamepind server login rep failed", err)
+						//this.server.gamepindAuth()
+						this.reAuth();
 						ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.NETWORK_ERROR))
 					})
 			} else {
@@ -104,6 +125,37 @@ namespace GamepindGDK {
 			}
 
 			return ret.promise;
+		}
+
+		parseQuery() {
+			if (window && window.location && window.location.search) {
+				let query: string = window.location.search;
+				console.warn("gdk Gamepind open url query: " + query);
+
+				query = query.substr(1);
+				let t = query.split(`&`)
+				let t2 = {};
+				this._query = {};
+				t.foreach((e) => {
+					let t3 = e.split(`=`);
+					t2[t3[0]] = t3[1];
+					this._query[t3[0]] = t3[1];
+				})
+			} else {
+				console.warn("gdk Gamepind open url no query");
+			}
+		}
+
+		reAuth() {
+			devlog.error("gdk Gamepind reAuth");
+			let url: string = this.mode == "develop" ? this.debug_redirect_uri : this.release_redirect_uri;
+			let device: string = (this._query && this._query["device_id"]) ? this._query["device_id"] : "";
+			let source: string = (this._query && this._query["gp_playSource"]) ? this._query["gp_playSource"] : "";
+			let property: string = (this._query && this._query["property"]) ? this._query["property"] : "";
+			let domain: string = this.mode == "develop" ? this.debug_domain : this.release_domain;
+			let mapper: string = (this._query && this._query["device_id"]) ? this._query["device_id"] : "";
+
+			this.server.gamepindAuth({ redirect_uri: url, device_id: device, source: source, property: property }, domain, mapper);
 		}
 
 		async showUserCenter() {

@@ -74,8 +74,17 @@ namespace GamepindGDK {
 	export class MServer extends GDK.APIServer {
 		static readonly inst: MServer = new MServer()
 
+		private _gamepindAuthClient: slib.HttpClient = null;
+
 		get gameClient() {
 			return Common.httpClient
+		}
+
+		get gamepindAuthClient() {
+			if (!this._gamepindAuthClient) {
+				this._gamepindAuthClient = new slib.HttpClient();
+			}
+			return this._gamepindAuthClient;
 		}
 
 		/**
@@ -97,7 +106,7 @@ namespace GamepindGDK {
 				launchOptionsQuery?: any,//启动参数query 
 				launchOptionsPath?: any, //启动参数path
 				channelId?: number;//渠道id
-				clientSystemInfo: any;//系统信息
+				clientSystemInfo?: any;//系统信息
 				extraData?: any;
 			},
 			callback: (data: LoginCallbackData) => void,
@@ -105,6 +114,63 @@ namespace GamepindGDK {
 			this.gameClient.request("user/loginGamePind", data, (data) => {
 				callback(data);
 			}, { errorCallback: errorCallback })
+		}
+
+		gamepindAuth(auth: {
+			redirect_uri: string,
+			device_id: string,
+			source: string,
+			property: string,
+		}, domain: string, mapperid: string, callback?: (data) => void, failcall?: (error) => void) {
+			// https://securebox.gamepind.com/cas
+			// https://secure.gamepind.com/cas
+
+			let suffix: string = "";
+			Object.keys(auth).forEach((v, i, arr) => {
+				suffix += v + "=" + auth[v] + "&";
+			})
+			suffix = suffix.substr(0, suffix.length - 1)
+
+			let url: string = `${domain}/v1/open-id/oauth/${mapperid}?${suffix}`;
+			let data;
+
+			let headMap: any = {}
+			headMap["Content-Type"] = "application/json;charset=utf-8"
+
+			this.gamepindAuthClient.request({
+				method: "GET",
+				url: url,
+				data: data,
+				headMap: headMap,
+				onDone: (data) => {
+					//进行回调
+					if (typeof (data) == 'string' && data.length > 4000) {
+						//log.warn("response", url, action, data.substr(0, 4000))
+					} else {
+						//log.warn("response", url, action, data);
+					}
+
+					//let newData = JSON.parse(data);
+				},
+				onError: (error) => {
+
+					let retry = () => {
+						//重试函数
+					}
+				},
+				onTimeout: () => {
+					//超时进行重试
+					let retry = () => {
+						//重试函数
+					}
+				},
+				onProgress: (loaded: number, total: number) => {
+
+				},
+				onUploadProgress: (loaded: number, total: number) => {
+
+				}
+			})
 		}
 	}
 }
