@@ -34,6 +34,8 @@ namespace GDK {
 		 */
 		requireMiniAppPay: boolean = false
 
+		requireIndiaSPSPay: boolean = false
+
 		/**
 		 * 获取当前服务器时间
 		 */

@@ -161,6 +161,8 @@ namespace GDK {
 		 */
 		requireMiniAppPay: boolean
 
+		requireIndiaSPSPay: boolean
+
 	}
 
 }

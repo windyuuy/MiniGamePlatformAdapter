@@ -451,6 +451,14 @@ namespace GDK {
 			}
 			return this._m.gameInfo.requireMiniAppPay;
 		}
+
+		get requireIndiaSPSPay(): boolean {
+			if (!this.checkModuleAttr("gameInfo", "requireIndiaSPSPay")) {
+				return undefined;
+			}
+			return this._m.gameInfo.requireIndiaSPSPay;
+		}
+
 		/**
 		 * 手机品牌
 		 **/
