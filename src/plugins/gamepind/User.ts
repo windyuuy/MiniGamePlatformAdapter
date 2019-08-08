@@ -47,7 +47,7 @@ namespace GamepindGDK {
 				devlog.info("Gamepind login token: " + access_token);
 				this.server.userLogin({
 					token: access_token,
-					clientSystemInfo: { deviceId: this._query['device_id'] }
+					clientSystemInfo: { deviceId: this._query['device_id'], uiLanguage: slib.i18n.language }
 				},
 					(resp) => {
 						if (resp.succeed) {

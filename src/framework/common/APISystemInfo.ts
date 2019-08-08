@@ -49,6 +49,7 @@ namespace GDK {
 			for (let k in this) {
 				obj[k] = this[k]
 			}
+			obj["uiLanguage"] = slib.i18n.language
 			obj.api = undefined
 			return obj
 		}
