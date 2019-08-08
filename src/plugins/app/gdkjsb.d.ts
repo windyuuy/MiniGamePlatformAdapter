@@ -147,6 +147,11 @@ declare namespace gdkjsb {
 	 */
 	export function clearTestCerificate();
 
+	/**
+	 * 退出程序
+	 */
+	export function exitProgram();
+
 	export class bridge {
 		/**
 		 * 注册action
