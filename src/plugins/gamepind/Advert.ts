@@ -32,35 +32,10 @@ namespace GamepindGDK {
 		protected _onLoadedCallbacks: Function[] = []
 		protected _available: boolean = false
 		get isAvailable() {
-			return this._available
+			return this._available || true;
 		}
 		async checkAvailable?(): Promise<boolean> {
 			return this._available
-		}
-		onRewardedVideoAvailabilityChanged(available: boolean) {
-			this._available = available
-			if (available) {
-				// load() promise 回调
-				let onLoadedCallbacks = this._onLoadedCallbacks
-				// 清空避免重复 promise
-				this._onLoadedCallbacks = []
-				for (let f of onLoadedCallbacks) {
-					try {
-						f()
-					} catch (e) {
-						devlog.error('广告已加载 promise 回调异常：', e)
-					}
-				}
-
-				try {
-					// onLoaded 回调
-					for (let f of this._loadFuncList) {
-						f()
-					}
-				} catch (e) {
-					devlog.error('广告 onLoad 回调中发生异常:', e)
-				}
-			}
 		}
 
 		async load(): Promise<void> {
@@ -71,10 +46,12 @@ namespace GamepindGDK {
 
 			if (this._available || true) {
 				devlog.info("Gamepind videoad already cached")
-				ret.success(undefined)
-				this.onRewardedVideoAvailabilityChanged(this._available)
-
 				this._isLoad = true;
+				ret.success(undefined);
+				for (let f of this._loadFuncList) {
+					f()
+				}
+
 			} else {
 				devlog.info("Gamepind videoad no cache")
 				this._onLoadedCallbacks.push(() => {
