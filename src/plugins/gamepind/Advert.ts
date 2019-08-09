@@ -20,6 +20,47 @@ namespace GamepindGDK {
 		) {
 			this.adUnitId = params.adUnitId
 			this.api = api
+
+			if (GleeadSenseAd) {
+				devlog.error("Gamepind GleeadSenseAd 视频管理初始化!")
+				GleeadSenseAd.init();
+			} else {
+				devlog.error("Gamepind GleeadSenseAd 视频管理对象不存在!")
+			}
+		}
+
+		protected _onLoadedCallbacks: Function[] = []
+		protected _available: boolean = false
+		get isAvailable() {
+			return this._available
+		}
+		async checkAvailable?(): Promise<boolean> {
+			return this._available
+		}
+		onRewardedVideoAvailabilityChanged(available: boolean) {
+			this._available = available
+			if (available) {
+				// load() promise 回调
+				let onLoadedCallbacks = this._onLoadedCallbacks
+				// 清空避免重复 promise
+				this._onLoadedCallbacks = []
+				for (let f of onLoadedCallbacks) {
+					try {
+						f()
+					} catch (e) {
+						devlog.error('广告已加载 promise 回调异常：', e)
+					}
+				}
+
+				try {
+					// onLoaded 回调
+					for (let f of this._loadFuncList) {
+						f()
+					}
+				} catch (e) {
+					devlog.error('广告 onLoad 回调中发生异常:', e)
+				}
+			}
 		}
 
 		async load(): Promise<void> {
@@ -27,22 +68,19 @@ namespace GamepindGDK {
 				return;
 			}
 			const ret = new GDK.RPromise<void>()
-			setTimeout(() => {
-				// gamepind暂时无广告
-				if (Math.random() > 0) {
-					const reason = { errCode: -1, errMsg: "Gamepind暂时无广告!" }
-					ret.fail(reason);
-					for (let f of this._errorFuncList) {
-						f(reason)
-					}
-				} else {
-					this._isLoad = true;
+
+			if (this._available || true) {
+				devlog.info("Gamepind videoad already cached")
+				ret.success(undefined)
+				this.onRewardedVideoAvailabilityChanged(this._available)
+
+				this._isLoad = true;
+			} else {
+				devlog.info("Gamepind videoad no cache")
+				this._onLoadedCallbacks.push(() => {
 					ret.success(undefined);
-					for (let f of this._loadFuncList) {
-						f()
-					}
-				}
-			}, 1000)
+				})
+			}
 
 			return ret.promise
 		}
@@ -50,22 +88,9 @@ namespace GamepindGDK {
 		show(): Promise<void> {
 			const ret = new GDK.RPromise<void>()
 
-			if (!this._isLoad) {
-				ret.fail("请先加载，再显示");
-			} else {
-				this._isLoad = false;
-				setTimeout(() => {
-					this.api.showConfirm({ title: "你是否观看完广告？", content: "你是否观看完广告？" }).then((value) => {
-						let r = value.confirm
-						ret.success(undefined)
-						for (let f of this._closeFuncList) {
-							f({ isEnded: r });
-						}
-						setTimeout(() => {
-							this.load()
-						}, 1)
-					})
-				}, 100)
+			if (GleeadSenseAd) {
+				devlog.error("Gamepind 播放视频!")
+				GleeadSenseAd.playVideo();
 			}
 
 			return ret.promise
@@ -134,6 +159,7 @@ namespace GamepindGDK {
 			if (this._destroy) {
 				ret.fail("已经调用过destroy")
 			} else {
+
 				/*
 				//假装显示一个广告
 				this._ad = document.createElement("img")
