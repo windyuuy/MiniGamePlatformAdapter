@@ -328,9 +328,9 @@ namespace AppGDK {
 			return nativeHelper.safeCallAction("advertPlatformSelect", { message: platform });
 		}
 
-		async initMultAdSlot(slotInfo: string) {
+		async initMultAdSlot(params: GDK.VideoAdSlot[]) {
 			if (gdkjsb.bridge == undefined) return;
-			return nativeHelper.safeCallAction("initMultAdSlot", { message: slotInfo });
+			return nativeHelper.safeCallAction("initMultAdSlot", { slotInfo: params });
 		}
 
 	}
