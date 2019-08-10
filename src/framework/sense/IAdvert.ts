@@ -56,6 +56,12 @@ namespace GDK {
 		placementId?: string
 	}
 
+	export class VideoAdSlot {
+		adPlatform: string
+		slotId: string
+		adPriority: number
+	}
+
 	export interface IRewardedVideoAd {
 		//属性
 		adUnitId: string
@@ -158,11 +164,7 @@ namespace GDK {
 		placementName?: string
 	}
 
-	export interface VideoAdSlot {
-		adPlatform: string
-		slotId: string
-		adPriority: number
-	}
+
 	export interface FullscreenVideoAdCreateParam extends VideoAdCreateParam {
 	}
 	export interface InterstitialAdCreateParam extends VideoAdCreateParam {
