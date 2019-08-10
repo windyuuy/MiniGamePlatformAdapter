@@ -1167,6 +1167,28 @@ namespace GDK {
 			}
 			return this._m.advert.selectAdvertPlatform(params);
 		}
+
+		/**
+		 * 初始化MultAd slot
+		 */
+		initMultAdSlot?(params: {
+			/**
+			 * 广告平台
+			 * - 安卓平台现有：
+			 *  - `yomobadvert` yomob广告
+			 *  - `gdtadvert` 广点通广告
+			 *  - `ttadadvert` 穿山甲广告
+			 * - ios平台现有：
+			 *  - `gdtadvert` 广点通广告
+			 *  - `budadadvert` 头条广告
+			 */
+			slotInfo: string;
+		}): Promise<void> {
+			if (!this.checkModuleAttr("advert", "initMultAdSlot", "function")) {
+				return this.createNonePromise("[advert.initMultAdSlot]");
+			}
+			return this._m.advert.initMultAdSlot(params);
+		}
 		/**
 		 * - 进入客服会话。
 		 * 	- 微信小游戏要求在用户发生过至少一次 touch 事件后才能调用。后台接入方式与小程序一致

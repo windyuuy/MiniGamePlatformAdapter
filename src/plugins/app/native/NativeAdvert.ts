@@ -328,5 +328,10 @@ namespace AppGDK {
 			return nativeHelper.safeCallAction("advertPlatformSelect", { message: platform });
 		}
 
+		async initMultAdSlot(slotInfo: string) {
+			if (gdkjsb.bridge == undefined) return;
+			return nativeHelper.safeCallAction("initMultAdSlot", { message: slotInfo });
+		}
+
 	}
 }
