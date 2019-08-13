@@ -43,6 +43,7 @@ namespace GamepindGDK {
 			// 	"gp_playSourcep": "playSource",
 			// 	"checksumhash": "3334434wewewewe6756rty7eueur"
 			// })
+			payInfo.redirect_url = "";
 			devlog.warn("gamepind payInfo:AccessTokenAuthorization ", payInfo.AccessTokenAuthorization)
 			devlog.warn("gamepind payInfo:msisdn ", payInfo.msisdn)
 			let spsClient = new SPS(payInfo);

@@ -149,7 +149,7 @@ namespace GamepindGDK {
 					} else {
 						//log.warn("response", url, action, data);
 					}
-
+					callback(data)
 					//let newData = JSON.parse(data);
 				},
 				onError: (error) => {

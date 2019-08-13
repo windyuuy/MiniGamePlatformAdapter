@@ -92,8 +92,9 @@ namespace GamepindGDK {
 						ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.NETWORK_ERROR))
 					})
 			} else {
-				devlog.warn("Gamepind 未传入token! go loginTest")
-
+				devlog.info("Gamepind reAuth token");
+				this.reAuth();
+				/*
 				let userId = localStorage.getItem('sdk_glee_userId')
 				let nUserId = parseInt(userId)
 				if (isNaN(nUserId)) {
@@ -126,6 +127,7 @@ namespace GamepindGDK {
 				}, () => {
 					ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.NETWORK_ERROR))
 				})
+				*/
 			}
 
 			return ret.promise;
@@ -151,7 +153,7 @@ namespace GamepindGDK {
 		}
 
 		reAuth() {
-			devlog.error("gdk Gamepind reAuth");
+			devlog.warn("gdk Gamepind reAuth");
 			let url: string = this.mode == "develop" ? this.debug_redirect_uri : this.release_redirect_uri;
 			let device: string = (this._query && this._query["device_id"]) ? this._query["device_id"] : "";
 			let source: string = (this._query && this._query["gp_playSource"]) ? this._query["gp_playSource"] : "";
@@ -159,7 +161,13 @@ namespace GamepindGDK {
 			let domain: string = this.mode == "develop" ? this.debug_domain : this.release_domain;
 			let mapper: string = (this._query && this._query["device_id"]) ? this._query["device_id"] : "";
 
-			this.server.gamepindAuth({ redirect_uri: url, device_id: device, source: source, property: property }, domain, mapper);
+			this.server.gamepindAuth({ redirect_uri: url, device_id: device, source: source, property: property }, domain, mapper, function (data) {
+				if (typeof (data) == 'string') {
+					devlog.warn("gdk Gamepind gamepindAuth:" + data);
+				} else {
+					devlog.warn("gdk Gamepind gamepindAuth:" + JSON.stringify(data));
+				}
+			});
 		}
 
 		async showUserCenter() {

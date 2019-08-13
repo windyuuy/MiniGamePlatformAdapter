@@ -1174,9 +1174,8 @@ namespace GDK {
 			}
 			return this._m.advert.selectAdvertPlatform(params);
 		}
-
 		/**
-		 * 初始化MultAd slot
+		 * 切换广告平台
 		 */
 		initMultAdSlot?(params: VideoAdSlot[]): Promise<void> {
 			if (!this.checkModuleAttr("advert", "initMultAdSlot", "function")) {
