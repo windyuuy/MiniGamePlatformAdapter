@@ -458,7 +458,6 @@ namespace GDK {
 			}
 			return this._m.gameInfo.requireIndiaSPSPay;
 		}
-
 		/**
 		 * 手机品牌
 		 **/

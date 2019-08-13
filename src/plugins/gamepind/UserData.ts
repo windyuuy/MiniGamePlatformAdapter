@@ -21,5 +21,10 @@ namespace GamepindGDK {
 		createTime: number
 		sex: number
 
+		ext1: string
+		ext2: string
+		ext3: string
+		ext4: string
+		ext5: string
 	}
 }

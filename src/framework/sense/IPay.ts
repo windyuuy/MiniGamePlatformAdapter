@@ -118,7 +118,7 @@ namespace GDK {
 		landscapeRight = 3
 	}
 
-	export type ChannelType = 'miniapp' | 'origion' | 'customer_service'
+	export type ChannelType = 'miniapp' | 'origion' | 'customer_service' | 'gamepind'
 
 	export class PayOptions {
 		/** 屏幕方向 */

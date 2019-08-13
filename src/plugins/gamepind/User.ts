@@ -45,6 +45,9 @@ namespace GamepindGDK {
 			access_token = (this._query && this._query["mv_cas_oauth_token"]) ? this._query["mv_cas_oauth_token"] : access_token;
 			if (access_token) {
 				devlog.info("Gamepind login token: " + access_token);
+				(this.api.userData as UserData).token = access_token;
+				(this.api.userData as UserData).ext1 = this.debug_redirect_uri;
+				(this.api.userData as UserData).ext2 = this._query['device_id'];
 				this.server.userLogin({
 					token: access_token,
 					clientSystemInfo: { deviceId: this._query['device_id'], uiLanguage: slib.i18n.language }
