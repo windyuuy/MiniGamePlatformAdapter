@@ -220,24 +220,49 @@ namespace AppGDK {
 		}
 
 		onLoad(callback: Function) {
+			if (this._loadFuncList.indexOf(callback) >= 0) {
+				return
+			}
+
 			this._loadFuncList.push(callback)
 		}
 		offLoad(callback: Function) {
-			this._loadFuncList.splice(this._loadFuncList.indexOf(callback), 1)
+			let index = this._loadFuncList.indexOf(callback)
+			if (index < 0) {
+				return
+			}
+			this._loadFuncList.splice(index, 1)
 		}
 
 		onError(callback: (res: GDK.RewardedVideoAdOnErrorParam) => void) {
+			if (this._errorFuncList.indexOf(callback) >= 0) {
+				return
+			}
+
 			this._errorFuncList.push(callback)
 		}
 		offError(callback: Function) {
-			this._errorFuncList.splice(this._errorFuncList.indexOf(callback), 1)
+			let index = this._errorFuncList.indexOf(callback)
+			if (index < 0) {
+				return
+			}
+			this._errorFuncList.splice(index, 1)
 		}
 
 		onClose(callback: Function) {
+			if (this._closeFuncList.indexOf(callback) >= 0) {
+				return
+			}
+
 			this._closeFuncList.push(callback)
 		}
 		offClose(callback: Function) {
-			this._closeFuncList.splice(this._closeFuncList.indexOf(callback), 1)
+			let index = this._closeFuncList.indexOf(callback)
+			if (index < 0) {
+				return
+			}
+
+			this._closeFuncList.splice(index, 1)
 		}
 	}
 }
