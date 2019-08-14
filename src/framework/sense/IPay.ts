@@ -59,6 +59,8 @@ namespace GDK {
 		aliamount?: string;
 		/** 服务器通知地址 */
 		notifyUrl?: string;
+		/** xiao7 game sign */
+		gameSign?: string;
 	}
 
 	// 订单信息

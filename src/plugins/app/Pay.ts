@@ -38,6 +38,7 @@ namespace AppGDK {
 				accountId: config.accountId,
 				notifyUrl: config.notifyUrl,
 				aliamount: config.aliamount,
+				gameSign: config.gameSign
 			}).then((payret) => {
 				if (payret.code == 0) {
 					paylog.info("原生充值成功", config)

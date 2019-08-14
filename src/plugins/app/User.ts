@@ -187,6 +187,8 @@ namespace AppGDK {
 					this.server.loginYYBApp({ openId: openId, token: token, type: Number(head), clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
 				} else if (type == "meituApp") {
 					this.server.loginMeituApp({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
+				} else if (type == "xiao7") {
+					this.server.loginXiao7({ token: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
 				}
 			})
 

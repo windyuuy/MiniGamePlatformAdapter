@@ -79,6 +79,8 @@ namespace AppGDK {
 			aliamount?: string;
 			/** 服务器通知地址 */
 			notifyUrl?: string;
+			/** xiao7 game sign */
+			gameSign?: string
 		}): Promise<NativePayResult> {
 			return nativeHelper.callAction("paywrapper:requestPay", params)
 		}
