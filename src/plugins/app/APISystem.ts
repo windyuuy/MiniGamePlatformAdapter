@@ -83,5 +83,15 @@ namespace AppGDK {
 			return nativeHelper.safeCallAction<GDK.ICheckPermissionResult>("utils:checkAppSystemPermissions", params)
 		}
 
+		exitProgram(): Promise<void> {
+			const ret = new GDK.RPromise<void>()
+			if (gdkjsb.exitProgram) {
+				gdkjsb.exitProgram()
+			}
+			setTimeout(() => {
+				ret.success()
+			}, 0);
+			return ret.promise
+		}
 	}
 }

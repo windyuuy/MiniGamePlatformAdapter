@@ -73,6 +73,14 @@ namespace AppGDK {
 			 * glee自己的订单号
 			 */
 			gleeOrderNo?: string,
+			/** aligame accountId */
+			accountId?: string;
+			/** aligame aliamount */
+			aliamount?: string;
+			/** 服务器通知地址 */
+			notifyUrl?: string;
+			/** xiao7 game sign */
+			gameSign?: string
 		}): Promise<NativePayResult> {
 			return nativeHelper.callAction("paywrapper:requestPay", params)
 		}

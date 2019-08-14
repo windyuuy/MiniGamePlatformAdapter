@@ -53,6 +53,14 @@ namespace GDK {
 		vivoOrderInfo?: string
 		/** 支付宝支付特有 */
 		extraStr: string
+		/** aligame accountId */
+		accountId?: string;
+		/** aligame aliamount */
+		aliamount?: string;
+		/** 服务器通知地址 */
+		notifyUrl?: string;
+		/** xiao7 game sign */
+		gameSign?: string;
 	}
 
 	// 订单信息
@@ -112,7 +120,7 @@ namespace GDK {
 		landscapeRight = 3
 	}
 
-	export type ChannelType = 'miniapp' | 'origion' | 'customer_service'
+	export type ChannelType = 'miniapp' | 'origion' | 'customer_service' | 'gamepind'
 
 	export class PayOptions {
 		/** 屏幕方向 */

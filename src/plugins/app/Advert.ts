@@ -140,5 +140,10 @@ namespace AppGDK {
 			}
 			return ret
 		}
+
+		async initMultAdSlot(params: GDK.VideoAdSlot[]): Promise<void> {
+			let ret = await SDKProxy.nativeAdvert.initMultAdSlot(params)
+			return ret
+		}
 	}
 }

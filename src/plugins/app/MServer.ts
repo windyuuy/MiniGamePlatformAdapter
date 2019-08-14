@@ -196,6 +196,22 @@ namespace AppGDK {
 		}
 
 		/**
+         * xiao7登陆
+         * * token
+         */
+		loginXiao7(
+			data: {
+				token: string,
+				clientSystemInfo: any
+			},
+			callback: (data: LoginCallbackData) => void,
+			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
+			this.gameClient.request("user/loginX7App", data, (data) => {
+				callback(data);
+			}, { modal: modal, errorCallback: errorCallback })
+		}
+
+		/**
          * WX app登陆
          * * userId 
          * * token
@@ -282,6 +298,19 @@ namespace AppGDK {
 			callback: (data: LoginCallbackData) => void,
 			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
 			this.gameClient.request("user/loginYybApp", data, (data) => {
+				callback(data);
+			}, { modal: modal, errorCallback: errorCallback })
+		}
+
+		loginMeituApp(
+			data: {
+				openId: string,
+				token: string,
+				clientSystemInfo: any
+			},
+			callback: (data: LoginCallbackData) => void,
+			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
+			this.gameClient.request("user/loginMtApp", data, (data) => {
 				callback(data);
 			}, { modal: modal, errorCallback: errorCallback })
 		}

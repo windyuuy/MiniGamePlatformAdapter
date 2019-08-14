@@ -34,6 +34,8 @@ namespace GDK {
 		 */
 		requireMiniAppPay: boolean = false
 
+		requireIndiaSPSPay: boolean = false
+
 		/**
 		 * 获取当前服务器时间
 		 */
@@ -134,6 +136,9 @@ namespace GDK {
 		advertPlatforms?: AdvertsAllPlatforms[] = []
 	}
 
+	export class GDKGamepindConfig extends GDKConfigBase {
+
+	}
 
 	export class GDKConfig {
 
@@ -147,6 +152,7 @@ namespace GDK {
 		app?: GDKAPPConfig
 		qqminiapp?: GDKQQMINIAPPConfig
 		vivo?: GDKVIVOConfig
+		gamepind?: GDKGamepindConfig
 	}
 
 

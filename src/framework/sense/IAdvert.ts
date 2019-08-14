@@ -56,6 +56,12 @@ namespace GDK {
 		placementId?: string
 	}
 
+	export class VideoAdSlot {
+		adPlatform: string
+		slotId: string
+		adPriority: number
+	}
+
 	export interface IRewardedVideoAd {
 		//属性
 		adUnitId: string
@@ -157,6 +163,8 @@ namespace GDK {
 		/** app平原生聚合广告填 */
 		placementName?: string
 	}
+
+
 	export interface FullscreenVideoAdCreateParam extends VideoAdCreateParam {
 	}
 	export interface InterstitialAdCreateParam extends VideoAdCreateParam {
@@ -216,5 +224,11 @@ namespace GDK {
 			 */
 			platform: string
 		}): Promise<void>
+
+		/**
+	 	* 切换广告平台
+	 	*/
+		initMultAdSlot?(params: VideoAdSlot[]): Promise<void>
+
 	}
 }

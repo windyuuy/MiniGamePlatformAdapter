@@ -53,7 +53,7 @@ type PayOptions = {
 
 
 ```typescript
-type ChannelType = "miniapp" | "origion" | "customer_service"
+type ChannelType = "miniapp" | "origion" | "customer_service" | "gamepind"
 
 ```
 

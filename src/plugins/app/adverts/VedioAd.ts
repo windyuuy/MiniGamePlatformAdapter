@@ -159,6 +159,7 @@ namespace AppGDK {
 
 		async load(loadParams?: GDK.RewardVideoAdLoadParams): Promise<void> {
 			loadParams = loadParams || {}
+			loadParams.placementId = loadParams.placementId || this.adUnitId
 			const ret = new GDK.RPromise<void>()
 			/** 避免重复调用load */
 			let isLoading = false

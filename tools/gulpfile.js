@@ -142,6 +142,7 @@ gulp.task("compile", async () => {
 		execon("./plugins/app", () => exec("tsc"))
 		// execon("./plugins/qqplay", () => exec("tsc"))
 		execon("./plugins/develop", () => exec("tsc"))
+		execon("./plugins/gamepind", () => exec("tsc"))
 		execon("./plugins/oppo", () => exec("tsc"))
 		execon("./plugins/vivo", () => exec("tsc"))
 		// execon("./test", () => exec("tsc"))
