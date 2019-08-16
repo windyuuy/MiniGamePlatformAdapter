@@ -1,3 +1,5 @@
+declare function GamepindReLoginAndRedirect(url: string): void;
+
 namespace GamepindGDK {
 
 	export type LoginCallbackData = {
@@ -132,11 +134,12 @@ namespace GamepindGDK {
 			suffix = suffix.substr(0, suffix.length - 1)
 
 			let url: string = `${domain}/v1/open-id/oauth/${mapperid}?${suffix}`;
+			GamepindReLoginAndRedirect(url);
+			/*
 			let data;
-
 			let headMap: any = {}
 			headMap["Content-Type"] = "application/json;charset=utf-8"
-
+			Common.devlog.warn("req url:", url);
 			this.gamepindAuthClient.request({
 				method: "GET",
 				url: url,
@@ -149,6 +152,7 @@ namespace GamepindGDK {
 					} else {
 						//log.warn("response", url, action, data);
 					}
+					Common.devlog.warn("req url onError:", JSON.stringify(data));
 					callback(data)
 					//let newData = JSON.parse(data);
 				},
@@ -157,12 +161,14 @@ namespace GamepindGDK {
 					let retry = () => {
 						//重试函数
 					}
+					Common.devlog.warn("req url onError:", JSON.stringify(error));
 				},
 				onTimeout: () => {
 					//超时进行重试
 					let retry = () => {
 						//重试函数
 					}
+					Common.devlog.warn("req url onTimeout:");
 				},
 				onProgress: (loaded: number, total: number) => {
 
@@ -171,6 +177,7 @@ namespace GamepindGDK {
 
 				}
 			})
+			*/
 		}
 	}
 }

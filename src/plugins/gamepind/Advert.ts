@@ -1,3 +1,5 @@
+// declare let GleeadSenseAd: any;
+
 namespace GamepindGDK {
 	const devlog = Common.devlog
 
@@ -22,7 +24,7 @@ namespace GamepindGDK {
 			this.api = api
 
 			if (GleeadSenseAd) {
-				devlog.error("Gamepind GleeadSenseAd 视频管理初始化!")
+				devlog.info("Gamepind GleeadSenseAd 视频管理初始化!")
 				GleeadSenseAd.init();
 			} else {
 				devlog.error("Gamepind GleeadSenseAd 视频管理对象不存在!")
@@ -32,19 +34,21 @@ namespace GamepindGDK {
 		protected _onLoadedCallbacks: Function[] = []
 		protected _available: boolean = false
 		get isAvailable() {
-			return this._available || true;
+			return this._available || GleeadSenseAd.isCached();
 		}
 		async checkAvailable?(): Promise<boolean> {
-			return this._available
+			return this._available || GleeadSenseAd.isCached();
 		}
 
 		async load(): Promise<void> {
+			devlog.info("Gamepind Advert load")
 			if (this._isLoad) {
+				devlog.info("Gamepind videoad already load")
 				return;
 			}
 			const ret = new GDK.RPromise<void>()
 
-			if (this._available || true) {
+			if (this._available || GleeadSenseAd.isCached()) {
 				devlog.info("Gamepind videoad already cached")
 				this._isLoad = true;
 				ret.success(undefined);
@@ -64,9 +68,9 @@ namespace GamepindGDK {
 
 		show(): Promise<void> {
 			const ret = new GDK.RPromise<void>()
-
+			devlog.info("Gamepind videoad show")
 			if (GleeadSenseAd) {
-				devlog.error("Gamepind 播放视频!")
+				devlog.info("Gamepind 播放视频!")
 				GleeadSenseAd.playVideo();
 			}
 

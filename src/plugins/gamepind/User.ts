@@ -19,8 +19,8 @@ namespace GamepindGDK {
 		}
 		 */
 		_query: any;
-		private debug_redirect_uri: string = "https://rainbowfarmstag.gamepind.com/";
-		private release_redirect_uri: string = "https://rainbowfarmstag.gamepind.com/";
+		private debug_redirect_uri: string = "https://rainbowfarmstag.gamepind.com";
+		private release_redirect_uri: string = "https://rainbowfarmstag.gamepind.com";
 		private debug_domain: string = "https://securebox.gamepind.com/cas";
 		private release_domain: string = "https://secure.gamepind.com/cas";
 		private mode: string = "develop";
@@ -43,11 +43,17 @@ namespace GamepindGDK {
 			this.parseQuery();
 			let access_token: string = "";
 			access_token = (this._query && this._query["mv_cas_oauth_token"]) ? this._query["mv_cas_oauth_token"] : access_token;
+			let order_id: string = "";
+			order_id = (this._query && this._query["order_id"]) ? this._query["order_id"] : order_id;
 			if (access_token) {
 				devlog.info("Gamepind login token: " + access_token);
 				(this.api.userData as UserData).token = access_token;
-				(this.api.userData as UserData).ext1 = this.debug_redirect_uri;
+				(this.api.userData as UserData).ext1 = this.mode == "develop" ? this.debug_redirect_uri : this.release_redirect_uri;
 				(this.api.userData as UserData).ext2 = this._query['device_id'];
+				localStorage.setItem("gamepind_access_token", access_token)
+				localStorage.setItem("gamepind_device_id", this._query['device_id'])
+				localStorage.setItem("gamepind_property", this._query['property'])
+				localStorage.setItem("gamepind_gp_playSource", this._query['gp_playSource'])
 				this.server.userLogin({
 					token: access_token,
 					clientSystemInfo: { deviceId: this._query['device_id'], uiLanguage: slib.i18n.language }
@@ -91,16 +97,66 @@ namespace GamepindGDK {
 						this.reAuth();
 						ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.NETWORK_ERROR))
 					})
-			} else {
+			} else if (order_id) {
 				devlog.info("Gamepind reAuth token");
-				this.reAuth();
-				/*
+				//this.reAuth();
+				let tmp_access_token = localStorage.getItem("gamepind_access_token");
+				let tmp_deviceId = localStorage.getItem("gamepind_device_id");
+				(this.api.userData as UserData).token = tmp_access_token;
+				(this.api.userData as UserData).ext1 = this.mode == "develop" ? this.debug_redirect_uri : this.release_redirect_uri;
+				(this.api.userData as UserData).ext2 = tmp_deviceId;
+				(this.api.userData as UserData).ext3 = order_id;
+
+				this.server.userLogin({
+					token: tmp_access_token,
+					clientSystemInfo: { deviceId: tmp_deviceId, uiLanguage: slib.i18n.language }
+				},
+					(resp) => {
+						if (resp.succeed) {
+							const data = resp.data
+							const newdata = {
+								openId: data.openId,
+
+								isNewUser: data.userNew,
+								userId: data.userId,
+								avatarUrl: data.profileImg,
+								nickName: data.nickname,
+								backupTime: data.backupTime,
+								channelId: data.channelId,
+								createTime: data.createTime,
+								followGzh: data.followGzh,
+								gametoken: data.gametoken,
+							}
+							//添加openId日志
+							this.api.systemInfo.deviceId = data.openId;
+
+							const userdata = this.api.userData
+							for (let key in newdata) {
+								userdata[key] = newdata[key]
+							}
+							ret.success({
+								extra: resp.data,
+							})
+						} else {
+							ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN, {
+								data: {
+									extra: resp,
+								}
+							}))
+						}
+					}, (err) => {
+						console.error("Gamepind server login rep failed", err)
+						//this.server.gamepindAuth()
+						this.reAuth();
+						ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.NETWORK_ERROR))
+					})
+			}
+			else {
 				let userId = localStorage.getItem('sdk_glee_userId')
 				let nUserId = parseInt(userId)
 				if (isNaN(nUserId)) {
 					nUserId = undefined
 				}
-
 				this.server.loginTest({ loginCode: nUserId }, (resp) => {
 					//玩家数据
 					if (resp.succeed) {
@@ -127,7 +183,6 @@ namespace GamepindGDK {
 				}, () => {
 					ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.NETWORK_ERROR))
 				})
-				*/
 			}
 
 			return ret.promise;
@@ -155,11 +210,15 @@ namespace GamepindGDK {
 		reAuth() {
 			devlog.warn("gdk Gamepind reAuth");
 			let url: string = this.mode == "develop" ? this.debug_redirect_uri : this.release_redirect_uri;
-			let device: string = (this._query && this._query["device_id"]) ? this._query["device_id"] : "";
-			let source: string = (this._query && this._query["gp_playSource"]) ? this._query["gp_playSource"] : "";
-			let property: string = (this._query && this._query["property"]) ? this._query["property"] : "";
+			//let device: string = (this._query && this._query["device_id"]) ? this._query["device_id"] : "";
+			let device: string = localStorage.getItem("gamepind_device_id")
+			//let source: string = (this._query && this._query["gp_playSource"]) ? this._query["gp_playSource"] : "";
+			//let source: string = localStorage.getItem("gamepind_gp_playSource")
+			let source: string = "PowerPlay App"
+			//let property: string = (this._query && this._query["property"]) ? this._query["property"] : "";
+			let property: string = localStorage.getItem("gamepind_property")
 			let domain: string = this.mode == "develop" ? this.debug_domain : this.release_domain;
-			let mapper: string = (this._query && this._query["device_id"]) ? this._query["device_id"] : "";
+			let mapper: string = "1677";
 
 			this.server.gamepindAuth({ redirect_uri: url, device_id: device, source: source, property: property }, domain, mapper, function (data) {
 				if (typeof (data) == 'string') {

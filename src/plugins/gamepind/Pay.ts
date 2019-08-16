@@ -43,7 +43,6 @@ namespace GamepindGDK {
 			// 	"gp_playSourcep": "playSource",
 			// 	"checksumhash": "3334434wewewewe6756rty7eueur"
 			// })
-			payInfo.redirect_url = "";
 			devlog.warn("gamepind payInfo:AccessTokenAuthorization ", payInfo.AccessTokenAuthorization)
 			devlog.warn("gamepind payInfo:msisdn ", payInfo.msisdn)
 			let spsClient = new SPS(payInfo);
@@ -53,8 +52,8 @@ namespace GamepindGDK {
 			return ret.promise
 		}
 
-		public static OnPayResult(msg: string): void {
-			console.log("OnPayResult: " + msg);
+		public static OnPayResult(msg: any): void {
+			console.log("OnPayResult: " + JSON.stringify(msg));
 		}
 	}
 }
