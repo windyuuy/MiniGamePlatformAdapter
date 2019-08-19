@@ -39,10 +39,10 @@ namespace GamepindGDK {
 		protected _onLoadedCallbacks: Function[] = []
 		protected _available: boolean = false
 		get isAvailable() {
-			return this._available || GleeadSenseAd.isCached();
+			return this._available || (GleeadSenseAd && GleeadSenseAd.isCached());
 		}
 		async checkAvailable?(): Promise<boolean> {
-			return this._available || GleeadSenseAd.isCached();
+			return this._available || (GleeadSenseAd && GleeadSenseAd.isCached());
 		}
 
 		async load(): Promise<void> {
@@ -53,7 +53,7 @@ namespace GamepindGDK {
 			}
 			const ret = new GDK.RPromise<void>()
 
-			if (this._available || GleeadSenseAd.isCached()) {
+			if (this._available || GleeadSenseAd && GleeadSenseAd.isCached()) {
 				devlog.info("Gamepind videoad already cached")
 				this._isLoad = true;
 				ret.success(undefined);
@@ -63,7 +63,7 @@ namespace GamepindGDK {
 
 			} else {
 				devlog.info("Gamepind videoad no cache")
-				GleeadSenseAd.loadVideo();
+				GleeadSenseAd && GleeadSenseAd.loadVideo();
 				this._onLoadedCallbacks.push(() => {
 					ret.success(undefined);
 				})
