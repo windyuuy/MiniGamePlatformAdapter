@@ -38,7 +38,11 @@ namespace AppGDK {
 				}
 				record.userId = data.data.userId
 				record.createTime = data.data.createTime
-				record.token = data.data.token
+				if (record.loginType != "wxapp") {
+					record.token = data.data.token
+				} else {
+					record.token = null
+				}
 				SDKProxy.saveUserRecord(userRecords);
 
 				const userdata = self.api.userData
