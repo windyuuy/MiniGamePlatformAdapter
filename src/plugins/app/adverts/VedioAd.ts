@@ -190,7 +190,7 @@ namespace AppGDK {
 			return ret.promise
 		}
 
-		async show(): Promise<void> {
+		async show(loadParams?: GDK.RewardVideoAdLoadParams): Promise<void> {
 			devlog.info('ironsrc:show video advert')
 			this._isShowing = true
 
@@ -204,7 +204,7 @@ namespace AppGDK {
 				waitting = false
 				ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_SHOW_ADVERT_TIMEOUT))
 			}, 5000);
-			SDKProxy.nativeAdvert.showRewardedVideo({ placementName: "DefaultRewardedVideo" }).then(() => {
+			SDKProxy.nativeAdvert.showRewardedVideo({ placementName: loadParams ? loadParams.placementId : "DefaultRewardedVideo" }).then(() => {
 				if (!waitting) {
 					return
 				}
