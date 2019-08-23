@@ -60,6 +60,7 @@ namespace GDK {
 		adPlatform: string
 		slotId: string
 		adPriority: number
+		appId?: string
 	}
 
 	export interface IRewardedVideoAd {
