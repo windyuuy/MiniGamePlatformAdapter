@@ -193,6 +193,8 @@ namespace AppGDK {
 					this.server.loginMeituApp({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
 				} else if (type == "xiao7") {
 					this.server.loginXiao7({ token: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
+				} else if (type == "chongchong") {
+					this.server.loginChongchong({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
 				}
 			})
 

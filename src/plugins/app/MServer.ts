@@ -196,6 +196,23 @@ namespace AppGDK {
 		}
 
 		/**
+         * 虫虫登陆
+         */
+		loginChongchong(
+			data: {
+				openId: String,
+				token: string,
+				clientSystemInfo: any
+			},
+			callback: (data: LoginCallbackData) => void,
+			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
+			this.gameClient.request("user/loginCcApp", data, (data) => {
+				callback(data);
+			}, { modal: modal, errorCallback: errorCallback })
+		}
+
+
+		/**
          * xiao7登陆
          * * token
          */
