@@ -140,6 +140,10 @@ namespace GDK {
 
 	}
 
+	export class GDKWebConfig extends GDKConfigBase {
+
+	}
+
 	export class GDKConfig {
 
 		develop?: GDKDevelopConfig
@@ -153,6 +157,7 @@ namespace GDK {
 		qqminiapp?: GDKQQMINIAPPConfig
 		vivo?: GDKVIVOConfig
 		gamepind?: GDKGamepindConfig
+		web?:GDKWebConfig
 	}
 
 
