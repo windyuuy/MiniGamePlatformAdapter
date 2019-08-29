@@ -20,10 +20,11 @@ namespace GamepindGDK {
 		 */
 		_query: any;
 		private debug_redirect_uri: string = "https://rainbowfarmstag.gamepind.com";
-		private release_redirect_uri: string = "https://rainbowfarmstag.gamepind.com";
+		private release_redirect_uri: string = "https://rainbowfarm.gamepind.com";
 		private debug_domain: string = "https://securebox.gamepind.com/cas";
 		private release_domain: string = "https://secure.gamepind.com/cas";
-		private mode: string = "develop";
+		//private mode: string = "develop";
+		private mode: string = "release";
 		get server(): MServer {
 			return MServer.inst
 		}
