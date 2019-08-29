@@ -1,3 +1,7 @@
+declare function webvideo_is_load(): boolean;
+declare function webvideo_play(param: any): void;
+declare function webvideo_load(): void;
+
 namespace webGDK {
 	const devlog = Common.devlog
 
@@ -10,6 +14,8 @@ namespace webGDK {
 		protected _closeFuncList: Function[] = []
 
 		protected _isLoad: boolean = false;
+		protected _onLoadedCallbacks: Function[] = []
+		protected _available: boolean = false
 
 		adUnitId: string
 		constructor(
@@ -22,51 +28,47 @@ namespace webGDK {
 			this.api = api
 		}
 
+		get isAvailable() {
+			return this._available;
+		}
+		async checkAvailable?(): Promise<boolean> {
+			return this._available;
+		}
 		async load(): Promise<void> {
+			devlog.info("Gamepind Advert load")
 			if (this._isLoad) {
+				devlog.info("Gamepind videoad already load")
 				return;
 			}
 			const ret = new GDK.RPromise<void>()
-			setTimeout(() => {
-				if (Math.random() > 0.9) {
-					const reason = { errCode: -1, errMsg: "10%的概率模拟广告加载失败" }
-					ret.fail(reason);
-					for (let f of this._errorFuncList) {
-						f(reason)
-					}
-				} else {
-					this._isLoad = true;
-					ret.success(undefined);
-					for (let f of this._loadFuncList) {
-						f()
-					}
+
+			if (webvideo_is_load()) {
+				devlog.info("Gamepind videoad already cached")
+				this._isLoad = true;
+				ret.success(undefined);
+				for (let f of this._loadFuncList) {
+					f()
 				}
-			}, 1000)
+			} else {
+				devlog.info("Gamepind videoad no cache")
+				webvideo_load();
+				this._onLoadedCallbacks.push(() => {
+					ret.success(undefined);
+				})
+			}
 
 			return ret.promise
 		}
 
 		show(): Promise<void> {
 			const ret = new GDK.RPromise<void>()
-
-			if (!this._isLoad) {
-				ret.fail("请先加载，再显示");
-			} else {
-				this._isLoad = false;
-				setTimeout(() => {
-					this.api.showConfirm({ title: "你是否观看完广告？", content: "你是否观看完广告？" }).then((value) => {
-						let r = value.confirm
-						ret.success(undefined)
-						for (let f of this._closeFuncList) {
-							f({ isEnded: r });
-						}
-						setTimeout(() => {
-							this.load()
-						}, 1)
-					})
-				}, 100)
-			}
-
+			webvideo_play(() => {
+				for (let f of this._closeFuncList) {
+					devlog.warn("播放视频成功!")
+					f({ isEnded: true });
+					this._isLoad = false;
+				}
+			});
 			return ret.promise
 		}
 
