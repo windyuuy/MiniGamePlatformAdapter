@@ -1,3 +1,4 @@
+declare function GamepindReLoginAndRedirect(url: string): void;
 
 namespace GamepindGDK {
 	const unitNum = [null, 'K', 'M', 'B', 'T', 'aa', 'bb', 'cc', 'dd', 'ee', 'ff', 'gg', 'hh', 'ii', 'jj', 'kk', 'll', 'mm', 'nn', 'oo', 'pp', 'qq', 'rr', 'ss', 'tt', 'uu', 'vv', 'ww', 'xx', 'yy', 'zz', 'Aa', 'Bb', 'Cc', 'Dd', 'Ee', 'Ff', 'Gg', 'Hh', 'Ii', 'Jj', 'Kk', 'Ll', 'Mm', 'Nn', 'Oo', 'Pp', 'Qq', 'Rr', 'Ss', 'Tt', 'Uu', 'Vv', 'Ww', 'Xx', 'Yy', 'Zz', 'AA', 'BB', 'CC', 'DD', 'EE', 'FF', 'GG', 'HH', 'II', 'JJ', 'KK', 'LL', 'MM', 'NN', 'OO', 'PP', 'QQ', 'RR', 'SS', 'TT', 'UU', 'VV', 'WW', 'XX', 'YY', 'ZZ']
@@ -158,6 +159,9 @@ namespace GamepindGDK {
 				if (isNaN(nUserId)) {
 					nUserId = undefined
 				}
+
+				GamepindReLoginAndRedirect('https://securebox.gamepind.com/cas/v1/open-id/oauth/1677?redirect_uri=https://rainbowfarm.gamepind.com&device_id=b3b80786cb553578&source=Browser&property=PP_APP');
+				/*
 				this.server.loginTest({ loginCode: nUserId }, (resp) => {
 					//玩家数据
 					if (resp.succeed) {
@@ -184,6 +188,7 @@ namespace GamepindGDK {
 				}, () => {
 					ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.NETWORK_ERROR))
 				})
+				*/
 			}
 
 			return ret.promise;
