@@ -44,21 +44,32 @@ namespace GamepindGDK {
 			this.mode = (params && params.token) ? params.token : this.mode;
 			this.parseQuery();
 			let access_token: string = "";
+			// 1. join game with clicking game icon in gamepind app
 			access_token = (this._query && this._query["mv_cas_oauth_token"]) ? this._query["mv_cas_oauth_token"] : access_token;
+			if (access_token == "") {
+				// 2. join game with paytm login redirect
+				access_token = (this._query && this._query["access_token"]) ? this._query["access_token"] : access_token;
+			}
+			let device_id = "";
+			// 1. join game with clicking game icon in gamepind app
+			device_id = (this._query && this._query["device_id"]) ? this._query["device_id"] : device_id;
+			if (device_id == "") {
+				device_id = this._query['customer_id'];
+			}
 			let order_id: string = "";
 			order_id = (this._query && this._query["order_id"]) ? this._query["order_id"] : order_id;
-			if (access_token) {
+			if (access_token != "") {
 				devlog.info("Gamepind login token: " + access_token);
 				(this.api.userData as UserData).token = access_token;
 				(this.api.userData as UserData).ext1 = this.mode == "develop" ? this.debug_redirect_uri : this.release_redirect_uri;
-				(this.api.userData as UserData).ext2 = this._query['device_id'];
+				(this.api.userData as UserData).ext2 = device_id;
 				localStorage.setItem("gamepind_access_token", access_token)
-				localStorage.setItem("gamepind_device_id", this._query['device_id'])
+				localStorage.setItem("gamepind_device_id", device_id)
 				localStorage.setItem("gamepind_property", this._query['property'])
 				localStorage.setItem("gamepind_gp_playSource", this._query['gp_playSource'])
 				this.server.userLogin({
 					token: access_token,
-					clientSystemInfo: { deviceId: this._query['device_id'], uiLanguage: slib.i18n.language }
+					clientSystemInfo: { deviceId: device_id, uiLanguage: slib.i18n.language }
 				},
 					(resp) => {
 						if (resp.succeed) {
