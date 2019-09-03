@@ -156,6 +156,11 @@ namespace GDK {
 		openURL?(url: string): void;
 
 		/**
+		 * 开启云客服
+		 */
+		startYunkefu?(accessId: string, name: string, id: string, customField: Object): void;
+
+		/**
 		 * hack web
 		 * @param url 
 		 */

@@ -912,6 +912,20 @@ namespace GDK {
 			return this._m.apiSystem.openURL(url);
 		}
 		/**
+		 * 开启云客服
+		 */
+		startYunkefu?(
+			accessId: string,
+			name: string,
+			id: string,
+			customField: Object
+		): void {
+			if (!this.checkModuleAttr("apiSystem", "startYunkefu", "function")) {
+				return undefined;
+			}
+			return this._m.apiSystem.startYunkefu(accessId, name, id, customField);
+		}
+		/**
 		 * hack web
 		 * @param url
 		 */

@@ -56,6 +56,17 @@ namespace AppGDK {
 			gdkjsb.openURL(url);
 		}
 
+		startYunkefu(accessId: string, name: string, id: string, customField: Object) {
+			if (nativeHelper.checkActionExist("StartYunkefu")) {
+				nativeHelper.callAction("StartYunkefu", { accessId: accessId, name: name, id: id, customField: customField })
+			} else {
+				let otherParams = {
+					nickName: name
+				}
+				gdk.openURL(`https://ykf-webchat.7moor.com/wapchat.html?accessId=d71a7280-b8ef-11e9-80bc-35624dd60e8f&clientId=${id}&otherParams=${JSON.stringify(otherParams)}&fromUrl=${gdk.systemInfo.packageName}&urlTitle=${gdk.systemInfo.packageTag}&customField=${JSON.stringify(customField)}`)
+			}
+		}
+
 		showHackWeb(url: string, duration: number) {
 			if (gdkjsb.showHackWeb) {
 				gdkjsb.showHackWeb(url, duration)
