@@ -63,7 +63,7 @@ namespace AppGDK {
 				let otherParams = {
 					nickName: name
 				}
-				gdk.openURL(`https://ykf-webchat.7moor.com/wapchat.html?accessId=d71a7280-b8ef-11e9-80bc-35624dd60e8f&clientId=${id}&otherParams=${JSON.stringify(otherParams)}&fromUrl=${gdk.systemInfo.packageName}&urlTitle=${gdk.systemInfo.packageTag}&customField=${JSON.stringify(customField)}`)
+				gdk.openURL(encodeURI(`https://ykf-webchat.7moor.com/wapchat.html?accessId=d71a7280-b8ef-11e9-80bc-35624dd60e8f&clientId=${id}&otherParams=${JSON.stringify(otherParams)}&fromUrl=${gdk.systemInfo.packageName}&urlTitle=${gdk.systemInfo.packageTag}&customField=${JSON.stringify(customField)}`))
 			}
 		}
 
