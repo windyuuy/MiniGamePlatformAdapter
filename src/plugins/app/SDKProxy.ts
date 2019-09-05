@@ -212,7 +212,7 @@ class SDKProxy {
 	static loginNative() {
 		if (gdkjsb.bridge == undefined) return;
 
-		gdkjsb.bridge.callAction("loginNative", JSON.stringify("{}"), (data) => { });
+		gdkjsb.bridge.callAction("loginNative", JSON.stringify({ support: this.support, records: this.loadUserRecord(true) }), (data) => { });
 	}
 
 	protected static loginId: number = undefined
