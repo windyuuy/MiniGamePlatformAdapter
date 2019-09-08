@@ -54,10 +54,15 @@ namespace GamepindGDK {
 			// 1. join game with clicking game icon in gamepind app
 			device_id = (this._query && this._query["device_id"]) ? this._query["device_id"] : device_id;
 			if (device_id == "") {
-				device_id = this._query['customer_id'];
+				device_id = (this._query && this._query["customer_id"]) ? this._query['customer_id'] : device_id;
 			}
 			let order_id: string = "";
 			order_id = (this._query && this._query["order_id"]) ? this._query["order_id"] : order_id;
+
+			this.api.systemInfo.country = "CN";
+			if (this._query["property"] == "PP_PAYTM") {
+				this.api.systemInfo.country = "US";
+			}
 			if (access_token != "") {
 				devlog.info("Gamepind login token: " + access_token);
 				(this.api.userData as UserData).token = access_token;
@@ -69,7 +74,7 @@ namespace GamepindGDK {
 				localStorage.setItem("gamepind_gp_playSource", this._query['gp_playSource'])
 				this.server.userLogin({
 					token: access_token,
-					clientSystemInfo: { deviceId: device_id, uiLanguage: slib.i18n.language }
+					clientSystemInfo: { deviceId: device_id, property: this._query['property'], uiLanguage: slib.i18n.language }
 				},
 					(resp) => {
 						if (resp.succeed) {
@@ -122,7 +127,7 @@ namespace GamepindGDK {
 
 				this.server.userLogin({
 					token: tmp_access_token,
-					clientSystemInfo: { deviceId: tmp_deviceId, uiLanguage: slib.i18n.language }
+					clientSystemInfo: { deviceId: tmp_deviceId, property: this._query['property'], uiLanguage: slib.i18n.language }
 				},
 					(resp) => {
 						if (resp.succeed) {
@@ -171,7 +176,7 @@ namespace GamepindGDK {
 					nUserId = undefined
 				}
 
-				GamepindReLoginAndRedirect('https://securebox.gamepind.com/cas/v1/open-id/oauth/1677?redirect_uri=https://rainbowfarm.gamepind.com&device_id=b3b80786cb553578&source=Browser&property=PP_APP');
+				GamepindReLoginAndRedirect('https://secure.gamepind.com/cas/v1/open-id/oauth/4021?redirect_uri=https://rainbowfarm.gamepind.com&device_id=b3b80786cb553578&source=Browser&property=PP_PAYTM');
 				/*
 				this.server.loginTest({ loginCode: nUserId }, (resp) => {
 					//玩家数据

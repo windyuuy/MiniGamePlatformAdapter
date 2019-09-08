@@ -7,13 +7,14 @@ namespace GamepindGDK {
 
 	export class Pay extends GDK.PayBase {
 		api?: GDK.UserAPI
+		static ret: GDK.RPromise<GDK.PayResult>
 		payPurchase(config: GDK.PayItemInfo, options: GDK.PayOptions): Promise<GDK.PayResult> {
 			devlog.warn("gamepind payPurchase:", config)
 			return this.pay_gamepind(config, options)
 		}
 
 		pay_gamepind(config: GDK.PayItemInfo, options: GDK.PayOptions): Promise<GDK.PayResult> {
-			const ret = new GDK.RPromise<GDK.PayResult>()
+			Pay.ret = new GDK.RPromise<GDK.PayResult>()
 			const payInfo = JSON.parse(config.extraStr)
 			const successCode = 0
 			// const myAppId = this.api.gameInfo.appId
@@ -43,17 +44,34 @@ namespace GamepindGDK {
 			// 	"gp_playSourcep": "playSource",
 			// 	"checksumhash": "3334434wewewewe6756rty7eueur"
 			// })
+			//payInfo.msisdn = Number(payInfo.msisdn);
 			devlog.warn("gamepind payInfo:AccessTokenAuthorization ", payInfo.AccessTokenAuthorization)
 			devlog.warn("gamepind payInfo:msisdn ", payInfo.msisdn)
+			console.log(JSON.stringify(payInfo));
 			let spsClient = new SPS(payInfo);
 			spsClient.doBilling();
 			devlog.warn("gamepind payInfo:order_id ", payInfo.order_id)
-
-			return ret.promise
+			return Pay.ret.promise
 		}
 
 		public static OnPayResult(msg: any): void {
 			console.log("OnPayResult: " + JSON.stringify(msg));
+			if (msg.message == "Success") {
+				Pay.ret.success({
+					result: {
+						errCode: 0,
+					},
+					extra: { errCode: 0, state: GDK.OrderState.ok },
+				})
+			} else {
+				// Pay.ret.success({
+				// 	result: {
+				// 		errCode: 0,
+				// 	},
+				// 	extra: { errCode: 0, state: GDK.OrderState.ok },
+				// })
+				Pay.ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_PAY_CANCEL))
+			}
 		}
 	}
 }
