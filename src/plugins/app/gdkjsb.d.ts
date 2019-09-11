@@ -94,6 +94,11 @@ declare namespace gdkjsb {
 	 * 发行渠道
 	 */
 	export var packageTag: string
+
+	/**
+	 * 测试用 account server
+	 */
+	export var debugAccountServer: string
 	/**
 	 * 打开网页地址
 	 * @param url 

@@ -163,6 +163,11 @@ namespace GDK {
 		 */
 		packageTag?: string
 
+		/**
+		 * 测试用 account server
+		 */
+		debugAccountServer?: string
+
 		init?()
 
 		/**

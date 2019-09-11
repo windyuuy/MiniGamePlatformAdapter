@@ -39,7 +39,7 @@ namespace GDK {
 		imei?: string
 		packageName?: string
 		packageTag?: string
-
+		debugAccountServer?: string
 
 
 		abstract fetchNetworkInfo(): Promise<void>

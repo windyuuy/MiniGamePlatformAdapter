@@ -42,7 +42,7 @@ namespace AppGDK {
 		imei?: string
 		packageName?: string
 		packageTag?: string
-
+		debugAccountServer?: string
 
 		async fetchNetworkInfo(): Promise<void> {
 
@@ -72,6 +72,7 @@ namespace AppGDK {
 			this.imei = gdkjsb.imei
 			this.packageName = gdkjsb.packageName
 			this.packageTag = gdkjsb.packageTag
+			this.debugAccountServer = gdkjsb.debugAccountServer
 		}
 	}
 }
