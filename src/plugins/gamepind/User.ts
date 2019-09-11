@@ -60,7 +60,7 @@ namespace GamepindGDK {
 			order_id = (this._query && this._query["order_id"]) ? this._query["order_id"] : order_id;
 
 			this.api.systemInfo.country = "CN";
-			if (this._query["property"] == "PP_PAYTM") {
+			if (this._query && this._query["property"] && this._query["property"] == "PP_PAYTM") {
 				this.api.systemInfo.country = "US";
 			}
 			if (access_token != "") {
