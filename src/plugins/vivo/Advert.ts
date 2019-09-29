@@ -97,7 +97,15 @@ namespace VIVOGDK {
 		}
 		async show(): Promise<void> {
 			this.isAvailable = false
-			return this._adv.show()
+			return new Promise<void>((resolve, reject) => {
+				this._adv.show().then(() => {
+					cc.audioEngine.pauseMusic()
+					resolve()
+				}).catch(err => {
+					reject(err)
+				});
+			})
+			// return this._adv.show()
 		}
 		onLoad(callback: Function) {
 			return this._adv.onLoad(callback)
@@ -112,7 +120,10 @@ namespace VIVOGDK {
 			return this._adv.offError(callback)
 		}
 		onClose(callback: (params: { isEnded: boolean; }) => void) {
-			return this._adv.onClose(callback)
+			return this._adv.onClose(res => {
+				cc.audioEngine.resumeMusic()
+				callback(res)
+			})
 		}
 		offClose(callback: Function) {
 			return this._adv.offClose(callback)

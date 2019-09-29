@@ -758,6 +758,15 @@ namespace GDK {
 			}
 			return this._m.systemInfo.packageTag;
 		}
+		/**
+		 * 测试用 account server
+		 */
+		get debugAccountServer(): string {
+			if (!this.checkModuleAttr("systemInfo", "debugAccountServer")) {
+				return undefined;
+			}
+			return this._m.systemInfo.debugAccountServer;
+		}
 
 		/**
 		 * 刷新网络状况信息
