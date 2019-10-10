@@ -43,6 +43,7 @@ namespace AppGDK {
 		packageName?: string
 		packageTag?: string
 		debugAccountServer?: string
+		isCustomBackendCfg?: boolean
 
 		async fetchNetworkInfo(): Promise<void> {
 
@@ -73,6 +74,7 @@ namespace AppGDK {
 			this.packageName = gdkjsb.packageName
 			this.packageTag = gdkjsb.packageTag
 			this.debugAccountServer = gdkjsb.debugAccountServer
+			this.isCustomBackendCfg = gdkjsb.isCustomBackendCfg
 		}
 	}
 }

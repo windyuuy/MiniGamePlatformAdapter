@@ -40,7 +40,7 @@ namespace GDK {
 		packageName?: string
 		packageTag?: string
 		debugAccountServer?: string
-
+		isCustomBackendCfg?: boolean
 
 		abstract fetchNetworkInfo(): Promise<void>
 

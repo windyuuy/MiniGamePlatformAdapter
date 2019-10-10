@@ -168,6 +168,11 @@ namespace GDK {
 		 */
 		debugAccountServer?: string
 
+		/**
+		 * 是否支持按packageTag 定制后端参数
+		 */
+		isCustomBackendCfg?: boolean
+
 		init?()
 
 		/**

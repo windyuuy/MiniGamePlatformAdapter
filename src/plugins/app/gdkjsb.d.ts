@@ -99,6 +99,12 @@ declare namespace gdkjsb {
 	 * 测试用 account server
 	 */
 	export var debugAccountServer: string
+
+	/**
+	 * 是否支持按packageTag 定制后端参数
+	 */
+	export var isCustomBackendCfg: boolean
+
 	/**
 	 * 打开网页地址
 	 * @param url 
