@@ -20,7 +20,7 @@ namespace DevelopGDK {
 				nUserId = undefined
 			}
 
-			this.server.loginTest({ loginCode: nUserId }, (resp) => {
+			this.server.loginTest({ loginCode: nUserId, node: params.node }, (resp) => {
 				//玩家数据
 				if (resp.succeed) {
 					const data = resp.data

@@ -83,7 +83,8 @@ namespace DevelopGDK {
 			 */
 		loginTest(
 			data: {
-				loginCode: number
+				loginCode: number,
+				node?: string,
 			},
 			callback: (data: LoginCallbackData) => void, errorCallback: (error: any, retry: () => void) => void = null) {
 			this.gameClient.request("user/loginTest", data, (data) => {
