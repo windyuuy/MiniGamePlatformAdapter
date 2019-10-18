@@ -79,6 +79,11 @@ namespace GDK {
         * gamepind 登录token
         */
 		token?: string;
+
+		/**
+		* server node 
+		*/
+		node?: string;
 	}
 
 	export class LoginPromise extends Promise<LoginResult>{ }

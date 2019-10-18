@@ -127,7 +127,8 @@ namespace AppGDK {
 			data: {
 				openId: string,
 				uuId?: string,
-				clientSystemInfo: any
+				clientSystemInfo: any,
+				node?: string,
 			},
 			callback: (data: LoginCallbackData) => void,
 			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
@@ -145,7 +146,9 @@ namespace AppGDK {
 			data: {
 				openId: string,
 				token: string,
-				clientSystemInfo: any
+				clientSystemInfo: any,
+				node?: string,
+
 			},
 			callback: (data: LoginCallbackData) => void,
 			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
@@ -165,7 +168,8 @@ namespace AppGDK {
 				openId: string,
 				token: string,
 				channelId: number,
-				clientSystemInfo: any
+				clientSystemInfo: any,
+				node?: string,
 			},
 			callback: (data: LoginCallbackData) => void,
 			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
@@ -186,7 +190,8 @@ namespace AppGDK {
 				playerId: string,
 				playerLevel: string,
 				playerSSign: string
-				clientSystemInfo: any
+				clientSystemInfo: any,
+				node?: string,
 			},
 			callback: (data: LoginCallbackData) => void,
 			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
@@ -202,7 +207,8 @@ namespace AppGDK {
 			data: {
 				openId: String,
 				token: string,
-				clientSystemInfo: any
+				clientSystemInfo: any,
+				node?: string,
 			},
 			callback: (data: LoginCallbackData) => void,
 			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
@@ -219,7 +225,8 @@ namespace AppGDK {
 		loginXiao7(
 			data: {
 				token: string,
-				clientSystemInfo: any
+				clientSystemInfo: any,
+				node?: string,
 			},
 			callback: (data: LoginCallbackData) => void,
 			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
@@ -237,7 +244,8 @@ namespace AppGDK {
 			data: {
 				openId: string,
 				code: string,
-				clientSystemInfo: any
+				clientSystemInfo: any,
+				node?: string,
 			},
 			callback: (data: LoginCallbackData) => void,
 			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
@@ -255,7 +263,8 @@ namespace AppGDK {
 			data: {
 				openId: string,
 				code: string,
-				clientSystemInfo: any
+				clientSystemInfo: any,
+				node?: string,
 			},
 			callback: (data: LoginCallbackData) => void,
 			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
@@ -273,7 +282,8 @@ namespace AppGDK {
 			data: {
 				openId: string,
 				token: string,
-				clientSystemInfo: any
+				clientSystemInfo: any,
+				node?: string,
 			},
 			callback: (data: LoginCallbackData) => void,
 			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
@@ -291,7 +301,8 @@ namespace AppGDK {
 			data: {
 				openId: string,
 				token: string,
-				clientSystemInfo: any
+				clientSystemInfo: any,
+				node?: string,
 			},
 			callback: (data: LoginCallbackData) => void,
 			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
@@ -310,7 +321,8 @@ namespace AppGDK {
 				openId: string,
 				token: string,
 				type: number,
-				clientSystemInfo: any
+				clientSystemInfo: any,
+				node?: string,
 			},
 			callback: (data: LoginCallbackData) => void,
 			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
@@ -323,7 +335,8 @@ namespace AppGDK {
 			data: {
 				openId: string,
 				token: string,
-				clientSystemInfo: any
+				clientSystemInfo: any,
+				node?: string,
 			},
 			callback: (data: LoginCallbackData) => void,
 			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
@@ -341,7 +354,8 @@ namespace AppGDK {
 			data: {
 				openId: string,
 				token: string,
-				clientSystemInfo: any
+				clientSystemInfo: any,
+				node?: string,
 			},
 			callback: (data: LoginCallbackData) => void,
 			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
@@ -359,7 +373,8 @@ namespace AppGDK {
 			data: {
 				openId: string,
 				token: string,
-				clientSystemInfo: any
+				clientSystemInfo: any,
+				node?: string,
 			},
 			callback: (data: LoginCallbackData) => void,
 			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
@@ -377,7 +392,8 @@ namespace AppGDK {
 			data: {
 				openId: string,
 				token: string,
-				clientSystemInfo: any
+				clientSystemInfo: any,
+				node?: string,
 			},
 			callback: (data: LoginCallbackData) => void,
 			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
@@ -397,7 +413,8 @@ namespace AppGDK {
 				userName: string,
 				avatar: string,
 				email: string,
-				clientSystemInfo: any
+				clientSystemInfo: any,
+				node?: string,
 			},
 			callback: (data: LoginCallbackData) => void,
 			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {

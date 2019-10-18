@@ -12,7 +12,6 @@ namespace AppGDK {
 
 	var isDelayLogin = false;
 	var loginStartTime = 0;
-
 	var loginRecord: LoginCallbackData = null;
 	var fOnAccountChange: () => void = null
 
@@ -104,6 +103,8 @@ namespace AppGDK {
 
 	export class User extends GDK.UserBase {
 		api?: GDK.UserAPI
+		loginNode: string = null;
+
 		get server(): MServer {
 			return MServer.inst
 		}
@@ -159,42 +160,42 @@ namespace AppGDK {
 				loginStartTime = new Date().getTime()
 
 				if (type == "google") {
-					this.server.loginGoogle({ openId: openId, token: token, avatar: head, userName: nickName, email: email, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
+					this.server.loginGoogle({ openId: openId, token: token, avatar: head, userName: nickName, email: email, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
 				} else if (type == "facebook") {
-					this.server.loginFB({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
+					this.server.loginFB({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
 				} else if (type == "wxapp") {
 					if (platform && platform == "android") {
-						this.server.loginAppWXAndroid({ openId: openId, code: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
+						this.server.loginAppWXAndroid({ openId: openId, code: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
 					} else {
-						this.server.loginAppWX({ openId: openId, code: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
+						this.server.loginAppWX({ openId: openId, code: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
 					}
 				} else if (type == "gamecenter") {
-					this.server.loginGC({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
+					this.server.loginGC({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
 				} else if (type == "visitor") {
 					let sysInfo = this.api.systemInfo.clone()
-					this.server.loginOpenId({ openId: openId, uuId: sysInfo.uuid, clientSystemInfo: sysInfo }, loginComplete);
+					this.server.loginOpenId({ openId: openId, uuId: sysInfo.uuid, clientSystemInfo: sysInfo, node: this.loginNode }, loginComplete);
 				} else if (type == "quick") {
-					this.server.loginQuick({ openId: openId, token: token, channelId: Number(this.api.systemInfo.quickChannelId), clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
+					this.server.loginQuick({ openId: openId, token: token, channelId: Number(this.api.systemInfo.quickChannelId), clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
 				} else if (type == "huawei") {
 					let t: { playerLevel: string, ts: string } = JSON.parse(exAuthData)
-					this.server.loginHuawei({ playerId: openId, playerSSign: token, playerLevel: t.playerLevel, ts: t.ts, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
+					this.server.loginHuawei({ playerId: openId, playerSSign: token, playerLevel: t.playerLevel, ts: t.ts, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
 				} else if (type == "vivoapp") {
-					this.server.loginVivo({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
+					this.server.loginVivo({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
 				} else if (type == "OppoApp") {
-					this.server.loginOppoApp({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
+					this.server.loginOppoApp({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
 				} else if (type == "baiduapp") {
-					this.server.loginBaidu({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
+					this.server.loginBaidu({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
 				} else if (type == "aligame") {
-					this.server.loginAligame({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
+					this.server.loginAligame({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
 				} else if (type == "yingyongbaoApp") {
 					console.log("loginYYBApp yingyongbao2:" + openId + "," + token + "," + head)
-					this.server.loginYYBApp({ openId: openId, token: token, type: Number(head), clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
+					this.server.loginYYBApp({ openId: openId, token: token, type: Number(head), clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
 				} else if (type == "meituApp") {
-					this.server.loginMeituApp({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
+					this.server.loginMeituApp({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
 				} else if (type == "xiao7") {
-					this.server.loginXiao7({ token: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
+					this.server.loginXiao7({ token: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
 				} else if (type == "chongchong") {
-					this.server.loginChongchong({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone() }, loginComplete);
+					this.server.loginChongchong({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
 				}
 			})
 
@@ -312,6 +313,10 @@ namespace AppGDK {
 				params.autoLogin = true;//默认允许自动登陆
 			}
 
+			if (params.node) {
+				this.loginNode = params.node
+			}
+
 			const ret = new GDK.RPromise<GDK.LoginResult>()
 			loginRet = ret
 
@@ -330,7 +335,7 @@ namespace AppGDK {
 							//自动静默登陆
 							isDelayLogin = false;
 							let sysInfo = this.api.systemInfo.clone()
-							this.server.loginOpenId({ openId: currentUser.openId, uuId: sysInfo.uuid, clientSystemInfo: sysInfo }, loginComplete);
+							this.server.loginOpenId({ openId: currentUser.openId, uuId: sysInfo.uuid, clientSystemInfo: sysInfo, node: this.loginNode }, loginComplete);
 						} else if (currentUser.loginType == "visitor") {
 							//自动游客登陆
 							if (params.silent) {
@@ -341,7 +346,7 @@ namespace AppGDK {
 							}
 							loginStartTime = new Date().getTime()
 							let sysInfo = this.api.systemInfo.clone()
-							this.server.loginOpenId({ openId: currentUser.openId, uuId: sysInfo.uuid, clientSystemInfo: sysInfo }, loginComplete);
+							this.server.loginOpenId({ openId: currentUser.openId, uuId: sysInfo.uuid, clientSystemInfo: sysInfo, node: this.loginNode }, loginComplete);
 						} else {
 							//执行SDK自动登陆
 							isDelayLogin = true;
@@ -394,7 +399,7 @@ namespace AppGDK {
 							isDelayLogin = true;
 							loginStartTime = new Date().getTime()
 							let sysInfo = this.api.systemInfo.clone()
-							this.server.loginOpenId({ openId: null, uuId: sysInfo.uuid, clientSystemInfo: sysInfo }, loginComplete);
+							this.server.loginOpenId({ openId: null, uuId: sysInfo.uuid, clientSystemInfo: sysInfo, node: this.loginNode }, loginComplete);
 						}
 
 
