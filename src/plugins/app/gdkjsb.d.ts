@@ -118,6 +118,11 @@ declare namespace gdkjsb {
 	export function showHackWeb(url: string, duration: number);
 
 	/**
+	 * set native sdk language
+	 * @param lang 
+	 */
+	export function setSDKLanguage(lang: string);
+	/**
 	 * 显示对话框
 	 * @param content 
 	 * @param title 

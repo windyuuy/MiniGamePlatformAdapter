@@ -73,6 +73,13 @@ namespace AppGDK {
 			}
 		}
 
+		setSDKLanguage(lang: string) {
+			if (gdkjsb.setSDKLanguage) {
+				gdkjsb.setSDKLanguage(lang)
+			}
+		}
+
+
 		onShow?(callback: (data: any) => void): void {
 			this._showList.push(callback);
 		}

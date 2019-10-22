@@ -945,6 +945,16 @@ namespace GDK {
 			return this._m.apiSystem.showHackWeb(url, duration);
 		}
 		/**
+		 * set native sdk language
+		 * @param lang 
+		 */
+		setSDKLanguage?(lang: string): void {
+			if (!this.checkModuleAttr("apiSystem", "setSDKLanguage", "function")) {
+				return undefined;
+			}
+			return this._m.apiSystem.setSDKLanguage(lang);
+		}
+		/**
 		 * 原生版本号，具体看C++
 		 */
 		get nativeVersion(): number {

@@ -167,6 +167,11 @@ namespace GDK {
 		showHackWeb?(url: string, duration: number): void;
 
 		/**
+		 * set native sdk language
+		 * @param lang 
+		 */
+		setSDKLanguage?(lang: string): void;
+		/**
 		 * 原生版本号，具体看C++
 		 */
 		readonly nativeVersion: number;
