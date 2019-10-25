@@ -153,7 +153,7 @@ namespace AppGDK {
 					}
 				}
 				userRecords.unshift(record)//当前玩家记录放在第一条
-				SDKProxy.showLogining(record.name == null || record.name == "" ? "欢迎" : record.name, record.loginType);//显示正在登陆
+				SDKProxy.showLogining(record.name == null || record.name == "" ? slib.i18n.locSDKString("welcome") : record.name, record.loginType);//显示正在登陆
 				SDKProxy.saveUserRecord(userRecords);
 
 				isDelayLogin = true;
@@ -384,7 +384,7 @@ namespace AppGDK {
 							SDKProxy.loginNative()
 						} else {
 							//自动游客登陆
-							SDKProxy.showLogining("欢迎", "visitor");
+							SDKProxy.showLogining(slib.i18n.locSDKString("welcome"), "visitor");
 							//创建一条登陆记录
 							let record = {
 								userId: null,

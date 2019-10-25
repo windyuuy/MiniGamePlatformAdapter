@@ -767,6 +767,15 @@ namespace GDK {
 			}
 			return this._m.systemInfo.debugAccountServer;
 		}
+		/**
+		 * 是否支持按packageTag 定制后端参数
+		 */
+		get isCustomBackendCfg(): boolean {
+			if (!this.checkModuleAttr("systemInfo", "isCustomBackendCfg")) {
+				return undefined;
+			}
+			return this._m.systemInfo.isCustomBackendCfg;
+		}
 
 		/**
 		 * 刷新网络状况信息
@@ -946,7 +955,7 @@ namespace GDK {
 		}
 		/**
 		 * set native sdk language
-		 * @param lang 
+		 * @param lang
 		 */
 		setSDKLanguage?(lang: string): void {
 			if (!this.checkModuleAttr("apiSystem", "setSDKLanguage", "function")) {
