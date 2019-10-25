@@ -34,7 +34,7 @@ namespace AppGDK {
 		}
 		showConfirm(object: GDK.ShowConfirmOptions): Promise<GDK.ShowConfirmResult> {
 			return new Promise<GDK.ShowConfirmResult>((resolve, reject) => {
-				gdkjsb.showConfirm(object.content, object.title || "友情提示", object.okLabel || "确定", object.cancelLabel || "取消", isOk => {
+				gdkjsb.showConfirm(object.content, object.title || slib.i18n.locSDKString("remind_tip"), object.okLabel || slib.i18n.locSDKString("ok"), object.cancelLabel || slib.i18n.locSDKString("cancel"), isOk => {
 					let r = new GDK.ShowConfirmResult()
 					r.confirm = isOk == true
 					r.cancel = isOk == false
@@ -45,7 +45,7 @@ namespace AppGDK {
 
 		showAlert(object: GDK.ShowAlertOptions): Promise<GDK.ShowAlertResult> {
 			return new Promise<GDK.ShowAlertResult>((resolve, reject) => {
-				gdkjsb.showAlert(object.content, object.title || "友情提示", object.okLabel || "确定", () => {
+				gdkjsb.showAlert(object.content, object.title || slib.i18n.locSDKString("remind_tip"), object.okLabel || slib.i18n.locSDKString("ok"), () => {
 					let r = new GDK.ShowAlertResult()
 					resolve(r);
 				})
@@ -62,7 +62,7 @@ namespace AppGDK {
 					resolve(r);
 					return;
 				}
-				gdkjsb.showPrompt(object.content, object.title || "友情提示", object.okLabel || "确定", object.cancelLabel || "取消", (isOk, result) => {
+				gdkjsb.showPrompt(object.content, object.title || slib.i18n.locSDKString("remind_tip"), object.okLabel || slib.i18n.locSDKString("ok"), object.cancelLabel || slib.i18n.locSDKString("cancel"), (isOk, result) => {
 					let r = new GDK.ShowPromptResult()
 					r.confirm = isOk == true
 					r.cancel = isOk == false
