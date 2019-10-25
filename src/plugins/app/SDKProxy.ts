@@ -121,6 +121,9 @@ class SDKProxy {
 	 */
 	static showLogining(message: string, loginType?: string) {
 		if (gdkjsb.bridge == undefined) return;
+		if (message == null || message == "") {
+			message = slib.i18n.locSDKString("welcome")
+		}
 		gdkjsb.bridge.callAction("showLogining", JSON.stringify({ message: message, loginType: loginType }), (data) => { })
 	}
 

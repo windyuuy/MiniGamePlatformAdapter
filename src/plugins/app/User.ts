@@ -277,14 +277,14 @@ namespace AppGDK {
 						user.loginType = type
 						SDKProxy.saveUserRecord(users);
 
-						this.api.showAlert({ title: "友情提示", content: "绑定成功" });
+						this.api.showAlert({ title: slib.i18n.locSDKString("remind_tip"), content: slib.i18n.locSDKString("bind_succ") });
 
 						if (this.bindCallback) {
 							this.bindCallback(true, data.data)
 						}
 
 					} else {
-						this.api.showAlert({ title: "绑定错误", content: data.message });
+						this.api.showAlert({ title: slib.i18n.locSDKString("remind_tip"), content: slib.i18n.locSDKString("bind_fail") });
 
 						if (this.bindCallback) {
 							this.bindCallback(false)

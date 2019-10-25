@@ -2046,6 +2046,10 @@ declare namespace slib {
          * 根资源路径，用于缩短路径填写
          */
         resRootPath: string;
+        /**
+         * 动态切换语言
+         */
+        dynChange: boolean;
         readonly langMap: {
             [key: string]: string;
         };
@@ -2064,13 +2068,19 @@ declare namespace slib {
          * @param key 查询键
          * @param defaultValue 默认值
          */
-        locString(key: string, defaultValue?: string): string;
+        locConfig(configRow: any, key: string): string | Function;
+        /**
+         * 根据key获取文字内容
+         * @param key 查询键
+         * @param defaultValue 默认值
+         */
+        locString(key: string, defaultValue?: string): string | Function;
         /**
          * 根据多语言数据格式化文本
          * ###例如
          * * key="pet.get"
          * * value="恭喜你获得${petName},好好保护它吧！"
-         * * format("pet.get","恭喜你获得${波波},好好保护它吧！",{petName:"波波"}) 得到 "恭喜你获得波波,好好保护它吧！"
+         * * format("pet.get","恭喜你获得${petName},好好保护它吧！",{petName:"波波"}) 得到 "恭喜你获得波波,好好保护它吧！"
          * @param key 语言key
          * @param defaultValueOrArgs 默认值
          * @param args 参数，支持字符串数组
@@ -2079,12 +2089,17 @@ declare namespace slib {
             [key: string]: any;
         }, argsMap?: {
             [key: string]: any;
-        }): string;
+        }): string | (() => any);
         /**
          * 获取资源url，结果等于 resRootPath+value
          * @param url
          */
         locUrl(url: string): string;
+        /**
+         * 对sdk 用到的字符串做local
+         * @param url
+         */
+        locSDKString(key: string, lang?: string): string;
     }
     var i18n: I18N;
 }
@@ -2368,6 +2383,7 @@ declare namespace slib {
         succeed: boolean;
         code: 0 | number;
         message: "success" | string;
+        ts: number;
         data: any;
     };
     type HttpRequestData = {
@@ -2382,6 +2398,7 @@ declare namespace slib {
         protected _requestIndex: number;
         protected _retryCount: number;
         searchExt: () => string;
+        debugURL: string;
         constructor();
         connect(): void;
         /**
