@@ -146,10 +146,10 @@ namespace WechatGDK {
 				}
 
 
-				let shareInvaterl: number = 2	//分享必须消耗该时间，才可能成功
-				let sharesSucPro: number = 0.7   //分享判定成功概率  0.7
-				let sharesSucFail: number = 0.2  //分享判定调用接口失败概率  0.2
-				let sharesSucFailSame: number = 0.1  //分享判定不同群提示概率  0.1
+				let shareInvaterl: number = 3.5	//分享必须消耗该时间，才可能成功
+				let sharesSucPro: number = 0.65   //分享判定成功概率 
+				let sharesSucFail: number = 0.2  //分享判定调用接口失败概率 
+				// 1-sharesSucPro-sharesSucFail = 分享判定不同群提示概率  
 
 				let beginShareTime = Common.getServerTime().getTime();//开始分享时间
 
