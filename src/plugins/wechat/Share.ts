@@ -197,7 +197,7 @@ namespace WechatGDK {
 								return
 							}
 
-							shareFail("请不要频繁打扰同个用户/群哦")
+							shareFail("不要频繁分享到同一个群，换个群试试")
 							this._shareDefeated = true;
 						}
 					}
@@ -241,10 +241,12 @@ namespace WechatGDK {
 						}
 
 					} else {
-						shareFail()
+						if (Math.random() * (1 - sharesSucPro) <= sharesSucFail) {
+							shareFail()
+						} else {
+							shareFail("不要频繁分享到同一个群，换个群试试")
+						}
 					}
-
-
 
 				}
 				wx.onShow(onShow);
