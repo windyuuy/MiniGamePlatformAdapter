@@ -217,6 +217,23 @@ namespace AppGDK {
 			}, { modal: modal, errorCallback: errorCallback })
 		}
 
+		/**
+         * 路非凡登陆
+         */
+		loginLufeifan(
+			data: {
+				openId: String,
+				token: string,
+				timestamp: string,
+				clientSystemInfo: any,
+				node?: string,
+			},
+			callback: (data: LoginCallbackData) => void,
+			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
+			this.gameClient.request("user/loginLffApp", data, (data) => {
+				callback(data);
+			}, { modal: modal, errorCallback: errorCallback })
+		}
 
 		/**
          * xiao7登陆

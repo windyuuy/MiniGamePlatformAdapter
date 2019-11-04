@@ -196,6 +196,8 @@ namespace AppGDK {
 					this.server.loginXiao7({ token: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
 				} else if (type == "chongchong") {
 					this.server.loginChongchong({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
+				} else if (type == "lufeifan") {
+					this.server.loginLufeifan({ openId: openId, token: token, timestamp: nickName, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
 				}
 			})
 
