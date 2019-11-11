@@ -1377,6 +1377,13 @@ namespace GDK {
 			}
 			return this._m.support.pluginName;
 		}
+		/** 是否支持分享 */
+		get supportShare(): boolean {
+			if (!this.checkModuleAttr("support", "supportShare")) {
+				return undefined;
+			}
+			return this._m.support.supportShare;
+		}
 		/** 是否支持群分享 */
 		get supportShareTickets(): boolean {
 			if (!this.checkModuleAttr("support", "supportShareTickets")) {

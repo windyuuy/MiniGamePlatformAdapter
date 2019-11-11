@@ -2,6 +2,7 @@
 namespace AppGDK {
 	export class Support implements GDK.ISupport {
 		pluginName = "app"
+		supportShare: boolean = true
 		supportShareTickets: boolean = false
 		requireSubDomainRank: boolean = false
 		apiPlatform = "native"

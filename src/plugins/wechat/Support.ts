@@ -2,6 +2,7 @@
 namespace WechatGDK {
 	export class Support implements GDK.ISupport {
 		pluginName = "wechat"
+		supportShare: boolean = true
 		supportShareTickets: boolean = true
 		requireSubDomainRank: boolean = true
 		apiPlatform = "wechatgame"

@@ -17,6 +17,8 @@ namespace GDK {
 		 * * app 原生APP
 		 **/
 		pluginName: string
+		/** 是否支持分享 */
+		supportShare: boolean
 		/** 是否支持群分享 */
 		supportShareTickets: boolean
 		/** 是否需要支持子域 */
