@@ -354,5 +354,26 @@ namespace OPPOGDK {
 		}): GDK.IBannerAd {
 			return new BannerAd(params)
 		}
+
+		get needInitAdServiceFirst() {
+			return true
+		}
+
+		async initAdService?(params: GDK.AdvertInitParams): Promise<void> {
+			return new Promise((resolve, reject) => {
+				qg.initAdService({
+					appId: this.api.appId,
+					isDebug: !!params.isDebug,
+					success: (res) => {
+						devlog.info("gdk oppo 广告初始化成功~");
+						resolve(res)
+					},
+					fail: (err) => {
+						devlog.error("gdk oppo 广告初始化失败~");
+						reject(err)
+					}
+				});
+			})
+		}
 	}
 }

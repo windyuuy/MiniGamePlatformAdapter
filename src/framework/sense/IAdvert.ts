@@ -181,7 +181,24 @@ namespace GDK {
 		style: BannerStyle
 	}
 
+	export interface AdvertInitParams {
+		/**
+		 * 调试模式
+		 */
+		isDebug: false
+	}
+
 	export interface IAdvert extends IModule {
+		/**
+		 * 是否需要先初始化广告服务
+		 */
+		readonly needInitAdServiceFirst?: boolean
+
+		/**
+		 * 初始化广告服务
+		 */
+		initAdService?(params: AdvertInitParams): Promise<void>
+
 		/**
 		 * 是个单例
 		 * 创建激励视频广告对象
@@ -227,8 +244,8 @@ namespace GDK {
 		}): Promise<void>
 
 		/**
-	 	* 切换广告平台
-	 	*/
+		  * 切换广告平台
+		  */
 		initMultAdSlot?(params: VideoAdSlot[]): Promise<void>
 
 	}
