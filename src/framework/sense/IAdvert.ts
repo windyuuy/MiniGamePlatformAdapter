@@ -185,7 +185,7 @@ namespace GDK {
 		/**
 		 * 调试模式
 		 */
-		isDebug: false
+		isDebug: boolean
 	}
 
 	export interface IAdvert extends IModule {
