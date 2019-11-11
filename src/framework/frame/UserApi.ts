@@ -898,12 +898,9 @@ namespace GDK {
 		 * @param callback
 		 */
 		getSafeArea?(
-			callback: (data: {
-				left: number;
-				right: number;
-				top: number;
-				bottom: number;
-			}) => void
+			callback: (
+				data: { left: number; right: number; top: number; bottom: number }
+			) => void
 		): void {
 			if (!this.checkModuleAttr("apiSystem", "getSafeArea", "function")) {
 				return undefined;
@@ -1126,6 +1123,24 @@ namespace GDK {
 				return this.createNonePromise("[pay.queryItemInfo]");
 			}
 			return this._m.pay.queryItemInfo(params);
+		}
+		/**
+		 * 是否需要先初始化广告服务
+		 */
+		get needInitAdServiceFirst(): boolean {
+			if (!this.checkModuleAttr("advert", "needInitAdServiceFirst")) {
+				return undefined;
+			}
+			return this._m.advert.needInitAdServiceFirst;
+		}
+		/**
+		 * 初始化广告服务
+		 */
+		initAdService?(params: AdvertInitParams): Promise<void> {
+			if (!this.checkModuleAttr("advert", "initAdService", "function")) {
+				return this.createNonePromise("[advert.initAdService]");
+			}
+			return this._m.advert.initAdService(params);
 		}
 		/**
 		 * 是个单例

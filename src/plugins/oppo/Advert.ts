@@ -359,7 +359,7 @@ namespace OPPOGDK {
 			return true
 		}
 
-		async initAdService?(params: GDK.AdvertInitParams): Promise<void> {
+		async initAdService(params: GDK.AdvertInitParams): Promise<void> {
 			return new Promise((resolve, reject) => {
 				qg.initAdService({
 					appId: this.api.appId,

@@ -188,5 +188,11 @@ namespace VIVOGDK {
 			} else
 				return new BannerAd({ posId: params.adUnitId, style: {} })
 		}
+
+		async initAdService(params: GDK.AdvertInitParams): Promise<void> {
+			return new Promise((resolve, reject) => {
+				resolve()
+			})
+		}
 	}
 }

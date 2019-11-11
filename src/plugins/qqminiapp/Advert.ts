@@ -65,5 +65,10 @@ namespace QQMiniAppGDK {
 			return dv
 		}
 
+		async initAdService(params: GDK.AdvertInitParams): Promise<void> {
+			return new Promise((resolve, reject) => {
+				resolve()
+			})
+		}
 	}
 }

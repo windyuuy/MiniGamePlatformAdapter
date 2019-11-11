@@ -255,5 +255,11 @@ namespace webGDK {
 			devlog.warn(`切换广告平台：${params.platform}`)
 			this._currentPlatform = params.platform
 		}
+
+		async initAdService(params: GDK.AdvertInitParams): Promise<void> {
+			return new Promise((resolve, reject) => {
+				resolve()
+			})
+		}
 	}
 }
