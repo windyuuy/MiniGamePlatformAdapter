@@ -571,6 +571,16 @@ namespace AppGDK {
 			gamecenter: boolean,
 		}) {
 			SDKProxy.support = loginSupport
+			let t = {}
+			if (loginSupport) {
+				t["google_login"] = loginSupport.google
+				t["facebook_login"] = loginSupport.facebook
+				t["gamecenter_login"] = loginSupport.gamecenter
+				t["wechat_login"] = loginSupport.wechat
+				t["visitor_login"] = loginSupport.visitor
+			}
+
+			gdkjsb.bridge.callAction("setLoginSupport", JSON.stringify(t), (data) => { });
 		}
 
 		setAccountChangeListener?(f: () => void) {
