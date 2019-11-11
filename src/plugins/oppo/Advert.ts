@@ -287,7 +287,7 @@ namespace OPPOGDK {
 				})
 			})
 			adv.onError((...args) => {
-				this.isAvailable = false
+				// this.isAvailable = false
 
 				this._errorFuncList.forEach((f) => {
 					try {
