@@ -264,11 +264,38 @@ namespace OPPOGDK {
 			this.adUnitId = params.adUnitId
 
 			this.isAvailable = false
-			this.onLoad(() => {
+			adv.onLoad((...args) => {
 				this.isAvailable = true
+
+				this._loadFuncList.forEach((f) => {
+					try {
+						f(...args)
+					} catch (e) {
+						devlog.error(e)
+					}
+				})
 			})
-			this.onClose(() => {
+			adv.onClose((...args) => {
 				this.isAvailable = false
+
+				this._closeFuncList.forEach((f) => {
+					try {
+						f(...args)
+					} catch (e) {
+						devlog.error(e)
+					}
+				})
+			})
+			adv.onError((...args) => {
+				this.isAvailable = false
+
+				this._errorFuncList.forEach((f) => {
+					try {
+						f(...args)
+					} catch (e) {
+						devlog.error(e)
+					}
+				})
 			})
 		}
 
@@ -281,24 +308,41 @@ namespace OPPOGDK {
 			this.isAvailable = false
 			return this._adv.show()
 		}
+
+		protected _loadFuncList: Function[] = []
+		protected _errorFuncList: Function[] = []
+		protected _closeFuncList: Function[] = []
+
 		onLoad(callback: Function) {
-			return this._adv.onLoad(callback)
+			this._loadFuncList.push(callback)
 		}
 		offLoad(callback: Function) {
-			return this._adv.offLoad(callback)
+			let index = this._loadFuncList.indexOf(callback)
+			if (index >= 0) {
+				this._loadFuncList.splice(index, 1)
+			}
 		}
+
 		onError(callback: (res: GDK.RewardedVideoAdOnErrorParam) => void) {
-			return this._adv.onError(callback)
+			this._errorFuncList.push(callback)
 		}
 		offError(callback: Function) {
-			return this._adv.offError(callback)
+			let index = this._errorFuncList.indexOf(callback)
+			if (index >= 0) {
+				this._errorFuncList.splice(index, 1)
+			}
 		}
-		onClose(callback: (params: { isEnded: boolean; }) => void) {
-			return this._adv.onClose(callback)
+
+		onClose(callback: Function) {
+			this._closeFuncList.push(callback)
 		}
 		offClose(callback: Function) {
-			return this._adv.offClose(callback)
+			let index = this._closeFuncList.indexOf(callback)
+			if (index >= 0) {
+				this._closeFuncList.splice(index, 1)
+			}
 		}
+
 		isAvailable?: boolean;
 	}
 
