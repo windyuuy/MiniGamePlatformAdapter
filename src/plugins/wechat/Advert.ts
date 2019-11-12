@@ -20,6 +20,7 @@ namespace WechatGDK {
 			/** 广告单元 id */
 			adUnitId: string,
 			viewId: number,
+			adIntervals?: number,
 			/** banner 广告组件的样式 */
 			style: GDK.BannerStyle
 		}): GDK.IBannerAd {
@@ -38,6 +39,7 @@ namespace WechatGDK {
 			}
 			const params2 = {
 				adUnitId: params.adUnitId,
+				adIntervals: params.adIntervals,
 				style: {
 					...params.style,
 					top: top,

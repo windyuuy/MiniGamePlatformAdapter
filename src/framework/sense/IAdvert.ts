@@ -177,6 +177,8 @@ namespace GDK {
 		viewId?: number,
 		/** app平原生聚合广告填 */
 		placementName?: string
+		/** 刷新频率 */
+		adIntervals?: number
 		/** banner 广告组件的样式 */
 		style: BannerStyle
 	}
