@@ -90,7 +90,7 @@ namespace BytedanceGDK {
 			},
 			callback: (data: LoginCallbackData) => void,
 			errorCallback: (error: any, retry: () => void) => void = null) {
-			Common.httpClient.request("user/login", data, (data) => {
+			Common.httpClient.request("user/loginTT", data, (data) => {
 				callback(data);
 			}, { errorCallback: errorCallback })
 		}
