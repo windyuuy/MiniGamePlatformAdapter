@@ -74,6 +74,10 @@ namespace GDK {
 
 	}
 
+	export class GDKBytedanceConfig extends GDKWechatConfig {
+
+	}
+
 	export class GDKQQMINIAPPConfig extends GDKConfigBase {
 
         /**
@@ -150,6 +154,8 @@ namespace GDK {
 
 		wechat?: GDKWechatConfig
 
+		bytedance?: GDKBytedanceConfig
+
 		qqplay?: GDKQQPlayConfig
 
 		oppo?: GDKOPPOConfig
@@ -157,7 +163,7 @@ namespace GDK {
 		qqminiapp?: GDKQQMINIAPPConfig
 		vivo?: GDKVIVOConfig
 		gamepind?: GDKGamepindConfig
-		web?:GDKWebConfig
+		web?: GDKWebConfig
 	}
 
 

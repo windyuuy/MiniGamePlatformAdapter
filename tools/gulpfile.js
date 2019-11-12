@@ -137,6 +137,7 @@ gulp.task("compile", async () => {
 
 	execon("../src", () => {
 		execon("./framework", () => exec("tsc"))
+		execon("./plugins/bytedance", () => exec("tsc"))
 		execon("./plugins/qqminiapp", () => exec("tsc"))
 		execon("./plugins/wechat", () => exec("tsc"))
 		execon("./plugins/app", () => exec("tsc"))
