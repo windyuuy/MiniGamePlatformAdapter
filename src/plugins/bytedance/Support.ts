@@ -2,8 +2,8 @@
 namespace BytedanceGDK {
 	export class Support implements GDK.ISupport {
 		pluginName = "bytedance"
-		supportShare: boolean = true
-		supportShareTickets: boolean = true
+		supportShare: boolean = false
+		supportShareTickets: boolean = false
 		requireSubDomainRank: boolean = true
 		apiPlatform = "bytedance"
 		requireAuthorize: boolean = true
