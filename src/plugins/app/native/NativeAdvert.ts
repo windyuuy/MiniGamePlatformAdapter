@@ -318,6 +318,49 @@ namespace AppGDK {
 		}
 
 
+
+
+		// feed advert
+		async createFeedAd(params: { style: GDK.BannerStyleAccessor }): Promise<{ adObjectId: number }> {
+			return nativeHelper.callAction("ironsrc:IronSource.createFeedAd", params)
+		}
+
+		async setFeedAdVisibility(params: { adObjectId: number, visible: boolean }) {
+			return nativeHelper.callAction("ironsrc:IronSource.setFeedAdVisibility", params)
+		}
+
+		async loadFeedAd(params: { adObjectId: number, placementName?: string }) {
+			return nativeHelper.callAction("ironsrc:IronSource.loadFeedAd", params)
+		}
+
+		async setFeedAdStyle(params: { adObjectId: number, style: GDK.BannerStyle }) {
+			return nativeHelper.callAction("ironsrc:IronSource.setFeedAdStyle", params)
+		}
+
+		async destroyFeedAd(params: { adObjectId: number }) {
+			return nativeHelper.callAction("ironsrc:IronSource.destroyFeedAd", params)
+		}
+
+		async getFeedAdDatas(params: { adObjectId: number }): Promise<GDK.FeedAdDatas> {
+			return nativeHelper.callAction("ironsrc:IronSource.getFeedAdDatas", params)
+		}
+
+		// feed advert 事件
+		async onFeedAdLoaded(callback: (params: { adObjectId: number }) => void) {
+			return nativeHelper.onEvent("ironsrc:onFeedAdLoaded", callback)
+		}
+		async onFeedAdLoadFailed(callback: (params: { error: IronSrc.IronSourceError, adObjectId: number }) => void) {
+			return nativeHelper.onEvent("ironsrc:onFeedAdLoadFailed", callback)
+		}
+
+		async onFeedAdClicked(callback: Function) {
+			return nativeHelper.onDoneEvent("ironsrc:onFeedAdClicked", callback)
+		}
+		async onFeedAdShown(callback: Function) {
+			return nativeHelper.onDoneEvent("ironsrc:onFeedAdShown", callback)
+		}
+
+
 		/**
 		  * 广告平台选择
 		  * - gdtadvert 广点通

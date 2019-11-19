@@ -1211,6 +1211,24 @@ namespace GDK {
 			return this._m.advert.createFullscreenVideoAd(params);
 		}
 		/**
+		 * 是否支持信息流广告
+		 */
+		get supportFeedAd(): boolean {
+			if (!this.checkModuleAttr("advert", "supportFeedAd")) {
+				return undefined;
+			}
+			return this._m.advert.supportFeedAd;
+		}
+		/**
+		 * 创建信息流广告
+		 */
+		createFeedAd?(params: FeedAdCreateParam): IFeedAd {
+			if (!this.checkModuleAttr("advert", "createFeedAd", "function")) {
+				return undefined;
+			}
+			return this._m.advert.createFeedAd(params);
+		}
+		/**
 		 * 切换广告平台
 		 */
 		selectAdvertPlatform?(params: {

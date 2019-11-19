@@ -132,6 +132,14 @@ namespace AppGDK {
 			return Advert._bannerAd
 		}
 
+		get supportFeedAd(): boolean {
+			return true
+		}
+
+		createFeedAd?(params: GDK.FeedAdCreateParam): GDK.IFeedAd {
+			return new FeedAd(params)
+		}
+
 		async selectAdvertPlatform(params: { platform: string }): Promise<void> {
 			let ret = await SDKProxy.nativeAdvert.advertPlatformSelect(params.platform || "ironsource")
 			let videoAd = Advert._videoAd

@@ -158,6 +158,39 @@ namespace GDK {
 		offError(callback: Function)
 	}
 
+	export interface IFeedAd {
+		/**
+		 * 样式设置
+		 */
+		style: BannerStyleAccessor
+
+		/**
+		 * 加载 feed 广告
+		 */
+		load(): Promise<void>
+
+		/**
+		 * 显示 feed 广告
+		 */
+		show(): Promise<void>
+
+		/**
+		 * 隐藏 feed 广告
+		 */
+		hide(): Promise<void>
+
+		/**
+		 * 销毁 feed 广告
+		 */
+		destroy(): Promise<void>
+
+		/**
+		 * 获取广告相关信息
+		 */
+		getDatas(): Promise<GDK.FeedAdDatas>
+
+	}
+
 	export interface VideoAdCreateParam {
 		/** 广告单元 id */
 		adUnitId?: string
@@ -179,6 +212,22 @@ namespace GDK {
 		placementName?: string
 		/** 刷新频率 */
 		adIntervals?: number
+		/** banner 广告组件的样式 */
+		style: BannerStyle
+	}
+
+	export interface FeedAdDatas {
+		datas: {
+			iconUrl: string,
+			imageUrl: string,
+			imageUrlList: string[],
+			title: string,
+			description: string,
+			source: string,
+		}
+	}
+
+	export interface FeedAdCreateParam {
 		/** banner 广告组件的样式 */
 		style: BannerStyle
 	}
@@ -227,6 +276,16 @@ namespace GDK {
 		 * 创建全屏广告
 		 */
 		createFullscreenVideoAd?(params: FullscreenVideoAdCreateParam): GDK.IInterstitialAd
+
+		/**
+		 * 是否支持信息流广告
+		 */
+		readonly supportFeedAd?: boolean
+
+		/**
+		 * 创建信息流广告
+		 */
+		createFeedAd?(params: FeedAdCreateParam): IFeedAd
 
 		/**
 		 * 切换广告平台
