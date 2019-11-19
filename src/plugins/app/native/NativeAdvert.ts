@@ -345,6 +345,14 @@ namespace AppGDK {
 			return nativeHelper.callAction("ironsrc:IronSource.getFeedAdDatas", params)
 		}
 
+		async performClick(params: { adObjectId: number }): Promise<void> {
+			return nativeHelper.callAction("ironsrc:IronSource.performClick", params)
+		}
+
+		async performCreativeClick(params: { adObjectId: number }): Promise<void> {
+			return nativeHelper.callAction("ironsrc:IronSource.performCreativeClick", params)
+		}
+
 		// feed advert 事件
 		async onFeedAdLoaded(callback: (params: { adObjectId: number }) => void) {
 			return nativeHelper.onEvent("ironsrc:onFeedAdLoaded", callback)
@@ -356,6 +364,7 @@ namespace AppGDK {
 		async onFeedAdClicked(callback: Function) {
 			return nativeHelper.onDoneEvent("ironsrc:onFeedAdClicked", callback)
 		}
+
 		async onFeedAdShown(callback: Function) {
 			return nativeHelper.onDoneEvent("ironsrc:onFeedAdShown", callback)
 		}

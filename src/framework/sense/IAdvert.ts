@@ -189,6 +189,16 @@ namespace GDK {
 		 */
 		getDatas(): Promise<GDK.FeedAdDatas>
 
+		/**
+		 * 模拟点击广告
+		 */
+		performClick(): Promise<void>
+
+		/**
+		 * 模拟点击广告
+		 */
+		performCreativeClick(): Promise<void>
+
 	}
 
 	export interface VideoAdCreateParam {

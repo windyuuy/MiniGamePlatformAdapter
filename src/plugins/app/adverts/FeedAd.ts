@@ -61,5 +61,18 @@ namespace AppGDK {
 			return await SDKProxy.nativeAdvert.getFeedAdDatas({ adObjectId: this.adObjectId })
 		}
 
+		/**
+		 * 模拟点击广告
+		 */
+		async performClick(): Promise<void> {
+			return await SDKProxy.nativeAdvert.performClick({ adObjectId: this.adObjectId })
+		}
+
+		/**
+		 * 模拟点击广告
+		 */
+		async performCreativeClick(): Promise<void> {
+			return await SDKProxy.nativeAdvert.performCreativeClick({ adObjectId: this.adObjectId })
+		}
 	}
 }
