@@ -133,7 +133,7 @@ namespace AppGDK {
 		}
 
 		get supportFeedAd(): boolean {
-			return true
+			return nativeHelper.checkActionExist("ironsrc:IronSource.createFeedAd")
 		}
 
 		createFeedAd?(params: GDK.FeedAdCreateParam): GDK.IFeedAd {

@@ -195,7 +195,7 @@ namespace GDK {
 		performClick(): Promise<void>
 
 		/**
-		 * 模拟点击广告
+		 * 模拟点击附加创意区域（点击下载或拨打电话）
 		 */
 		performCreativeClick(): Promise<void>
 
