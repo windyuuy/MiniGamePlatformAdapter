@@ -211,7 +211,7 @@ namespace GDK {
 		/**
 		 * 设置样式
 		 */
-		setStyle(value: GDK.FeedAdStyleAccessor): Promise<void>
+		setStyle(value: GDK.FeedAdStyle): Promise<void>
 
 		/**
 		 * 加载 feed 广告

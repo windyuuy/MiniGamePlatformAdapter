@@ -13,9 +13,19 @@ namespace AppGDK {
 			SDKProxy.nativeAdvert.setFeedAdStyle({ adObjectId: this.adObjectId, style: this._style })
 		}
 
-		async setStyle(value: GDK.FeedAdStyleAccessor) {
-			this._style = value
-			return await SDKProxy.nativeAdvert.setFeedAdStyle({ adObjectId: this.adObjectId, style: this._style })
+		async setStyle(style: GDK.FeedAdStyle) {
+			for (let key in style) {
+				let value = style[key]
+				if (value != null) {
+					this._style[key] = value
+				}
+			}
+
+			await SDKProxy.nativeAdvert.setFeedAdStyle({ adObjectId: this.adObjectId, style: this._style })
+
+			let datas = await SDKProxy.nativeAdvert.getFeedAdDatas({ adObjectId: this.adObjectId })
+			this._style.realHeight = datas.style.realHeight
+			this._style.realWidth = datas.style.realWidth
 		}
 
 		constructor(params: GDK.FeedAdCreateParam) {
