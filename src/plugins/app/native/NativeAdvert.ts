@@ -333,7 +333,7 @@ namespace AppGDK {
 			return nativeHelper.callAction("ironsrc:IronSource.loadFeedAd", params)
 		}
 
-		async setFeedAdStyle(params: { adObjectId: number, style: GDK.BannerStyle }) {
+		async setFeedAdStyle(params: { adObjectId: number, style: GDK.FeedAdStyleAccessor }) {
 			return nativeHelper.callAction("ironsrc:IronSource.setFeedAdStyle", params)
 		}
 

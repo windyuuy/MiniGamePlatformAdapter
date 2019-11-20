@@ -2,15 +2,20 @@ namespace AppGDK {
 	const devlog = Common.devlog
 
 	export class FeedAd implements GDK.IFeedAd {
-		protected _style: GDK.BannerStyleAccessor = new GDK.BannerStyleAccessor()
+		protected _style: GDK.FeedAdStyleAccessor = new GDK.FeedAdStyleAccessor()
 		protected adObjectId: number = -1
 
-		get style(): GDK.BannerStyleAccessor {
+		get style(): GDK.FeedAdStyleAccessor {
 			return this._style
 		}
-		set style(value: GDK.BannerStyleAccessor) {
+		set style(value: GDK.FeedAdStyleAccessor) {
 			this._style = value
-			SDKProxy.nativeAdvert.setBannerStyle(value)
+			SDKProxy.nativeAdvert.setFeedAdStyle({ adObjectId: this.adObjectId, style: this._style })
+		}
+
+		async setStyle(value: GDK.FeedAdStyleAccessor) {
+			this._style = value
+			return await SDKProxy.nativeAdvert.setFeedAdStyle({ adObjectId: this.adObjectId, style: this._style })
 		}
 
 		constructor(params: GDK.FeedAdCreateParam) {
@@ -42,8 +47,13 @@ namespace AppGDK {
 			})
 
 			await SDKProxy.nativeAdvert.loadFeedAd({ adObjectId })
-			await SDKProxy.nativeAdvert.setFeedAdStyle({ adObjectId, style: this.style })
+			await SDKProxy.nativeAdvert.setFeedAdStyle({ adObjectId, style: this._style })
 			await onLoadPromise
+
+			let datas = await SDKProxy.nativeAdvert.getFeedAdDatas({ adObjectId: this.adObjectId })
+			this._style.realHeight = datas.style.realHeight
+			this._style.realWidth = datas.style.realWidth
+
 		}
 
 		async show(): Promise<void> {

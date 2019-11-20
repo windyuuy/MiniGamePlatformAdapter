@@ -158,11 +158,60 @@ namespace GDK {
 		offError(callback: Function)
 	}
 
+	export class FeedAdStyle {
+		/** feed 广告组件的左下角横坐标 */
+		x?: number
+		/** feed 广告组件的左下角纵坐标 */
+		y?: number
+		/** feed 广告组件的宽度 */
+		width?: number
+		/** feed 广告组件的高度 */
+		height?: number
+		/** feed 广告组件的左上角纵坐标 */
+		top?: number
+		/** feed 广告组件的左下角横坐标 */
+		left?: number
+	}
+
+	export class FeedAdStyleAccessor {
+		x?: number
+		y?: number
+		/**
+		 * feed 广告组件的左上角横坐标
+		 */
+		left: number
+		/**
+		 * feed 广告组件的左上角纵坐标
+		 */
+		top: number
+		/**
+		 * feed 广告组件的宽度。最小 300，最大至 屏幕宽度（屏幕宽度可以通过 wx.getSystemInfoSync() 获取）。
+		 */
+		width: number
+		/**
+		 * feed 广告组件的高度
+		 */
+		height: number
+		/**
+		 * feed 广告组件经过缩放后真实的宽度
+		 */
+		realWidth: number
+		/**
+		 * feed 广告组件经过缩放后真实的高度
+		 */
+		realHeight: number
+	}
+
 	export interface IFeedAd {
 		/**
 		 * 样式设置
 		 */
-		style: BannerStyleAccessor
+		style: FeedAdStyleAccessor
+
+		/**
+		 * 设置样式
+		 */
+		setStyle(value: GDK.FeedAdStyleAccessor): Promise<void>
 
 		/**
 		 * 加载 feed 广告
@@ -234,12 +283,17 @@ namespace GDK {
 			title: string,
 			description: string,
 			source: string,
-		}
+		},
+
+		style: {
+			realWidth: number,
+			realHeight: number,
+		},
 	}
 
 	export interface FeedAdCreateParam {
 		/** banner 广告组件的样式 */
-		style: BannerStyle
+		style: FeedAdStyle
 	}
 
 	export interface AdvertInitParams {
