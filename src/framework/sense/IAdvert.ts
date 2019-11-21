@@ -213,6 +213,8 @@ namespace GDK {
 		 */
 		setStyle(value: GDK.FeedAdStyle): Promise<void>
 
+		setClickZoneStyle(style: GDK.FeedAdStyle): Promise<void>
+
 		/**
 		 * 加载 feed 广告
 		 */
@@ -292,6 +294,10 @@ namespace GDK {
 	}
 
 	export interface FeedAdCreateParam {
+		/**
+		 * 是否调试模式
+		 */
+		isDebugMode: boolean
 		/** banner 广告组件的样式 */
 		style: FeedAdStyle
 	}

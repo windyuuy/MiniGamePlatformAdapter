@@ -321,7 +321,7 @@ namespace AppGDK {
 
 
 		// feed advert
-		async createFeedAd(params: { style: GDK.BannerStyleAccessor }): Promise<{ adObjectId: number }> {
+		async createFeedAd(params: GDK.FeedAdCreateParam): Promise<{ adObjectId: number }> {
 			return nativeHelper.callAction("ironsrc:IronSource.createFeedAd", params)
 		}
 
@@ -333,8 +333,12 @@ namespace AppGDK {
 			return nativeHelper.callAction("ironsrc:IronSource.loadFeedAd", params)
 		}
 
-		async setFeedAdStyle(params: { adObjectId: number, style: GDK.FeedAdStyleAccessor }) {
+		async setFeedAdStyle(params: { adObjectId: number, style: GDK.FeedAdStyle }) {
 			return nativeHelper.callAction("ironsrc:IronSource.setFeedAdStyle", params)
+		}
+
+		async setFeedAdClickZoneStyle(params: { adObjectId: number, style: GDK.FeedAdStyle }) {
+			return nativeHelper.callAction("ironsrc:IronSource.setFeedAdClickZoneStyle", params)
 		}
 
 		async destroyFeedAd(params: { adObjectId: number }) {

@@ -5,6 +5,8 @@ namespace AppGDK {
 		protected _style: GDK.FeedAdStyleAccessor = new GDK.FeedAdStyleAccessor()
 		protected adObjectId: number = -1
 
+		protected isDebugMode: boolean = false
+
 		get style(): GDK.FeedAdStyleAccessor {
 			return this._style
 		}
@@ -28,7 +30,14 @@ namespace AppGDK {
 			this._style.realWidth = datas.style.realWidth
 		}
 
+		async setClickZoneStyle(style: GDK.FeedAdStyle) {
+			await SDKProxy.nativeAdvert.setFeedAdClickZoneStyle({ adObjectId: this.adObjectId, style: style })
+		}
+
 		constructor(params: GDK.FeedAdCreateParam) {
+
+			this.isDebugMode = params.isDebugMode
+
 			let style = params.style
 			if (style != null) {
 				this.style.x = style.x
@@ -39,7 +48,7 @@ namespace AppGDK {
 		}
 
 		async load(): Promise<void> {
-			let { adObjectId } = await SDKProxy.nativeAdvert.createFeedAd({ style: this.style })
+			let { adObjectId } = await SDKProxy.nativeAdvert.createFeedAd({ style: this.style, isDebugMode: this.isDebugMode })
 			this.adObjectId = adObjectId
 
 			let onLoadPromise = new Promise((resolve, reject) => {
