@@ -290,6 +290,7 @@ namespace GDK {
 			title: string,
 			description: string,
 			source: string,
+			buttonText: string,
 		},
 
 		style: {
