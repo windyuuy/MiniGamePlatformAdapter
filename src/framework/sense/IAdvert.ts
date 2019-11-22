@@ -213,7 +213,7 @@ namespace GDK {
 		 */
 		setStyle(value: GDK.FeedAdStyle): Promise<void>
 
-		setClickZoneStyle(style: GDK.FeedAdStyle): Promise<void>
+		setDefaultClickZoneStyle(style: GDK.FeedAdStyle): Promise<void>
 
 		/**
 		 * 加载 feed 广告

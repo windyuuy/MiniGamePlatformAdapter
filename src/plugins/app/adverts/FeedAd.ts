@@ -30,7 +30,7 @@ namespace AppGDK {
 			this._style.realWidth = datas.style.realWidth
 		}
 
-		async setClickZoneStyle(style: GDK.FeedAdStyle) {
+		async setDefaultClickZoneStyle(style: GDK.FeedAdStyle) {
 			await SDKProxy.nativeAdvert.setFeedAdClickZoneStyle({ adObjectId: this.adObjectId, style: style })
 		}
 
