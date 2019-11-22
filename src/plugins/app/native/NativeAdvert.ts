@@ -338,7 +338,7 @@ namespace AppGDK {
 		}
 
 		async setFeedAdClickZoneStyle(params: { adObjectId: number, style: GDK.FeedAdStyle }) {
-			return nativeHelper.callAction("ironsrc:IronSource.setFeedAdClickZoneStyle", params)
+			return nativeHelper.callAction("ironsrc:IronSource.setFeedAdDefaultClickZoneStyle", params)
 		}
 
 		async destroyFeedAd(params: { adObjectId: number }) {
