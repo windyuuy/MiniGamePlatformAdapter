@@ -26,7 +26,7 @@ namespace QQMiniAppGDK {
 					this.server.userLogin({
 						code: res.code,
 						system: system,
-						clientSystemInfo: wx.getSystemInfoSync(),
+						clientSystemInfo: this.api.systemInfo.clone(),
 						launchOptionsPath: launchOptionsPath,
 						launchOptionsQuery: launchOptionsQuery,
 						extraData: extraData,
