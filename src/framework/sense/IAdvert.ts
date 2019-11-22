@@ -277,11 +277,16 @@ namespace GDK {
 		style: BannerStyle
 	}
 
+	export interface FeedAdImageInfo {
+		imageUrl: string,
+		width: number,
+		height: number,
+	}
+
 	export interface FeedAdDatas {
 		datas: {
-			iconUrl: string,
-			imageUrl: string,
-			imageUrlList: string[],
+			icon: FeedAdImageInfo,
+			imageList: FeedAdImageInfo[],
 			title: string,
 			description: string,
 			source: string,
@@ -297,7 +302,7 @@ namespace GDK {
 		/**
 		 * 是否调试模式
 		 */
-		isDebugMode: boolean
+		isDebugMode?: boolean
 		/** banner 广告组件的样式 */
 		style: FeedAdStyle
 	}
