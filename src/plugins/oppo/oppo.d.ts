@@ -1,6 +1,24 @@
 
 declare namespace qg {
 
+	export interface BaseOptions {
+
+		/**
+		 * 接口调用成功的回调函数
+		 */
+		success?: (res?: any) => void;
+
+		/**
+		 * 接口调用失败的回调函数
+		 */
+		fail?: (res?: any) => void;
+
+		/**
+		 * 接口调用结束的回调函数（调用成功、失败都会执行）
+		 */
+		complete?: (res?: any) => void;
+	}
+
 	export class OPPO_SystemInfo {
 		COREVersion: string//版本号
 		brand: string//手机品牌	
@@ -37,9 +55,35 @@ declare namespace qg {
 	export function createRewardedVideoAd(params: object): object;
 	export function createBannerAd(params: object): object;
 
-	export function setLoadingProgress(params:object);
-	export function loadingComplete(params:object);
-	export function setEnableDebug(params:object);
+	export function setLoadingProgress(params: object);
+	export function loadingComplete(params: object);
+	export function setEnableDebug(params: object);
+
+	export function vibrateShort(params: {
+		success: (res) => void,
+		fail: (res) => void,
+		complete?: (res) => void,
+	});
+
+	export function vibrateLong(params: {
+		success: (res) => void,
+		fail: (res) => void,
+		complete?: (res) => void,
+	});
+
+	export class Performance {
+		now(): number
+	}
+	export function getPerformance(): Performance
+	export function triggerGC(): void
+
+	export interface GetScreenBrightnessData extends BaseOptions {
+		success?: (data: { value: number }) => void
+	}
+
+	export function getScreenBrightness(res: GetScreenBrightnessData): void
+	export function setKeepScreenOn(res: { keepScreenOn: boolean } & BaseOptions): void
+	export function setScreenBrightness(res: { value: number } & BaseOptions): void
 
 	//https://developers.weixin.qq.com/minigame/dev/document/open-api/data/KVData.html
 	export class KVData {
