@@ -83,7 +83,7 @@ namespace AppGDK {
 			return this.supportFullscreenVideoAd
 		}
 		get supportFullscreenVideoAd(): boolean {
-			return nativeHelper.checkActionExist("ironsrc:IronSource.loadFullScreenVideoAd")
+			return nativeHelper.checkActionExist("ironsrc:IronSource.showFullScreenVideo")
 		}
 		createFullscreenVideoAd(params: {
 			/** 广告单元 id */
@@ -101,7 +101,7 @@ namespace AppGDK {
 		}
 
 		get supportInterstitialAd(): boolean {
-			return nativeHelper.checkActionExist("ironsrc:IronSource.loadInterstitial")
+			return nativeHelper.checkActionExist("ironsrc:IronSource.showInterstitial")
 		}
 
 		createInterstitialAd(params: {
