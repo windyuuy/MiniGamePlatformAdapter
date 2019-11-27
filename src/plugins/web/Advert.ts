@@ -46,7 +46,7 @@ namespace webGDK {
 				devlog.info("Gamepind videoad already cached")
 				this._isLoad = true;
 				ret.success(undefined);
-				for (let f of this._loadFuncList) {
+				for (let f of this._loadFuncList.concat()) {
 					f()
 				}
 			} else {
@@ -63,7 +63,7 @@ namespace webGDK {
 		show(): Promise<void> {
 			const ret = new GDK.RPromise<void>()
 			webvideo_play(() => {
-				for (let f of this._closeFuncList) {
+				for (let f of this._closeFuncList.concat()) {
 					devlog.warn("播放视频成功!")
 					f({ isEnded: true });
 					this._isLoad = false;
@@ -117,7 +117,7 @@ namespace webGDK {
 
 		constructor(params: { viewId: number, style?: GDK.BannerStyle }) {
 			setTimeout(() => {
-				for (let f of this._loadFuncList) {
+				for (let f of this._loadFuncList.concat()) {
 					f();
 				}
 			}, 1000)

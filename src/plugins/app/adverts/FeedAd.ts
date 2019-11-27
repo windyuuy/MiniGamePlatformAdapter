@@ -13,7 +13,7 @@ namespace AppGDK {
 			this._inited = true
 
 			SDKProxy.nativeAdvert.onFeedAdLoaded((params: { adObjectId: number }) => {
-				this._onFeedAdLoadedCallbacks.forEach(f => {
+				this._onFeedAdLoadedCallbacks.concat().forEach(f => {
 					try {
 						f(params)
 					} catch (e) {
@@ -23,7 +23,7 @@ namespace AppGDK {
 			})
 
 			SDKProxy.nativeAdvert.onFeedAdLoadFailed((params: { error: IronSrc.IronSourceError, adObjectId: number }) => {
-				this._onFeedAdLoadFailedCallbacks.forEach(f => {
+				this._onFeedAdLoadFailedCallbacks.concat().forEach(f => {
 					try {
 						f(params)
 					} catch (e) {

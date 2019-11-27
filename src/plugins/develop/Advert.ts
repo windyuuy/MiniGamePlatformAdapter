@@ -31,13 +31,13 @@ namespace DevelopGDK {
 				if (Math.random() > 0.9) {
 					const reason = { errCode: -1, errMsg: "10%的概率模拟广告加载失败" }
 					ret.fail(reason);
-					for (let f of this._errorFuncList) {
+					for (let f of this._errorFuncList.concat()) {
 						f(reason)
 					}
 				} else {
 					this._isLoad = true;
 					ret.success(undefined);
-					for (let f of this._loadFuncList) {
+					for (let f of this._loadFuncList.concat()) {
 						f()
 					}
 				}
@@ -57,7 +57,7 @@ namespace DevelopGDK {
 					this.api.showConfirm({ title: "你是否观看完广告？", content: "你是否观看完广告？" }).then((value) => {
 						let r = value.confirm
 						ret.success(undefined)
-						for (let f of this._closeFuncList) {
+						for (let f of this._closeFuncList.concat()) {
 							f({ isEnded: r });
 						}
 						setTimeout(() => {
@@ -115,7 +115,7 @@ namespace DevelopGDK {
 
 		constructor(params: { viewId: number, style?: GDK.BannerStyle }) {
 			setTimeout(() => {
-				for (let f of this._loadFuncList) {
+				for (let f of this._loadFuncList.concat()) {
 					f();
 				}
 			}, 1000)

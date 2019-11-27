@@ -17,7 +17,7 @@ namespace AppGDK {
 						jsonData = JSON.parse(data);
 					} catch (e) {
 					}
-					for (let f of this._showList) {
+					for (let f of this._showList.concat()) {
 						f(jsonData)
 					}
 				})
@@ -27,7 +27,7 @@ namespace AppGDK {
 						jsonData = JSON.parse(data);
 					} catch (e) {
 					}
-					for (let f of this._hideList) {
+					for (let f of this._hideList.concat()) {
 						f(jsonData)
 					}
 				})

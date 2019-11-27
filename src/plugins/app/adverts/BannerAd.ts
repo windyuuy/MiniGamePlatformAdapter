@@ -51,7 +51,7 @@ namespace AppGDK {
 		}
 
 		onBannerAdLoaded() {
-			for (let f of this._loadFuncList) {
+			for (let f of this._loadFuncList.concat()) {
 				try {
 					f()
 				} catch (e) {
@@ -64,7 +64,7 @@ namespace AppGDK {
 			let err = new GDK.RewardedVideoAdOnErrorParam()
 			err.errCode = error.errorCode
 			err.errMsg = error.errorMsg
-			for (let f of this._errorFuncList) {
+			for (let f of this._errorFuncList.concat()) {
 				f(err)
 			}
 		}
