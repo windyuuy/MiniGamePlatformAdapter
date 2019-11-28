@@ -1243,7 +1243,9 @@ namespace GDK {
 			 *  - `ttadadvert` 穿山甲广告
 			 * - ios平台现有：
 			 *  - `gdtadvert` 广点通广告
-			 *  - `budadadvert` 头条广告
+			 *  - `ttadadvert` 头条广告
+			 *  - `facebookadvert` facebook广告
+			 *  - `ironsourceadvert` ironsource广告
 			 */
 			platform: string;
 		}): Promise<void> {
