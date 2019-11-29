@@ -76,6 +76,7 @@ namespace OPPOGDK {
 						userName: res.nickName,
 						avatar: res.avatar,
 						token: res.token,
+						clientSystemInfo: this.api.systemInfo.clone()
 					},
 						(resp) => {
 							if (resp.succeed) {

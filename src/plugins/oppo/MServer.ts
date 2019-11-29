@@ -47,6 +47,7 @@ namespace OPPOGDK {
 				avatar: string,
 				token: string,
 				extraData?: any;
+				clientSystemInfo: any;
 			},
 			callback: (data: {
 				succeed: boolean,

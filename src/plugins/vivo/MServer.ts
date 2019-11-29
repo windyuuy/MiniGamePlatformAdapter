@@ -81,6 +81,7 @@ namespace VIVOGDK {
 		userLogin(
 			data: {
 				code: string
+				clientSystemInfo: any;
 			},
 			callback: (data: LoginCallbackData) => void,
 			errorCallback: (error: any, retry: () => void) => void = null) {
