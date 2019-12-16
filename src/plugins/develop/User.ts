@@ -33,6 +33,8 @@ namespace DevelopGDK {
 					userdata.nickName = data.nickname
 					userdata.isNewUser = data.userNew
 
+					this.api.systemInfo.tableConf = resp.data.tableConf;//记录登录时传入的表格信息
+
 					ret.success({
 						extra: data,
 					})

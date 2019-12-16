@@ -68,6 +68,12 @@ namespace WechatGDK {
 			 **/
 			followGzh: 0 | 1
 
+
+			tableConf: {
+				tableSign: string,
+			},
+
+
 		}
 	}
 
