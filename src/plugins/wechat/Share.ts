@@ -36,6 +36,12 @@ namespace WechatGDK {
 						if (typeof (callback) == 'function') {
 							callback(res);
 						}
+					},
+					fail: (error) => {
+						devlog.info("apiGetValue error", error);
+						if (typeof (callback) == 'function') {
+							callback(null);
+						}
 					}
 				})
 			}
