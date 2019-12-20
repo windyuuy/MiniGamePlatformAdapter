@@ -1,7 +1,7 @@
 declare namespace gdkjsb {
 
 	/**
-	 * 当前原生包的版本号
+	 * 当前原生包的版本号（不推荐，尽量用 nativeHelper 中的函数代替）
 	 * * 0 或 undefined 表示最初始版本，不包含新的的GooglePay支付
 	 * * 1 新的googlepay支付，并添加了 getSafeArea 接口
 	 */
