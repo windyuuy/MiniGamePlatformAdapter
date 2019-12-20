@@ -214,7 +214,7 @@ declare namespace gdkjsb {
 		static off(id: number);
 
 		/**
-		 * 检查action是否存在
+		 * 检查action是否存在（不推荐，用 nativeHelper.checkActionExist("apiname") 代替）
 		 * @param action 动作名称
 		 */
 		static checkActionExist(action: string): boolean;

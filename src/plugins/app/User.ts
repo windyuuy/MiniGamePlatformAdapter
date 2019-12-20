@@ -381,7 +381,8 @@ namespace AppGDK {
 
 					} else if (params.autoLogin) {
 						//自动游客登陆
-						if (gdkjsb.nativeVersion >= 4) {
+						// if (gdkjsb.nativeVersion >= 4) {
+						if (nativeHelper.checkActionExist("loginNative")) {
 							//travel to native
 							SDKProxy.loginNative()
 						} else {
