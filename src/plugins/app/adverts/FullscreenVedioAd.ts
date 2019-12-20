@@ -45,8 +45,8 @@ namespace AppGDK {
 			this._isShowing = false
 
 			let err = new GDK.FullscreenAdOnErrorParam()
-			err.errCode = error.errorCode
-			err.errMsg = error.errorMsg
+			err.errCode = error.errorCode || error["code"]
+			err.errMsg = error.errorMsg || error["message"] //有的平台没有按正确的格式上传信息
 			for (let f of this._errorFuncList.concat()) {
 				f(err)
 			}

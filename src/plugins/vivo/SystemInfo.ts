@@ -141,6 +141,14 @@ namespace VIVOGDK {
 				qg.setStorageSync({ key: "glee_systeminfo_gameDeviceId", value: gameDeviceId });
 			}
 			this.gameDeviceId = gameDeviceId;
+
+			var installTime = qg.getStorageSync({ key: "glee_systeminfo_installTime" });
+			if (installTime == null || installTime == "") {
+				installTime = new Date().getTime().toString();
+				qg.setStorageSync({ key: "glee_systeminfo_installTime", value: installTime });
+			}
+			this.installTime = parseInt(installTime)
+
 		}
 	}
 }

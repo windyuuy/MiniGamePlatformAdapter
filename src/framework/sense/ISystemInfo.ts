@@ -173,6 +173,11 @@ namespace GDK {
 		 */
 		isCustomBackendCfg?: boolean
 
+		/**
+		 * 服务器表格配置信息
+		 */
+		tableConf?: { tableSign: string }
+
 		init?()
 
 		/**

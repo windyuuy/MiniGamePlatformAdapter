@@ -48,6 +48,8 @@ namespace WechatGDK {
 									gameToken: data.gametoken,
 								}
 
+								this.api.systemInfo.tableConf = resp.data.tableConf;//记录登录时传入的表格信息
+
 								//添加openId日志
 								this.api.systemInfo.deviceId = data.openId;
 

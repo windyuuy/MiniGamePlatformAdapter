@@ -68,6 +68,9 @@ namespace BytedanceGDK {
 			 **/
 			followGzh: 0 | 1
 
+			tableConf: {
+				tableSign: string,
+			},
 		}
 	}
 

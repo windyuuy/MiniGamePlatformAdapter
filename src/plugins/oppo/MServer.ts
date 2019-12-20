@@ -30,6 +30,11 @@ namespace OPPOGDK {
 			token: string,//登陆token
 			heart: number,//心数量
 			gametoken: string,
+
+			tableConf: {
+				tableSign: string,
+			},
+
 		}
 	}
 
@@ -47,6 +52,7 @@ namespace OPPOGDK {
 				avatar: string,
 				token: string,
 				extraData?: any;
+				clientSystemInfo: any;
 			},
 			callback: (data: {
 				succeed: boolean,
@@ -78,6 +84,10 @@ namespace OPPOGDK {
 					token: string,//登陆token
 					heart: number,//心数量
 					gametoken: string,
+
+					tableConf: {
+						tableSign: string,
+					},
 				}
 			}) => void,
 			errorCallback: (error: any, retry: () => void) => void = null) {
