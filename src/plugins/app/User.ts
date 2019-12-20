@@ -382,7 +382,7 @@ namespace AppGDK {
 						SDKProxy.saveUserRecord(userRecords);
 						isDelayLogin = false;
 						let sysInfo = this.api.systemInfo.clone()
-						this.server.loginOpenId({ openId: null, uuId: sysInfo.uuid, clientSystemInfo: sysInfo }, loginComplete);
+						this.server.loginOpenId({ openId: null, uuId: sysInfo.uuid, clientSystemInfo: sysInfo, node: this.loginNode }, loginComplete);
 
 					} else if (params.autoLogin) {
 						//自动游客登陆
