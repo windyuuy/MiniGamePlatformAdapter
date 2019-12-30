@@ -129,6 +129,7 @@ namespace BytedanceGDK {
 				})
 				wx.shareAppMessage({
 					title: data.title,
+					desc: data.summary,
 					imageUrl: data.imageUrl,
 					query: query,
 				})
@@ -176,11 +177,13 @@ namespace BytedanceGDK {
 				}
 				devlog.info("share", {
 					title: data.title,
+					desc: data.summary,
 					imageUrl: imageUrl,
 					query: query,
 				})
 				wx.shareAppMessage({
 					title: data.title,
+					desc: data.summary,
 					imageUrl: imageUrl,
 					query: query,
 				})
@@ -302,6 +305,7 @@ namespace BytedanceGDK {
 				})
 				wx.shareAppMessage({
 					title: data.title,
+					desc: data.summary,
 					imageUrl: imageUrl,
 					query: query,
 					cancel: () => {
@@ -391,6 +395,7 @@ namespace BytedanceGDK {
 				// 	})
 				// 	wx.shareAppMessage({
 				// 		title: data.title,
+				// desc: data.summary,
 				// 		imageUrl: imageUrl,
 				// 		query: query,
 				// 		cancel: () => {
