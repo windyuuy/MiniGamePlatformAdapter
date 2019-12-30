@@ -1866,10 +1866,13 @@ declare namespace wx {
 		 * 使用 `code` 换取 `session_key` api，将 code 换成 openid 和 session_key
 		 */
 		code: string;
+
+		anonymousCode: string
 	}
 
 	export interface LoginOptions extends BaseOptions {
 
+		force: boolean,
 		/**
 		 * 接口调用成功的回调函数
 		 */

@@ -15,6 +15,7 @@ namespace BytedanceGDK {
 		login(params?: GDK.LoginParams) {
 			const ret = new GDK.RPromise<GDK.LoginResult>()
 			wx.login({
+				force: false,
 				success: (res) => {
 					// 解密数据
 					const system = this.api.systemInfo.platform == "android" ? 1 : this.api.systemInfo.platform == "ios" ? 2 : 0
@@ -24,6 +25,7 @@ namespace BytedanceGDK {
 					let launchOptionsQuery = option.query
 					let extraData = option.referrerInfo ? option.referrerInfo.extraData : null;
 					this.server.userLogin({
+						anonymousCode: res.anonymousCode,
 						code: res.code,
 						system: system,
 						clientSystemInfo: this.api.systemInfo.clone(),
