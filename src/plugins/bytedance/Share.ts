@@ -15,6 +15,21 @@ namespace BytedanceGDK {
 			let params = "?openId=" + openId + "&timeStamp=" + timeStamp + "&url=" + url;
 			let api = server + "/api/Client/SetValue" + params;
 			devlog.info("apiSetValue url=", api);
+			// return api;
+			// return await new Promise<string>((resolve, reject) => {
+			wx['request']({
+				url: api,
+				method: 'get',
+				success: (res) => {
+					devlog.info("apiGetValue res=", res);
+					// resolve(url);
+				},
+				fail: (err) => {
+					devlog.error("apiGetValue res=", err);
+					// reject(err)
+				},
+			})
+			// })
 			return api;
 		}
 
