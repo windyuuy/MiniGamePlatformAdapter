@@ -24,11 +24,11 @@ namespace BaiduGDK {
          * @param shareReq 
          */
 		static apiGetValue(server: string, openId, timeStamp, callback?) {
-			if (window['wx']) {
+			if (window['swan']) {
 				let params = "?openId=" + openId + "&timeStamp=" + timeStamp;
 				let url = server + "/api/Client/GetValue" + params;
 				devlog.info("apiGetValue url=", url);
-				wx['request']({
+				swan['request']({
 					url: url,
 					method: 'get',
 					success: (res) => {
@@ -59,7 +59,7 @@ namespace BaiduGDK {
 		protected _shareTicket: string = null
 
 		init() {
-			wx.onShow((res) => {
+			swan.onShow((res) => {
 				//获取对应的分享启动参数
 				this._shareParam = res.query
 				this._shareTicket = res.shareTicket
@@ -118,19 +118,19 @@ namespace BaiduGDK {
 					imageUrl: data.imageUrl,
 					query: query,
 				})
-				wx.shareAppMessage({
+				swan.shareAppMessage({
 					title: data.title,
 					imageUrl: data.imageUrl,
 					query: query,
 				})
 
 				let onShow = () => {
-					wx.offShow(onShow);
+					swan.offShow(onShow);
 					let result = new GDK.ShareResult()
 					result.result = 0;
 					resolve(result)
 				}
-				wx.onShow(onShow);
+				swan.onShow(onShow);
 			})
 		}
 
@@ -161,7 +161,7 @@ namespace BaiduGDK {
 
 				let imageUrl = data.imageUrl
 
-				let platform = wx.getSystemInfoSync().platform
+				let platform = swan.getSystemInfoSync().platform
 				if (platform == "android") {
 					imageUrl = ShareProxy.apiSetValue(this.api.gameInfo.shareProxyUrl, this.api.gameInfo.appId, beginShareTime, data.imageUrl)
 				}
@@ -170,14 +170,14 @@ namespace BaiduGDK {
 					imageUrl: imageUrl,
 					query: query,
 				})
-				wx.shareAppMessage({
+				swan.shareAppMessage({
 					title: data.title,
 					imageUrl: imageUrl,
 					query: query,
 				})
 
 				let onShow = () => {
-					wx.offShow(onShow);
+					swan.offShow(onShow);
 
 					let shareMaySuc = () => {
 						/**
@@ -224,7 +224,7 @@ namespace BaiduGDK {
 
 					let ec = (Common.getServerTime().getTime() - beginShareTime) / 1000
 					devlog.info("分享间隔时间", ec, shareInvaterl)
-					let platform = wx.getSystemInfoSync().platform
+					let platform = swan.getSystemInfoSync().platform
 					if (platform == "android" || ec > shareInvaterl) {//安卓不需要验证时间
 
 						//安卓平台使用
@@ -255,7 +255,7 @@ namespace BaiduGDK {
 					}
 
 				}
-				wx.onShow(onShow);
+				swan.onShow(onShow);
 
 			})
 		}
@@ -291,7 +291,7 @@ namespace BaiduGDK {
 					imageUrl: imageUrl,
 					query: query,
 				})
-				wx.shareAppMessage({
+				swan.shareAppMessage({
 					title: data.title,
 					imageUrl: imageUrl,
 					query: query,
@@ -302,7 +302,7 @@ namespace BaiduGDK {
 				})
 
 				let onShow = () => {
-					wx.offShow(onShow);
+					swan.offShow(onShow);
 
 					let sharesSucPro1: number = 0.7  //第一次分享成功概率
 					let sharesSucPro2: number = 0.9  //第二次分享成功概率
@@ -350,7 +350,7 @@ namespace BaiduGDK {
 					}, 200)
 
 				}
-				wx.onShow(onShow);
+				swan.onShow(onShow);
 
 			})
 		}
@@ -456,11 +456,11 @@ namespace BaiduGDK {
 		}
 
 		async showShareMenu(): Promise<void> {
-			wx.showShareMenu({ withShareTicket: true })
+			swan.showShareMenu({ withShareTicket: true })
 		}
 
 		async hideShareMenu(): Promise<void> {
-			wx.hideShareMenu({});
+			swan.hideShareMenu({});
 		}
 
 		/**
@@ -491,7 +491,7 @@ namespace BaiduGDK {
 
 					return res;
 				}
-				wx.onShareAppMessage(this._shareMenuDataCallback)
+				swan.onShareAppMessage(this._shareMenuDataCallback)
 			}
 		}
 
@@ -501,29 +501,29 @@ namespace BaiduGDK {
 				return this._shareParam;
 			}
 
-			let data = wx.getLaunchOptionsSync()
+			let data = swan.getLaunchOptionsSync()
 			return data.query;
 		}
+
+		/*
+		 * not supported
+		 */
 
 		async getShareTicket(): Promise<string> {
 			if (this._shareTicket) {
 				return this._shareTicket;
 			}
 
-			let data = wx.getLaunchOptionsSync()
+			let data = swan.getLaunchOptionsSync()
 			return data.shareTicket;
 		}
 
+		/*
+		* not supported
+		*/
 		async getShareInfo(shareTicket: string): Promise<any> {
 			return new Promise<any>((resolve, reject) => {
-				wx.getShareInfo({
-					shareTicket: shareTicket, success: (res) => {
-						resolve(res);
-					},
-					fail: (err) => {
-						reject(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN, err))
-					}
-				})
+				reject(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_INVALID))
 			})
 		}
 
