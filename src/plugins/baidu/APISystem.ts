@@ -6,7 +6,7 @@ namespace WechatGDK {
 	class Clipboard implements GDK.IClipboard {
 		getData(): Promise<GDK.ClipboardData> {
 			const ret = new GDK.RPromise<GDK.ClipboardData>()
-			wx.getClipboardData({
+			swan.getClipboardData({
 				success: (res) => {
 					ret.success(res)
 				},
@@ -16,7 +16,7 @@ namespace WechatGDK {
 		}
 		setData(res: GDK.ClipboardData): Promise<void> {
 			const ret = new GDK.RPromise<void>()
-			wx.setClipboardData({
+			swan.setClipboardData({
 				data: res.data,
 				success: () => {
 					ret.success(undefined)
@@ -35,7 +35,7 @@ namespace WechatGDK {
 
 		setEnableDebug(res: { enableDebug: boolean }) {
 			const ret = new GDK.RPromise<void>()
-			wx.setEnableDebug({
+			swan.setEnableDebug({
 				enableDebug: res.enableDebug,
 				success: () => {
 					ret.success(undefined)
@@ -48,7 +48,9 @@ namespace WechatGDK {
 		navigateToApp?(params: GDK.AppCallUpParams): Promise<GDK.AppCallUpResult> {
 			const ret = new GDK.RPromise<GDK.AppCallUpResult>()
 			const params2 = {
-				...params,
+				appKey: params.appId,
+				path: params.path,
+				extraData: params.extraData,
 				success: () => {
 					ret.success(undefined)
 				},
@@ -57,12 +59,12 @@ namespace WechatGDK {
 				}
 			}
 			devlog.info('wx.navigateToMiniProgram(params2)', params2)
-			wx.navigateToMiniProgram(params2)
+			swan.navigateToMiniProgram(params2)
 			return ret.promise
 		}
 		exitProgram(): Promise<void> {
 			const ret = new GDK.RPromise<void>()
-			wx.exitMiniProgram({
+			swan.exit({
 				success: () => {
 					ret.success(undefined)
 				},
@@ -75,8 +77,8 @@ namespace WechatGDK {
 
 		updateProgramForce(): Promise<void> {
 			return new Promise<void>((resolve, reject) => {
-				wx.showLoading({ title: "检查更新中...", mask: true })
-				let updateManager = wx.getUpdateManager()
+				swan.showLoading({ title: "检查更新中...", mask: true })
+				let updateManager = swan.getUpdateManager()
 				if (updateManager) {
 					updateManager.onCheckForUpdate((hasUpdate) => {
 						devlog.info("检查更新开始:")
@@ -85,15 +87,15 @@ namespace WechatGDK {
 							// wx.showLoading({title:"检查更新中...",mask:true})
 						} else {
 							devlog.info('没有更新')
-							wx.hideLoading({})
+							swan.hideLoading({})
 							resolve()
 						}
 					})
 
 					updateManager.onUpdateReady(() => {
 						devlog.info("更新完成")
-						wx.hideLoading({})
-						wx.showModal(
+						swan.hideLoading({})
+						swan.showModal(
 							{
 								title: "提示",
 								content: "新版本已经下载完成！",
@@ -101,7 +103,7 @@ namespace WechatGDK {
 								cancelText: "重启游戏",
 								showCancel: false, success: (res) => {
 									if (res.confirm) {
-										wx.getUpdateManager().applyUpdate()
+										swan.getUpdateManager().applyUpdate()
 									}
 								}
 							}
@@ -110,8 +112,8 @@ namespace WechatGDK {
 
 					updateManager.onUpdateFailed(() => {
 						devlog.info("更新失败")
-						wx.hideLoading({})
-						wx.showModal(
+						swan.hideLoading({})
+						swan.showModal(
 							{
 								title: "提示",
 								content: "更新失败,请重启游戏",
@@ -119,7 +121,7 @@ namespace WechatGDK {
 								cancelText: "重启游戏",
 								showCancel: false, success: (res) => {
 									if (res.confirm) {
-										wx.getUpdateManager().applyUpdate()
+										swan.getUpdateManager().applyUpdate()
 									}
 								}
 							}
@@ -130,16 +132,16 @@ namespace WechatGDK {
 		}
 
 		onShow?(callback: (data: any) => void): void {
-			return wx.onShow(callback)
+			return swan.onShow(callback)
 		}
 		offShow?(callback: Function): void {
-			return wx.offShow(callback)
+			return swan.offShow(callback)
 		}
 		onHide?(callback: Function): void {
-			return wx.onHide(callback)
+			return swan.onHide(callback)
 		}
 		offHide?(callback: Function): void {
-			return wx.offHide(callback)
+			return swan.offHide(callback)
 		}
 
 	}

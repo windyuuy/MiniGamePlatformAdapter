@@ -104,7 +104,7 @@ declare function Page(page: IPage): void;
  */
 declare function getCurrentPages(): IPage[];
 
-declare namespace wx {
+declare namespace swan {
 
 	export interface BaseOptions {
 
@@ -2317,7 +2317,24 @@ declare namespace wx {
 		envVersion?: string
 		fail?: (res: { errMsg: string }) => void;
 	}
-	export function navigateToMiniProgram(res: AppCallUpParams)
+
+	export interface AppCallUpBaiduParams extends BaseOptions {
+		/**
+		 * 要打开的小程序 appId
+		 **/
+		appKey: string
+		/**
+		 * 打开的页面路径，如果为空则打开首页
+		 **/
+		path?: string
+		/**
+		 * 需要传递给目标小程序的数据，目标小程序可在 App.onLaunch，App.onShow 中获取到这份数据。
+		 **/
+		extraData?: object
+
+	}
+
+	export function navigateToMiniProgram(res: AppCallUpBaiduParams)
 
 
 	export class AuthSetting {
@@ -2362,7 +2379,7 @@ declare namespace wx {
 	/**
 	 * 退出当前小游戏
 	 */
-	export function exitMiniProgram(res: BaseOptions): void
+	export function exit(res: BaseOptions): void
 
 	export class UpdateManager {
 
