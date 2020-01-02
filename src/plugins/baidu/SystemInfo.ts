@@ -75,7 +75,7 @@ namespace BaiduGDK {
 
 		fetchNetworkInfo() {
 			const ret = new GDK.RPromise<void>()
-			wx.getNetworkType({
+			swan.getNetworkType({
 				success: (res) => {
 					this.networkType = res.networkType
 					ret.success(undefined)
@@ -102,9 +102,8 @@ namespace BaiduGDK {
 
 		init() {
 
-			wx.getUserInfo({})
 
-			const info = wx.getSystemInfoSync()
+			const info = swan.getSystemInfoSync()
 			slib.JSHelper.merge(info, this)
 			this.fetchNetworkInfo()
 			this.updateNetworkInfo(this.networkType)
@@ -116,21 +115,21 @@ namespace BaiduGDK {
 
 			devlog.info('wx systeminfo:', this)
 
-			wx.onNetworkStatusChange((res) => {
+			swan.onNetworkStatusChange((res) => {
 				this.updateNetworkInfo(res.networkType, res.isConnected)
 			})
 
-			var gameDeviceId = wx.getStorageSync("glee_systeminfo_gameDeviceId");
+			var gameDeviceId = swan.getStorageSync("glee_systeminfo_gameDeviceId");
 			if (gameDeviceId == null || gameDeviceId == "") {
 				gameDeviceId = new Date().getTime().toString(36) + (Math.random() * 2 ** 64).toString(36) + (Math.random() * 2 ** 64).toString(36);
-				wx.setStorageSync("glee_systeminfo_gameDeviceId", gameDeviceId);
+				swan.setStorageSync("glee_systeminfo_gameDeviceId", gameDeviceId);
 			}
 			this.gameDeviceId = gameDeviceId;
 
-			var installTime = wx.getStorageSync("glee_systeminfo_installTime");
+			var installTime = swan.getStorageSync("glee_systeminfo_installTime");
 			if (installTime == null || installTime == "") {
 				installTime = new Date().getTime().toString();
-				wx.setStorageSync("glee_systeminfo_installTime", installTime);
+				swan.setStorageSync("glee_systeminfo_installTime", installTime);
 			}
 			this.installTime = parseInt(installTime);
 		}
