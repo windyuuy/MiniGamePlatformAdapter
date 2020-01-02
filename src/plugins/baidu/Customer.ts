@@ -1,5 +1,5 @@
 
-namespace WechatGDK {
+namespace BaiduGDK {
 	/** 客服 */
 	export class Customer implements GDK.ICustomer {
 		openCustomerServiceConversation(params: GDK.OpenParam) {

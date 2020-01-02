@@ -1,5 +1,5 @@
 
-namespace WechatGDK {
+namespace BaiduGDK {
 	const devlog = Common.devlog
 
 	export class SystemInfo extends GDK.SystemInfoBase {

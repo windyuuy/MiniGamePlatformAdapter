@@ -1,5 +1,5 @@
 
-namespace WechatGDK {
+namespace BaiduGDK {
 	export class GameInfo extends GDK.GameInfoBase {
 
 		mode: "develop" | "test" | "release"

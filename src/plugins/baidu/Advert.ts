@@ -1,5 +1,5 @@
 
-namespace WechatGDK {
+namespace BaiduGDK {
 	export class Advert implements GDK.IAdvert {
 
 		createRewardedVideoAd(params: {

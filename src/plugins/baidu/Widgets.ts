@@ -1,5 +1,5 @@
 
-namespace WechatGDK {
+namespace BaiduGDK {
 
 	class KeyBoard implements GDK.IKeyBoard {
 		hideKeyboard(): Promise<void> {

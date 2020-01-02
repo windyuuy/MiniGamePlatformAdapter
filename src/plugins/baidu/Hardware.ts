@@ -1,5 +1,5 @@
 
-namespace WechatGDK {
+namespace BaiduGDK {
 	class Vibration implements GDK.IVibration {
 		async vibrateLong() {
 			const ret = new GDK.RPromise<void>()

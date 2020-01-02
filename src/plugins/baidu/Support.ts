@@ -1,12 +1,12 @@
 
-namespace WechatGDK {
+namespace BaiduGDK {
 	export class Support implements GDK.ISupport {
-		pluginName = "wechat"
+		pluginName = "baidu"
 		supportShare: boolean = true
 		supportShareTickets: boolean = true
 		requireSubDomainRank: boolean = true
-		apiPlatform = "wechatgame"
+		apiPlatform = "baidugame"
 		requireAuthorize: boolean = true
-		apiNameLocale: string = "微信"
+		apiNameLocale: string = "百度"
 	}
 }

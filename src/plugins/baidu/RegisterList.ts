@@ -1,4 +1,4 @@
-namespace WechatGDK {
+namespace BaiduGDK {
 	export class RegisterList extends GDK.ModuleClassMap {
 		Advert = Advert
 		GameInfo = GameInfo

@@ -1,4 +1,4 @@
-namespace WechatGDK {
+namespace BaiduGDK {
 	const devlog = Common.devlog
 
     /**

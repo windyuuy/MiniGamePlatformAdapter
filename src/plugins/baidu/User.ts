@@ -1,5 +1,5 @@
 
-namespace WechatGDK {
+namespace BaiduGDK {
 	const devlog = Common.devlog
 
 	export class User extends GDK.UserBase {

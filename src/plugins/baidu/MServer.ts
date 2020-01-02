@@ -1,4 +1,4 @@
-namespace WechatGDK {
+namespace BaiduGDK {
 
 	export type LoginCallbackData = {
 		succeed: boolean,

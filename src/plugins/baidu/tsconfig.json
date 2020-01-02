@@ -1,7 +1,7 @@
 {
 	"extends": "../../base",
 	"compilerOptions": {
-		"outFile": "../../../dist/wechat.js"
+		"outFile": "../../../dist/baidu.js"
 	},
 	"files": [
 		"./Common.ts",

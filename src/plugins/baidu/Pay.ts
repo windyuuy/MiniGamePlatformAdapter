@@ -1,5 +1,5 @@
 
-namespace WechatGDK {
+namespace BaiduGDK {
 	const devlog = Common.paylog
 
 	const checkEssentialParam = (options: { [key: string]: any }, keys: string[]) => {

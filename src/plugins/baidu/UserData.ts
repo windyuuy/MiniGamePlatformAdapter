@@ -1,5 +1,5 @@
 
-namespace WechatGDK {
+namespace BaiduGDK {
 	export class UserData implements GDK.IUserData {
 		openId: string
 		openKey: string
