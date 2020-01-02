@@ -3,11 +3,11 @@ namespace BaiduGDK {
 
 	export class SubContext implements GDK.ISubContext {
 		onMessage(callback: (message: GDK.OpenDataContextMessage) => void) {
-			return wx.onMessage(callback)
+			return swan.onMessage(callback)
 		}
 
 		getOpenDataContext(): GDK.IOpenDataContext {
-			return wx.getOpenDataContext()
+			return swan.getOpenDataContext()
 		}
 	}
 }

@@ -10,7 +10,7 @@ namespace BaiduGDK {
 			params.fail = () => {
 				ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_OPEN_FEEDBACK_FAILED))
 			}
-			wx.openCustomerServiceConversation(params)
+			swan.openCustomerServiceConversation(params)
 			return ret.promise
 		}
 	}

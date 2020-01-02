@@ -41,8 +41,8 @@ namespace BaiduGDK {
 			Common.httpClient = info.wechat.httpClient
 		}
 		init() {
-			this._launchOptions = wx.getLaunchOptionsSync()
-			wx.onShow((res) => {
+			this._launchOptions = swan.getLaunchOptionsSync()
+			swan.onShow((res) => {
 				//刷新启动参数
 				this._launchOptions.query = res.query
 				this._launchOptions.shareTicket = res.shareTicket

@@ -115,7 +115,7 @@ namespace BaiduGDK {
 
 		getFriendCloudStorage(obj: { keyList: string[], typeIndex: string[] }): Promise<{ data: GDK.UserGameData[] }> {
 			const ret = new GDK.RPromise<{ data: GDK.UserGameData[] }>()
-			wx.getFriendCloudStorage({
+			swan.getFriendCloudStorage({
 				keyList: obj.keyList,
 				success: (res) => {
 					ret.success(res)
@@ -127,9 +127,9 @@ namespace BaiduGDK {
 			return ret.promise
 		}
 
-		setUserCloudStorage(obj: { KVDataList: wx.KVData[], typeIndex: string[] }): Promise<void> {
+		setUserCloudStorage(obj: { KVDataList: swan.KVData[], typeIndex: string[] }): Promise<void> {
 			const ret = new GDK.RPromise<void>()
-			wx.setUserCloudStorage({
+			swan.setUserCloudStorage({
 				KVDataList: obj.KVDataList,
 				success: () => {
 					ret.success(undefined)

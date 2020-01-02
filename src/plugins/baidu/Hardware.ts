@@ -3,7 +3,7 @@ namespace BaiduGDK {
 	class Vibration implements GDK.IVibration {
 		async vibrateLong() {
 			const ret = new GDK.RPromise<void>()
-			wx.vibrateLong({
+			swan.vibrateLong({
 				success: () => {
 					ret.success(undefined)
 				},
@@ -15,7 +15,7 @@ namespace BaiduGDK {
 		}
 		async vibrateShort() {
 			const ret = new GDK.RPromise<void>()
-			wx.vibrateShort({
+			swan.vibrateShort({
 				success: () => {
 					ret.success(undefined)
 				},
@@ -28,22 +28,22 @@ namespace BaiduGDK {
 	}
 
 	class Performance implements GDK.IPerformance {
-		_performance: wx.Performance = wx.getPerformance()
+		_performance = swan.getPerformance()
 		getMicroTime(): GDK.TMicroSecond {
 			return this._performance.now()
 		}
 		tryGC(): void {
-			wx.triggerGC()
+			swan.triggerGC()
 		}
 		onMemoryWarning(callback: (res: GDK.MemoryWarningInfo) => void): void {
-			wx.onMemoryWarning(callback)
+			swan.onMemoryWarning(callback)
 		}
 	}
 
 	class Screen implements GDK.IScreen {
 		getBrightness(): Promise<GDK.BrightnessData> {
 			const ret = new GDK.RPromise<GDK.BrightnessData>()
-			wx.getScreenBrightness({
+			swan.getScreenBrightness({
 				success: (res) => {
 					ret.success(res)
 				},
@@ -53,7 +53,7 @@ namespace BaiduGDK {
 		}
 		setBrightness(data: GDK.BrightnessData): Promise<void> {
 			const ret = new GDK.RPromise<void>()
-			wx.setScreenBrightness({
+			swan.setScreenBrightness({
 				value: data.value,
 				success: () => {
 					ret.success(undefined)
@@ -64,7 +64,7 @@ namespace BaiduGDK {
 		}
 		setKeepScreenOn(res: { keepon: boolean }): Promise<void> {
 			const ret = new GDK.RPromise<void>()
-			wx.setKeepScreenOn({
+			swan.setKeepScreenOn({
 				keepScreenOn: res.keepon,
 				success: () => {
 					ret.success(undefined)
