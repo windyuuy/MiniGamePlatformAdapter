@@ -40,24 +40,18 @@ namespace BaiduGDK {
 			const env = info.isPayInSandbox ? 1 : 0
 			const successCode = 999999
 			const zoneId = slib.defaultValue(options.wxZoneId, "1")
-			const mp: wx.MidasPaymentParams = {
-				mode: "game",
-				env: env,
-				offerId: info.offerId,
-				currencyType: config.currencyUnit || "CNY",
-				platform: 'android',
-				zoneId: zoneId,
-				buyQuantity: config.amount,
+			const orderInfo: swan.BaiduOrderParams = {
+				dealId: config.partnerId,
+				appKey: info.appId,//		百度电商开放平台 appKey，用以表示应用身份的唯一 ID	
+				totalAmount: "" + config.price,//		订单金额
+				tpOrderId: config.gleeOrderNo,//		商户平台自己记录的订单 ID
+				dealTitle: config.title,//		订单的名称。	
+				signFieldsRange: 1,//		固定值 1。	
+				rsaSign: config.paySign//	对 appKey，dealId，tpOrderId，totalAmount RSA 加密后的签名
 			}
-			devlog.info("requestMidasPayment", mp)
-			wx.requestMidasPayment({
-				mode: mp.mode,
-				env: mp.env,
-				offerId: mp.offerId,
-				currencyType: mp.currencyType,
-				platform: mp.platform,
-				zoneId: mp.zoneId,
-				buyQuantity: mp.buyQuantity,
+			devlog.info("requestMidasPayment", orderInfo)
+			swan.requestPolymerPayment({
+				orderInfo: orderInfo,
 				success: () => {
 					devlog.info("微信充值成功", config)
 					ret.success({
@@ -136,10 +130,9 @@ namespace BaiduGDK {
 			}
 
 			devlog.info(`navigateToMiniProgram: { path: ${jpPath}, miniAppId: ${miniAppOfferId}, envVersion:${envVersion} }`, extraData)
-			wx.navigateToMiniProgram({
-				appId: miniAppOfferId,
+			swan.navigateToMiniProgram({
+				appKey: miniAppOfferId,
 				path: jpPath,
-				envVersion: envVersion,
 				extraData: extraData,
 				success: () => {
 					devlog.info("调起app成功", config)
@@ -208,7 +201,7 @@ namespace BaiduGDK {
 			}
 
 			devlog.info(`openCustomerServiceConversation: { path: ${jpPath}, miniAppId: ${miniAppOfferId}, envVersion:${envVersion} }`, subTitle, imagePath, extraData)
-			wx.openCustomerServiceConversation({
+			swan.openCustomerServiceConversation({
 				sessionFrom: myAppId,
 				showMessageCard: true,
 				sendMessagePath: jpPath,
