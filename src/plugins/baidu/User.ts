@@ -9,7 +9,7 @@ namespace BaiduGDK {
 		}
 
 		initWithConfig(info: GDK.GDKConfig) {
-			this.api.userData.userId = info.wechat.userId
+			this.api.userData.userId = info.baidu.userId
 		}
 
 		userLogin(p: { code?: string, openId?: string, token?: string }, ret: GDK.RPromise<GDK.LoginResult>) {
