@@ -2,12 +2,12 @@
 namespace BaiduGDK {
 	export class Auth implements GDK.IAuth {
 		createUserInfoButton(obj: GDK.IUserInfoButton): GDK.UserInfoButton {
-			return wx.createUserInfoButton(obj)
+			return swan.createUserInfoButton(obj)
 		}
 
 		async isUserInfoAuthAlready() {
 			return new Promise<boolean>((resolve, reject) => {
-				wx.getSetting({
+				swan.getSetting({
 					success: (res) => {
 						resolve(res["scope.userInfo"])
 					},

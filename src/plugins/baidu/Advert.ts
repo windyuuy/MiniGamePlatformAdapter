@@ -13,7 +13,7 @@ namespace BaiduGDK {
 				return null
 			}
 
-			return wx.createRewardedVideoAd(params)
+			return swan.createRewardedVideoAd(params)
 		}
 
 		createBannerAd(params: {
@@ -28,7 +28,7 @@ namespace BaiduGDK {
 			if (params.style.top != undefined) {
 				top = params.style.top
 			} else if (params.style.y != undefined) {
-				top = wx.getSystemInfoSync().screenHeight - (params.style.y + params.style.height)
+				top = swan.getSystemInfoSync().screenHeight - (params.style.y + params.style.height)
 			}
 
 			let left = 0
@@ -46,7 +46,7 @@ namespace BaiduGDK {
 					left: left,
 				}
 			}
-			return wx.createBannerAd(params2)
+			return swan.createBannerAd(params2)
 		}
 
 

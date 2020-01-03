@@ -1876,6 +1876,10 @@ declare namespace swan {
 		success?: (res?: LoginResult) => void;
 	}
 
+	export function isLoginSync(): { isLogin: boolean };
+
+	export function getSwanId(options: BaseOptions): void;
+
 	/**
 	 * 调用接口获取**登录凭证（code）**进而换取用户登录态信息，
 	 * 包括用户的**唯一标识（openid）** 及本次登录的 **会话密钥（session_key）**。**用户数据的加解密通讯**需要依赖会话密钥完成。
