@@ -33,12 +33,12 @@ namespace BaiduGDK {
 		gameType: number
 
 		initWithConfig(info: GDK.GDKConfig) {
-			for (let k in info.wechat) {
-				this[k] = info.wechat[k]
+			for (let k in info.baidu) {
+				this[k] = info.baidu[k]
 			}
 
-			Common.getServerTime = info.wechat.getServerTime
-			Common.httpClient = info.wechat.httpClient
+			Common.getServerTime = info.baidu.getServerTime
+			Common.httpClient = info.baidu.httpClient
 		}
 		init() {
 			this._launchOptions = swan.getLaunchOptionsSync()

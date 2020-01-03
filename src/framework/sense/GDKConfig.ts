@@ -151,7 +151,7 @@ namespace GDK {
 	export class GDKConfig {
 
 		develop?: GDKDevelopConfig
-
+		baidu?: GDKWechatConfig
 		wechat?: GDKWechatConfig
 
 		bytedance?: GDKBytedanceConfig
