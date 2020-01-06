@@ -104,6 +104,9 @@ namespace BaiduGDK {
 
 
 			const info = swan.getSystemInfoSync()
+
+			swan.getOpenDataContext().postMessage({ action: "getSystemInfoSync", value: info })
+
 			slib.JSHelper.merge(info, this)
 			this.fetchNetworkInfo()
 			this.updateNetworkInfo(this.networkType)
