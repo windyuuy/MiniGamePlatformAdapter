@@ -100,6 +100,11 @@ namespace GDK {
 
 
 	export class ConsumePurchaseResult {
+		/**
+		 * 0 消耗成功
+		 * 8 订单不存在
+		 * -1 消耗异常
+		 */
 		code: number
 	}
 	export class PayQueryItemInfoResultData {
