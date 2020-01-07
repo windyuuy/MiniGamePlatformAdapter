@@ -68,6 +68,10 @@ namespace webGDK {
 			 **/
 			followGzh: 0 | 1
 
+			tableConf: {
+				tableSign: string,
+			},
+
 		}
 	}
 

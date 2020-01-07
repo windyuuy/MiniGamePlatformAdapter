@@ -68,6 +68,12 @@ namespace VIVOGDK {
 			 **/
 			followGzh: 0 | 1
 
+
+			tableConf: {
+				tableSign: string,
+			},
+
+
 		}
 	}
 
@@ -81,6 +87,7 @@ namespace VIVOGDK {
 		userLogin(
 			data: {
 				code: string
+				clientSystemInfo: any;
 			},
 			callback: (data: LoginCallbackData) => void,
 			errorCallback: (error: any, retry: () => void) => void = null) {

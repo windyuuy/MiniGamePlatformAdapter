@@ -45,9 +45,9 @@ namespace AppGDK {
 			this._isShowing = false
 
 			let err = new GDK.FullscreenAdOnErrorParam()
-			err.errCode = error.errorCode
-			err.errMsg = error.errorMsg
-			for (let f of this._errorFuncList) {
+			err.errCode = error.errorCode || error["code"]
+			err.errMsg = error.errorMsg || error["message"] //有的平台没有按正确的格式上传信息
+			for (let f of this._errorFuncList.concat()) {
 				f(err)
 			}
 		}
@@ -69,7 +69,7 @@ namespace AppGDK {
 				isEnded = !!data.couldReward
 			}
 
-			for (let f of this._closeFuncList) {
+			for (let f of this._closeFuncList.concat()) {
 				try {
 					f({ isEnded: isEnded });
 				} catch (e) {
@@ -101,7 +101,7 @@ namespace AppGDK {
 				let onLoadedCallbacks = this._onLoadedCallbacks
 				// 清空避免重复 promise
 				this._onLoadedCallbacks = []
-				for (let f of onLoadedCallbacks) {
+				for (let f of onLoadedCallbacks.concat()) {
 					try {
 						f()
 					} catch (e) {
@@ -111,7 +111,7 @@ namespace AppGDK {
 
 				try {
 					// onLoaded 回调
-					for (let f of this._loadFuncList) {
+					for (let f of this._loadFuncList.concat()) {
 						f()
 					}
 				} catch (e) {

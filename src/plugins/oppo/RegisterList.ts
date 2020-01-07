@@ -13,7 +13,7 @@ namespace OPPOGDK {
 		Support = Support
 		Except = Except
 		// Auth = Auth
-		// Hardware = Hardware
+		Hardware = Hardware
 		APISystem = APISystem
 
 	}

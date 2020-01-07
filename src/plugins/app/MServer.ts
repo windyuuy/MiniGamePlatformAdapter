@@ -77,6 +77,11 @@ namespace AppGDK {
 			 * 服务器附加的日志信息，需要所有日志都附带上ad
 			 */
 			ad?: any
+
+			tableConf: {
+				tableSign: string,
+			},
+
 		}
 	}
 

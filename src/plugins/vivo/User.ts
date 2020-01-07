@@ -29,7 +29,10 @@ namespace VIVOGDK {
 					//const system = this.api.systemInfo.system == "android" ? 0 : 1
 					//let option = qg.getLaunchOptionsSync()
 					//console.log("LaunchOptions", option);
-					this.server.userLogin({ code: res.code }, (resp) => {
+					this.server.userLogin({
+						code: res.code,
+						clientSystemInfo: this.api.systemInfo.clone()
+					}, (resp) => {
 						if (resp.succeed) {
 							const data = resp.data
 							const newdata = {
@@ -47,6 +50,8 @@ namespace VIVOGDK {
 							}
 							//添加openId日志
 							this.api.systemInfo.deviceId = data.openId;
+
+							this.api.systemInfo.tableConf = resp.data.tableConf;//记录登录时传入的表格信息
 
 							const userdata = this.api.userData
 							for (let key in newdata) {

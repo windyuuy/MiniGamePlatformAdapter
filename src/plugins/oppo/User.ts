@@ -42,6 +42,8 @@ namespace OPPOGDK {
 					userdata.nickName = data.nickname
 					userdata.isNewUser = data.userNew
 
+					this.api.systemInfo.tableConf = resp.data.tableConf;//记录登录时传入的表格信息
+
 					ret.success({
 						extra: data,
 					})
@@ -76,6 +78,7 @@ namespace OPPOGDK {
 						userName: res.nickName,
 						avatar: res.avatar,
 						token: res.token,
+						clientSystemInfo: this.api.systemInfo.clone()
 					},
 						(resp) => {
 							if (resp.succeed) {
@@ -95,6 +98,8 @@ namespace OPPOGDK {
 								}
 								//添加openId日志
 								this.api.systemInfo.deviceId = data.openId;
+
+								this.api.systemInfo.tableConf = resp.data.tableConf;//记录登录时传入的表格信息
 
 								const userdata = this.api.userData
 								for (let key in newdata) {

@@ -32,6 +32,9 @@ namespace GDK {
 			gametoken: string,
 			qa?: string,//测试证书
 			ad?: string,//服务器需要日志附带的参数
+			verified?: boolean,
+			verifiedInfo?: { age: number, birthday: string, name: string, idCard: string };
+			holidays?: boolean,
 		}
 	}
 

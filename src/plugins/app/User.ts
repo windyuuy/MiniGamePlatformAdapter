@@ -15,91 +15,7 @@ namespace AppGDK {
 	var loginRecord: LoginCallbackData = null;
 	var fOnAccountChange: () => void = null
 
-	let loginComplete = (data: LoginCallbackData) => {
-		if (isCancelLogin) {
-			return;
-		}
-
-		let loginLogic = () => {
-			SDKProxy.hideLogining();
-			if (isCancelLogin) {
-				return;
-			}
-			isLoginEnd = true;
-			if (data.succeed) {
-				//刷新登陆记录中的信息
-				let userRecords = SDKProxy.loadUserRecord()
-				//查找ID相同的记录，或者是游客登陆，则是第一条
-				let record = userRecords.find(a => a.openId == data.data.openId) || userRecords[0]
-				record.openId = data.data.openId;
-				if (record.name == "" || record.name == null || record.loginType == "wxapp") {
-					record.name = data.data.nickname
-				}
-				record.userId = data.data.userId
-				record.createTime = data.data.createTime
-				if (record.loginType != "wxapp") {
-					record.token = data.data.token
-				} else {
-					record.token = null
-				}
-				SDKProxy.saveUserRecord(userRecords);
-
-				const userdata = self.api.userData
-				userdata.channelId = data.data.channelId
-				userdata.createTime = data.data.createTime
-				userdata.userId = data.data.userId
-				userdata.followGzh = data.data.followGzh
-				userdata.nickName = data.data.nickname
-				userdata.isNewUser = data.data.userNew
-
-				//记录原生日志
-				if (data.data.userNew) {
-					LogBridge.logRegister(record.loginType)//注册日志
-				}
-				LogBridge.logLogin(record.loginType, record.userId)//登陆日志
-
-				loginRet.success({
-					extra: data.data,
-				})
-
-				//qa证书
-				if (data.data.qa && data.data.qa != null) {
-					//保存证书
-					gdkjsb.makeTestCertificate && gdkjsb.makeTestCertificate(data.data.qa);
-				} else {
-					//清除证书
-					gdkjsb.clearTestCerificate && gdkjsb.clearTestCerificate();
-				}
-
-				if (loginRecord != null) {
-					fOnAccountChange && fOnAccountChange()
-				}
-				loginRecord = data
-			} else {
-				loginRet.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN, {
-					data: {
-						extra: data,
-					}
-				}))
-			}
-		}
-
-		if (isDelayLogin) {
-			//延迟一秒
-			let time = new Date().getTime() - loginStartTime;
-			if (time < 0) time = 0;
-			if (time >= 1000) {
-				loginLogic();//没必要延迟
-			} else {
-				setTimeout(() => {
-					loginLogic();
-				}, Math.max(0, 1000 - time));
-			}
-		} else {
-			loginLogic();
-		}
-
-	}
+	let loginComplete: (data: LoginCallbackData) => void;
 
 	export class User extends GDK.UserBase {
 		api?: GDK.UserAPI
@@ -110,6 +26,95 @@ namespace AppGDK {
 		}
 
 		init(data) {
+
+			loginComplete = (data: LoginCallbackData) => {
+				if (isCancelLogin) {
+					return;
+				}
+
+				let loginLogic = () => {
+					SDKProxy.hideLogining();
+					if (isCancelLogin) {
+						return;
+					}
+					isLoginEnd = true;
+					if (data.succeed) {
+						//刷新登陆记录中的信息
+						let userRecords = SDKProxy.loadUserRecord()
+						//查找ID相同的记录，或者是游客登陆，则是第一条
+						let record = userRecords.find(a => a.openId == data.data.openId) || userRecords[0]
+						record.openId = data.data.openId;
+						if (record.name == "" || record.name == null || record.loginType == "wxapp") {
+							record.name = data.data.nickname
+						}
+						record.userId = data.data.userId
+						record.createTime = data.data.createTime
+						if (record.loginType != "wxapp") {
+							record.token = data.data.token
+						} else {
+							record.token = null
+						}
+						SDKProxy.saveUserRecord(userRecords);
+
+						this.api.systemInfo.tableConf = data.data.tableConf;//记录登录时传入的表格信息
+
+						const userdata = self.api.userData
+						userdata.channelId = data.data.channelId
+						userdata.createTime = data.data.createTime
+						userdata.userId = data.data.userId
+						userdata.followGzh = data.data.followGzh
+						userdata.nickName = data.data.nickname
+						userdata.isNewUser = data.data.userNew
+
+						//记录原生日志
+						if (data.data.userNew) {
+							LogBridge.logRegister(record.loginType)//注册日志
+						}
+						LogBridge.logLogin(record.loginType, record.userId)//登陆日志
+
+						loginRet.success({
+							extra: data.data,
+						})
+
+						//qa证书
+						if (data.data.qa && data.data.qa != null) {
+							//保存证书
+							gdkjsb.makeTestCertificate && gdkjsb.makeTestCertificate(data.data.qa);
+						} else {
+							//清除证书
+							gdkjsb.clearTestCerificate && gdkjsb.clearTestCerificate();
+						}
+
+						if (loginRecord != null) {
+							fOnAccountChange && fOnAccountChange()
+						}
+						loginRecord = data
+					} else {
+						loginRet.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN, {
+							data: {
+								extra: data,
+							}
+						}))
+					}
+				}
+
+				if (isDelayLogin) {
+					//延迟一秒
+					let time = new Date().getTime() - loginStartTime;
+					if (time < 0) time = 0;
+					if (time >= 1000) {
+						loginLogic();//没必要延迟
+					} else {
+						setTimeout(() => {
+							loginLogic();
+						}, Math.max(0, 1000 - time));
+					}
+				} else {
+					loginLogic();
+				}
+
+			}
+
 			self = this;
 			SDKProxy.onCancelLogining(() => {
 				if (isLoginEnd) {
@@ -377,11 +382,12 @@ namespace AppGDK {
 						SDKProxy.saveUserRecord(userRecords);
 						isDelayLogin = false;
 						let sysInfo = this.api.systemInfo.clone()
-						this.server.loginOpenId({ openId: null, uuId: sysInfo.uuid, clientSystemInfo: sysInfo }, loginComplete);
+						this.server.loginOpenId({ openId: null, uuId: sysInfo.uuid, clientSystemInfo: sysInfo, node: this.loginNode }, loginComplete);
 
 					} else if (params.autoLogin) {
 						//自动游客登陆
-						if (gdkjsb.nativeVersion >= 4) {
+						// if (gdkjsb.nativeVersion >= 4) {
+						if (nativeHelper.checkActionExist("loginNative")) {
 							//travel to native
 							SDKProxy.loginNative()
 						} else {

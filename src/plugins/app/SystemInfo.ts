@@ -75,6 +75,10 @@ namespace AppGDK {
 			this.packageTag = gdkjsb.packageTag
 			this.debugAccountServer = gdkjsb.debugAccountServer
 			this.isCustomBackendCfg = gdkjsb.isCustomBackendCfg
+
+			this.screenWidth = window.screen.width
+			this.screenHeight = window.screen.height
+
 		}
 	}
 }

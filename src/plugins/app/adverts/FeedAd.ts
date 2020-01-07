@@ -2,6 +2,69 @@ namespace AppGDK {
 	const devlog = Common.devlog
 
 	export class FeedAd implements GDK.IFeedAd {
+
+		static _onFeedAdLoadedCallbacks: Function[] = []
+		static _onFeedAdLoadFailedCallbacks: Function[] = []
+		static _inited: boolean = false
+		static _initListeners() {
+			if (this._inited) {
+				return
+			}
+			this._inited = true
+
+			SDKProxy.nativeAdvert.onFeedAdLoaded((params: { adObjectId: number }) => {
+				this._onFeedAdLoadedCallbacks.concat().forEach(f => {
+					try {
+						f(params)
+					} catch (e) {
+						console.error(e)
+					}
+				})
+			})
+
+			SDKProxy.nativeAdvert.onFeedAdLoadFailed((params: { error: IronSrc.IronSourceError, adObjectId: number }) => {
+				this._onFeedAdLoadFailedCallbacks.concat().forEach(f => {
+					try {
+						f(params)
+					} catch (e) {
+						console.error(e)
+					}
+				})
+			})
+		}
+
+		protected onFeedAdLoaded(f) {
+			let callbacks = FeedAd._onFeedAdLoadedCallbacks
+			let index = callbacks.indexOf(f)
+			if (f && index <= 0) {
+				callbacks.push(f)
+			}
+		}
+
+		protected offFeedAdLoaded(f) {
+			let callbacks = FeedAd._onFeedAdLoadedCallbacks
+			let index = callbacks.indexOf(f)
+			if (index >= 0) {
+				callbacks.splice(index, 1)
+			}
+		}
+
+		protected onFeedAdLoadFailed(f) {
+			let callbacks = FeedAd._onFeedAdLoadFailedCallbacks
+			let index = callbacks.indexOf(f)
+			if (f && index <= 0) {
+				callbacks.push(f)
+			}
+		}
+
+		protected offFeedAdLoadFailed(f) {
+			let callbacks = FeedAd._onFeedAdLoadFailedCallbacks
+			let index = callbacks.indexOf(f)
+			if (index >= 0) {
+				callbacks.splice(index, 1)
+			}
+		}
+
 		protected _style: GDK.FeedAdStyleAccessor = new GDK.FeedAdStyleAccessor()
 		protected adObjectId: number = -1
 
@@ -45,6 +108,8 @@ namespace AppGDK {
 				this.style.left = style.left
 				this.style.top = style.top
 			}
+
+			FeedAd._initListeners()
 		}
 
 		async load(): Promise<void> {
@@ -52,17 +117,23 @@ namespace AppGDK {
 			this.adObjectId = adObjectId
 
 			let onLoadPromise = new Promise((resolve, reject) => {
-				SDKProxy.nativeAdvert.onFeedAdLoaded((params: { adObjectId: number }) => {
+				let _onFeedAdLoadedCallback = (params: { adObjectId: number }) => {
+					this.offFeedAdLoaded(_onFeedAdLoadedCallback)
+
 					if (this.adObjectId == params.adObjectId) {
 						resolve()
 					}
-				})
+				}
 
-				SDKProxy.nativeAdvert.onFeedAdLoadFailed((params: { error: IronSrc.IronSourceError, adObjectId: number }) => {
+				let _onFeedAdLoadFailedCallback = (params: { error: IronSrc.IronSourceError, adObjectId: number }) => {
+					this.offFeedAdLoadFailed(_onFeedAdLoadFailedCallback)
+
 					if (this.adObjectId == params.adObjectId) {
 						reject(new Error(params.error.errorMsg))
 					}
-				})
+				}
+				this.onFeedAdLoaded(_onFeedAdLoadedCallback)
+				this.onFeedAdLoadFailed(_onFeedAdLoadFailedCallback)
 			})
 
 			await SDKProxy.nativeAdvert.loadFeedAd({ adObjectId })

@@ -1866,10 +1866,13 @@ declare namespace wx {
 		 * 使用 `code` 换取 `session_key` api，将 code 换成 openid 和 session_key
 		 */
 		code: string;
+
+		anonymousCode: string
 	}
 
 	export interface LoginOptions extends BaseOptions {
 
+		force: boolean,
 		/**
 		 * 接口调用成功的回调函数
 		 */
@@ -2150,7 +2153,7 @@ declare namespace wx {
         imageUrl	string		否	转发显示图片的链接，可以是网络图片路径或本地图片文件路径或相对代码包根目录的图片文件路径。	
         query	string		否	查询字符串，从这条转发消息进入后，可通过 wx.onLaunch() 或 wx.onShow 获取启动参数中的 query。必须是 key1=val1&key2=val2 的格式。
      */
-	export function shareAppMessage(obj?: { title?: string, imageUrl?: string, query?: string, success?: Function, fail?: Function, complete?: Function, cancel?: Function });
+	export function shareAppMessage(obj?: { title?: string, desc: string, imageUrl?: string, query?: string, success?: Function, fail?: Function, complete?: Function, cancel?: Function });
 
 	/**
      * 更新转发属性

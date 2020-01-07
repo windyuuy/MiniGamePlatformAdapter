@@ -68,6 +68,9 @@ namespace BytedanceGDK {
 			 **/
 			followGzh: 0 | 1
 
+			tableConf: {
+				tableSign: string,
+			},
 		}
 	}
 
@@ -80,6 +83,7 @@ namespace BytedanceGDK {
 
 		userLogin(
 			data: {
+				anonymousCode: string,
 				code: string,
 				system: number,//系统类型 0:未知 1:android 2:ios
 				launchOptionsQuery?: any,//启动参数query 

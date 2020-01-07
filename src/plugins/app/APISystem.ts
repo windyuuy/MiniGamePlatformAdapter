@@ -17,7 +17,7 @@ namespace AppGDK {
 						jsonData = JSON.parse(data);
 					} catch (e) {
 					}
-					for (let f of this._showList) {
+					for (let f of this._showList.concat()) {
 						f(jsonData)
 					}
 				})
@@ -27,7 +27,7 @@ namespace AppGDK {
 						jsonData = JSON.parse(data);
 					} catch (e) {
 					}
-					for (let f of this._hideList) {
+					for (let f of this._hideList.concat()) {
 						f(jsonData)
 					}
 				})
@@ -63,7 +63,7 @@ namespace AppGDK {
 			let otherParams = {
 				nickName: name
 			}
-			gdk.openURL(encodeURI(`https://ykf-webchat.7moor.com/wapchat.html?accessId=d71a7280-b8ef-11e9-80bc-35624dd60e8f&clientId=${id}&otherParams=${JSON.stringify(otherParams)}&fromUrl=${gdk.systemInfo.packageName}&urlTitle=${gdk.systemInfo.packageTag}&customField=${JSON.stringify(customField)}`))
+			gdk.openURL(encodeURI(`https://ykf-webchat.7moor.com/wapchat.html?accessId=${accessId}&clientId=${id}&otherParams=${JSON.stringify(otherParams)}&fromUrl=${gdk.systemInfo.packageName}&urlTitle=${gdk.systemInfo.packageTag}&customField=${JSON.stringify(customField)}`))
 			// }
 		}
 

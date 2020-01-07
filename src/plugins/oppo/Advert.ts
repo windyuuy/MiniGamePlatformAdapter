@@ -76,7 +76,7 @@ namespace OPPOGDK {
 			let err = new GDK.RewardedVideoAdOnErrorParam()
 			err.errCode = error.errorCode
 			err.errMsg = error.errorMsg
-			for (let f of this._errorFuncList) {
+			for (let f of this._errorFuncList.concat()) {
 				f(err)
 			}
 		}
@@ -90,7 +90,7 @@ namespace OPPOGDK {
 
 			let isEnded = this._isEnded
 			this._isEnded = false
-			for (let f of this._closeFuncList) {
+			for (let f of this._closeFuncList.concat()) {
 				try {
 					f({ isEnded: isEnded });
 				} catch (e) {
@@ -118,7 +118,7 @@ namespace OPPOGDK {
 				let onLoadedCallbacks = this._onLoadedCallbacks
 				// 清空避免重复 promise
 				this._onLoadedCallbacks = []
-				for (let f of onLoadedCallbacks) {
+				for (let f of onLoadedCallbacks.concat()) {
 					try {
 						f()
 					} catch (e) {
@@ -128,7 +128,7 @@ namespace OPPOGDK {
 
 				try {
 					// onLoaded 回调
-					for (let f of this._loadFuncList) {
+					for (let f of this._loadFuncList.concat()) {
 						f()
 					}
 				} catch (e) {
@@ -267,7 +267,7 @@ namespace OPPOGDK {
 			adv.onLoad((...args) => {
 				this.isAvailable = true
 
-				this._loadFuncList.forEach((f) => {
+				this._loadFuncList.concat().forEach((f) => {
 					try {
 						f(...args)
 					} catch (e) {
@@ -278,7 +278,7 @@ namespace OPPOGDK {
 			adv.onClose((...args) => {
 				this.isAvailable = false
 
-				this._closeFuncList.forEach((f) => {
+				this._closeFuncList.concat().forEach((f) => {
 					try {
 						f(...args)
 					} catch (e) {
@@ -289,7 +289,7 @@ namespace OPPOGDK {
 			adv.onError((...args) => {
 				// this.isAvailable = false
 
-				this._errorFuncList.forEach((f) => {
+				this._errorFuncList.concat().forEach((f) => {
 					try {
 						f(...args)
 					} catch (e) {

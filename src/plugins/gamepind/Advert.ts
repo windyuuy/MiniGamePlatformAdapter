@@ -26,7 +26,7 @@ namespace GamepindGDK {
 			if (GleeadSenseAd) {
 				devlog.info("Gamepind GleeadSenseAd 视频管理初始化!")
 				GleeadSenseAd.init(() => {
-					for (let f of this._loadFuncList) {
+					for (let f of this._loadFuncList.concat()) {
 						devlog.warn("Gamepind GleeadSenseAd load ok!")
 						f()
 					}
@@ -57,7 +57,7 @@ namespace GamepindGDK {
 				devlog.info("Gamepind videoad already cached")
 				this._isLoad = true;
 				ret.success(undefined);
-				for (let f of this._loadFuncList) {
+				for (let f of this._loadFuncList.concat()) {
 					f()
 				}
 
@@ -78,7 +78,7 @@ namespace GamepindGDK {
 			if (GleeadSenseAd) {
 				devlog.info("Gamepind 播放视频!")
 				GleeadSenseAd.playVideo(() => {
-					for (let f of this._closeFuncList) {
+					for (let f of this._closeFuncList.concat()) {
 						devlog.warn("播放视频成功!")
 						f({ isEnded: true });
 						this._isLoad = false;
@@ -138,7 +138,7 @@ namespace GamepindGDK {
 
 		constructor(params: { viewId: number, style?: GDK.BannerStyle }) {
 			setTimeout(() => {
-				for (let f of this._loadFuncList) {
+				for (let f of this._loadFuncList.concat()) {
 					f();
 				}
 			}, 1000)

@@ -1,7 +1,7 @@
 declare namespace gdkjsb {
 
 	/**
-	 * 当前原生包的版本号
+	 * 当前原生包的版本号（不推荐，尽量用 nativeHelper 中的函数代替）
 	 * * 0 或 undefined 表示最初始版本，不包含新的的GooglePay支付
 	 * * 1 新的googlepay支付，并添加了 getSafeArea 接口
 	 */
@@ -214,7 +214,7 @@ declare namespace gdkjsb {
 		static off(id: number);
 
 		/**
-		 * 检查action是否存在
+		 * 检查action是否存在（不推荐，用 nativeHelper.checkActionExist("apiname") 代替）
 		 * @param action 动作名称
 		 */
 		static checkActionExist(action: string): boolean;

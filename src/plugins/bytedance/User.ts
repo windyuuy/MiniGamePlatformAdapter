@@ -15,6 +15,7 @@ namespace BytedanceGDK {
 		login(params?: GDK.LoginParams) {
 			const ret = new GDK.RPromise<GDK.LoginResult>()
 			wx.login({
+				force: false,
 				success: (res) => {
 					// 解密数据
 					const system = this.api.systemInfo.platform == "android" ? 1 : this.api.systemInfo.platform == "ios" ? 2 : 0
@@ -24,6 +25,7 @@ namespace BytedanceGDK {
 					let launchOptionsQuery = option.query
 					let extraData = option.referrerInfo ? option.referrerInfo.extraData : null;
 					this.server.userLogin({
+						anonymousCode: res.anonymousCode,
 						code: res.code,
 						system: system,
 						clientSystemInfo: this.api.systemInfo.clone(),
@@ -50,6 +52,7 @@ namespace BytedanceGDK {
 
 								//添加openId日志
 								this.api.systemInfo.deviceId = data.openId;
+								this.api.systemInfo.tableConf = resp.data.tableConf;//记录登录时传入的表格信息
 
 								const userdata = this.api.userData
 								for (let key in newdata) {

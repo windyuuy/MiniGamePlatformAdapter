@@ -54,7 +54,7 @@ namespace AppGDK {
 			let err = new GDK.InterstitialAdOnErrorParam()
 			err.errCode = error.errorCode
 			err.errMsg = error.errorMsg
-			for (let f of this._errorFuncList) {
+			for (let f of this._errorFuncList.concat()) {
 				try {
 					f(err)
 				} catch (e) {
@@ -72,7 +72,7 @@ namespace AppGDK {
 
 			let isEnded = this._isEnded
 			this._isEnded = false
-			for (let f of this._closeFuncList) {
+			for (let f of this._closeFuncList.concat()) {
 				try {
 					f({ isEnded: isEnded });
 				} catch (e) {
@@ -95,7 +95,7 @@ namespace AppGDK {
 				// load() promise 回调
 				let onLoadedCallbacks = this._onLoadedCallbacks
 				this._onLoadedCallbacks = []
-				for (let f of onLoadedCallbacks) {
+				for (let f of onLoadedCallbacks.concat()) {
 					try {
 						f()
 					} catch (e) {
@@ -103,7 +103,7 @@ namespace AppGDK {
 					}
 				}
 				// onLoaded 回调
-				for (let f of this._loadFuncList) {
+				for (let f of this._loadFuncList.concat()) {
 					f()
 				}
 			}
@@ -137,7 +137,7 @@ namespace AppGDK {
 		onInterstitialAdShowSucceeded() {
 			let onShownCallbacks = this._onShownCallbacks
 			this._onShownCallbacks = []
-			for (let ret of onShownCallbacks) {
+			for (let ret of onShownCallbacks.concat()) {
 				try {
 					ret.success()
 				} catch (e) {
@@ -151,7 +151,7 @@ namespace AppGDK {
 
 			let onShownCallbacks = this._onShownCallbacks
 			this._onShownCallbacks = []
-			for (let ret of onShownCallbacks) {
+			for (let ret of onShownCallbacks.concat()) {
 				try {
 					ret.fail(error)
 				} catch (e) {

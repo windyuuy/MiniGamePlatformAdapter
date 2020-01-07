@@ -35,17 +35,19 @@ namespace GDK {
 		): boolean {
 			slib.assert(this._m, "api not init");
 			if (typeof this._m[moduleName] != "object") {
-				devlog.warn("module unsupport: [gdk::${mvarname}]");
+				devlog.warn(`module unsupport: [gdk::${moduleName}]`);
 				return false;
 			}
 			if (attrType) {
 				const attr = this._m[moduleName][attrName];
 				if (!attr) {
-					devlog.warn("func unsupport: [gdk::${mvarname}.${key}]");
+					devlog.warn(`func unsupport: [gdk::${moduleName}.${attrName}]`);
 					return false;
 				}
 				if (typeof attr != attrType) {
-					devlog.warn("invalid func: [gdk::${mvarname}.${key}]");
+					devlog.warn(
+						`invalid type<${attrType}>: [gdk::${moduleName}.${attrName}]`
+					);
 					return false;
 				}
 			}
@@ -776,6 +778,15 @@ namespace GDK {
 			}
 			return this._m.systemInfo.isCustomBackendCfg;
 		}
+		/**
+		 * 服务器表格配置信息
+		 */
+		get tableConf(): { tableSign: string } {
+			if (!this.checkModuleAttr("systemInfo", "tableConf")) {
+				return undefined;
+			}
+			return this._m.systemInfo.tableConf;
+		}
 
 		/**
 		 * 刷新网络状况信息
@@ -898,9 +909,12 @@ namespace GDK {
 		 * @param callback
 		 */
 		getSafeArea?(
-			callback: (
-				data: { left: number; right: number; top: number; bottom: number }
-			) => void
+			callback: (data: {
+				left: number;
+				right: number;
+				top: number;
+				bottom: number;
+			}) => void
 		): void {
 			if (!this.checkModuleAttr("apiSystem", "getSafeArea", "function")) {
 				return undefined;
@@ -1240,7 +1254,9 @@ namespace GDK {
 			 *  - `ttadadvert` 穿山甲广告
 			 * - ios平台现有：
 			 *  - `gdtadvert` 广点通广告
-			 *  - `budadadvert` 头条广告
+			 *  - `ttadadvert` 头条广告
+			 *  - `facebookadvert` facebook广告
+			 *  - `ironsourceadvert` ironsource广告
 			 */
 			platform: string;
 		}): Promise<void> {
