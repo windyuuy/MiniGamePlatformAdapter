@@ -179,80 +179,84 @@ namespace WechatGDK {
 				let onShow = () => {
 					wx.offShow(onShow);
 
-					let shareMaySuc = () => {
-						/**
-						 *  一定概率（配表）判定本次分享成功（每天第一次必然成功）
-							一定概率（配表）判定本次分享失败，返回提示 调用微信分享接口失败,请重试，采用微信的提示弹框
-							一定概率（配表）判定本次分享失败，返回提示 请不要频繁打扰同个用户/群哦，采用微信的提示弹框
-						* */
-						if (this._isLastTimeYeasterDay || this._shareDefeated) {
-							shareSuc()
-							this._shareDefeated = false;
-						} else {
-							let r = Math.random()
+					setTimeout(() => {
 
-							if (r <= sharesSucPro) {
+						let shareMaySuc = () => {
+							/**
+							 *  一定概率（配表）判定本次分享成功（每天第一次必然成功）
+								一定概率（配表）判定本次分享失败，返回提示 调用微信分享接口失败,请重试，采用微信的提示弹框
+								一定概率（配表）判定本次分享失败，返回提示 请不要频繁打扰同个用户/群哦，采用微信的提示弹框
+							* */
+							if (this._isLastTimeYeasterDay || this._shareDefeated) {
 								shareSuc()
-								return
-							}
+								this._shareDefeated = false;
+							} else {
+								let r = Math.random()
 
-							r -= sharesSucPro
-							if (r <= sharesSucFail) {
-								shareFail()
-								this._shareDefeated = true;
-								return
-							}
-
-							shareFail("不要频繁分享到同一个群，换个群试试")
-							this._shareDefeated = true;
-						}
-					}
-
-					let shareSuc = () => {
-						this._isLastTimeYeasterDay = true;
-
-						let result = new GDK.ShareResult()
-						result.result = 0;
-						resolve(result)
-					}
-					let shareFail = (msg: string = "失败，发给其他好友试试") => {
-						let result = new GDK.ShareResult()
-						result.result = 1;
-						result.message = msg;
-						resolve(result)
-					}
-
-					let ec = (Common.getServerTime().getTime() - beginShareTime) / 1000
-					devlog.info("分享间隔时间", ec, shareInvaterl)
-					let platform = wx.getSystemInfoSync().platform
-					if (platform == "android" || ec > shareInvaterl) {//安卓不需要验证时间
-
-						//安卓平台使用
-						if (platform == "android") {
-							ShareProxy.apiGetValue(this.api.gameInfo.shareProxyUrl, this.api.gameInfo.appId, beginShareTime, (rep) => {
-								if (rep && rep.data) {
-									shareMaySuc()
-								} else {
-									shareFail()
+								if (r <= sharesSucPro) {
+									shareSuc()
+									return
 								}
-							})
-						} else if (platform == "ios") {
-							//根据时间进行假判断
-							shareMaySuc()
-						} else if (platform == "devtools") {
-							//开发工具 可能成功
-							shareMaySuc()
-						} else {
-							reject(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_SHARE_UNSUPPORTED, { message: "不支持的平台" + platform }))
+
+								r -= sharesSucPro
+								if (r <= sharesSucFail) {
+									shareFail()
+									this._shareDefeated = true;
+									return
+								}
+
+								shareFail("不要频繁分享到同一个群，换个群试试")
+								this._shareDefeated = true;
+							}
 						}
 
-					} else {
-						if (Math.random() * (1 - sharesSucPro) <= sharesSucFail) {
-							shareFail()
-						} else {
-							shareFail("不要频繁分享到同一个群，换个群试试")
+						let shareSuc = () => {
+							this._isLastTimeYeasterDay = true;
+
+							let result = new GDK.ShareResult()
+							result.result = 0;
+							resolve(result)
 						}
-					}
+						let shareFail = (msg: string = "失败，发给其他好友试试") => {
+							let result = new GDK.ShareResult()
+							result.result = 1;
+							result.message = msg;
+							resolve(result)
+						}
+
+						let ec = (Common.getServerTime().getTime() - beginShareTime) / 1000
+						devlog.info("分享间隔时间", ec, shareInvaterl)
+						let platform = wx.getSystemInfoSync().platform
+						if (platform == "android" || ec > shareInvaterl) {//安卓不需要验证时间
+
+							//安卓平台使用
+							if (platform == "android") {
+								ShareProxy.apiGetValue(this.api.gameInfo.shareProxyUrl, this.api.gameInfo.appId, beginShareTime, (rep) => {
+									if (rep && rep.data) {
+										shareMaySuc()
+									} else {
+										shareFail()
+									}
+								})
+							} else if (platform == "ios") {
+								//根据时间进行假判断
+								shareMaySuc()
+							} else if (platform == "devtools") {
+								//开发工具 可能成功
+								shareMaySuc()
+							} else {
+								reject(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_SHARE_UNSUPPORTED, { message: "不支持的平台" + platform }))
+							}
+
+						} else {
+							if (Math.random() * (1 - sharesSucPro) <= sharesSucFail) {
+								shareFail()
+							} else {
+								shareFail("不要频繁分享到同一个群，换个群试试")
+							}
+						}
+
+					})
 
 				}
 				wx.onShow(onShow);
