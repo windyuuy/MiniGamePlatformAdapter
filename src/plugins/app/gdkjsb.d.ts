@@ -106,6 +106,22 @@ declare namespace gdkjsb {
 	export var isCustomBackendCfg: boolean
 
 	/**
+	 * android id
+	 */
+	export var androidId: string
+
+	/**
+	 * mac address
+	 */
+	export var mac: string
+
+
+	/**
+	 * http user Agent
+	 */
+	export var userAgent: string
+
+	/**
 	 * 打开网页地址
 	 * @param url 
 	 */

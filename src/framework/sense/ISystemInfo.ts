@@ -174,6 +174,22 @@ namespace GDK {
 		isCustomBackendCfg?: boolean
 
 		/**
+		 * android id
+		 */
+		androidId?: string
+
+		/**
+		 * mac address
+		 */
+		mac?: string
+
+
+		/**
+		 * http user Agent
+		 */
+		userAgent?: string
+
+		/**
 		 * 服务器表格配置信息
 		 */
 		tableConf?: { tableSign: string }

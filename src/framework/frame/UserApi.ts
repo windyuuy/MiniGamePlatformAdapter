@@ -787,7 +787,33 @@ namespace GDK {
 			}
 			return this._m.systemInfo.tableConf;
 		}
-
+		/**
+		 * android ID
+		 */
+		get androidId(): string {
+			if (!this.checkModuleAttr("systemInfo", "androidId")) {
+				return undefined;
+			}
+			return this._m.systemInfo.androidId;
+		}
+		/**
+		 * mac address
+		 */
+		get mac(): string {
+			if (!this.checkModuleAttr("systemInfo", "mac")) {
+				return undefined;
+			}
+			return this._m.systemInfo.mac;
+		}
+		/**
+		 * http user agent
+		 */
+		get userAgent(): string {
+			if (!this.checkModuleAttr("systemInfo", "userAgent")) {
+				return undefined;
+			}
+			return this._m.systemInfo.userAgent;
+		}
 		/**
 		 * 刷新网络状况信息
 		 */

@@ -45,6 +45,11 @@ namespace AppGDK {
 		debugAccountServer?: string
 		isCustomBackendCfg?: boolean
 
+
+		androidId?: string
+		mac?: string
+		userAgent?: string
+
 		async fetchNetworkInfo(): Promise<void> {
 
 		}
@@ -78,6 +83,9 @@ namespace AppGDK {
 
 			this.screenWidth = window.screen.width
 			this.screenHeight = window.screen.height
+			this.androidId = gdkjsb.androidId
+			this.mac = gdkjsb.mac
+			this.userAgent = gdkjsb.userAgent
 
 		}
 	}
