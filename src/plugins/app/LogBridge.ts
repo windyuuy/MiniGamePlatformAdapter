@@ -28,17 +28,17 @@ class LogBridge {
 	/**
 	 * 自定义日志
 	 */
-	static logRequestPay(id: string, price: number, count: number, currency: string, succ: boolean) {
+	static logRequestPay(id: string, price: number, count: number, currency: string) {
 		if (gdkjsb.bridge == undefined) return;
-		gdkjsb.bridge.callAction("AppsFlyerSDK:logRequestPay", JSON.stringify({ id, price, count, currency, succ }), (data) => { })
+		gdkjsb.bridge.callAction("AppsFlyerSDK:logRequestPay", JSON.stringify({ id, price, count, currency }), (data) => { })
 	}
 
 	/**
 	 * 自定义日志
 	 */
-	static logPurchased(id: string, revenue: number, price: number, count: number, currency: string) {
+	static logPurchased(id: string, revenue: number, price: number, count: number, currency: string, succ: boolean) {
 		if (gdkjsb.bridge == undefined) return;
-		gdkjsb.bridge.callAction("AppsFlyerSDK:logPurchased", JSON.stringify({ id, revenue, price, count, currency }), (data) => { })
+		gdkjsb.bridge.callAction("AppsFlyerSDK:logPurchased", JSON.stringify({ id, revenue, price, count, currency, succ }), (data) => { })
 	}
 
 }

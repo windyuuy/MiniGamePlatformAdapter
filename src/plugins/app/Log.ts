@@ -16,7 +16,7 @@ namespace AppGDK {
 				LogBridge.logRequestPay(p.id, p.price, p.count, p.currency)
 			} else if (logType == 'Paid') {
 				let p = <GDK.PayLogParams>params
-				LogBridge.logRequestPay(p.id, p.price, p.count, p.currency)
+				LogBridge.logPurchased(p.id, p.price, p.price, p.count, p.currency, p.succ)
 			}
 			else {
 				console.error("unsupport log type")
