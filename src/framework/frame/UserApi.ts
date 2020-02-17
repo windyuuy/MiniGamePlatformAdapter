@@ -779,16 +779,7 @@ namespace GDK {
 			return this._m.systemInfo.isCustomBackendCfg;
 		}
 		/**
-		 * 服务器表格配置信息
-		 */
-		get tableConf(): { tableSign: string } {
-			if (!this.checkModuleAttr("systemInfo", "tableConf")) {
-				return undefined;
-			}
-			return this._m.systemInfo.tableConf;
-		}
-		/**
-		 * android ID
+		 * android id
 		 */
 		get androidId(): string {
 			if (!this.checkModuleAttr("systemInfo", "androidId")) {
@@ -806,7 +797,7 @@ namespace GDK {
 			return this._m.systemInfo.mac;
 		}
 		/**
-		 * http user agent
+		 * http user Agent
 		 */
 		get userAgent(): string {
 			if (!this.checkModuleAttr("systemInfo", "userAgent")) {
@@ -814,6 +805,16 @@ namespace GDK {
 			}
 			return this._m.systemInfo.userAgent;
 		}
+		/**
+		 * 服务器表格配置信息
+		 */
+		get tableConf(): { tableSign: string } {
+			if (!this.checkModuleAttr("systemInfo", "tableConf")) {
+				return undefined;
+			}
+			return this._m.systemInfo.tableConf;
+		}
+
 		/**
 		 * 刷新网络状况信息
 		 */
@@ -1595,7 +1596,7 @@ namespace GDK {
 			return this._m.log.commitLog(key, params);
 		}
 
-		commitChannelsLog(logType: "PayLog", params: PayLogParams): Promise<void> {
+		commitChannelsLog(logType: string, params: PayLogParams): Promise<void> {
 			if (!this.checkModuleAttr("log", "commitChannelsLog", "function")) {
 				return this.createNonePromise("[log.commitChannelsLog]");
 			}

@@ -28,9 +28,9 @@ class LogBridge {
 	/**
 	 * 自定义日志
 	 */
-	static logRequestPay(id: string, price: number, count: number, currency: string) {
+	static logRequestPay(id: string, price: number, count: number, currency: string, succ: boolean) {
 		if (gdkjsb.bridge == undefined) return;
-		gdkjsb.bridge.callAction("AppsFlyerSDK:logRequestPay", JSON.stringify({ id, price, count, currency }), (data) => { })
+		gdkjsb.bridge.callAction("AppsFlyerSDK:logRequestPay", JSON.stringify({ id, price, count, currency, succ }), (data) => { })
 	}
 
 	/**

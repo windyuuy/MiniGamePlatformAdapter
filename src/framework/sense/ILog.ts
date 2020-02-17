@@ -6,6 +6,7 @@ namespace GDK {
 		price: number,
 		count: number,
 		currency: string,
+		succ?: boolean
 	}
 
 	/**
@@ -17,6 +18,6 @@ namespace GDK {
 		 */
 		commitLog(key: string, params: { [key: string]: String }): Promise<void>
 
-		commitChannelsLog(logType: 'PayLog', params: PayLogParams): Promise<void>;
+		commitChannelsLog(logType: string, params: PayLogParams): Promise<void>;
 	}
 }

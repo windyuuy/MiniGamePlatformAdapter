@@ -10,11 +10,15 @@ namespace AppGDK {
 			LogBridge.logCustomEvent(key, params);
 		}
 
-		async commitChannelsLog(logType: 'PayLog', params: GDK.PayLogParams) {
+		async commitChannelsLog(logType: string, params: GDK.PayLogParams) {
 			if (logType == 'PayLog') {
 				let p = <GDK.PayLogParams>params
 				LogBridge.logRequestPay(p.id, p.price, p.count, p.currency)
-			} else {
+			} else if (logType == 'Paid') {
+				let p = <GDK.PayLogParams>params
+				LogBridge.logRequestPay(p.id, p.price, p.count, p.currency)
+			}
+			else {
 				console.error("unsupport log type")
 			}
 		}
