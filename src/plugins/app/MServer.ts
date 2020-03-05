@@ -445,6 +445,19 @@ namespace AppGDK {
 			}, { modal: modal, errorCallback: errorCallback })
 		}
 
+		loginAccount(
+			data: {
+				account: string,
+				password: string,
+				type: 1 | 2//1登陆 2注册
+			},
+			callback: (data: LoginCallbackData) => void,
+			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
+			this.gameClient.request("user/loginAccount", data, (data) => {
+				callback(data);
+			}, { modal: modal, errorCallback: errorCallback })
+		}
+
 		bindingAccount(
 			data: {
 				/**

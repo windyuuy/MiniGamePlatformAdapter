@@ -72,6 +72,16 @@ namespace GDK {
 		 */
 		silent?: boolean = false;
 
+        /**
+         * 是否允许账号注册和登陆
+         */
+		account?: boolean;
+
+		/**
+		 * 是否需要实名制
+		 */
+		realName?: boolean;
+
 		/**
 		 * 是否允许自动登陆
 		 * * 如果当前未绑定任何第三方账号，则执行游客登陆

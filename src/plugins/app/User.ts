@@ -164,7 +164,10 @@ namespace AppGDK {
 				isDelayLogin = true;
 				loginStartTime = new Date().getTime()
 
-				if (type == "google") {
+				if (type == "account") {
+					let sysInfo = this.api.systemInfo.clone()
+					this.server.loginOpenId({ openId: openId, uuId: sysInfo.uuid, clientSystemInfo: sysInfo, node: this.loginNode }, loginComplete);
+				} else if (type == "google") {
 					this.server.loginGoogle({ openId: openId, token: token, avatar: head, userName: nickName, email: email, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
 				} else if (type == "facebook") {
 					this.server.loginFB({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
@@ -575,6 +578,7 @@ namespace AppGDK {
 			facebook: boolean,
 			wechat: boolean,
 			gamecenter: boolean,
+			account: boolean
 		}) {
 			SDKProxy.support = loginSupport
 			let t = {}
@@ -584,6 +588,7 @@ namespace AppGDK {
 				t["gamecenter_login"] = loginSupport.gamecenter
 				t["wechat_login"] = loginSupport.wechat
 				t["visitor_login"] = loginSupport.visitor
+				t["account_login"] = loginSupport.account
 			}
 
 			gdkjsb.bridge.callAction("setLoginSupport", JSON.stringify(t), (data) => { });
