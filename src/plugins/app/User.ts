@@ -602,9 +602,9 @@ namespace AppGDK {
 			return gdkjsb.bridge.checkActionExist("showRealNameDialog");
 		}
 
-		async showMinorInfo(): Promise<void> {
+		async showMinorInfo(info: string): Promise<void> {
 			return new Promise((resolve, reject) => {
-				SDKProxy.showMinorInfo(() => {
+				SDKProxy.showMinorInfo(info, () => {
 					resolve();
 				})
 			})

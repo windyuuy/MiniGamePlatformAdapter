@@ -186,9 +186,9 @@ class SDKProxy {
 	/**
 	 * 显示未成年人游戏描述信息
 	 */
-	static showMinorInfo(callback) {
+	static showMinorInfo(info: string, callback) {
 		if (gdkjsb.bridge == undefined) return;
-		gdkjsb.bridge.callAction("showMinorInfo", JSON.stringify({}), callback);
+		gdkjsb.bridge.callAction("showMinorInfo", JSON.stringify({ info }), callback);
 	}
 	/**
 	 * 显示实名制弹框，进入实名制流程
