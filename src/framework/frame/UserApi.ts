@@ -237,6 +237,44 @@ namespace GDK {
 			return this._m.user.showUserCenter();
 		}
 		/**
+		 * 判断是否为本地实名制系统
+		 */
+		isNativeRealNameSystem?(): boolean {
+			if (!this.checkModuleAttr("user", "isNativeRealNameSystem", "function")) {
+				return undefined;
+			}
+			return this._m.user.isNativeRealNameSystem();
+		}
+		/**
+		 * 显示未成年人游戏描述信息
+		 * * APP平台支持
+		 */
+		showMinorInfo?(info: string): Promise<void> {
+			if (!this.checkModuleAttr("user", "showMinorInfo", "function")) {
+				return this.createNonePromise("[user.showMinorInfo]");
+			}
+			return this._m.user.showMinorInfo(info);
+		}
+		/**
+		 * 显示实名制弹框，进入实名制流程
+		 * * APP平台支持
+		 * @param force 是否强制
+		 */
+		showRealNameDialog?(
+			force: boolean
+		): Promise<{
+			isVerified: boolean;
+			age: number;
+			name: string;
+			idCard: string;
+			birthday: string;
+		}> {
+			if (!this.checkModuleAttr("user", "showRealNameDialog", "function")) {
+				return this.createNonePromise("[user.showRealNameDialog]");
+			}
+			return this._m.user.showRealNameDialog(force);
+		}
+		/**
 		 * 显示账号绑定
 		 * * APP平台支持
 		 */

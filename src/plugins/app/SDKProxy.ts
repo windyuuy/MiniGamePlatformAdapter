@@ -183,6 +183,39 @@ class SDKProxy {
 		gdkjsb.bridge.callAction("showBindDialog", JSON.stringify({ info: userInfo, support: this.support, records: this.loadUserRecord(true) }), (data) => { });
 	}
 
+	/**
+	 * 显示未成年人游戏描述信息
+	 */
+	static showMinorInfo(callback) {
+		if (gdkjsb.bridge == undefined) return;
+		gdkjsb.bridge.callAction("showMinorInfo", JSON.stringify({}), callback);
+	}
+	/**
+	 * 显示实名制弹框，进入实名制流程
+	 * @param force 是否强制
+	 */
+	static showRealNameDialog(force: boolean, callback: (data: {
+		/**
+		 * 是否完成实名制
+		 */
+		isVerified: boolean,
+		/**
+		 * 当前年龄
+		 */
+		age: number,
+		/**
+		 * 当前玩家姓名
+		 */
+		name: string,
+		idCard: string,
+		birthday: string
+	}) => void) {
+		if (gdkjsb.bridge == undefined) return;
+		gdkjsb.bridge.callAction("showRealNameDialog", JSON.stringify({ force }), (d) => {
+			callback(JSON.parse(d));
+		});
+	}
+
 
 	protected static cancelLoginingId: number = undefined;
 	/**

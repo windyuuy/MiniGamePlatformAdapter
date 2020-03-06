@@ -597,5 +597,39 @@ namespace AppGDK {
 		setAccountChangeListener?(f: () => void) {
 			fOnAccountChange = f
 		}
+
+		isNativeRealNameSystem() {
+			return gdkjsb.bridge.checkActionExist("showRealNameDialog");
+		}
+
+		async showMinorInfo(): Promise<void> {
+			return new Promise((resolve, reject) => {
+				SDKProxy.showMinorInfo(() => {
+					resolve();
+				})
+			})
+		}
+		async showRealNameDialog(force: boolean): Promise<{
+			/**
+			 * 是否完成实名制
+			 */
+			isVerified: boolean,
+			/**
+			 * 当前年龄
+			 */
+			age: number,
+			/**
+			 * 当前玩家姓名
+			 */
+			name: string,
+			idCard: string,
+			birthday: string
+		}> {
+			return new Promise((resolve, reject) => {
+				SDKProxy.showRealNameDialog(force, (data) => {
+					resolve(data);
+				})
+			})
+		}
 	}
 }
