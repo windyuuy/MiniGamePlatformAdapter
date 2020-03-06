@@ -166,7 +166,7 @@ namespace AppGDK {
 
 				if (type == "account") {
 					let sysInfo = this.api.systemInfo.clone()
-					this.server.loginOpenId({ openId: openId, uuId: sysInfo.uuid, clientSystemInfo: sysInfo, node: this.loginNode }, loginComplete);
+					this.server.loginOpenId({ openId: openId, clientSystemInfo: sysInfo, node: this.loginNode }, loginComplete);
 				} else if (type == "google") {
 					this.server.loginGoogle({ openId: openId, token: token, avatar: head, userName: nickName, email: email, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
 				} else if (type == "facebook") {
