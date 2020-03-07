@@ -142,7 +142,7 @@ namespace GDK {
 		 * * APP平台支持
 		 * @param force 是否强制
 		 */
-		showRealNameDialog?(force: boolean): Promise<{
+		showRealNameDialog?(userID: number, force: boolean): Promise<{
 			isVerified: boolean,
 			age: number,
 			name: string,
