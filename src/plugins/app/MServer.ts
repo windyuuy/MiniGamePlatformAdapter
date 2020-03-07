@@ -241,6 +241,25 @@ namespace AppGDK {
 		}
 
 		/**
+         * 京游登陆
+         */
+		loginJingyou(
+			data: {
+				openId: String,
+				token: string,
+				timestamp: string,
+				type: string
+				clientSystemInfo: any,
+				node?: string,
+			},
+			callback: (data: LoginCallbackData) => void,
+			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
+			this.gameClient.request("user/loginJinYouApp", data, (data) => {
+				callback(data);
+			}, { modal: modal, errorCallback: errorCallback })
+		}
+
+		/**
          * xiao7登陆
          * * token
          */
