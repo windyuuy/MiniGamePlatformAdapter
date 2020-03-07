@@ -158,7 +158,7 @@ namespace GDK {
 		/**
 		 * 开启云客服
 		 */
-		startYunkefu?(accessId: string, name: string, id: string, customField: Object): void;
+		startYunkefu?(accessId: string, name: string, id: string, customField: Object, native?: boolean): void;
 
 		/**
 		 * hack web

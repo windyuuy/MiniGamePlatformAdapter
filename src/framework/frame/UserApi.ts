@@ -1013,12 +1013,19 @@ namespace GDK {
 			accessId: string,
 			name: string,
 			id: string,
-			customField: Object
+			customField: Object,
+			native?: boolean
 		): void {
 			if (!this.checkModuleAttr("apiSystem", "startYunkefu", "function")) {
 				return undefined;
 			}
-			return this._m.apiSystem.startYunkefu(accessId, name, id, customField);
+			return this._m.apiSystem.startYunkefu(
+				accessId,
+				name,
+				id,
+				customField,
+				native
+			);
 		}
 		/**
 		 * hack web

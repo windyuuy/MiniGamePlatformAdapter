@@ -56,7 +56,12 @@ namespace AppGDK {
 			gdkjsb.openURL(url);
 		}
 
-		startYunkefu(accessId: string, name: string, id: string, customField: Object) {
+		startYunkefu(accessId: string, name: string, id: string, customField: Object, native?: boolean) {
+			if (native) {
+				gdkjsb.bridge.callAction("showsAssistantCenter", JSON.stringify({ name, id, customField }), (data) => { })
+				return
+			}
+
 			// if (nativeHelper.checkActionExist("StartYunkefu")) {
 			// 	nativeHelper.callAction("StartYunkefu", { accessId: accessId, name: name, id: id, customField: customField })
 			// } else {
