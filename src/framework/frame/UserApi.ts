@@ -261,6 +261,7 @@ namespace GDK {
 		 * @param force 是否强制
 		 */
 		showRealNameDialog?(
+			userID: number,
 			force: boolean
 		): Promise<{
 			isVerified: boolean;
@@ -272,7 +273,7 @@ namespace GDK {
 			if (!this.checkModuleAttr("user", "showRealNameDialog", "function")) {
 				return this.createNonePromise("[user.showRealNameDialog]");
 			}
-			return this._m.user.showRealNameDialog(force);
+			return this._m.user.showRealNameDialog(userID, force);
 		}
 		/**
 		 * 显示账号绑定

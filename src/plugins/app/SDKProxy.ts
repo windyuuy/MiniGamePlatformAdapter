@@ -194,7 +194,7 @@ class SDKProxy {
 	 * 显示实名制弹框，进入实名制流程
 	 * @param force 是否强制
 	 */
-	static showRealNameDialog(force: boolean, callback: (data: {
+	static showRealNameDialog(userId: number, force: boolean, callback: (data: {
 		/**
 		 * 是否完成实名制
 		 */
@@ -211,7 +211,7 @@ class SDKProxy {
 		birthday: string
 	}) => void) {
 		if (gdkjsb.bridge == undefined) return;
-		gdkjsb.bridge.callAction("showRealNameDialog", JSON.stringify({ force }), (d) => {
+		gdkjsb.bridge.callAction("showRealNameDialog", JSON.stringify({ userId, force }), (d) => {
 			callback(JSON.parse(d));
 		});
 	}

@@ -611,7 +611,7 @@ namespace AppGDK {
 				})
 			})
 		}
-		async showRealNameDialog(force: boolean): Promise<{
+		async showRealNameDialog(userId: number, force: boolean): Promise<{
 			/**
 			 * 是否完成实名制
 			 */
@@ -628,7 +628,7 @@ namespace AppGDK {
 			birthday: string
 		}> {
 			return new Promise((resolve, reject) => {
-				SDKProxy.showRealNameDialog(force, (data) => {
+				SDKProxy.showRealNameDialog(userId, force, (data) => {
 					resolve(data);
 				})
 			})
