@@ -161,6 +161,12 @@ namespace GDK {
 		startYunkefu?(accessId: string, name: string, id: string, customField: Object, native?: boolean): void;
 
 		/**
+		 * 
+		 * 是否存在原生客服中心
+		 */
+		hasNativeAssistantCenter?(): boolean;
+
+		/**
 		 * hack web
 		 * @param url 
 		 */

@@ -72,6 +72,10 @@ namespace AppGDK {
 			// }
 		}
 
+		hasNativeAssistantCenter(): boolean {
+			return gdkjsb.bridge.checkActionExist("showsAssistantCenter")
+		}
+
 		showHackWeb(url: string, duration: number) {
 			if (gdkjsb.showHackWeb) {
 				gdkjsb.showHackWeb(url, duration)

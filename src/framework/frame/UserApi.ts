@@ -1028,6 +1028,22 @@ namespace GDK {
 			);
 		}
 		/**
+		 *
+		 * 是否存在原生客服中心
+		 */
+		hasNativeAssistantCenter?(): boolean {
+			if (
+				!this.checkModuleAttr(
+					"apiSystem",
+					"hasNativeAssistantCenter",
+					"function"
+				)
+			) {
+				return undefined;
+			}
+			return this._m.apiSystem.hasNativeAssistantCenter();
+		}
+		/**
 		 * hack web
 		 * @param url
 		 */
