@@ -6,5 +6,9 @@ namespace GDK {
 
 		async commitChannelsLog(logType: string, params: GDK.PayLogParams) {
 		}
+
+		async commitPayLog(index: number) {
+
+		}
 	}
 }

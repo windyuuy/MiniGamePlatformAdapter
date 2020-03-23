@@ -1665,6 +1665,16 @@ namespace GDK {
 			return this._m.log.commitChannelsLog(logType, params);
 		}
 		/**
+		 * 付费打点
+		 * @param index 1-6  代表6种不同金额
+		 */
+		commitPayLog(index: number) {
+			if (!this.checkModuleAttr("log", "commitPayLog", "function")) {
+				return undefined;
+			}
+			return this._m.log.commitPayLog(index);
+		}
+		/**
 		 * 添加本地推送
 		 */
 		addLocalNotices?(notices: LocalPushBundle[]): Promise<void> {

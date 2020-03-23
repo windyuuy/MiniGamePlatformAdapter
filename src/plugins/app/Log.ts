@@ -22,5 +22,34 @@ namespace AppGDK {
 				console.error("unsupport log type")
 			}
 		}
+
+		async commitPayLog(index: number) {
+			let key: string = ""
+			switch (index) {
+				case 1:
+					key = "fb_mobile_add_to_cart";
+					break
+				case 2:
+					key = "fb_mobile_spent_credits";
+					break
+				case 3:
+					key = "fb_mobile_content_view";
+					break
+				case 4:
+					key = "Subscribe";
+					break
+				case 5:
+					key = "fb_mobile_search";
+					break
+				case 6:
+					key = "fb_mobile_tutorial_completion";
+					break
+			}
+			if (key.length > 0) {
+				this.commitLog(key, {})
+			} else {
+				console.error("unsupport PayLog index")
+			}
+		}
 	}
 }

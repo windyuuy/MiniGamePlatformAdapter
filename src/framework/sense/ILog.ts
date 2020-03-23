@@ -19,5 +19,11 @@ namespace GDK {
 		commitLog(key: string, params: { [key: string]: String }): Promise<void>
 
 		commitChannelsLog(logType: string, params: PayLogParams): Promise<void>;
+
+		/**
+		 * 付费打点
+		 * @param index 1-6  代表6种不同金额 
+		 */
+		commitPayLog(index: number);
 	}
 }
