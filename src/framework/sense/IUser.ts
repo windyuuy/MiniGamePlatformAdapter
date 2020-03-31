@@ -15,7 +15,7 @@ namespace GDK {
 			userNew: false,//是否为新用户
 			service24Timestamp: number,//下一天0点的时间戳
 			shareSwitch: {
-
+				[key: string]: string
 			},
 			followGzh: 0 | 1,//0 未关注,1 已关注
 			gameCurrency: {

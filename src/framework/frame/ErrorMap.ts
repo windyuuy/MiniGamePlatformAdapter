@@ -33,7 +33,6 @@ namespace GDK {
 		get temps() { return this._temps }
 
 		constructor(temps: GDKErrorExtra[]) {
-			arguments
 			this._temps = temps
 		}
 

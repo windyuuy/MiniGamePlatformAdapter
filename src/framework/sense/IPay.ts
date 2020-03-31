@@ -181,8 +181,15 @@ namespace GDK {
 
 	}
 
-	export class ConsumePurchaseParams { purchaseToken: string }
-	export class PayQueryItemInfoParams { productId: string }
+	export type PayWay = 'WechatPay' | 'AliPay' | 'UnifiedSdk' | 'VivoAppPay' | 'OppoApp' | 'GooglePay' | 'IosPay' | 'BaiduAppPay' | 'YYBPay' | 'AliGameAppPay' | 'meituAppPay' | 'xiao7'
+	export class ConsumePurchaseParams {
+		payWay!: PayWay
+		purchaseToken!: string
+	}
+	export class PayQueryItemInfoParams {
+		payWay!: PayWay
+		productId!: string
+	}
 
 	export interface IPay extends IModule {
 		/**

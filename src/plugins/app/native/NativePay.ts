@@ -31,6 +31,7 @@ namespace AppGDK {
 		 * @param sku: 商品id
 		 */
 		async requestPay(params: {
+			productId: string,
 			/** 商品id，即productId */
 			sku: string,
 			/** 价格 */
@@ -100,6 +101,7 @@ namespace AppGDK {
 		async queryItemInfo?(params: {
 			/** 商品id，即 productId */
 			sku: string
+			productId: string
 		}): Promise<GDK.PayQueryItemInfoResult> {
 			return nativeHelper.callAction("paywrapper:queryItemInfo", params)
 		}

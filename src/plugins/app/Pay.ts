@@ -18,6 +18,7 @@ namespace AppGDK {
 				return ret.promise
 			}
 			SDKProxy.nativePay.requestPay({
+				productId: sku,
 				sku: sku,
 				price: config.money,
 				count: config.amount,
@@ -177,7 +178,7 @@ namespace AppGDK {
 				return ret.promise
 			}
 
-			return SDKProxy.nativePay.queryItemInfo({ sku: params.productId })
+			return SDKProxy.nativePay.queryItemInfo({ sku: params.productId, productId: params.productId })
 		}
 
 	}
