@@ -57,7 +57,7 @@ class SDKProxy {
 	static alertList: {};
 	static confirmList: {};
 	static promptList: {};
-	static actionId: 0;
+	static actionId = 0;
 
 	static off(id: number) {
 		gdkjsb.off(id);
@@ -68,17 +68,18 @@ class SDKProxy {
 		if (!this.confirmList) {
 			this.confirmList = {};
 		}
-		let actionId = "showConfirm" + (++this.actionId);
+		let actionId = "showConfirm_" + (++this.actionId);
 		this.confirmList[actionId] = callback;
 
 		gdkjsb.showConfirm(content, title, okLabel, cancelLabel, actionId);
 	}
 
 	static onConfirmResponse(isOk: boolean, actionId: string) {
-		let callback = this.alertList[actionId];
+		let callback = this.confirmList[actionId];
 		if (callback) {
 			// 判空
 			callback(isOk);
+			delete this.confirmList[actionId];
 		}
 	}
 
@@ -87,7 +88,7 @@ class SDKProxy {
 		if (!this.alertList) {
 			this.alertList = {};
 		}
-		let actionId = "showAlert" + (++this.actionId);
+		let actionId = "showAlert_" + (++this.actionId);
 		this.alertList[actionId] = callback;
 
 		gdkjsb.showAlert(content, title, okLabel, actionId);
@@ -98,6 +99,7 @@ class SDKProxy {
 		if (callback) {
 			// 判空
 			callback();
+			delete this.alertList[actionId];
 		}
 	}
 
@@ -108,7 +110,7 @@ class SDKProxy {
 		if (!this.promptList) {
 			this.promptList = {};
 		}
-		let actionId = "showPrompt" + (++this.actionId);
+		let actionId = "showPrompt_" + (++this.actionId);
 		this.promptList[actionId] = callback;
 
 		gdkjsb.showPrompt(content, title, okLabel, cancelLabel, defaultValue, actionId);
@@ -119,6 +121,7 @@ class SDKProxy {
 		if (callback) {
 			// 判空
 			callback(isOk, result);
+			delete this.promptList[actionId];
 		}
 	}
 
@@ -136,7 +139,6 @@ class SDKProxy {
 
 		if (!this.actionList) {
 			this.actionList = {};
-			this.actionId = 0;
 		}
 		let actionId = action + "_" + (++this.actionId);
 		this.actionList[actionId] = callback;
@@ -149,6 +151,7 @@ class SDKProxy {
 		if (callback) {
 			// 判空
 			callback(data);
+			delete this.actionList[actionId];
 		}
 	}
 
