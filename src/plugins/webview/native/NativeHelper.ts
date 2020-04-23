@@ -2,7 +2,7 @@ namespace AppGDK {
 	export class NativeHelper {
 
 		checkActionExist(key: string): boolean {
-			if (gdkjsb.nativeVersion() && gdkjsb.nativeVersion() >= 1) {
+			if (SDKProxy.checkGdkjsb() && gdkjsb.nativeVersion() && gdkjsb.nativeVersion() >= 1) {
 				return gdkjsb.checkActionExist(key)
 			}
 			return false

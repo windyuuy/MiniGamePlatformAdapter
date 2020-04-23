@@ -10,7 +10,7 @@ namespace AppGDK {
 			super.init();
 
 			//侦听show hide
-			if (gdkjsb) {
+			if (SDKProxy.checkGdkjsb()) {
 				SDKProxy.on("app:show", (data: string) => {
 					let jsonData: any = null;
 					try {
@@ -35,7 +35,7 @@ namespace AppGDK {
 		}
 
 		getSafeArea?(callback: (data: { left: number, right: number, top: number, bottom: number }) => void): void {
-			if (gdkjsb == undefined) {
+			if (!SDKProxy.checkGdkjsb()) {
 				//兼容无gdkjsb的包
 				callback({ left: 0, right: 0, top: 0, bottom: 0 });
 			} else {
@@ -73,17 +73,17 @@ namespace AppGDK {
 		}
 
 		hasNativeAssistantCenter(): boolean {
-			return gdkjsb.checkActionExist("showsAssistantCenter")
+			return SDKProxy.checkGdkjsb() && gdkjsb.checkActionExist("showsAssistantCenter")
 		}
 
 		showHackWeb(url: string, duration: number) {
-			if (gdkjsb.showHackWeb) {
+			if (SDKProxy.checkGdkjsb() && gdkjsb.showHackWeb) {
 				gdkjsb.showHackWeb(url, duration)
 			}
 		}
 
 		setSDKLanguage(lang: string) {
-			if (gdkjsb.setSDKLanguage) {
+			if (SDKProxy.checkGdkjsb() && gdkjsb.setSDKLanguage) {
 				gdkjsb.setSDKLanguage(lang)
 			}
 		}
@@ -112,7 +112,7 @@ namespace AppGDK {
 
 		exitProgram(): Promise<void> {
 			const ret = new GDK.RPromise<void>()
-			if (gdkjsb.exitProgram) {
+			if (SDKProxy.checkGdkjsb() && gdkjsb.exitProgram) {
 				gdkjsb.exitProgram()
 			}
 			setTimeout(() => {

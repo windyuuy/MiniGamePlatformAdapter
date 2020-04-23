@@ -380,12 +380,12 @@ namespace AppGDK {
 		  * - budadadvert 头条广告
 		 */
 		async advertPlatformSelect(platform: string) {
-			if (gdkjsb == undefined) return;
+			if (!SDKProxy.checkGdkjsb()) return;
 			return nativeHelper.safeCallAction("advertPlatformSelect", { message: platform });
 		}
 
 		async initMultAdSlot(params: GDK.VideoAdSlot[]) {
-			if (gdkjsb == undefined) return;
+			if (!SDKProxy.checkGdkjsb()) return;
 			return nativeHelper.safeCallAction("initMultAdSlot", { slotInfo: params });
 		}
 

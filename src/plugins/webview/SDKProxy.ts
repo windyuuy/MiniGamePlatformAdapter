@@ -64,7 +64,7 @@ class SDKProxy {
 	}
 
 	static showConfirm(content: string, title: string, okLabel: string, cancelLabel: string, callback: (isOk: boolean) => void) {
-		if (gdkjsb == undefined) return;
+		if (!SDKProxy.checkGdkjsb()) return;
 		if (!this.confirmList) {
 			this.confirmList = {};
 		}
@@ -72,6 +72,10 @@ class SDKProxy {
 		this.confirmList[actionId] = callback;
 
 		gdkjsb.showConfirm(content, title, okLabel, cancelLabel, actionId);
+	}
+
+	static checkGdkjsb(): boolean {
+		return window["gdkjsb"] != null;
 	}
 
 	static onConfirmResponse(isOk: boolean, actionId: string) {
@@ -84,7 +88,7 @@ class SDKProxy {
 	}
 
 	static showAlert(content: string, title: string, okLabel: string, callback: () => void) {
-		if (gdkjsb == undefined) return;
+		if (!SDKProxy.checkGdkjsb()) return;
 		if (!this.alertList) {
 			this.alertList = {};
 		}
@@ -105,7 +109,7 @@ class SDKProxy {
 
 
 	static showPrompt(content: string, title: string, okLabel: string, cancelLabel: string, callback: (isOk: boolean, result: string) => void, defaultValue: string) {
-		if (gdkjsb == undefined) return;
+		if (!SDKProxy.checkGdkjsb()) return;
 
 		if (!this.promptList) {
 			this.promptList = {};
@@ -126,7 +130,7 @@ class SDKProxy {
 	}
 
 	static on(eventName: string, callback: (data: string) => void): number {
-		if (gdkjsb == undefined) return 0;
+		if (!SDKProxy.checkGdkjsb()) return 0;
 
 		if (!this.actionList) {
 			this.actionList = {};
@@ -135,7 +139,7 @@ class SDKProxy {
 	}
 
 	static callAction(action: string, data: string, callback: (/**返回结果 */data: string) => void): boolean {
-		if (gdkjsb == undefined) return false;
+		if (!SDKProxy.checkGdkjsb()) return false;
 
 		if (!this.actionList) {
 			this.actionList = {};
@@ -196,7 +200,7 @@ class SDKProxy {
 	 * 显示普通菊花
 	 */
 	static showLoading() {
-		if (gdkjsb == undefined) return;
+		if (!SDKProxy.checkGdkjsb()) return;
 		this.callAction("showLoading", "{}", (data) => { })
 	}
 
@@ -311,7 +315,7 @@ class SDKProxy {
 	 * @param callback 
 	 */
 	static onCancelLogining(callback: () => void) {
-		if (gdkjsb == undefined) return;
+		if (!SDKProxy.checkGdkjsb()) return;
 
 		if (this.cancelLoginingId !== undefined) {
 			gdkjsb.off(this.cancelLoginingId);
@@ -341,7 +345,7 @@ class SDKProxy {
 	static onLogin(
 		callback: (/**登陆的类型 */ type: LoginType,/**用户ID */ openId: string, token: string, nickName: string, email: string, head: string, platform?: string, exAuthData?: string) => void
 	) {
-		if (gdkjsb == undefined) return;
+		if (!SDKProxy.checkGdkjsb()) return;
 
 		if (this.loginId !== undefined) {
 			gdkjsb.off(this.loginId);
@@ -358,7 +362,7 @@ class SDKProxy {
 	static onRebootLogin(
 		callback: (/**登陆的类型 */ type: LoginType,/**用户ID */ openId: string, token: string, nickName: string, email: string, head: string) => void
 	) {
-		if (gdkjsb == undefined) return;
+		if (!SDKProxy.checkGdkjsb()) return;
 
 		if (this.rebootLoginId !== undefined) {
 			gdkjsb.off(this.rebootLoginId);
@@ -373,7 +377,7 @@ class SDKProxy {
 	static onBind(
 		callback: (/**登陆的类型 */ type: LoginType,/**游客OpenId */visitorOpenId: string,/**用户ID */ openId: string, token: string, platform?: string) => void
 	) {
-		if (gdkjsb == undefined) return;
+		if (!SDKProxy.checkGdkjsb()) return;
 
 		if (this.bindId !== undefined) {
 			gdkjsb.off(this.bindId);
@@ -388,7 +392,7 @@ class SDKProxy {
 	static onLoginFail(
 		callback: () => void
 	) {
-		if (gdkjsb == undefined) return;
+		if (!SDKProxy.checkGdkjsb()) return;
 
 		if (this.loginFailId !== undefined) {
 			gdkjsb.off(this.loginFailId);
@@ -403,7 +407,7 @@ class SDKProxy {
 	static onRemoveUser(
 		callback: (openId: string) => void
 	) {
-		if (gdkjsb == undefined) return;
+		if (!SDKProxy.checkGdkjsb()) return;
 
 		if (this.removeUserId !== undefined) {
 			gdkjsb.off(this.removeUserId);
@@ -418,7 +422,7 @@ class SDKProxy {
 	static onLogout(
 		callback: () => void
 	) {
-		if (gdkjsb == undefined) return;
+		if (!SDKProxy.checkGdkjsb()) return;
 
 		if (this.logoutId !== undefined) {
 			gdkjsb.off(this.logoutId);
