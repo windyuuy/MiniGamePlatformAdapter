@@ -6,7 +6,7 @@ namespace AppGDK {
 		api?: GDK.UserAPI
 		async initWithConfig?(_info: GDK.GDKConfig) {
 
-			let info = _info //as GDK.GDKAPPConfig
+			let info = _info //as GDK.GDKWEBVIEWConfig
 			if (info.webview == null) {
 				return;
 			}

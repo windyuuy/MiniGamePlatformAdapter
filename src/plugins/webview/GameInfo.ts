@@ -38,6 +38,8 @@ namespace AppGDK {
 
 				Common.getServerTime = info.webview.getServerTime
 				Common.httpClient = info.webview.httpClient
+			} else {
+
 			}
 		}
 		init() {

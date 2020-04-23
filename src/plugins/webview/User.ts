@@ -81,10 +81,10 @@ namespace AppGDK {
 						//qa证书
 						if (data.data.qa && data.data.qa != null) {
 							//保存证书
-							gdkjsb.makeTestCertificate && gdkjsb.makeTestCertificate(data.data.qa);
+							SDKProxy.checkGdkjsb() && gdkjsb.makeTestCertificate && gdkjsb.makeTestCertificate(data.data.qa);
 						} else {
 							//清除证书
-							gdkjsb.clearTestCerificate && gdkjsb.clearTestCerificate();
+							SDKProxy.checkGdkjsb() && gdkjsb.clearTestCerificate && gdkjsb.clearTestCerificate();
 						}
 
 						if (loginRecord != null) {
@@ -169,51 +169,56 @@ namespace AppGDK {
 				isDelayLogin = true;
 				loginStartTime = new Date().getTime()
 
-				if (type == "account") {
-					let sysInfo = this.api.systemInfo.clone()
-					this.server.loginOpenId({ openId: openId, clientSystemInfo: sysInfo, node: this.loginNode }, loginComplete);
-				} else if (type == "google") {
-					this.server.loginGoogle({ openId: openId, token: token, avatar: head, userName: nickName, email: email, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
-				} else if (type == "facebook") {
-					this.server.loginFB({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
-				} else if (type == "wxapp") {
-					if (platform && platform == "android") {
-						this.server.loginAppWXAndroid({ openId: openId, code: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
-					} else {
-						this.server.loginAppWX({ openId: openId, code: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
-					}
-				} else if (type == "gamecenter") {
-					this.server.loginGC({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
-				} else if (type == "visitor") {
-					let sysInfo = this.api.systemInfo.clone()
-					this.server.loginOpenId({ openId: openId, uuId: sysInfo.uuid, clientSystemInfo: sysInfo, node: this.loginNode }, loginComplete);
-				} else if (type == "quick") {
-					this.server.loginQuick({ openId: openId, token: token, channelId: Number(this.api.systemInfo.quickChannelId), clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
-				} else if (type == "huawei") {
-					let t: { playerLevel: string, ts: string } = JSON.parse(exAuthData)
-					this.server.loginHuawei({ playerId: openId, playerSSign: token, playerLevel: t.playerLevel, ts: t.ts, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
-				} else if (type == "vivoapp") {
-					this.server.loginVivo({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
-				} else if (type == "OppoApp") {
-					this.server.loginOppoApp({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
-				} else if (type == "baiduapp") {
-					this.server.loginBaidu({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
-				} else if (type == "aligame") {
-					this.server.loginAligame({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
-				} else if (type == "yingyongbaoApp") {
-					console.log("loginYYBApp yingyongbao2:" + openId + "," + token + "," + head)
-					this.server.loginYYBApp({ openId: openId, token: token, type: Number(head), clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
-				} else if (type == "meituApp") {
-					this.server.loginMeituApp({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
-				} else if (type == "xiao7") {
-					this.server.loginXiao7({ token: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
-				} else if (type == "chongchong") {
-					this.server.loginChongchong({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
-				} else if (type == "lufeifan") {
-					this.server.loginLufeifan({ openId: openId, token: token, timestamp: nickName, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
-				} else if (type == "jingyou") {
-					this.server.loginJingyou({ openId: openId, token: token, timestamp: nickName, type: email, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
-				}
+				// if (type == "account") {
+				// 	let sysInfo = this.api.systemInfo.clone()
+				// 	this.server.loginOpenId({ openId: openId, clientSystemInfo: sysInfo, node: this.loginNode }, loginComplete);
+				// } else if (type == "google") {
+				// 	this.server.loginGoogle({ openId: openId, token: token, avatar: head, userName: nickName, email: email, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
+				// } else if (type == "facebook") {
+				// 	this.server.loginFB({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
+				// } else if (type == "wxapp") {
+				// 	if (platform && platform == "android") {
+				// 		this.server.loginAppWXAndroid({ openId: openId, code: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
+				// 	} else {
+				// 		this.server.loginAppWX({ openId: openId, code: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
+				// 	}
+				// } else if (type == "gamecenter") {
+				// 	this.server.loginGC({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
+				// } else if (type == "visitor") {
+				// 	let sysInfo = this.api.systemInfo.clone()
+				// 	this.server.loginOpenId({ openId: openId, uuId: sysInfo.uuid, clientSystemInfo: sysInfo, node: this.loginNode }, loginComplete);
+				// } else if (type == "quick") {
+				// 	this.server.loginQuick({ openId: openId, token: token, channelId: Number(this.api.systemInfo.quickChannelId), clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
+				// } else if (type == "huawei") {
+				// 	let t: { playerLevel: string, ts: string } = JSON.parse(exAuthData)
+				// 	this.server.loginHuawei({ playerId: openId, playerSSign: token, playerLevel: t.playerLevel, ts: t.ts, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
+				// } else if (type == "vivoapp") {
+				// 	this.server.loginVivo({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
+				// } else if (type == "OppoApp") {
+				// 	this.server.loginOppoApp({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
+				// } else if (type == "baiduapp") {
+				// 	this.server.loginBaidu({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
+				// } else if (type == "aligame") {
+				// 	this.server.loginAligame({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
+				// } else if (type == "yingyongbaoApp") {
+				// 	console.log("loginYYBApp yingyongbao2:" + openId + "," + token + "," + head)
+				// 	this.server.loginYYBApp({ openId: openId, token: token, type: Number(head), clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
+				// } else if (type == "meituApp") {
+				// 	this.server.loginMeituApp({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
+				// } else if (type == "xiao7") {
+				// 	this.server.loginXiao7({ token: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
+				// } else if (type == "chongchong") {
+				// 	this.server.loginChongchong({ openId: openId, token: token, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
+				// } else if (type == "lufeifan") {
+				// 	this.server.loginLufeifan({ openId: openId, token: token, timestamp: nickName, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
+				// } else if (type == "jingyou") {
+				// 	this.server.loginJingyou({ openId: openId, token: token, timestamp: nickName, type: email, clientSystemInfo: this.api.systemInfo.clone(), node: this.loginNode }, loginComplete);
+				// } else {
+				// 	let sysInfo = this.api.systemInfo.clone()
+				// 	this.server.loginOpenId({ openId: openId, clientSystemInfo: sysInfo, node: this.loginNode }, loginComplete);
+				// }
+				let sysInfo = this.api.systemInfo.clone()
+				this.server.loginOpenId({ openId: openId, clientSystemInfo: sysInfo, node: this.loginNode }, loginComplete);
 			}
 
 			// login
