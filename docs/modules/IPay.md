@@ -83,7 +83,7 @@ type PayItemInfo = {
 	/** 商品名称/标题 */
 	title: string = ""
 	/** 支付货币单位 */
-	currencyUnit?: "CNY" | "Dollor" = "CNY"
+	currencyUnit?: "CNY" | "USD" = "CNY"
 	/** oppo包名 */
 	pkgName?: string
 	/** oppo登录返回的token */
