@@ -147,6 +147,16 @@ namespace GDK {
 	export class GDKWebConfig extends GDKConfigBase {
 
 	}
+	export class GDKWEBVIEWConfig extends GDKConfigBase {
+		/**
+		 * 广告平台
+		 * - ironsource
+		 * - adtiming
+		 * - gdtadvert 腾讯广点通
+		 */
+		advertPlatform?: AdvertsAllPlatforms = "ironsource"
+		advertPlatforms?: AdvertsAllPlatforms[] = []
+	}
 
 	export class GDKConfig {
 
@@ -164,6 +174,7 @@ namespace GDK {
 		vivo?: GDKVIVOConfig
 		gamepind?: GDKGamepindConfig
 		web?: GDKWebConfig
+		webview?: GDKWEBVIEWConfig
 	}
 
 
