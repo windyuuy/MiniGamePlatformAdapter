@@ -1,11 +1,25 @@
 {
-	"extends": "../../base",
 	"compilerOptions": {
-		"outFile": "../../../dist/unityapp.js"
+		"module": "none",
+		"target": "es5",
+		"lib": [
+			"es6",
+			"dom",
+			"es2015.promise"
+		],
+		"preserveConstEnums": true,
+		"sourceMap": true,
+		"outFile": "../../../dist/unityapp/unityapp.lua",
+		"declaration": true,
+		"composite": true,
+		"rootDir": "./",
+		"rootDirs": [
+			"../../libs",
+			"../../framework"
+		]
 	},
-	"files": [
-		"./Common.ts",
-	],
+	"compileOnSave": true,
+	"typeAcquisition": {},
 	"include": [
 		"../../libs/**.ts",
 		"../../framework",
