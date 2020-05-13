@@ -1,0 +1,13 @@
+{
+	"name": "gdk-baidu",
+	"version": "1.0.0",
+	"files": [
+		"**/*"
+	],
+	"fileRoot": "../../../../dist/baidu",
+	"tags": [
+		"gdk"
+	],
+	"commands": [],
+	"uses": []
+}

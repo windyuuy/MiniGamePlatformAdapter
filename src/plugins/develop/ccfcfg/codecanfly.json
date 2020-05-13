@@ -1,0 +1,13 @@
+{
+	"name": "gdk-develop",
+	"version": "1.0.0",
+	"files": [
+		"**/*"
+	],
+	"fileRoot": "../../../../dist/develop",
+	"tags": [
+		"gdk"
+	],
+	"commands": [],
+	"uses": []
+}

@@ -1,0 +1,13 @@
+{
+	"name": "gdk-wechat",
+	"version": "1.0.0",
+	"files": [
+		"**/*"
+	],
+	"fileRoot": "../../../../dist/wechat",
+	"tags": [
+		"gdk"
+	],
+	"commands": [],
+	"uses": []
+}

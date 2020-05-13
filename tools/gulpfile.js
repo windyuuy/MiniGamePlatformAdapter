@@ -213,6 +213,22 @@ gulp.task("convdoc", async () => {
 });
 gulp.task('builddoc', gulp.series("gendoc", "convdoc"))
 
-gulp.task("publish", gulp.series("build", "uploadVersion"));
-gulp.task("pubOne", gulp.series("publish", "pubNext", "pubPub", "verifyUpload"))
-gulp.task("pubDocs", gulp.series("builddoc", "uploadDocs"))
+// gulp.task("publish", gulp.series("build", "uploadVersion"));
+// gulp.task("pubOne", gulp.series("publish", "pubNext", "pubPub", "verifyUpload"))
+// gulp.task("pubDocs", gulp.series("builddoc", "uploadDocs"))
+
+gulp.task("pubccfAll", async () => {
+	execon('src/framework/ccfcfg', () => exec("ccf publish"))
+
+	const sourcefolders = glob.sync(`../src/plugins/*`).filter(filepath => {
+		return fs.statSync(filepath).isDirectory()
+	}).map(filepath => path.basename(filepath))
+	sourcefolders.forEach(filepath => {
+		let dir = '../src/plugins/' + filepath + '/ccfcfg'
+		if (fs.existsSync("../dist/" + filepath)) {
+			execon(dir, () => exec("ccf publish"))
+		} else {
+			console.warn(`warn: ${filepath} 未构建，无法发布ccf`)
+		}
+	})
+})

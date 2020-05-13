@@ -1,7 +1,7 @@
 {
 	"extends": "../../base",
 	"compilerOptions": {
-		"outFile": "../../../dist/gamepind.js"
+		"outFile": "../../../dist/gamepind/gamepind.js"
 	},
 	"files": [
 		"./Common.ts",

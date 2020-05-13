@@ -1,0 +1,13 @@
+{
+	"name": "gdk-vivo",
+	"version": "1.0.0",
+	"files": [
+		"**/*"
+	],
+	"fileRoot": "../../../../dist/vivo",
+	"tags": [
+		"gdk"
+	],
+	"commands": [],
+	"uses": []
+}

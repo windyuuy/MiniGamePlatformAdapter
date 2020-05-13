@@ -1,0 +1,13 @@
+{
+	"name": "gdk-web",
+	"version": "1.0.0",
+	"files": [
+		"**/*"
+	],
+	"fileRoot": "../../../../dist/web",
+	"tags": [
+		"gdk"
+	],
+	"commands": [],
+	"uses": []
+}

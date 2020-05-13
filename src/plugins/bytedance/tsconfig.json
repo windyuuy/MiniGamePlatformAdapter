@@ -1,7 +1,7 @@
 {
 	"extends": "../../base",
 	"compilerOptions": {
-		"outFile": "../../../dist/bytedance.js"
+		"outFile": "../../../dist/bytedance/bytedance.js"
 	},
 	"files": [
 		"./Common.ts",

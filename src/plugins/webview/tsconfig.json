@@ -1,7 +1,7 @@
 {
 	"extends": "../../base",
 	"compilerOptions": {
-		"outFile": "../../../dist/webview.js"
+		"outFile": "../../../dist/webview/webview.js"
 	},
 	"files": [
 		"Common.ts",

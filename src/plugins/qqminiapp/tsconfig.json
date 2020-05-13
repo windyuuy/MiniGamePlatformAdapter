@@ -1,7 +1,7 @@
 {
 	"extends": "../../base",
 	"compilerOptions": {
-		"outFile": "../../../dist/qqminiapp.js"
+		"outFile": "../../../dist/qqminiapp/qqminiapp.js"
 	},
 	"files": [
 		"./Common.ts",

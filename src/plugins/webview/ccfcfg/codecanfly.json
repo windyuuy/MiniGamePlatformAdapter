@@ -1,0 +1,13 @@
+{
+	"name": "gdk-webview",
+	"version": "1.0.0",
+	"files": [
+		"**/*"
+	],
+	"fileRoot": "../../../../dist/webview",
+	"tags": [
+		"gdk"
+	],
+	"commands": [],
+	"uses": []
+}

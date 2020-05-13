@@ -1,0 +1,13 @@
+{
+	"name": "gdk-gamepind",
+	"version": "1.0.0",
+	"files": [
+		"**/*"
+	],
+	"fileRoot": "../../../../dist/gamepind",
+	"tags": [
+		"gdk"
+	],
+	"commands": [],
+	"uses": []
+}

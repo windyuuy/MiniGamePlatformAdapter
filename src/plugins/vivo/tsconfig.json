@@ -1,7 +1,7 @@
 {
 	"extends": "../../base",
 	"compilerOptions": {
-		"outFile": "../../../dist/vivo.js"
+		"outFile": "../../../dist/vivo/vivo.js"
 	},
 	"files": [
 		"./Common.ts",

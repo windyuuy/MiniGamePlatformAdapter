@@ -1,0 +1,13 @@
+{
+	"name": "gdk-qqplay",
+	"version": "1.0.0",
+	"files": [
+		"**/*"
+	],
+	"fileRoot": "../../../../dist/qqplay",
+	"tags": [
+		"gdk"
+	],
+	"commands": [],
+	"uses": []
+}

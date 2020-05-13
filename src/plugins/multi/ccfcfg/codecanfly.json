@@ -1,14 +1,13 @@
 {
-	"name": "gdk-unityapp",
+	"name": "gdk-multi",
 	"version": "1.0.0",
 	"files": [
 		"**/*"
 	],
-	"fileRoot": "dist/unityapp",
+	"fileRoot": "../../../../dist/multi",
 	"tags": [
-		"unity"
+		"gdk"
 	],
 	"commands": [],
-	"uses": [
-	]
+	"uses": []
 }

@@ -1,0 +1,13 @@
+{
+	"name": "gdk-oppo",
+	"version": "1.0.0",
+	"files": [
+		"**/*"
+	],
+	"fileRoot": "../../../../dist/oppo",
+	"tags": [
+		"gdk"
+	],
+	"commands": [],
+	"uses": []
+}

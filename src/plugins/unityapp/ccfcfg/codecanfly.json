@@ -1,0 +1,14 @@
+{
+	"name": "gdk-unityapp",
+	"version": "1.0.0",
+	"files": [
+		"**/*"
+	],
+	"fileRoot": "../../../../dist/unityapp",
+	"tags": [
+		"gdk",
+		"unity"
+	],
+	"commands": [],
+	"uses": []
+}

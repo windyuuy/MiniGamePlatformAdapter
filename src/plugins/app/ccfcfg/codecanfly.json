@@ -1,0 +1,13 @@
+{
+	"name": "gdk-app",
+	"version": "1.0.0",
+	"files": [
+		"**/*"
+	],
+	"fileRoot": "../../../../dist/app",
+	"tags": [
+		"gdk"
+	],
+	"commands": [],
+	"uses": []
+}

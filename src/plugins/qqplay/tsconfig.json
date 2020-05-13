@@ -1,7 +1,7 @@
 {
 	"extends": "../../base",
 	"compilerOptions": {
-		"outFile": "../../../dist/qqplay.js"
+		"outFile": "../../../dist/qqplay/qqplay.js"
 	},
 	"files": [
 		"./Common.ts",

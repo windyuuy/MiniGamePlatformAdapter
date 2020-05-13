@@ -1,0 +1,15 @@
+{
+	"name": "gdk-interface",
+	"version": "1.0.0",
+	"files": [
+		"**/*"
+	],
+	"fileRoot": "../../dist/gdk",
+	"tags": [
+		"gdk",
+		"interface"
+	],
+	"commands": [],
+	"uses": [],
+	"readmeFile": "../../docs"
+}

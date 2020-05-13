@@ -1,7 +1,7 @@
 {
 	"extends": "../../base",
 	"compilerOptions": {
-		"outFile": "../../../dist/develop.js"
+		"outFile": "../../../dist/develop/develop.js"
 	},
 	"files": [
 		"./Common.ts",

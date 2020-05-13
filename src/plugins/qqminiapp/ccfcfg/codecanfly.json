@@ -1,0 +1,13 @@
+{
+	"name": "gdk-qqminiapp",
+	"version": "1.0.0",
+	"files": [
+		"**/*"
+	],
+	"fileRoot": "../../../../dist/qqminiapp",
+	"tags": [
+		"gdk"
+	],
+	"commands": [],
+	"uses": []
+}
