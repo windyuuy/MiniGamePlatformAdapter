@@ -222,7 +222,7 @@ gulp.task('ccfupdate', async () => {
 })
 
 gulp.task("pubccfAllLibs", async () => {
-	execon('src/framework/ccfcfg', () => exec("ccf publish"))
+	execon('../src/framework/ccfcfg', () => exec("ccf publish"))
 
 	const sourcefolders = glob.sync(`../src/plugins/*`).filter(filepath => {
 		return fs.statSync(filepath).isDirectory()
