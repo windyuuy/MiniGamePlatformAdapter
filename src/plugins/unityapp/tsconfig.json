@@ -9,7 +9,7 @@
 		],
 		"preserveConstEnums": true,
 		"sourceMap": true,
-		"outFile": "../../../dist/unityapp/unityapp.lua",
+		"outFile": "../../../dist/unityapp/unityapp.lua.txt",
 		"declaration": true,
 		"composite": true,
 		"rootDir": "./",
@@ -24,5 +24,8 @@
 		"../../libs/**.ts",
 		"../../framework",
 		"./**/*.ts"
-	]
+	],
+	"typelua": {
+		"extName": ".lua.txt"
+	}
 }
