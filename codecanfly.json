@@ -1,0 +1,14 @@
+{
+	"name": "",
+	"version": "0.0.1",
+	"files": [],
+	"tags": [],
+	"commands": [],
+	"uses": [
+		{
+			"name": "slib-interface",
+			"version": "1.0.1",
+			"path": "src/libs"
+		}
+	]
+}
