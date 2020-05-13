@@ -1,4 +1,4 @@
-_G.gdkjsb = _G.gdkjsb || CS.Glee.GDKJSB.inst
+_G.gdkjsb = _G.gdkjsb || CS.Glee.Bridge.GDKJSB.inst
 
 namespace UnityAppGDK {
 	export class NativeHelper {
