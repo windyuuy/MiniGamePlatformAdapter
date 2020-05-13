@@ -125,7 +125,7 @@ namespace GDK {
 			if (navigator.userAgent.indexOf('MicroMessenger') > -1) {
 				win.onfocus = onShown;
 			}
-			if ('onpageshow' in window && 'onpagehide' in window) {
+			if (null != window && window['onpageshow'] != null && window['onpagehide'] != null) {
 				win.addEventListener('pagehide', onHidden);
 				win.addEventListener('pageshow', onShown);
 				document.addEventListener('pagehide', onHidden);
