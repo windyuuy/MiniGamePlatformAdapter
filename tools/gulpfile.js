@@ -217,18 +217,22 @@ gulp.task('builddoc', gulp.series("gendoc", "convdoc"))
 // gulp.task("pubOne", gulp.series("publish", "pubNext", "pubPub", "verifyUpload"))
 // gulp.task("pubDocs", gulp.series("builddoc", "uploadDocs"))
 
+gulp.task('ccfupdate', async () => {
+	execon('src/framework/ccfcfg', () => exec("ccf install slib-interface --to ../../libs"))
+})
+
 gulp.task("pubccfAllLibs", async () => {
 	execon('src/framework/ccfcfg', () => exec("ccf publish"))
 
 	const sourcefolders = glob.sync(`../src/plugins/*`).filter(filepath => {
 		return fs.statSync(filepath).isDirectory()
 	}).map(filepath => path.basename(filepath))
-	sourcefolders.forEach(filepath => {
-		let dir = '../src/plugins/' + filepath + '/ccfcfg'
-		if (fs.existsSync("../dist/" + filepath)) {
+	sourcefolders.forEach(targetfolder => {
+		let dir = '../src/plugins/' + targetfolder + '/ccfcfg'
+		if (fs.existsSync("../dist/" + targetfolder)) {
 			execon(dir, () => exec("ccf publish"))
 		} else {
-			console.warn(`warn: ${filepath} 未构建，无法发布ccf`)
+			console.warn(`warn: ${targetfolder} 未构建，无法发布ccf`)
 		}
 	})
 })
