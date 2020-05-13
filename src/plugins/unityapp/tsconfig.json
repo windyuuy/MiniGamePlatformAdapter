@@ -14,15 +14,15 @@
 		"composite": true,
 		"rootDir": "./",
 		"rootDirs": [
-			"../../libs",
-			"../../framework"
+			"../../",
+			"../../libs"
 		]
 	},
 	"compileOnSave": true,
 	"typeAcquisition": {},
 	"include": [
 		"../../libs/**.ts",
-		"../../framework",
+		"../../framework/**/*.ts",
 		"./**/*.ts"
 	],
 	"typelua": {
