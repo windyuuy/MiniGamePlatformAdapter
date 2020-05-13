@@ -38,7 +38,7 @@ namespace UnityAppGDK {
 			const ret = new GDK.RPromise<GDK.LoginResult>()
 
 			let userId = localStorage.getItem('sdk_glee_userId')
-			console.log("sdk_glee_userId:" + userId)
+			console.log("sdk_glee_userId:" , parseInt(userId!))
 			let nUserId: number | undefined = parseInt(userId!)
 			console.log("sdk_glee_userId3:", nUserId)
 			if (isNaN(nUserId)) {

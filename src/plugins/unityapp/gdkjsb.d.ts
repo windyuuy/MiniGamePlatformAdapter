@@ -192,7 +192,7 @@ declare namespace gdkjsb {
 		/**
 		 * 原生SDK版本
 		 */
-		nativeSdkVersion: string
+		sdkFrameworkVersion: string
 
 		/**
 		 * 注册action

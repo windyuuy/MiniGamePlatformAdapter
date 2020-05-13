@@ -1,6 +1,6 @@
 var gulp = require('gulp');
-var uglifyjs = require("gulp-uglify");//压缩混淆js
-var rename = require('gulp-rename')//文件重命名
+var uglifyjs = require("gulp-uglify"); //压缩混淆js
+var rename = require('gulp-rename') //文件重命名
 var fs = require("fs")
 var child_process = require("child_process")
 const OSS = require("ali-oss");
@@ -30,7 +30,9 @@ const execon = (dir, fn) => {
 }
 const exec = (cmd) => {
 	console.log(`-[exec] ${process.cwd()}$ ${cmd}`)
-	child_process.execSync(cmd, { stdio: [0, process.stdout, process.stderr] })
+	child_process.execSync(cmd, {
+		stdio: [0, process.stdout, process.stderr]
+	})
 }
 
 function getOssClient() {
@@ -41,7 +43,7 @@ function getOssClient() {
 
 	console.log(OSS)
 	let client = new OSS({
-		region: region,//https://help.aliyun.com/document_detail/31837.html?spm=a2c4g.11186623.2.9.vbe29U
+		region: region, //https://help.aliyun.com/document_detail/31837.html?spm=a2c4g.11186623.2.9.vbe29U
 		//云账号AccessKey有所有API访问权限，建议遵循阿里云安全最佳实践，部署在服务端使用RAM子账号或STS，部署在客户端使用STS。
 		accessKeyId: accessKeyId,
 		accessKeySecret: accessKeySecret,
@@ -63,7 +65,9 @@ function copyLibsTask(ossSrcDir, ossDestDir, tip) {
 	return async function () {
 		let client = getOssClient();
 
-		const result = await client.list({ prefix: `${ossSrcDir}/` })
+		const result = await client.list({
+			prefix: `${ossSrcDir}/`
+		})
 		await Promise.all(result.objects.map(info => {
 			console.log(`${ossDestDir}/${path.basename(info.name)}`, '<-', `${info.name}`)
 			return client.copy(`${ossDestDir}/${path.basename(info.name)}`, `${info.name}`)
@@ -78,7 +82,9 @@ gulp.task("pubPub", copyLibsTask(ossFolderLibNext, ossFolderLibPub, "发布publi
 gulp.task("verifyUpload", async () => {
 	let client = getOssClient();
 
-	const sourcefiles = glob.sync(`../dist/*`).map(filepath => path.basename(filepath))
+	const sourcefiles = glob.sync(`../dist/*`).filter(filepath => {
+		return !fs.statSync(filepath).isDirectory()
+	}).map(filepath => path.basename(filepath))
 
 	if (!fs.existsSync(tempDir)) {
 		fs.mkdirSync(tempDir)
@@ -101,8 +107,12 @@ gulp.task("verifyUpload", async () => {
 	const unmatchedFiles = []
 	sourcefiles.forEach((filepath) => {
 		let name = path.basename(filepath)
-		let c1 = fs.readFileSync(`${tempDir}/${name}`, { encoding: 'UTF-8' })
-		let c2 = fs.readFileSync(`../dist/${name}`, { encoding: 'UTF-8' })
+		let c1 = fs.readFileSync(`${tempDir}/${name}`, {
+			encoding: 'UTF-8'
+		})
+		let c2 = fs.readFileSync(`../dist/${name}`, {
+			encoding: 'UTF-8'
+		})
 		if (c1 != c2) {
 			unmatchedFiles.push(name)
 			console.error(`file unmatched: ${name}`, c1.length, c2.length)
@@ -140,6 +150,7 @@ gulp.task("compile", async () => {
 		execon("./plugins/bytedance", () => exec("tsc"))
 		execon("./plugins/qqminiapp", () => exec("tsc"))
 		execon("./plugins/wechat", () => exec("tsc"))
+		// execon("./plugins/unityapp", () => exec("tsc"))
 		execon("./plugins/app", () => exec("tsc"))
 		execon("./plugins/baidu", () => exec("tsc"))
 		execon("./plugins/develop", () => exec("tsc"))
@@ -167,7 +178,9 @@ gulp.task("makeVersion", async () => {
 gulp.task("uploadVersion", async () => {
 	let client = getOssClient();
 
-	let list = fs.readdirSync("../dist")
+	let list = fs.readdirSync("../dist").filter(n => {
+		return !fs.statSync("../dist/" + n).isDirectory()
+	})
 	await Promise.all(list.map(n => {
 		console.log(`${ossFolderLibTest}/` + n, "<-", "../dist/" + n)
 		return client.put(`${ossFolderLibTest}/` + n, "../dist/" + n)

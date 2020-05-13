@@ -5,14 +5,42 @@ namespace GDK {
 	class Clipboard implements IClipboard {
 		_data: ClipboardData
 		async getData(): Promise<ClipboardData> {
-			return { ...this._data }
+			// return { ...this._data }
+			// return {};
+			return this._data;
 		}
 		async setData(res: ClipboardData): Promise<void> {
-			this._data = { ...res }
+			// this._data = { ...res }
 		}
 	}
 
 	export class APISystemBase implements IAPISystem {
+		setFPS?(fps: number): void {
+			throw new Error("Method not implemented.")
+		}
+		setLoadingProgress?(params: { progress: number }): void {
+			throw new Error("Method not implemented.")
+		}
+		openURL?(url: string): void {
+			throw new Error("Method not implemented.")
+		}
+		startYunkefu?(accessId: string, name: string, id: string, customField: Object, native?: boolean): void {
+			throw new Error("Method not implemented.")
+		}
+		hasNativeAssistantCenter?(): boolean {
+			throw new Error("Method not implemented.")
+		}
+		showHackWeb?(url: string, duration: number): void {
+			throw new Error("Method not implemented.")
+		}
+		setSDKLanguage?(lang: string): void {
+			throw new Error("Method not implemented.")
+		}
+
+		get sdkFrameworkVersion(): string {
+			return "-1.0"
+		}
+
 		clipboard?: IClipboard = new Clipboard()
 
 		init?() {
@@ -40,6 +68,10 @@ namespace GDK {
 		}
 
 		_initEvents() {
+			if (document == null) {
+				return;
+			}
+
 			var win = window, hiddenPropName;
 			if (typeof document.hidden !== 'undefined') {
 				hiddenPropName = 'hidden';

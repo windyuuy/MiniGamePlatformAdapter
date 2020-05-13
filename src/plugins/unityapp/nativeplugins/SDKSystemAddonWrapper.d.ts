@@ -1,5 +1,5 @@
 
-namespace CS.ujlib {
+declare namespace CS.ujlib {
    export class SDKSystemAddonWrapper {
 
 		/**

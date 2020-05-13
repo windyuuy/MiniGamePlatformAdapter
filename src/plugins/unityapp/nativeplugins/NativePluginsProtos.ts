@@ -1,5 +1,5 @@
 
-namespace AppGDK {
+namespace UnityAppGDK {
     export class ServedLoginInfo {
         public loginNode!: string;
     }

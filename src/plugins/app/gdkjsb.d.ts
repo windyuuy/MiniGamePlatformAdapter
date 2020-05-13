@@ -186,6 +186,11 @@ declare namespace gdkjsb {
 
 	export class bridge {
 		/**
+		 * sdk框架版本
+		 */
+		static sdkFrameworkVersion: string
+
+		/**
 		 * 注册action
 		 * @param name 动作名称
 		 * @param action 动作

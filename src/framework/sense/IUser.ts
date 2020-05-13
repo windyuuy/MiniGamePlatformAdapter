@@ -12,7 +12,7 @@ namespace GDK {
 			nickname: string,
 			profileImg: string,
 			backupTime: number//上传存档时间 秒
-			userNew: false,//是否为新用户
+			userNew: boolean,//是否为新用户
 			service24Timestamp: number,//下一天0点的时间戳
 			shareSwitch: {
 				[key: string]: string
@@ -96,7 +96,7 @@ namespace GDK {
 		/**
 		* server node 
 		*/
-		node?: string;
+		node?: string | null;
 	}
 
 	export class LoginPromise extends Promise<LoginResult>{ }
@@ -116,10 +116,10 @@ namespace GDK {
 		/** 登录 */
 		login(params?: LoginParams): Promise<LoginResult>
 		/** 绑定回调 */
-		setBindCallback(callback: (succ: boolean, data?) => void)
+		setBindCallback(callback: (succ: boolean, data?: any) => void): void
 
 		/** 绑定回调 */
-		setRebootCallback(callback: () => void)
+		setRebootCallback(callback: () => void): void
 		/**
 		 * 显示用户中心
 		 * * APP平台支持
@@ -201,14 +201,15 @@ namespace GDK {
 		// 	wechat: boolean,
 		// 	gamecenter: boolean,
 		// }
-		setLoginSupport?(loginSupport: {
+		setLoginSupport(loginSupport: {
 			google: boolean,
 			visitor: boolean,
 			facebook: boolean,
 			wechat: boolean,
 			gamecenter: boolean,
-		})
+			account: boolean,
+		}): void
 
-		setAccountChangeListener?(f: () => void)
+		setAccountChangeListener?(f: () => void): void
 	}
 }

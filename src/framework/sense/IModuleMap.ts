@@ -34,5 +34,9 @@ namespace GDK {
 		log: ILog
 		/** 本地推送通知 */
 		localPush: ILocalPush
+		/**
+		 * 原生广告v2
+		 */
+		advertV2: IAdvertV2
 	}
 }

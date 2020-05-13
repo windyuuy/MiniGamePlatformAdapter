@@ -17,5 +17,6 @@ namespace GDK {
 		Hardware?: new () => IHardware = HardwareBase
 		Log?: new () => ILog = LogBase
 		LocalPush?: new () => ILocalPush
+		AdvertV2?: new () => IAdvertV2
 	}
 }

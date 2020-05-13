@@ -4,10 +4,10 @@ namespace GDK {
 		/**
 		 * 模块初始化入口
 		 */
-		init?(data?: any)
+		init?(data?: any): void
 		/**
 		 * 模块传入配置初始化入口
 		 */
-		initWithConfig?(info: GDKConfig)
+		initWithConfig?(info: GDKConfig): void
 	}
 }

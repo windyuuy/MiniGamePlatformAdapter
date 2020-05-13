@@ -1,5 +1,5 @@
 
-namespace CS.ujlib {
+declare namespace CS.ujlib {
    export class UserAddonWrapper {
 
 		/**
@@ -80,13 +80,13 @@ namespace CS.ujlib {
    }
 
    export class LoginResult {
+       public openId!: string;
+       public email!: string;
+       public head!: string;
        public nickName!: string;
        public platform!: string;
-       public openId!: string;
-       public token!: string;
-       public head!: string;
        public type!: string;
-       public email!: string;
+       public token!: string;
    }
 
    export class EnterPlatformResult {

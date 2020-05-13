@@ -52,6 +52,10 @@ namespace UnityAppGDK {
 			return gdkjsb.nativeVersion || 0;
 		}
 
+		get sdkFrameworkVersion() {
+			return gdkjsb.bridge.sdkFrameworkVersion || "2.0"
+		}
+
 		openURL(url: string) {
 			gdkjsb.openURL(url);
 		}

@@ -1,5 +1,5 @@
 
-namespace CS.ujlib {
+declare namespace CS.ujlib {
    export class ServedUserAddonWrapper {
 
 		/**
@@ -49,69 +49,69 @@ namespace CS.ujlib {
    }
 
    export class LoginServerResult {
-       public rawData!: any;
        public serverData!: ServerData;
        public recordData!: RecordData;
+       public rawData!: any;
    }
 
    export class ServerData {
-       public gameCurrency!: GameCurrency;
-       public serviceTimestamp!: number;
-       public nickname!: string;
-       public bindingInfo!: any[];
-       public gender!: number;
-       public encryptKey!: string;
-       public custom!: string;
-       public token!: string;
+       public service24Timestamp!: number;
+       public heart!: number;
+       public channelId!: number;
+       public holidays!: boolean;
+       public tableConf!: TableConf;
+       public profileImg!: string;
        public createTime!: number;
        public backupTime!: number;
-       public followGzh!: number;
-       public holidays!: boolean;
-       public heart!: number;
        public dataTimestamp!: number;
-       public tableConf!: TableConf;
-       public ad!: any;
-       public verified!: boolean;
-       public noticeSign!: string;
-       public profileImg!: string;
-       public service24Timestamp!: number;
-       public verifiedInfo!: VerifiedInfo;
-       public userNew!: boolean;
-       public shareSwitch!: any;
-       public channelId!: number;
-       public gametoken!: string;
-       public qa!: string;
-       public openId!: string;
        public userId!: number;
-   }
-
-   export class GameCurrency {
-       public diamond!: string;
-       public seed!: string;
-       public gold!: string;
+       public encryptKey!: string;
+       public gender!: number;
+       public gameCurrency!: GameCurrency;
+       public noticeSign!: string;
+       public bindingInfo!: any[];
+       public verifiedInfo!: VerifiedInfo;
+       public gametoken!: string;
+       public custom!: string;
+       public shareSwitch!: any;
+       public qa!: string;
+       public ad!: any;
+       public followGzh!: number;
+       public openId!: string;
+       public serviceTimestamp!: number;
+       public verified!: boolean;
+       public nickname!: string;
+       public userNew!: boolean;
+       public token!: string;
    }
 
    export class TableConf {
        public tableSign!: string;
    }
 
+   export class GameCurrency {
+       public gold!: string;
+       public seed!: string;
+       public diamond!: string;
+   }
+
    export class VerifiedInfo {
-       public age!: number;
-       public name!: string;
        public birthday!: string;
+       public name!: string;
        public idCard!: string;
+       public age!: number;
    }
 
    export class RecordData {
-       public type!: string;
-       public gameUserId!: string;
-       public token!: string;
-       public openId!: string;
-       public head!: string;
-       public bindingInfo!: any[];
-       public gameRegDate!: number;
        public nickName!: string;
+       public token!: string;
        public accountName!: string;
+       public gameUserId!: string;
+       public openId!: string;
+       public type!: string;
+       public head!: string;
+       public gameRegDate!: number;
+       public bindingInfo!: any[];
    }
 
    export class ServedBindInfo {

@@ -1,5 +1,5 @@
 
-namespace CS.ujlib {
+declare namespace CS.ujlib {
    export class AnalyticsAddonWrapper {
 
 		/**
@@ -39,8 +39,8 @@ namespace CS.ujlib {
     }
 
    export class SimpleLogCustomEventParams {
-       public key!: string;
        public data!: string;
+       public key!: string;
    }
 
    export class LogConfigs {

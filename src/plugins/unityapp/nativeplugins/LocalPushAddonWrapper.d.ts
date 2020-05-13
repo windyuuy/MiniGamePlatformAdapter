@@ -1,5 +1,5 @@
 
-namespace CS.ujlib {
+declare namespace CS.ujlib {
    export class LocalPushAddonWrapper {
 
 		/**
@@ -49,22 +49,22 @@ namespace CS.ujlib {
    }
 
    export class NotifyTemplate {
+       public enableSoundTip!: boolean;
+       public repeat!: number;
+       public identifier!: string;
+       public title!: string;
        public isBigText!: boolean;
        public subtitle!: string;
-       public repeat!: number;
+       public enableLightTip!: boolean;
+       public availableStage!: number;
        public soundName!: string;
        public interval!: number;
-       public badge!: number;
-       public title!: string;
        public ticker!: string;
-       public userInfo!: string;
-       public enableSoundTip!: boolean;
-       public identifier!: string;
-       public content!: string;
        public enableVibrateTip!: boolean;
-       public availableStage!: number;
-       public enableLightTip!: boolean;
+       public badge!: number;
        public subText!: string;
+       public userInfo!: string;
+       public content!: string;
    }
 
    export class RemoveLocalNotifiesParams {

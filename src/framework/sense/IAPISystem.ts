@@ -183,6 +183,11 @@ namespace GDK {
 		readonly nativeVersion: number;
 
 		/**
+		 * SDK框架版本
+		 */
+		readonly sdkFrameworkVersion: string;
+
+		/**
 		 * 跳转app设置界面
 		 * - 目前只支持 android
 		 */

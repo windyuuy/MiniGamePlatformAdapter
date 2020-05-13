@@ -105,8 +105,14 @@ namespace GDK {
 	 * @param T - resolve 参数类型
 	 * @param F - reject 参数类型
 	 */
-	export class YmPromise<T, F=any> {
+	export class YmPromise<T, F = any> {
+		/**
+		 * @noSelf
+		 */
 		success: Function
+		/**
+		 * @noSelf
+		 */
 		fail: Function
 		promise: Promise<T>
 		constructor(params?: any) {

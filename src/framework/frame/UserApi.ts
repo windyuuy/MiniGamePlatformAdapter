@@ -2,7 +2,7 @@ namespace GDK {
 	const devlog = new slib.Log({ tags: ["DEVELOP"] });
 	// 自动生成，成员使用register函数注册
 	export class UserAPI {
-		private _m: IModuleMap = null;
+		private _m!: IModuleMap;
 		constructor(moduleMap: IModuleMap) {
 			this._m = moduleMap;
 		}
@@ -80,6 +80,14 @@ namespace GDK {
 		}
 		get systemInfo(): ISystemInfo {
 			return this._m.systemInfo;
+		}
+
+		get apiSystem(): IAPISystem {
+			return this._m.apiSystem;
+		}
+
+		get advertV2(): IAdvertV2 {
+			return this._m.advertV2;
 		}
 
 		/** 批量导出接口 */
@@ -213,14 +221,14 @@ namespace GDK {
 			return this._m.user.login(params);
 		}
 		/** 绑定回调 */
-		setBindCallback(callback: (succ: boolean, data?) => void) {
+		setBindCallback(callback: (succ: boolean, data?: any) => void): void {
 			if (!this.checkModuleAttr("user", "setBindCallback", "function")) {
 				return undefined;
 			}
 			return this._m.user.setBindCallback(callback);
 		}
 		/** 绑定回调 */
-		setRebootCallback(callback: () => void) {
+		setRebootCallback(callback: () => void): void {
 			if (!this.checkModuleAttr("user", "setRebootCallback", "function")) {
 				return undefined;
 			}
@@ -346,20 +354,21 @@ namespace GDK {
 			return this._m.user.checkIsUserBind(userId);
 		}
 		// }
-		setLoginSupport?(loginSupport: {
+		setLoginSupport(loginSupport: {
 			google: boolean;
 			visitor: boolean;
 			facebook: boolean;
 			wechat: boolean;
 			gamecenter: boolean;
-		}) {
+			account: boolean;
+		}): void {
 			if (!this.checkModuleAttr("user", "setLoginSupport", "function")) {
 				return undefined;
 			}
 			return this._m.user.setLoginSupport(loginSupport);
 		}
 
-		setAccountChangeListener?(f: () => void) {
+		setAccountChangeListener?(f: () => void): void {
 			if (
 				!this.checkModuleAttr("user", "setAccountChangeListener", "function")
 			) {
@@ -1073,6 +1082,15 @@ namespace GDK {
 			return this._m.apiSystem.nativeVersion;
 		}
 		/**
+		 * SDK框架版本
+		 */
+		get sdkFrameworkVersion(): string {
+			if (!this.checkModuleAttr("apiSystem", "sdkFrameworkVersion")) {
+				return undefined;
+			}
+			return this._m.apiSystem.sdkFrameworkVersion;
+		}
+		/**
 		 * 跳转app设置界面
 		 * - 目前只支持 android
 		 */
@@ -1550,7 +1568,7 @@ namespace GDK {
 		 * 创建用户信息授权按钮
 		 * * 当前仅微信有效
 		 */
-		createUserInfoButton(obj: IUserInfoButton): UserInfoButton {
+		createUserInfoButton(obj: IUserInfoButton): UserInfoButton | null {
 			if (!this.checkModuleAttr("auth", "createUserInfoButton", "function")) {
 				return undefined;
 			}
@@ -1736,6 +1754,25 @@ namespace GDK {
 				return this.createNonePromise("[localPush.isLocalNoticeEnabled]");
 			}
 			return this._m.localPush.isLocalNoticeEnabled();
+		}
+		/**
+		 * 是个单例
+		 * 创建激励视频广告对象
+		 */
+		createAdvertUnit(createInfo: AdCreateInfo): Promise<IAdvertUnit> {
+			if (!this.checkModuleAttr("advertV2", "createAdvertUnit", "function")) {
+				return this.createNonePromise("[advertV2.createAdvertUnit]");
+			}
+			return this._m.advertV2.createAdvertUnit(createInfo);
+		}
+
+		isAdvertTypeSupported(advertType: AdvertType): boolean {
+			if (
+				!this.checkModuleAttr("advertV2", "isAdvertTypeSupported", "function")
+			) {
+				return undefined;
+			}
+			return this._m.advertV2.isAdvertTypeSupported(advertType);
 		}
 
 		// $batch_export() end

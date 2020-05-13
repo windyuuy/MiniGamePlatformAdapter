@@ -20,7 +20,7 @@ namespace GDK {
 		/**
 		 * 服务器对象
 		 */
-		httpClient: slib.HttpGameClient
+		httpClient!: slib.HttpGameClient
 
 		/**
 		 * 优先只启用客服跳转支付
@@ -39,7 +39,7 @@ namespace GDK {
 		/**
 		 * 获取当前服务器时间
 		 */
-		getServerTime: () => Date;
+		getServerTime!: () => Date;
 	}
 
 	export class GDKDevelopConfig extends GDKConfigBase {

@@ -1,5 +1,5 @@
 
-namespace CS.ujlib {
+declare namespace CS.ujlib {
    export class AdTrackingAddonWrapper {
 
         public LogCustomEvent (info: LogCustomEventParams, callbacks: TaskCallback<LogEventResult>):void;

@@ -52,6 +52,10 @@ namespace AppGDK {
 			return gdkjsb.nativeVersion || 0;
 		}
 
+		get sdkFrameworkVersion() {
+			return gdkjsb.bridge.sdkFrameworkVersion || "1.0"
+		}
+
 		openURL(url: string) {
 			gdkjsb.openURL(url);
 		}

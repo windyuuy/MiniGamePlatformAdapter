@@ -1,5 +1,5 @@
 
-namespace CS.ujlib {
+declare namespace CS.ujlib {
    export class SDKCrashAddonWrapper {
 
 		/**
@@ -45,8 +45,8 @@ namespace CS.ujlib {
     }
 
    export class CrashUserInfo {
-       public userId!: number;
        public name!: string;
+       public userId!: number;
    }
 
    export class ExceptionInfo {

@@ -1,10 +1,13 @@
 
 namespace GDK {
 	export abstract class UserBase implements IUser {
+		setLoginSupport(loginSupport: { google: boolean; visitor: boolean; facebook: boolean; wechat: boolean; gamecenter: boolean; account: boolean }): void {
+		}
+		api?: UserAPI | undefined
 		abstract login(params?: LoginParams): Promise<LoginResult>
-		bindCallback: (succ: boolean, data?) => void
-		rebootCallback: () => void
-		setBindCallback(callback: (succ: boolean, data?) => void) {
+		bindCallback?: (succ: boolean, data?) => void
+		rebootCallback?: () => void
+		setBindCallback(callback: (succ: boolean, data?: any) => void) {
 			this.bindCallback = callback
 		}
 

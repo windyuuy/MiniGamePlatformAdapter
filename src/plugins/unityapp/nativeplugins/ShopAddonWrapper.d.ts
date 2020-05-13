@@ -1,5 +1,5 @@
 
-namespace CS.ujlib {
+declare namespace CS.ujlib {
    export class ShopAddonWrapper {
 
 		/**
@@ -31,24 +31,24 @@ namespace CS.ujlib {
     }
 
    export class PayInfo {
-       public extra!: any;
+       public currency!: string;
+       public productId!: string;
        public title!: string;
+       public count!: number;
+       public extra!: any;
        public coopOrder!: string;
        public price!: double;
-       public productId!: string;
-       public count!: number;
-       public currency!: string;
    }
 
    export class PayResult {
-       public reason!: string;
-       public code!: number;
-       public productId!: string;
        public message!: string;
-       public payWay!: string;
+       public productId!: string;
        public goodsId!: string;
        public coopOrder!: string;
+       public code!: number;
        public data!: PayResultRaw;
+       public reason!: string;
+       public payWay!: string;
    }
 
    export class ConsumePurchaseInfo {
@@ -61,21 +61,21 @@ namespace CS.ujlib {
    }
 
    export class QueryItemInfoSource {
-       public productId!: string;
        public payWay!: string;
+       public productId!: string;
    }
 
    export class QueryItemInfoResult {
-       public message!: string;
-       public data!: PayQueryItemInfoResultData;
        public code!: number;
+       public data!: PayQueryItemInfoResultData;
+       public message!: string;
    }
 
    export class PayQueryItemInfoResultData {
-       public dataSignature!: string;
+       public purchaseData!: string;
        public productId!: string;
        public purchaseToken!: string;
-       public purchaseData!: string;
+       public dataSignature!: string;
    }
 
 }
