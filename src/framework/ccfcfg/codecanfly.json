@@ -2,7 +2,7 @@
 	"name": "gdk-interface",
 	"version": "1.0.1",
 	"files": [
-		"**/*"
+		"gdk.d.ts"
 	],
 	"fileRoot": "../../../dist/gdk",
 	"tags": [
