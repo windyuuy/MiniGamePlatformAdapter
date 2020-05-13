@@ -217,7 +217,7 @@ gulp.task('builddoc', gulp.series("gendoc", "convdoc"))
 // gulp.task("pubOne", gulp.series("publish", "pubNext", "pubPub", "verifyUpload"))
 // gulp.task("pubDocs", gulp.series("builddoc", "uploadDocs"))
 
-gulp.task("pubccfAll", async () => {
+gulp.task("pubccfAllLibs", async () => {
 	execon('src/framework/ccfcfg', () => exec("ccf publish"))
 
 	const sourcefolders = glob.sync(`../src/plugins/*`).filter(filepath => {
@@ -232,3 +232,5 @@ gulp.task("pubccfAll", async () => {
 		}
 	})
 })
+
+gulp.task("pubccfAll", gulp.series("pubccfAllLibs"))

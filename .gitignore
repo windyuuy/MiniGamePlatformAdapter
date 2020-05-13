@@ -5,3 +5,5 @@
 /tools/temp/
 /ccf_temp
 /ccf_modules
+**/ccfcfg/ccf_temp/**
+
