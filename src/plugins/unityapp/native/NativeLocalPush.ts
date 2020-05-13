@@ -1,5 +1,4 @@
 /// <reference path="./NativeHelper.ts" />
-/// <reference path="../../../framework/sense/ILocalPush.ts" />
 
 namespace UnityAppGDK {
 	export class NativeLocalPushStyle extends GDK.LocalPushBundle {
