@@ -9,20 +9,23 @@
 		],
 		"preserveConstEnums": true,
 		"sourceMap": true,
-		"outFile": "../../../dist/unityapp/unityapp.lua",
+		"outFile": "../../../dist/unityapp/unityapp.lua.txt",
 		"declaration": true,
 		"composite": true,
 		"rootDir": "./",
 		"rootDirs": [
-			"../../libs",
-			"../../framework"
+			"../../",
+			"../../libs"
 		]
 	},
 	"compileOnSave": true,
 	"typeAcquisition": {},
 	"include": [
 		"../../libs/**.ts",
-		"../../framework",
+		"../../framework/**/*.ts",
 		"./**/*.ts"
-	]
+	],
+	"typelua": {
+		"extName": ".lua.txt"
+	}
 }
