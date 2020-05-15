@@ -1,6 +1,6 @@
 {
 	"name": "gdk-interface",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"files": [
 		"gdk.d.ts"
 	],
