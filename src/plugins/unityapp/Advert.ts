@@ -9,15 +9,15 @@ namespace UnityAppGDK {
 
 			let info = _info //as GDK.GDKAPPConfig
 
-			info.app.advertPlatforms = info.app.advertPlatforms || []
-			if (info.app.advertPlatforms.length == 0) {
-				info.app.advertPlatform = info.app.advertPlatform || 'ironsource'
+			info.unityapp.advertPlatforms = info.unityapp.advertPlatforms || []
+			if (info.unityapp.advertPlatforms.length == 0) {
+				info.unityapp.advertPlatform = info.unityapp.advertPlatform || 'ironsource'
 			}
-			if (info.app.advertPlatform) {
-				info.app.advertPlatforms.remove(info.app.advertPlatform)
-				info.app.advertPlatforms.push(info.app.advertPlatform)
+			if (info.unityapp.advertPlatform) {
+				info.unityapp.advertPlatforms.remove(info.unityapp.advertPlatform)
+				info.unityapp.advertPlatforms.push(info.unityapp.advertPlatform)
 			}
-			for (let key of info.app.advertPlatforms) {
+			for (let key of info.unityapp.advertPlatforms) {
 				// 选择广告平台
 				await SDKProxy.nativeAdvert.advertPlatformSelect(key)
 
@@ -39,8 +39,8 @@ namespace UnityAppGDK {
 
 			// <<<begin:以下旧版代码，不支持多平台广告
 			// // 选择广告平台
-			// if (info.app && info.app.advertPlatform != undefined) {
-			// 	await SDKProxy.nativeAdvert.advertPlatformSelect(info.app.advertPlatform)
+			// if (info.unityapp && info.unityapp.advertPlatform != undefined) {
+			// 	await SDKProxy.nativeAdvert.advertPlatformSelect(info.unityapp.advertPlatform)
 			// } else {
 			// 	await SDKProxy.nativeAdvert.advertPlatformSelect("ironsource")
 			// }

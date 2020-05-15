@@ -170,6 +170,7 @@ namespace GDK {
 
 		oppo?: GDKOPPOConfig
 		app?: GDKAPPConfig
+		unityapp?: GDKAPPConfig
 		qqminiapp?: GDKQQMINIAPPConfig
 		vivo?: GDKVIVOConfig
 		gamepind?: GDKGamepindConfig
