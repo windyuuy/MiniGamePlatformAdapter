@@ -20,6 +20,7 @@
 	"compileOnSave": true,
 	"typeAcquisition": {},
 	"include": [
+		"../../libs/**/*.ts",
 		"../../framework/**/*.ts",
 		"./**/*.ts"
 	],
