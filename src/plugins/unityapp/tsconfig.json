@@ -14,14 +14,12 @@
 		"composite": true,
 		"rootDir": "./",
 		"rootDirs": [
-			"../../",
-			"../../libs"
+			"../../framework",
 		]
 	},
 	"compileOnSave": true,
 	"typeAcquisition": {},
 	"include": [
-		"../../libs/**.ts",
 		"../../framework/**/*.ts",
 		"./**/*.ts"
 	],

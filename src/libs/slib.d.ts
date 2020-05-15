@@ -2026,8 +2026,20 @@ interface String {
 	endsWith(str: string): boolean;
 }
 declare namespace slib {
+    /**
+     * @noSelf
+     */
     function assert(cond: any, tip?: string): any;
+    /**
+     * @noSelf
+     */
     function defaultValue<T>(kv: T, dv: T): T;
+}
+declare namespace slib {
+    type TypeMap<T> = {
+        [key: string]: T;
+    };
+    type StringMap = TypeMap<string>;
 }
 declare namespace slib {
     class I18N {
@@ -2050,7 +2062,7 @@ declare namespace slib {
          * 动态切换语言
          */
         dynChange: boolean;
-        readonly langMap: {
+        get langMap(): {
             [key: string]: string;
         };
         /**
@@ -2108,12 +2120,13 @@ declare namespace slib {
         time?: boolean;
         tags?: string[];
     };
-    class Log {
+    export class Log {
         private static _enablePlaneLog;
-        static enablePlaneLog: boolean;
+        static get enablePlaneLog(): boolean;
         static toPlaneLog(args: any[]): any[];
+        static set enablePlaneLog(value: boolean);
         protected static _instance: Log;
-        static readonly instance: Log;
+        static get instance(): Log;
         protected time?: boolean;
         protected tags?: string[];
         constructor({ time, tags }?: LogParam);
@@ -2130,7 +2143,8 @@ declare namespace slib {
          */
         error(...args: any[]): void;
     }
-    var log: Log;
+    export var log: Log;
+    export {};
 }
 declare namespace slib {
     class LogicResult {
@@ -2160,10 +2174,11 @@ declare namespace slib {
         /**
          * 获取逻辑链进度函数
          */
+        get progress(): (current: number, total: number) => void;
         /**
-        * 设置逻辑链进度函数
-        */
-        progress: (current: number, total: number) => void;
+         * 设置逻辑链进度函数
+         */
+        set progress(value: (current: number, total: number) => void);
     }
 }
 declare namespace slib {
@@ -2182,7 +2197,7 @@ declare namespace slib {
         constructor();
         addCreator(className: string, creator: () => Object): void;
         create(className: any): Object;
-        readonly creatorList: {
+        get creatorList(): {
             className: string;
             creator: () => Object;
         }[];
@@ -2190,6 +2205,7 @@ declare namespace slib {
     /**
      * 安全数据修饰符，被修饰的类的属性会被加密
      * @param className 类名 由于代码混淆后无法拿到准确的类名，因此需要手动传入
+     * @noSelf
      */
     function SafeClass(className: string): any;
     /**
@@ -2201,6 +2217,7 @@ declare namespace slib {
      * 对某个属性进行加密
      * @param target 对象
      * @param property 对象的属性
+     * @noSelf
      */
     function SafeProperty(target: object, property: string): void;
     /**
@@ -2265,12 +2282,28 @@ declare namespace slib.EncryptHelper {
      * 加密时，是否开启压缩
      */
     var enableZip: boolean;
+    /**
+     * @noSelf
+     */
     function decrypt(value: string, key: string): string;
+    /**
+     * @noSelf
+     */
     function encrypt(value: string, key: string, extdata?: any): string;
 }
 declare namespace slib.JSHelper {
+    /**
+     * @noSelf
+     */
     function clone<T extends Object>(srcObj: T): T;
+    /**
+     * @noSelf
+     */
     function merge<T extends Object>(srcObj: Object, destObj: T): T;
+    /**
+     * @noSelf
+     */
+    function repack(a: any): any;
 }
 declare namespace slib {
     var Base64: {
@@ -2347,12 +2380,18 @@ declare namespace slib {
          * 设置断开连接回调
          */
         setDisconnectCallback(callback: any): void;
-        host: string;
-        port: number;
-        protocol: string;
-        url: string;
-        showModalCallback: (index: number, url: string) => void;
-        closeModalCallback: (index: number, url: string) => void;
+        get host(): string;
+        set host(value: string);
+        get port(): number;
+        set port(value: number);
+        get protocol(): string;
+        set protocol(value: string);
+        set url(value: string);
+        get url(): string;
+        set showModalCallback(callback: (index: number, url: string) => void);
+        set closeModalCallback(callback: (index: number, url: string) => void);
+        get showModalCallback(): (index: number, url: string) => void;
+        get closeModalCallback(): (index: number, url: string) => void;
     }
 }
 declare namespace slib {
@@ -2370,13 +2409,14 @@ declare namespace slib {
         onProgress?: (loaded: number, total: number) => void;
         onUploadProgress?: (loaded: number, total: number) => void;
     };
-    class HttpClient {
+    export class HttpClient {
         constructor();
         /**
          * 对http发起请求
          */
         request({ method, url, data, timeout, headMap, onDone, onError, onTimeout, onProgress, onUploadProgress, }: RequestParam): void;
     }
+    export {};
 }
 declare namespace slib {
     type HttpResponseData = {
@@ -2384,6 +2424,7 @@ declare namespace slib {
         code: 0 | number;
         message: "success" | string;
         ts: number;
+        errorcode: string;
         data: any;
     };
     type HttpRequestData = {
@@ -2393,10 +2434,11 @@ declare namespace slib {
         retry: number;
         data: any;
     };
-    class HttpGameClient extends GameClient {
+    export class HttpGameClient extends GameClient {
         protected _client: HttpClient;
         protected _requestIndex: number;
         protected _retryCount: number;
+        protected _timeout: number;
         searchExt: () => string;
         debugURL: string;
         constructor();
@@ -2430,6 +2472,7 @@ declare namespace slib {
          * 获取loading索引
          */
         getLoadingIndex: () => number;
+        set timeout(value: number);
         /**
          * 发起服务器请求
          * @param action 请求的相对url
@@ -2461,9 +2504,11 @@ declare namespace slib {
             errorCallback?: (error: any, retry: () => void) => void;
             customUrl?: string;
         }, isRetry?: boolean, modalIndex?: number): void;
-        retryCount: number;
-        readonly client: HttpClient;
+        get retryCount(): number;
+        set retryCount(value: number);
+        get client(): HttpClient;
     }
+    export {};
 }
 declare namespace slib {
     type SocketResponseData = {
@@ -2479,7 +2524,7 @@ declare namespace slib {
         modal: boolean;
         time: number;
     };
-    class SocketGameClient extends GameClient {
+    export class SocketGameClient extends GameClient {
         protected _client: WebSocket;
         protected _requestIndex: number;
         protected _connected: boolean;
@@ -2499,9 +2544,10 @@ declare namespace slib {
         onCloseHandler(ev: CloseEvent): any;
         onMessageHandler(ev: MessageEvent): any;
         onErrorHandler(ev: Event): any;
-        readonly connected: boolean;
-        readonly connecting: boolean;
+        get connected(): boolean;
+        get connecting(): boolean;
         request(action: string, data: any, callback: (data: SocketResponseData) => void, modal?: boolean): void;
         close(): void;
     }
+    export {};
 }
