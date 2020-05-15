@@ -127,7 +127,7 @@ namespace GDK {
 		}
 	}
 
-	export class RPromise<T, F=any> extends YmPromise<T, F>{
+	export class RPromise<T, F = any> extends YmPromise<T, F>{
 		success: (value: T) => void
 		fail: (value?: F) => void
 	}
