@@ -24,7 +24,6 @@ namespace AppGDK {
 	}
 
 	export class NativeAdvert {
-
 		/**
 		 * @param params.appKey 可选参数，如果安卓项目中已经填写 ironsource_advert_appkey ，那么此处可不传入
 		 * @param params.modules 指定支持的广告模块，可选 key 为：`REWARDED_VIDEO`,`BANNER`,`INTERSTITIAL`,`OFFERWALL`
@@ -387,6 +386,61 @@ namespace AppGDK {
 		async initMultAdSlot(params: GDK.VideoAdSlot[]) {
 			if (gdkjsb.bridge == undefined) return;
 			return nativeHelper.safeCallAction("initMultAdSlot", { slotInfo: params });
+		}
+
+
+		// Splash 开屏广告
+		/**
+		 * 事件通知流程
+		 * # 从加载开屏到播放
+		 * - load
+		 * - onSplashAdAvailabilityChanged -> true
+		 * - onSplashAdCached
+		 * - show
+		 * - onSplashAdShowFailed
+		 */
+		async setSplashAdListener() {
+			return nativeHelper.callAction("ironsrc:IronSource.setSplashAdListener", {})
+		}
+
+		async loadSplashAd(): Promise<{}> {
+			const key = "ironsrc:IronSource.loadSplashAd"
+			return nativeHelper.safeCallAction<{}>(key, {}) || {}
+		}
+
+		async isSplashAdAvailable() {
+			return nativeHelper.callAction<{ available: boolean }>("ironsrc:IronSource.isSplashAdAvailable", {})
+		}
+
+		async showSplashAd(params: { placementName: string }) {
+			return nativeHelper.callAction("ironsrc:IronSource.showSplashAd", params)
+		}
+
+		/**
+		 * 监听广告关闭
+		 */
+		async onSplashAdClosed(callback: Function) {
+			return nativeHelper.onDoneEvent("ironsrc:onSplashAdClosed", callback)
+		}
+		/**
+		 * 通知当前视频是否已加载
+		 */
+		async onSplashAdAvailabilityChanged(callback: (data: { available: boolean }) => void) {
+			return nativeHelper.onEvent("ironsrc:onSplashAdAvailabilityChanged", callback)
+		}
+
+		/**
+		 * 播放失败
+		 */
+		async onSplashAdShowFailed(callback: (data: IronSrc.IronSourceError) => void) {
+			return nativeHelper.onEvent<IronSrc.IronSourceError>("ironsrc:onSplashAdShowFailed", callback)
+		}
+
+		/**
+		 * 加载失败
+		 */
+		async onSplashAdLoadFailed(callback: (data: IronSrc.IronSourceError) => void) {
+			return nativeHelper.onEvent<IronSrc.IronSourceError>("ironsrc:onSplashAdLoadFailed", callback)
 		}
 
 	}

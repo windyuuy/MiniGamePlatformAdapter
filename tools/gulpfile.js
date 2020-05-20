@@ -160,7 +160,7 @@ gulp.task("compile", async () => {
 		execon("./plugins/vivo", () => exec("tsc"))
 		execon("./plugins/webview", () => exec("tsc"))
 
-		// execon("./test", () => exec("tsc"))
+		execon("./test", () => exec("tsc"))
 	})
 
 })
@@ -213,9 +213,9 @@ gulp.task("convdoc", async () => {
 });
 gulp.task('builddoc', gulp.series("gendoc", "convdoc"))
 
-// gulp.task("publish", gulp.series("build", "uploadVersion"));
-// gulp.task("pubOne", gulp.series("publish", "pubNext", "pubPub", "verifyUpload"))
-// gulp.task("pubDocs", gulp.series("builddoc", "uploadDocs"))
+gulp.task("publish", gulp.series("build", "uploadVersion"));
+gulp.task("pubOne", gulp.series("publish", "pubNext", "pubPub", "verifyUpload"))
+gulp.task("pubDocs", gulp.series("builddoc", "uploadDocs"))
 
 gulp.task('ccfupdate', async () => {
 	execon('src/framework/ccfcfg', () => exec("ccf install slib-interface --to ../../libs"))

@@ -1332,6 +1332,24 @@ namespace GDK {
 			return this._m.advert.createFullscreenVideoAd(params);
 		}
 		/**
+		 * 是否支持开屏视频广告
+		 */
+		get supportSplashAd(): boolean {
+			if (!this.checkModuleAttr("advert", "supportSplashAd")) {
+				return undefined;
+			}
+			return this._m.advert.supportSplashAd;
+		}
+		/**
+		 * 创建开屏广告
+		 */
+		createSplashAd?(params: SplashAdCreateParam): GDK.ISplashAd {
+			if (!this.checkModuleAttr("advert", "createSplashAd", "function")) {
+				return undefined;
+			}
+			return this._m.advert.createSplashAd(params);
+		}
+		/**
 		 * 是否支持信息流广告
 		 */
 		get supportFeedAd(): boolean {

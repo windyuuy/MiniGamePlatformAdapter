@@ -64,6 +64,7 @@ namespace AppGDK {
 		protected static _videoAd: GDK.IRewardedVideoAd
 		protected static _interstitialAd: GDK.IInterstitialAd
 		protected static _fullscreenAd: GDK.IFullscreedVideoAd
+		protected static _splashAd: GDK.ISplashAd
 		protected static _bannerAd: BannerAd
 		createRewardedVideoAd(params: {
 			/** 广告单元 id */
@@ -158,6 +159,22 @@ namespace AppGDK {
 			return new Promise((resolve, reject) => {
 				resolve()
 			})
+		}
+
+		get supportSplashAd(): boolean {
+			return nativeHelper.checkActionExist("ironsrc:IronSource.showSplashAd")
+		}
+
+		createSplashAd?(params: GDK.SplashAdCreateParam): GDK.ISplashAd {
+			if (!Advert._splashAd) {
+				if (this.supportFullscreenVideoAd) {
+					Advert._splashAd = new SplashAd(params, this.api)
+				} else {
+					// Advert._splashAd = new VideoAd(params, this.api)
+					devlog.error("当前app版本过低，不支持插屏广告(Interstitial)")
+				}
+			}
+			return Advert._splashAd
 		}
 	}
 }

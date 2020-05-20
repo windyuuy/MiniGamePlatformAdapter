@@ -1,7 +1,7 @@
 {
 	"extends": "../base",
 	"compilerOptions": {
-		"outFile": "../../dist/testgdk.js",
+		"outFile": "../../dist/test/testgdk.js",
 		"declaration": true,
 		"composite": true,
 	},

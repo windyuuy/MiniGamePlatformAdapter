@@ -51,6 +51,8 @@ namespace GDK {
 	}
 	export class FullscreenAdOnErrorParam extends RewardedVideoAdOnErrorParam {
 	}
+	export class SplashAdOnErrorParam extends RewardedVideoAdOnErrorParam {
+	}
 
 	export class RewardVideoAdLoadParams {
 		placementId?: string
@@ -116,6 +118,8 @@ namespace GDK {
 	export interface IInterstitialAd extends IRewardedVideoAd {
 	}
 	export interface IFullscreedVideoAd extends IRewardedVideoAd {
+	}
+	export interface ISplashAd extends IRewardedVideoAd {
 	}
 
 	export interface IBannerAd {
@@ -262,6 +266,8 @@ namespace GDK {
 
 	export interface FullscreenVideoAdCreateParam extends VideoAdCreateParam {
 	}
+	export interface SplashAdCreateParam extends VideoAdCreateParam {
+	}
 	export interface InterstitialAdCreateParam extends VideoAdCreateParam {
 	}
 	export interface BannerAdCreateParam {
@@ -352,6 +358,16 @@ namespace GDK {
 		 * 创建全屏广告
 		 */
 		createFullscreenVideoAd?(params: FullscreenVideoAdCreateParam): GDK.IInterstitialAd
+
+		/**
+		 * 是否支持开屏视频广告
+		 */
+		readonly supportSplashAd?: boolean
+
+		/**
+		 * 创建开屏广告
+		 */
+		createSplashAd?(params: SplashAdCreateParam): GDK.ISplashAd
 
 		/**
 		 * 是否支持信息流广告
