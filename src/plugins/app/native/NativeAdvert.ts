@@ -419,8 +419,8 @@ namespace AppGDK {
 		/**
 		 * 监听广告关闭
 		 */
-		async onSplashAdClosed(callback: Function) {
-			return nativeHelper.onDoneEvent("ironsrc:onSplashAdClosed", callback)
+		async onSplashAdClosed(callback: (data: { couldReward: boolean }) => void) {
+			return nativeHelper.onEvent("ironsrc:onSplashAdClosed", callback)
 		}
 		/**
 		 * 通知当前视频是否已加载
