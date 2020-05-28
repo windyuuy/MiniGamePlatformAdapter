@@ -42,10 +42,16 @@ namespace AppGDK {
 			SDKProxy.nativeAdvert.onRewardedVideoAdShowFailed((error) => {
 				this.onRewardedVideoAdShowFailed(error)
 			})
+			SDKProxy.nativeAdvert.onRewardedVideoAdLoadFailed((error) => {
+				this.onRewardedVideoAdLoadFailed(error)
+			})
 		}
 
 		onRewardedVideoAdOpened() {
 
+		}
+		onRewardedVideoAdLoadFailed(error: IronSrc.IronSourceError) {
+			return this.onRewardedVideoAdShowFailed(error)
 		}
 		onRewardedVideoAdShowFailed(error: IronSrc.IronSourceError) {
 			this._isShowing = false

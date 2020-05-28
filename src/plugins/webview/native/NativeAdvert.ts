@@ -101,6 +101,9 @@ namespace AppGDK {
 		async onRewardedVideoAdShowFailed(callback: (data: IronSrc.IronSourceError) => void) {
 			return nativeHelper.onEvent<IronSrc.IronSourceError>("ironsrc:onRewardedVideoAdShowFailed", callback)
 		}
+		async onRewardedVideoAdLoadFailed(callback: (data: IronSrc.IronSourceError) => void) {
+			return nativeHelper.onEvent<IronSrc.IronSourceError>("ironsrc:onRewardedVideoAdLoadFailed", callback)
+		}
 		async onRewardedVideoAdClicked(callback: (data: IronSrc.Placement) => void) {
 			return nativeHelper.onEvent("ironsrc:onRewardedVideoAdClicked", callback)
 		}
