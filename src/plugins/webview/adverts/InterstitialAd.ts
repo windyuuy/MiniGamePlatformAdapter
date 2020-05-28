@@ -89,6 +89,12 @@ namespace AppGDK {
 
 		protected _onLoadedCallbacks: Function[] = []
 		protected _available: boolean = false
+		/**
+		 * 获知插屏广告是否加载成功
+		 */
+		get isAvailable() {
+			return this._available
+		}
 		protected onInterstitialAvailabilityChanged(available: boolean) {
 			this._available = available
 			if (available) {
