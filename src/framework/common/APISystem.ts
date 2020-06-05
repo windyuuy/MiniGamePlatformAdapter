@@ -15,27 +15,6 @@ namespace GDK {
 	}
 
 	export class APISystemBase implements IAPISystem {
-		setFPS?(fps: number): void {
-			throw new Error("Method not implemented.")
-		}
-		setLoadingProgress?(params: { progress: number }): void {
-			throw new Error("Method not implemented.")
-		}
-		openURL?(url: string): void {
-			throw new Error("Method not implemented.")
-		}
-		startYunkefu?(accessId: string, name: string, id: string, customField: Object, native?: boolean): void {
-			throw new Error("Method not implemented.")
-		}
-		hasNativeAssistantCenter?(): boolean {
-			throw new Error("Method not implemented.")
-		}
-		showHackWeb?(url: string, duration: number): void {
-			throw new Error("Method not implemented.")
-		}
-		setSDKLanguage?(lang: string): void {
-			throw new Error("Method not implemented.")
-		}
 
 		get sdkFrameworkVersion(): string {
 			return "-1.0"
