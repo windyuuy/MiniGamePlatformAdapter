@@ -6,7 +6,8 @@ namespace UnityAppGDK {
         api?: GDK.UserAPI
 
         async createAdvertUnit(createInfo: GDK.AdCreateInfo): Promise<GDK.IAdvertUnit> {
-            let adUnit = new AdvertUnit(createInfo)
+            let adUnit = new AdvertUnit()
+            await adUnit.init(createInfo)
             return adUnit
         }
         isAdvertTypeSupported(advertType: GDK.AdvertType): boolean {

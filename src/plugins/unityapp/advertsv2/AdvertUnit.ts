@@ -4,7 +4,8 @@ namespace UnityAppGDK {
     export class AdvertUnit implements GDK.IAdvertUnit {
 
         adUnitRaw!: AdvertUnitRaw
-        constructor(
+
+        public async init(
             params: GDK.AdCreateInfo
         ) {
             let createInfo = new AdCreateInfo();
@@ -12,7 +13,8 @@ namespace UnityAppGDK {
             createInfo.appId = params.appId!;
             createInfo.placementId = params.placementId!;
             createInfo.isDebug = params.isDebug!;
-            this.adUnitRaw = new AdvertUnitRaw(createInfo)
+            this.adUnitRaw = new AdvertUnitRaw()
+            await this.adUnitRaw.init(createInfo)
         }
 
         load(): Promise<void> {

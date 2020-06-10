@@ -8,27 +8,45 @@ namespace UnityAppGDK {
             if (this._nativeAdvert != null) {
                 return this._nativeAdvert;
             }
-            this._nativeAdvert = CS.Glee.Bridge.PluginManager.GetInstance().GetPlugin("bus").advert
+            let plugin = CS.Glee.Bridge.PluginManager.GetInstance().GetPlugin("bus")
+            if (plugin != null) {
+                this._nativeAdvert = plugin.advert
+                if (this._nativeAdvert == null) {
+                    console.warn("bus未集成广告模块")
+                }
+            } else {
+                console.warn("bus模块不存在")
+            }
             return this._nativeAdvert;
         }
 
         nativeUnitInfo: AdUnitQueryInfo = new AdUnitQueryInfo();
 
-        constructor(
+        public init(
             params: AdCreateInfo
-        ) {
+        ): Promise<any> {
+            let ret = new GDK.RPromise<any, any>();
+
             this.getAddon().CreateAdUnit(params, new TaskCallback<CreateAdUnitResult>({
                 onSuccess: (p) => {
                     this.nativeUnitInfo = p.info;
+                    ret.success(undefined)
                 },
                 onFailed: (e) => {
                     console.error("创建广告单元失败:", JSON.stringify(e));
+                    ret.fail(e)
                 }
             }))
+
+            return ret.promise
         }
 
         public static isAdvertTypeSupported(advertType: string): boolean {
-            return CS.Glee.Bridge.PluginManager.GetInstance().GetPlugin("bus").advert.IsAdvertTypeSupported(advertType)
+            let plugin = CS.Glee.Bridge.PluginManager.GetInstance().GetPlugin("bus")
+            if (plugin != null && plugin.advert != null) {
+                return plugin.advert.IsAdvertTypeSupported(advertType)
+            }
+            return false
         }
 
         public load(callbacks: TaskCallback<AnyResult>) {
