@@ -1,5 +1,5 @@
 
-declare namespace CS.ujlib {
+declare namespace CS.Glee.Bridge {
    export class AdvertAddonWrapper {
 
 		/**
@@ -123,25 +123,28 @@ declare namespace CS.ujlib {
    }
 
    export class AdvertType {
+       public FeedAdvert!: string;
+       public SplashAdvert!: string;
+       public InterstitialAdvert!: string;
+       public FullscreenVideoAdvert!: string;
        public RewardedVideoAdvert!: string;
        public BannerAdvert!: string;
-       public InterstitialAdvert!: string;
-       public FeedAdvert!: string;
-       public FullscreenVideoAdvert!: string;
    }
 
    export class AdPlatformConfigs {
+       public defaultInterstitialAdvertPlacementId!: string;
+       public defaultFeedAdvertPlacementId!: string;
+       public defaultSplashAdvertPlacementId!: string;
        public defaultRewardedVideoAdvertPlacementId!: string;
        public defaultBannerAdvertPlacementId!: string;
-       public defaultFeedAdvertPlacementId!: string;
-       public defaultFullscreenVideoAdvertPlacementId!: string;
        public appId!: string;
+       public defaultFullscreenVideoAdvertPlacementId!: string;
    }
 
    export class AdCreateInfo {
        public placementId!: string;
-       public isDebug!: boolean;
        public advertType!: string;
+       public isDebug!: boolean;
        public appId!: string;
    }
 
@@ -150,10 +153,10 @@ declare namespace CS.ujlib {
    }
 
    export class AdUnitQueryInfo {
-       public advertType!: string;
        public unitId!: string;
-       public sdkName!: string;
        public placementId!: string;
+       public advertType!: string;
+       public sdkName!: string;
    }
 
    export class AdUnitOpInfo {
@@ -167,6 +170,7 @@ declare namespace CS.ujlib {
 
    export class ShowAdUnityResult {
        public couldReward!: boolean;
+       public isEnded!: boolean;
    }
 
    export class SetAdUnitStyleInfo {
@@ -175,22 +179,22 @@ declare namespace CS.ujlib {
    }
 
    export class AdUnitStyle {
-       public x!: number;
        public top!: number;
-       public bottom!: number;
+       public x!: number;
        public y!: number;
-       public width!: number;
        public height!: number;
+       public bottom!: number;
+       public width!: number;
    }
 
    export class AdUnitStatus {
    }
 
    export class AdUnitInfo {
-       public placementId!: string;
        public appId!: string;
-       public advertType!: string;
        public sdkName!: string;
+       public advertType!: string;
+       public placementId!: string;
    }
 
    export class AdvertEvent {

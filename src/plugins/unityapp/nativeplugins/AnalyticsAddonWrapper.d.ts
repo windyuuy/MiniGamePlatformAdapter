@@ -1,5 +1,5 @@
 
-declare namespace CS.ujlib {
+declare namespace CS.Glee.Bridge {
    export class AnalyticsAddonWrapper {
 
 		/**
@@ -45,8 +45,8 @@ declare namespace CS.ujlib {
 
    export class LogConfigs {
        public onlineLogCommitInterval!: float;
-       public captureUncaughtException!: boolean;
        public sessionContinueMillis!: number;
+       public captureUncaughtException!: boolean;
    }
 
 }

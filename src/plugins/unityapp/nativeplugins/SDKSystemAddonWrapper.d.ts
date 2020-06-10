@@ -1,5 +1,5 @@
 
-declare namespace CS.ujlib {
+declare namespace CS.Glee.Bridge {
    export class SDKSystemAddonWrapper {
 
 		/**
@@ -14,6 +14,15 @@ declare namespace CS.ujlib {
 
    export class SDKExitInfo {
        public bQuitDirectly!: boolean;
+   }
+
+   export class SDKRequiredPermissionsInfo {
+       public dynamicPermissions!: PermissionInfo;
+   }
+
+   export class PermissionInfo {
+       public usages!: string;
+       public name!: string;
    }
 
 }

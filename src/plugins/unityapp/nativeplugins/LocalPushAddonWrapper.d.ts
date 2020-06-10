@@ -1,5 +1,5 @@
 
-declare namespace CS.ujlib {
+declare namespace CS.Glee.Bridge {
    export class LocalPushAddonWrapper {
 
 		/**
@@ -49,22 +49,22 @@ declare namespace CS.ujlib {
    }
 
    export class NotifyTemplate {
-       public enableSoundTip!: boolean;
        public repeat!: number;
-       public identifier!: string;
-       public title!: string;
-       public isBigText!: boolean;
-       public subtitle!: string;
-       public enableLightTip!: boolean;
-       public availableStage!: number;
-       public soundName!: string;
-       public interval!: number;
-       public ticker!: string;
-       public enableVibrateTip!: boolean;
        public badge!: number;
        public subText!: string;
+       public identifier!: string;
+       public soundName!: string;
+       public enableLightTip!: boolean;
        public userInfo!: string;
+       public isBigText!: boolean;
+       public ticker!: string;
        public content!: string;
+       public title!: string;
+       public enableVibrateTip!: boolean;
+       public availableStage!: number;
+       public subtitle!: string;
+       public enableSoundTip!: boolean;
+       public interval!: number;
    }
 
    export class RemoveLocalNotifiesParams {

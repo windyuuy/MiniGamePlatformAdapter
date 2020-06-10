@@ -1,5 +1,5 @@
 
-declare namespace CS.ujlib {
+declare namespace CS.Glee.Bridge {
    export class UserAddonWrapper {
 
 		/**
@@ -82,10 +82,10 @@ declare namespace CS.ujlib {
    export class LoginResult {
        public openId!: string;
        public email!: string;
-       public head!: string;
-       public nickName!: string;
        public platform!: string;
        public type!: string;
+       public nickName!: string;
+       public head!: string;
        public token!: string;
    }
 
