@@ -77,7 +77,7 @@ namespace AppGDK {
 						})
 
 						//qa证书
-						if (data.data.qa && data.data.qa != null) {
+						if (data.data && data.data.qa != null) {
 							//保存证书
 							gdkjsb.makeTestCertificate && gdkjsb.makeTestCertificate(data.data.qa);
 						} else {

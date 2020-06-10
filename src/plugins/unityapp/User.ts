@@ -38,7 +38,7 @@ namespace UnityAppGDK {
 			const ret = new GDK.RPromise<GDK.LoginResult>()
 
 			let userId = localStorage.getItem('sdk_glee_userId')
-			console.log("sdk_glee_userId:" , parseInt(userId!))
+			console.log("sdk_glee_userId:", parseInt(userId!))
 			let nUserId: number | undefined = parseInt(userId!)
 			console.log("sdk_glee_userId3:", nUserId)
 			if (isNaN(nUserId)) {
@@ -61,6 +61,15 @@ namespace UnityAppGDK {
 					userdata.isNewUser = data.userNew
 
 					this.api.systemInfo.tableConf = resp.data.tableConf;//记录登录时传入的表格信息
+
+					//qa证书
+					if (resp.data && resp.data.qa != null) {
+						//保存证书
+						gdkjsb.makeTestCertificate && gdkjsb.makeTestCertificate(resp.data.qa);
+					} else {
+						//清除证书
+						gdkjsb.clearTestCerificate && gdkjsb.clearTestCerificate();
+					}
 
 					ret.success({
 						extra: data,
@@ -90,6 +99,16 @@ namespace UnityAppGDK {
 					let loginResult = new GDK.LoginResult();
 					loginResult.extra = data.serverData;
 					console.log("loginResult: " + JSON.stringify(loginResult))
+
+					//qa证书
+					if (data.serverData && data.serverData.qa != null) {
+						//保存证书
+						gdkjsb.makeTestCertificate && gdkjsb.makeTestCertificate(data.serverData.qa);
+					} else {
+						//清除证书
+						gdkjsb.clearTestCerificate && gdkjsb.clearTestCerificate();
+					}
+
 					ret.success(loginResult)
 				},
 				onFailed: (err) => {
