@@ -1,5 +1,5 @@
 
-declare namespace CS.ujlib {
+declare namespace CS.Glee.Bridge {
    export class ServedUserAddonWrapper {
 
 		/**
@@ -55,69 +55,69 @@ declare namespace CS.ujlib {
    }
 
    export class ServerData {
-       public service24Timestamp!: number;
-       public heart!: number;
-       public channelId!: number;
+       public userNew!: boolean;
+       public openId!: string;
+       public qa!: string;
        public holidays!: boolean;
-       public tableConf!: TableConf;
-       public profileImg!: string;
-       public createTime!: number;
-       public backupTime!: number;
-       public dataTimestamp!: number;
-       public userId!: number;
-       public encryptKey!: string;
-       public gender!: number;
-       public gameCurrency!: GameCurrency;
+       public custom!: string;
+       public nickname!: string;
+       public gametoken!: string;
        public noticeSign!: string;
+       public followGzh!: number;
+       public profileImg!: string;
+       public ad!: any;
+       public userId!: number;
+       public tableConf!: TableConf;
+       public verified!: boolean;
+       public channelId!: number;
+       public service24Timestamp!: number;
+       public encryptKey!: string;
        public bindingInfo!: any[];
        public verifiedInfo!: VerifiedInfo;
-       public gametoken!: string;
-       public custom!: string;
-       public shareSwitch!: any;
-       public qa!: string;
-       public ad!: any;
-       public followGzh!: number;
-       public openId!: string;
+       public dataTimestamp!: number;
        public serviceTimestamp!: number;
-       public verified!: boolean;
-       public nickname!: string;
-       public userNew!: boolean;
+       public gameCurrency!: GameCurrency;
+       public gender!: number;
+       public createTime!: number;
+       public heart!: number;
+       public backupTime!: number;
        public token!: string;
+       public shareSwitch!: any;
    }
 
    export class TableConf {
        public tableSign!: string;
    }
 
-   export class GameCurrency {
-       public gold!: string;
-       public seed!: string;
-       public diamond!: string;
-   }
-
    export class VerifiedInfo {
+       public age!: number;
        public birthday!: string;
        public name!: string;
        public idCard!: string;
-       public age!: number;
+   }
+
+   export class GameCurrency {
+       public seed!: string;
+       public gold!: string;
+       public diamond!: string;
    }
 
    export class RecordData {
-       public nickName!: string;
-       public token!: string;
-       public accountName!: string;
-       public gameUserId!: string;
-       public openId!: string;
-       public type!: string;
        public head!: string;
+       public openId!: string;
        public gameRegDate!: number;
        public bindingInfo!: any[];
+       public accountName!: string;
+       public nickName!: string;
+       public gameUserId!: string;
+       public type!: string;
+       public token!: string;
    }
 
    export class ServedBindInfo {
+       public loginNode!: string;
        public serverData!: ServerData;
        public visitorOpenId!: string;
-       public loginNode!: string;
    }
 
 }

@@ -1,5 +1,5 @@
 
-declare namespace CS.ujlib {
+declare namespace CS.Glee.Bridge {
    export class AdTrackingAddonWrapper {
 
         public LogCustomEvent (info: LogCustomEventParams, callbacks: TaskCallback<LogEventResult>):void;
@@ -45,31 +45,31 @@ declare namespace CS.ujlib {
    }
 
    export class LogRequestPayParams {
-       public price!: double;
-       public payTime!: number;
-       public goodsId!: string;
-       public userId!: string;
-       public orderNo!: string;
-       public count!: number;
-       public currency!: string;
-       public payWay!: string;
-       public coopOrder!: string;
        public name!: string;
+       public goodsId!: string;
+       public payWay!: string;
+       public payTime!: number;
+       public userId!: string;
+       public price!: number;
+       public count!: number;
+       public coopOrder!: string;
+       public orderNo!: string;
+       public currency!: string;
    }
 
    export class LogPurchasedParams {
-       public goodsId!: string;
-       public revenue!: double;
-       public name!: string;
-       public price!: double;
-       public succeed!: boolean;
-       public coopOrder!: string;
-       public currency!: string;
-       public userId!: string;
-       public count!: number;
+       public revenue!: number;
        public payTime!: number;
-       public orderNo!: string;
+       public succeed!: boolean;
+       public goodsId!: string;
        public payWay!: string;
+       public name!: string;
+       public orderNo!: string;
+       public count!: number;
+       public price!: number;
+       public coopOrder!: string;
+       public userId!: string;
+       public currency!: string;
    }
 
 }

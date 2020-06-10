@@ -1,5 +1,5 @@
 
-declare namespace CS.ujlib {
+declare namespace CS.Glee.Bridge {
    export class ShopAddonWrapper {
 
 		/**
@@ -31,24 +31,25 @@ declare namespace CS.ujlib {
     }
 
    export class PayInfo {
-       public currency!: string;
        public productId!: string;
-       public title!: string;
        public count!: number;
-       public extra!: any;
        public coopOrder!: string;
-       public price!: double;
+       public TAG!: string;
+       public currency!: string;
+       public extra!: any;
+       public title!: string;
+       public price!: number;
    }
 
    export class PayResult {
-       public message!: string;
-       public productId!: string;
-       public goodsId!: string;
        public coopOrder!: string;
-       public code!: number;
        public data!: PayResultRaw;
+       public code!: number;
        public reason!: string;
+       public message!: string;
+       public goodsId!: string;
        public payWay!: string;
+       public productId!: string;
    }
 
    export class ConsumePurchaseInfo {
@@ -66,16 +67,16 @@ declare namespace CS.ujlib {
    }
 
    export class QueryItemInfoResult {
-       public code!: number;
-       public data!: PayQueryItemInfoResultData;
        public message!: string;
+       public data!: PayQueryItemInfoResultData;
+       public code!: number;
    }
 
    export class PayQueryItemInfoResultData {
-       public purchaseData!: string;
        public productId!: string;
        public purchaseToken!: string;
        public dataSignature!: string;
+       public purchaseData!: string;
    }
 
 }

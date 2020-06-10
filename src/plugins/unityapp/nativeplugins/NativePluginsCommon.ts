@@ -9,7 +9,7 @@ namespace UnityAppGDK {
     }
 
     export class ErrorInfo {
-        constructor(err: CS.ujlib.ErrorInfo) {
+        constructor(err: CS.Glee.Bridge.ErrorInfo) {
             this.message = err.message
             this.reason = err.reason
             this.code = err.code

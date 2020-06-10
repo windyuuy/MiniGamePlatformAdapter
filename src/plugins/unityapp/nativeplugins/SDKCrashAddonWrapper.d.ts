@@ -1,5 +1,5 @@
 
-declare namespace CS.ujlib {
+declare namespace CS.Glee.Bridge {
    export class SDKCrashAddonWrapper {
 
 		/**
@@ -45,13 +45,13 @@ declare namespace CS.ujlib {
     }
 
    export class CrashUserInfo {
-       public name!: string;
        public userId!: number;
+       public name!: string;
    }
 
    export class ExceptionInfo {
-       public message!: string;
        public exception!: string;
+       public message!: string;
    }
 
    export class BreadcrumbInfo {

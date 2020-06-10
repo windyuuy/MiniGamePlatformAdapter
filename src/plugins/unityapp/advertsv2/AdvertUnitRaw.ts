@@ -3,12 +3,12 @@ namespace UnityAppGDK {
 
     export class AdvertUnitRaw {
 
-        protected _nativeAdvert!: CS.ujlib.AdvertAddonWrapper;
-        protected getAddon(): CS.ujlib.AdvertAddonWrapper {
+        protected _nativeAdvert!: CS.Glee.Bridge.AdvertAddonWrapper;
+        protected getAddon(): CS.Glee.Bridge.AdvertAddonWrapper {
             if (this._nativeAdvert != null) {
                 return this._nativeAdvert;
             }
-            this._nativeAdvert = CS.ujlib.PluginManager.GetInstance().GetPlugin("bus").advert
+            this._nativeAdvert = CS.Glee.Bridge.PluginManager.GetInstance().GetPlugin("bus").advert
             return this._nativeAdvert;
         }
 
@@ -28,7 +28,7 @@ namespace UnityAppGDK {
         }
 
         public static isAdvertTypeSupported(advertType: string): boolean {
-            return CS.ujlib.PluginManager.GetInstance().GetPlugin("bus").advert.IsAdvertTypeSupported(advertType)
+            return CS.Glee.Bridge.PluginManager.GetInstance().GetPlugin("bus").advert.IsAdvertTypeSupported(advertType)
         }
 
         public load(callbacks: TaskCallback<AnyResult>) {
