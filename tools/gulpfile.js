@@ -159,6 +159,7 @@ gulp.task("compile", async () => {
 		execon("./plugins/oppo", () => exec("tsc"))
 		execon("./plugins/vivo", () => exec("tsc"))
 		execon("./plugins/webview", () => exec("tsc"))
+		execon("./plugins/appv2", () => exec("tsc"))
 
 		execon("./test", () => exec("tsc"))
 	})

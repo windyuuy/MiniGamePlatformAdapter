@@ -1,0 +1,32 @@
+{
+	"compilerOptions": {
+		"module": "none",
+		"target": "es5",
+		"lib": [
+			"es6",
+			"dom",
+			"es2015.promise"
+		],
+		"strictPropertyInitialization": true,
+		"strictNullChecks": true,
+		"preserveConstEnums": true,
+		"sourceMap": true,
+		"outFile": "../../../dist/appv2/appv2.js",
+		"declaration": true,
+		"composite": true,
+		"rootDir": "./",
+		"rootDirs": [
+			"../../framework",
+		]
+	},
+	"compileOnSave": true,
+	"typeAcquisition": {},
+	"include": [
+		"../../libs/**/*.ts",
+		"../../framework/**/*.ts",
+		"./**/*.ts"
+	],
+	"typelua": {
+		"extName": ".js"
+	}
+}
