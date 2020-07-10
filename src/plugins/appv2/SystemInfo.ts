@@ -55,9 +55,12 @@ namespace UnityAppGDK {
 		}
 
 		init() {
-			if (window["gdkjsb"] == null || CS.UnityEngine.SystemInfo.deviceType == CS.UnityEngine.DeviceType.Desktop) {
-				return;
-			}
+            if (window["gdkjsb"] == null) {
+                return;
+            }
+            if (CS != undefined && CS.UnityEngine != undefined && CS.UnityEngine.SystemInfo != undefined && (CS.UnityEngine.SystemInfo.deviceType == CS.UnityEngine.DeviceType.Desktop)) {
+                return;
+            }
 			var info : any = JSON.parse(gdkjsb.makeAppInfo());
 
 			this.deviceId = info.deviceId

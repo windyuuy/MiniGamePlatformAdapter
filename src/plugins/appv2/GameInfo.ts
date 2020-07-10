@@ -31,12 +31,19 @@ namespace UnityAppGDK {
 		gameType: number
 
 		initWithConfig(info: GDK.GDKConfig) {
-			for (let k in info.app) {
-				this[k] = info.app[k]
+			if (info.appv2 == undefined) {
+				if (info.app != undefined) {
+					info.appv2 = info.app;
+				} else {
+					return;
+				}
+			}
+			for (let k in info.appv2) {
+				this[k] = info.appv2[k]
 			}
 
-			Common.getServerTime = info.app.getServerTime
-			Common.httpClient = info.app.httpClient
+			Common.getServerTime = info.appv2.getServerTime
+			Common.httpClient = info.appv2.httpClient
 		}
 		init() {
 		}

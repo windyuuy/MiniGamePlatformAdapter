@@ -14,7 +14,7 @@ namespace UnityAppGDK {
 
 		async openCustomerServiceConversation(params: GDK.OpenParam) {
 			let ret = new GDK.RPromise<void>();
-			let info = new CS.Glee.Bridge.OpenConversationInfo();
+			let info = {} as CS.Glee.Bridge.OpenConversationInfo;
 			info.userId = ""
 			info.userName = ""
 			this.getAddon().OpenConversation(info, new TaskCallback<AnyResult>({

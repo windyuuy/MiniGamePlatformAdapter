@@ -7,8 +7,8 @@ declare namespace CS.Glee.Bridge {
     }
 
    export class OpenConversationInfo {
-       public userName!: string;
        public userId!: string;
+       public userName!: string;
    }
 
    export class OpenConversationResult {

@@ -5,14 +5,8 @@ declare namespace CS.Glee.Bridge {
 		/**
 		* 启用推送
 		*/
-		/**
-		* 启用推送
-		*/
         public EnablePush (info: AnyParams): bool;
 
-		/**
-		* 关闭推送
-		*/
 		/**
 		* 关闭推送
 		*/

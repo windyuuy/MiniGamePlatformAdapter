@@ -1,3 +1,4 @@
+import { Data } from './../../libs/slib.d';
 
 namespace UnityAppGDK {
 
@@ -18,7 +19,7 @@ namespace UnityAppGDK {
 				return ret.promise
 			}
 
-			let info = new CS.Glee.Bridge.PayInfo();
+			let info = {} as CS.Glee.Bridge.PayInfo;
 			info.productId = sku,
 			info.price = config.money,
 			info.count = config.amount,
@@ -30,6 +31,8 @@ namespace UnityAppGDK {
 
 			this.getAddon().Pay(info, new FTaskCallback<CS.Glee.Bridge.PayResult, CS.Glee.Bridge.PayErrorInfo>({
 				onSuccess: (p : GDK.PayResult) => {
+                    p.extra = p.data;
+                    p.extra.data = p.data.extra;
                     ret.success(p)
                 },
                 onFailed: (e) => {
@@ -190,7 +193,7 @@ namespace UnityAppGDK {
 		 */
 		async consumePurchase?(params: GDK.ConsumePurchaseParams): Promise<GDK.ConsumePurchaseResult> {
 			const ret = new GDK.RPromise<GDK.ConsumePurchaseResult>();
-			let info = new CS.Glee.Bridge.ConsumePurchaseInfo();
+			let info = {} as CS.Glee.Bridge.ConsumePurchaseInfo;
 			info.payWay = params.payWay;
 			info.purchaseToken = params.purchaseToken;
 			this.getAddon().ConsumePurchase(info, new TaskCallback<CS.Glee.Bridge.ConsumePurchaseResult>({
@@ -224,7 +227,7 @@ namespace UnityAppGDK {
 
 
 			const ret = new GDK.RPromise<GDK.PayQueryItemInfoResult>()
-			let info = new CS.Glee.Bridge.QueryItemInfoSource();
+			let info = {} as CS.Glee.Bridge.QueryItemInfoSource;
 			info.payWay = params.payWay;
 			info.productId = params.productId;
 			this.getAddon().QueryItemInfo(info, new TaskCallback<CS.Glee.Bridge.QueryItemInfoResult>({

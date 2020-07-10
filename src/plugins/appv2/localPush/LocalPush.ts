@@ -21,7 +21,7 @@ namespace UnityAppGDK {
 		 */
 		async addLocalNotices?(params: GDK.LocalPushBundle[]): Promise<void> {
 			let ret = new GDK.RPromise<void>();
-			let info = new CS.Glee.Bridge.AddNotifiesParams();
+			let info = {notices:[]} as UnityAppGDK.AddNotifiesParams;
 
 			params.forEach((data) => {
 				info.notices.push(new NotifyTemplate(data));
@@ -44,7 +44,7 @@ namespace UnityAppGDK {
 		 */
 		async removeLocalNoticeWithID?(params: { identifier: string }): Promise<void> {
 			let ret = new GDK.RPromise<void>();
-			let info = new CS.Glee.Bridge.RemoveLocalNotifiesParams();
+			let info = {} as UnityAppGDK.RemoveLocalNotifiesParams;
 			info.identifiers = params.identifier;
 			this.getAddon().RemovePushesByID(info, new TaskCallback<AnyResult>({
 				onSuccess: (p) => {
@@ -62,7 +62,7 @@ namespace UnityAppGDK {
 		 */
 		async removeAllLocalNotices?(): Promise<void> {
 			let ret = new GDK.RPromise<void>();
-			let info = new CS.Glee.Bridge.RemoveAllLocalNotifiesParams();
+			let info = new UnityAppGDK.RemoveAllLocalNotifiesParams();
 			this.getAddon().RemoveAllPushes(info, new TaskCallback<AnyResult>({
 				onSuccess: (p) => {
                     ret.success(undefined)
@@ -96,8 +96,14 @@ namespace UnityAppGDK {
 		 */
 		isLocalNoticeEnabled?(): Promise<{ enabled: boolean }> {
 			let ret = new GDK.RPromise<{ enabled: boolean }>();
-			ret.success({enabled : true})
-			// ret.success({enabled : this.getAddon().isPushEnabled("");})
+			// ret.success({enabled : true})
+			let enable = this.getAddon().IsPushEnabled();
+			if (enable == "true") {
+				ret.success({enabled : true});
+			} else {
+				ret.success({enabled: false});
+			}
+			
 			return ret.promise;
 		}
 	}

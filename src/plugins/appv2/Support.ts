@@ -1,7 +1,7 @@
 
 namespace UnityAppGDK {
 	export class Support implements GDK.ISupport {
-		pluginName = "app"
+		pluginName = "appv2"
 		supportShare: boolean = true
 		supportShareTickets: boolean = false
 		requireSubDomainRank: boolean = false

@@ -25,11 +25,15 @@ namespace UnityAppGDK {
 
 	export class NativeAdvert {
 
+        protected getAddon(): CS.Glee.Bridge.AdvertAddonWrapper {
+            return nativeManager.getWrapper().advert;
+        }
 		/**
 		 * @param params.appKey 可选参数，如果安卓项目中已经填写 ironsource_advert_appkey ，那么此处可不传入
 		 * @param params.modules 指定支持的广告模块，可选 key 为：`REWARDED_VIDEO`,`BANNER`,`INTERSTITIAL`,`OFFERWALL`
 		 */
 		async init(params: { appKey: string, modules: { [key: string]: boolean } }) {
+			this.getAddon()
 			return nativeHelper.callAction("ironsrc:IronSource.init", params)
 		}
 

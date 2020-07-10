@@ -157,6 +157,16 @@ namespace GDK {
 		advertPlatform?: AdvertsAllPlatforms = "ironsource"
 		advertPlatforms?: AdvertsAllPlatforms[] = []
 	}
+	export class GDKAppv2Config extends GDKConfigBase {
+		/**
+		 * 广告平台
+		 * - ironsource
+		 * - adtiming
+		 * - gdtadvert 腾讯广点通
+		 */
+		advertPlatform?: AdvertsAllPlatforms = "ironsource"
+		advertPlatforms?: AdvertsAllPlatforms[] = []
+	}
 
 	export class GDKConfig {
 
@@ -176,6 +186,7 @@ namespace GDK {
 		gamepind?: GDKGamepindConfig
 		web?: GDKWebConfig
 		webview?: GDKWEBVIEWConfig
+		appv2?: GDKAppv2Config
 	}
 
 

@@ -196,4 +196,18 @@ namespace UnityAppGDK {
         public enableSoundTip!: boolean;
         public interval!: number;
     }
+
+   export class AddNotifiesParams {
+        public constructor() {
+            this.notices = [];
+        }
+        public notices!: NotifyTemplate[];
+    }
+
+    export class RemoveLocalNotifiesParams {
+        public identifiers!: string;
+    }
+
+    export class RemoveAllLocalNotifiesParams {
+    }
 }

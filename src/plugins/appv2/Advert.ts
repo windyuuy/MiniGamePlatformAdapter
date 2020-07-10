@@ -8,16 +8,24 @@ namespace UnityAppGDK {
 		async initWithConfig?(_info: GDK.GDKConfig) {
 
 			let info = _info //as GDK.GDKAPPConfig
+			if (info.appv2 == undefined) {
+				if (info.app) {
+					info.appv2 = info.app;
+				} else {
+					console.log("AppInfo 有问题， 请检查gssdk.init()")
+					return;
+				}
+			}
 
-			info.app.advertPlatforms = info.app.advertPlatforms || []
-			if (info.app.advertPlatforms.length == 0) {
-				info.app.advertPlatform = info.app.advertPlatform || 'ironsource'
+			info.appv2.advertPlatforms = info.appv2.advertPlatforms || []
+			if (info.appv2.advertPlatforms.length == 0) {
+				info.appv2.advertPlatform = info.appv2.advertPlatform || 'ironsource'
 			}
-			if (info.app.advertPlatform) {
-				info.app.advertPlatforms.remove(info.app.advertPlatform)
-				info.app.advertPlatforms.push(info.app.advertPlatform)
+			if (info.appv2.advertPlatform) {
+				info.appv2.advertPlatforms.remove(info.appv2.advertPlatform)
+				info.appv2.advertPlatforms.push(info.appv2.advertPlatform)
 			}
-			for (let key of info.app.advertPlatforms) {
+			for (let key of info.appv2.advertPlatforms) {
 				// 选择广告平台
 				await SDKProxy.nativeAdvert.advertPlatformSelect(key)
 

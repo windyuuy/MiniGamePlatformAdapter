@@ -13,7 +13,7 @@ namespace UnityAppGDK {
 		 * 自定义日志
 		 */
 		static logCustomEvent(key: string, params: { [key: string]: string }) {
-			var data = new CS.Glee.Bridge.SimpleLogCustomEventParams();
+			var data = {} as CS.Glee.Bridge.SimpleLogCustomEventParams;
 			data.key = key;
 			data.data = JSON.stringify(params);
 			this.getAnalytics().LogCustomEvent(data, new TaskCallback<CS.Glee.Bridge.LogEventResult>({
@@ -30,7 +30,7 @@ namespace UnityAppGDK {
 		 * 自定义日志
 		 */
 		static logLogin(type: LoginType, userId: number) {
-			let data = new CS.Glee.Bridge.LogLoginParams();
+			let data = {} as CS.Glee.Bridge.LogLoginParams;
 			data.type = type;
 			data.userId = "" + userId;
 			this.getAdTracking().OnLogin(data, new TaskCallback<CS.Glee.Bridge.LogEventResult>({
@@ -47,7 +47,7 @@ namespace UnityAppGDK {
 		 */
 		static logRegister(type: LoginType) {
 			
-			let data = new CS.Glee.Bridge.LogRegisterParams();
+			let data = {} as CS.Glee.Bridge.LogRegisterParams;
 			data.type = type;
 			data.userId = "";
 			this.getAdTracking().OnRegister(data, new TaskCallback<CS.Glee.Bridge.LogEventResult>({
@@ -63,7 +63,7 @@ namespace UnityAppGDK {
 		 * 自定义日志
 		 */
 		static logRequestPay(id: string, price: number, count: number, currency: string) {
-			var data = new CS.Glee.Bridge.LogRequestPayParams();
+			var data = {} as CS.Glee.Bridge.LogRequestPayParams;
 			data.name = "";
 			data.userId = id;
 			data.count = count;
@@ -82,7 +82,7 @@ namespace UnityAppGDK {
 		 * 自定义日志
 		 */
 		static logPurchased(id: string, revenue: number, price: number, count: number, currency: string, succ: boolean) {
-			var data1 = new CS.Glee.Bridge.LogPurchasedParams();
+			var data1 = {} as CS.Glee.Bridge.LogPurchasedParams;
 			data1.succeed = succ;
 			data1.userId = id;
 			data1.count = count;

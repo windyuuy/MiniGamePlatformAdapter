@@ -98,11 +98,11 @@ namespace UnityAppGDK {
 			let callbacks = new TaskCallback<LoginServerResult>({
 				onSuccess: (data) => {
 					let loginResult = new GDK.LoginResult();
-					loginResult.extra = data.severdData;
+					loginResult.extra = data.serverData;
 					console.log("loginResult: " + JSON.stringify(loginResult))
 
 					//qa证书
-					if (data.severdData && data.serverData.qa != null) {
+					if (data.serverData && data.serverData.qa != null) {
 						//保存证书
 						gdkjsb.makeTestCertificate && gdkjsb.makeTestCertificate(data.serverData.qa);
 					} else {
@@ -151,7 +151,7 @@ namespace UnityAppGDK {
 			info.loginNode = "";
 			info.visitorOpenId = "";
 			info.serverData = user;
-			nativeManager.getWrapper().servedUser.Bind(user, new TaskCallback<LoginServerResult>({
+			nativeManager.getWrapper().servedUser.Bind(info, new TaskCallback<LoginServerResult>({
 				onSuccess : (p) => {
 
 				},

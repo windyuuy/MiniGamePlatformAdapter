@@ -5,22 +5,18 @@ declare namespace CS.Glee.Bridge {
 		/**
 		* 登录
 		*/
-		/**
-		* 登录
-		*/
         public Login (info: ServedLoginInfo, callbacks: TaskCallback<LoginServerResult>):void;
 
-		/**
-		* 绑定账号到SDK渠道账号
-		*/
 		/**
 		* 绑定账号到SDK渠道账号
 		*/
         public Bind (info: ServedBindInfo, callbacks: TaskCallback<LoginServerResult>):void;
 
 		/**
-		* 登出
+		* 判断是否已登录
 		*/
+        public IsLogined (): boolean;
+
 		/**
 		* 登出
 		*/
@@ -29,14 +25,13 @@ declare namespace CS.Glee.Bridge {
 		/**
 		* 切换账号
 		*/
-		/**
-		* 切换账号
-		*/
         public AccountSwitch (info: ServedLoginInfo, callbacks: TaskCallback<LoginServerResult>):void;
 
 		/**
-		* 进入平台中心
+		* 获取登陆记录信息，昵称等
 		*/
+        public GetRecordData (): LoginServerResult.RecordData;
+
 		/**
 		* 进入平台中心
 		*/
@@ -49,40 +44,58 @@ declare namespace CS.Glee.Bridge {
    }
 
    export class LoginServerResult {
-       public serverData!: ServerData;
        public recordData!: RecordData;
+       public serverData!: ServerData;
        public rawData!: any;
    }
 
-   export class ServerData {
-       public userNew!: boolean;
-       public openId!: string;
-       public qa!: string;
-       public holidays!: boolean;
-       public custom!: string;
-       public nickname!: string;
-       public gametoken!: string;
-       public noticeSign!: string;
-       public followGzh!: number;
-       public profileImg!: string;
-       public ad!: any;
-       public userId!: number;
-       public tableConf!: TableConf;
-       public verified!: boolean;
-       public channelId!: number;
-       public service24Timestamp!: number;
-       public encryptKey!: string;
-       public bindingInfo!: any[];
-       public verifiedInfo!: VerifiedInfo;
-       public dataTimestamp!: number;
-       public serviceTimestamp!: number;
-       public gameCurrency!: GameCurrency;
-       public gender!: number;
-       public createTime!: number;
-       public heart!: number;
-       public backupTime!: number;
+   export class RecordData {
+       public type!: string;
+       public nickName!: string;
+       public gameRegDate!: number;
        public token!: string;
+       public bindingInfo!: any[];
+       public accountName!: string;
+       public head!: string;
+       public openId!: string;
+       public gameUserId!: string;
+   }
+
+   export class ServerData {
+       public backupTime!: number;
+       public heart!: number;
+       public custom!: string;
+       public encryptKey!: string;
+       public noticeSign!: string;
+       public bindingInfo!: any[];
+       public gameCurrency!: GameCurrency;
+       public tableConf!: TableConf;
+       public gametoken!: string;
+       public dataTimestamp!: number;
+       public ad!: any;
+       public service24Timestamp!: number;
+       public serviceTimestamp!: number;
+       public openId!: string;
+       public profileImg!: string;
+       public gender!: number;
+       public userNew!: boolean;
+       public token!: string;
+       public verifiedInfo!: VerifiedInfo;
+       public nickname!: string;
+       public channelId!: number;
+       public userId!: number;
+       public createTime!: number;
        public shareSwitch!: any;
+       public qa!: string;
+       public followGzh!: number;
+       public verified!: boolean;
+       public holidays!: boolean;
+   }
+
+   export class GameCurrency {
+       public diamond!: string;
+       public seed!: string;
+       public gold!: string;
    }
 
    export class TableConf {
@@ -91,33 +104,15 @@ declare namespace CS.Glee.Bridge {
 
    export class VerifiedInfo {
        public age!: number;
+       public idCard!: string;
        public birthday!: string;
        public name!: string;
-       public idCard!: string;
-   }
-
-   export class GameCurrency {
-       public seed!: string;
-       public gold!: string;
-       public diamond!: string;
-   }
-
-   export class RecordData {
-       public head!: string;
-       public openId!: string;
-       public gameRegDate!: number;
-       public bindingInfo!: any[];
-       public accountName!: string;
-       public nickName!: string;
-       public gameUserId!: string;
-       public type!: string;
-       public token!: string;
    }
 
    export class ServedBindInfo {
-       public loginNode!: string;
        public serverData!: ServerData;
        public visitorOpenId!: string;
+       public loginNode!: string;
    }
 
 }
