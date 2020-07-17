@@ -91,7 +91,7 @@ namespace UnityAppGDK {
 			this.androidId = info.androidId
 			this.mac = info.mac
 			this.userAgent = info.userAgent
-
+			
 		}
 	}
 }

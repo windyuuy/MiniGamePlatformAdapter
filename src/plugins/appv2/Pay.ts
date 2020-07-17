@@ -1,4 +1,4 @@
-import { Data } from './../../libs/slib.d';
+
 
 namespace UnityAppGDK {
 

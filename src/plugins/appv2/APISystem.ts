@@ -35,23 +35,21 @@ namespace UnityAppGDK {
 		}
 
 		getSafeArea?(callback: (data: { left: number, right: number, top: number, bottom: number }) => void): void {
-			callback({ left: 0, right: 0, top: 0, bottom: 0 });
-			return;
-			// if (gdkjsb.bridge == undefined) {
-			// 	//兼容无gdkjsb的包
-			// 	callback({ left: 0, right: 0, top: 0, bottom: 0 });
-			// } else {
-			// 	if (gdkjsb.bridge.callAction("DisplayCutout:getSafeArea", "{}", (data: string, func) => {
-			// 		callback(JSON.parse(data));
-			// 	}) != true) {
-			// 		//兼容 nativeVersion == 0
-			// 		callback({ left: 0, right: 0, top: 0, bottom: 0 });
-			// 	}
-			// }
+			if (gdkjsb.bridge == undefined) {
+				//兼容无gdkjsb的包
+				callback({ left: 0, right: 0, top: 0, bottom: 0 });
+			} else {
+				if (gdkjsb.bridge.callAction("DisplayCutout:getSafeArea", "{}", (data: string, func) => {
+					callback(JSON.parse(data));
+				}) != true) {
+					//兼容 nativeVersion == 0
+					callback({ left: 0, right: 0, top: 0, bottom: 0 });
+				}
+			}
 		}
 
 		get nativeVersion() {
-			return gdkjsb.nativeVersion || 0;
+			return gdkjsb.nativeVersion || 1;
 		}
 
 		get sdkFrameworkVersion() {
