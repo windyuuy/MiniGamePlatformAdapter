@@ -446,5 +446,23 @@ namespace AppGDK {
 			return nativeHelper.onEvent<IronSrc.IronSourceError>("ironsrc:onSplashAdLoadFailed", callback)
 		}
 
+
+		/** 变现猫专有，浮标广告 */
+		async showFloatIconAd() {
+			return nativeHelper.callAction("ironsrc:IronSource.showFloatIconAd", {})
+		}
+		async hideFloatIconAd() {
+			return nativeHelper.callAction("ironsrc:IronSource.hideFloatIconAd", {})
+		}
+		async destroyFloatIconAd() {
+			return nativeHelper.callAction("ironsrc:IronSource.destroyFloatIconAd", {})
+		}
+		async loadFloatIconAd() {
+			return nativeHelper.callAction("ironsrc:IronSource.loadFloatIconAd", {})
+		}
+		async setFloatIconStyle(style: any) {
+			return nativeHelper.callAction("ironsrc:IronSource.setFloatIconStyle", style)
+		}
+
 	}
 }

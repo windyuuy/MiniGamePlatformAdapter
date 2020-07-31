@@ -66,6 +66,8 @@ namespace AppGDK {
 		protected static _fullscreenAd: GDK.IFullscreedVideoAd
 		protected static _splashAd: GDK.ISplashAd
 		protected static _bannerAd: BannerAd
+		protected static _floatIconAd: GDK.IFloatIconAd
+		protected static _bxmFeedAd: GDK.IFeedAd
 		createRewardedVideoAd(params: {
 			/** 广告单元 id */
 			adUnitId: string
@@ -85,6 +87,19 @@ namespace AppGDK {
 		}
 		get supportFullscreenVideoAd(): boolean {
 			return nativeHelper.checkActionExist("ironsrc:IronSource.showFullScreenVideo")
+		}
+
+        createBxmFeedAd(params: GDK.FeedAdCreateParam): GDK.IFeedAd {
+			if (!Advert._bxmFeedAd) {
+				Advert._bxmFeedAd = new BxmFeedAd(params)
+			}
+			return Advert._bxmFeedAd
+		}
+        createFloatIconAd(params: GDK.FloatIconAdCreateParam): GDK.IFloatIconAd {
+			if (!Advert._floatIconAd) {
+				Advert._floatIconAd = new FloatIconAd(params)
+			}
+			return Advert._floatIconAd
 		}
 		createFullscreenVideoAd(params: {
 			/** 广告单元 id */

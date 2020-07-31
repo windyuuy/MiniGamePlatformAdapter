@@ -41,6 +41,7 @@ namespace GDK {
 
     export class ShowAdUnityResult {
         public couldReward: boolean = false;
+        public isEnded: boolean = false;
     }
 
     export interface IAdvertUnit {

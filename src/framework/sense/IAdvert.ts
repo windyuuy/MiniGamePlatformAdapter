@@ -121,7 +121,22 @@ namespace GDK {
 	}
 	export interface ISplashAd extends IRewardedVideoAd {
 	}
+	export interface IFloatIconAd {
 
+		style: BannerStyleAccessor
+
+		/** 设置样式 */
+		setStyle(value: GDK.FeedAdStyle): Promise<void>
+		/** 加载 浮标 广告 */
+		load(): Promise<void>
+		/** 显示 浮标 广告 */
+		show(): Promise<void>
+		/** 隐藏 浮标 广告 */
+		hide(): Promise<void>
+		/** 销毁 banner 广告 */
+		destroy(): Promise<void>
+	}
+	
 	export interface IBannerAd {
 		//属性
 		/** 微信，广告单元ID，用于后台配置统计相关 */
@@ -313,6 +328,10 @@ namespace GDK {
 		/** banner 广告组件的样式 */
 		style: FeedAdStyle
 	}
+    export interface FloatIconAdCreateParam {
+        /** banner 广告组件的样式 */
+        style: BannerStyle;
+    }
 
 	export interface AdvertInitParams {
 		/**
@@ -378,6 +397,10 @@ namespace GDK {
 		 * 创建信息流广告
 		 */
 		createFeedAd?(params: FeedAdCreateParam): IFeedAd
+
+		createBxmFeedAd?(params: FeedAdCreateParam): IFeedAd
+
+		createFloatIconAd?(params: FloatIconAdCreateParam): IFloatIconAd
 
 		/**
 		 * 切换广告平台

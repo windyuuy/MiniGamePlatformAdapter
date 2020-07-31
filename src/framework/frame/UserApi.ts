@@ -1367,6 +1367,20 @@ namespace GDK {
 			}
 			return this._m.advert.createFeedAd(params);
 		}
+
+		createBxmFeedAd?(params: FeedAdCreateParam): IFeedAd {
+			if (!this.checkModuleAttr("advert", "createBxmFeedAd", "function")) {
+				return undefined;
+			}
+			return this._m.advert.createBxmFeedAd(params);
+		}
+
+		createFloatIconAd?(params: FloatIconAdCreateParam): IFloatIconAd {
+			if (!this.checkModuleAttr("advert", "createFloatIconAd", "function")) {
+				return undefined;
+			}
+			return this._m.advert.createFloatIconAd(params);
+		}
 		/**
 		 * 切换广告平台
 		 */
