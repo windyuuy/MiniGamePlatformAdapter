@@ -18,6 +18,12 @@ declare namespace CS.Glee.Bridge {
         public IsLogined (): boolean;
 
 		/**
+		* 判断是否已绑定
+		*/
+        public IsBind (): boolean;
+        
+
+		/**
 		* 登出
 		*/
         public Logout (info: AnyParams, callbacks: TaskCallback<AnyResult>):void;

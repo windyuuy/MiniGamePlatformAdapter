@@ -38,5 +38,9 @@ namespace GDK {
 		 * 原生广告v2
 		 */
 		advertV2: IAdvertV2
+		/**
+		 * jsb
+		 */
+		gdkjsb: IGDKJSB
 	}
 }

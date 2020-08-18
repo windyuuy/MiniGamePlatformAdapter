@@ -6,14 +6,18 @@ namespace UnityAppGDK {
 			if (this._nativeAdvert != null) {
 				return this._nativeAdvert;
 			}
-			let plugin = CS.Glee.Bridge.PluginManager.GetInstance().GetPlugin("bus")
-			if (plugin != null) {
-				this._nativeAdvert = plugin.advert
-				if (this._nativeAdvert == null) {
-					console.warn("bus未集成广告模块")
+			if (window["CS"]) {
+				let plugin = CS.Glee.Bridge.PluginManager.GetInstance().GetPlugin("bus")
+				if (plugin != null) {
+					this._nativeAdvert = plugin.advert
+					if (this._nativeAdvert == null) {
+						console.warn("bus未集成广告模块")
+					}
+				} else {
+					console.warn("bus模块不存在")
 				}
 			} else {
-				console.warn("bus模块不存在")
+				console.error("CS.Glee不存在")
 			}
 			return this._nativeAdvert;
 		}
@@ -23,13 +27,21 @@ namespace UnityAppGDK {
 			if (this._channelWrapper != null) {
 				return this._channelWrapper;
 			}
-			let plugin = CS.Glee.Bridge.PluginManager.GetInstance().GetPlugin("bus")
-			if (plugin != null) {
-				this._channelWrapper = plugin
+			if (window["CS"]) {
+				let plugin = CS.Glee.Bridge.PluginManager.GetInstance().GetPlugin("bus")
+				if (plugin != null) {
+					this._channelWrapper = plugin
+				} else {
+					console.warn("bus模块不存在")
+				}
 			} else {
-				console.warn("bus模块不存在")
+				console.error("CS.Glee不存在")
 			}
 			return this._channelWrapper;
+		}
+
+		public isSupport() :boolean {
+			return this.getWrapper() != null;
 		}
 	}
 	export const nativeManager = new NativeManager()

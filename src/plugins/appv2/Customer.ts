@@ -11,8 +11,15 @@ namespace UnityAppGDK {
 		protected getAddon(): CS.Glee.Bridge.CustomServiceAddonWrapper {
 			return nativeManager.getWrapper().customService;
 		}
+        protected isSupport() : boolean {
+            return nativeManager.isSupport();
+        }
 
 		async openCustomerServiceConversation(params: GDK.OpenParam) {
+			if (!this.isSupport()) {
+				console.log("不支持客服功能，跳过")
+				return;
+			}
 			let ret = new GDK.RPromise<void>();
 			let info = {} as CS.Glee.Bridge.OpenConversationInfo;
 			info.userId = ""

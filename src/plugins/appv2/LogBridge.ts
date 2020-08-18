@@ -9,10 +9,18 @@ namespace UnityAppGDK {
 			return nativeManager.getWrapper().adTracking;
 		}
 
+        protected static isSupport() : boolean {
+            return nativeManager.isSupport();
+        }
 		/**
 		 * 自定义日志
 		 */
 		static logCustomEvent(key: string, params: { [key: string]: string }) {
+			if (!this.isSupport()) {
+				console.log("不支持LogBridge模块");
+				SDKProxy.logAction("logCustomEvent => key:" + key + "\tdata:" + JSON.stringify(params));
+				return;
+			}
 			var data = {} as CS.Glee.Bridge.SimpleLogCustomEventParams;
 			data.key = key;
 			data.data = JSON.stringify(params);
@@ -30,6 +38,11 @@ namespace UnityAppGDK {
 		 * 自定义日志
 		 */
 		static logLogin(type: LoginType, userId: number) {
+			if (!this.isSupport()) {
+				console.log("不支持LogBridge模块");
+				SDKProxy.logAction("logLogin => type:" + type + "\tuserId:" + userId);
+				return;
+			}
 			let data = {} as CS.Glee.Bridge.LogLoginParams;
 			data.type = type;
 			data.userId = "" + userId;
@@ -46,6 +59,11 @@ namespace UnityAppGDK {
 		 * 自定义日志
 		 */
 		static logRegister(type: LoginType) {
+			if (!this.isSupport()) {
+				console.log("不支持LogBridge模块");
+				SDKProxy.logAction("logRegister => type:" + type);
+				return;
+			}
 			
 			let data = {} as CS.Glee.Bridge.LogRegisterParams;
 			data.type = type;
@@ -63,6 +81,11 @@ namespace UnityAppGDK {
 		 * 自定义日志
 		 */
 		static logRequestPay(id: string, price: number, count: number, currency: string) {
+			if (!this.isSupport()) {
+				console.log("不支持LogBridge模块");
+				SDKProxy.logAction("logRequestPay => id:" + id + "    price:" + price + "    count:" + count + "    currency:" + currency);
+				return;
+			}
 			var data = {} as CS.Glee.Bridge.LogRequestPayParams;
 			data.name = "";
 			data.userId = id;
@@ -82,6 +105,10 @@ namespace UnityAppGDK {
 		 * 自定义日志
 		 */
 		static logPurchased(id: string, revenue: number, price: number, count: number, currency: string, succ: boolean) {
+			if (!this.isSupport()) {
+				console.log("不支持LogBridge模块");
+				return;
+			}
 			var data1 = {} as CS.Glee.Bridge.LogPurchasedParams;
 			data1.succeed = succ;
 			data1.userId = id;

@@ -55,13 +55,13 @@ namespace UnityAppGDK {
 		}
 
 		init() {
-            if (window["gdkjsb"] == null) {
+            if (!SDKProxy.gdkjsbExist()) {
                 return;
             }
             if (CS != undefined && CS.UnityEngine != undefined && CS.UnityEngine.SystemInfo != undefined && (CS.UnityEngine.SystemInfo.deviceType == CS.UnityEngine.DeviceType.Desktop)) {
                 return;
             }
-			var info : any = JSON.parse(gdkjsb.makeAppInfo());
+			var info : any = JSON.parse(SDKProxy.makeAppInfo());
 
 			this.deviceId = info.deviceId
 			this.uuid = info.uuid

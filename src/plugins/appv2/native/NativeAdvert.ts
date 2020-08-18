@@ -33,7 +33,6 @@ namespace UnityAppGDK {
 		 * @param params.modules 指定支持的广告模块，可选 key 为：`REWARDED_VIDEO`,`BANNER`,`INTERSTITIAL`,`OFFERWALL`
 		 */
 		async init(params: { appKey: string, modules: { [key: string]: boolean } }) {
-			this.getAddon()
 			return nativeHelper.callAction("ironsrc:IronSource.init", params)
 		}
 
@@ -384,12 +383,10 @@ namespace UnityAppGDK {
 		  * - budadadvert 头条广告
 		 */
 		async advertPlatformSelect(platform: string) {
-			if (gdkjsb.bridge == undefined) return;
 			return nativeHelper.safeCallAction("advertPlatformSelect", { message: platform });
 		}
 
 		async initMultAdSlot(params: GDK.VideoAdSlot[]) {
-			if (gdkjsb.bridge == undefined) return;
 			return nativeHelper.safeCallAction("initMultAdSlot", { slotInfo: params });
 		}
 

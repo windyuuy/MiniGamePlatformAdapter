@@ -25,13 +25,16 @@ namespace UnityAppGDK {
 		init(data: any) {
 		}
 
+        protected isSupport() : boolean {
+            return nativeManager.isSupport();
+		}
+		
 		login(params?: GDK.LoginParams) {
-			return this.loginWithBus(params)
-			// if (gdkjsb.bridge.checkActionExist("loginWithBus")) {
-			// 	return this.loginWithBus(params)
-			// } else {
-			// 	return this.loginTest(params)
-			// }
+			if (this.isSupport()) {
+				return this.loginWithBus(params)
+			} else {
+				return this.loginTest(params)
+			}
 		}
 
 		// 登录服务器
@@ -47,7 +50,7 @@ namespace UnityAppGDK {
 			}
 			console.log("sdk_glee_userId4:", nUserId)
 
-			this.server.loginTest({ loginCode: nUserId!, node: params.node, clientSystemInfo: { deviceId: gdkjsb.deviceId } }, (resp) => {
+			this.server.loginTest({ loginCode: nUserId!, node: params.node, clientSystemInfo: { deviceId: SDKProxy.deviceId() } }, (resp) => {
 				//玩家数据
 				if (resp.succeed) {
 					const data = resp.data
@@ -66,10 +69,10 @@ namespace UnityAppGDK {
 					//qa证书
 					if (resp.data && resp.data.qa != null) {
 						//保存证书
-						gdkjsb.makeTestCertificate && gdkjsb.makeTestCertificate(resp.data.qa);
+						SDKProxy.makeTestCertificate(resp.data.qa);
 					} else {
 						//清除证书
-						gdkjsb.clearTestCerificate && gdkjsb.clearTestCerificate();
+						SDKProxy.clearTestCerificate();
 					}
 
 					ret.success({
@@ -104,10 +107,10 @@ namespace UnityAppGDK {
 					//qa证书
 					if (data.serverData && data.serverData.qa != null) {
 						//保存证书
-						gdkjsb.makeTestCertificate && gdkjsb.makeTestCertificate(data.serverData.qa);
+						SDKProxy.makeTestCertificate(data.serverData.qa);
 					} else {
 						//清除证书
-						gdkjsb.clearTestCerificate && gdkjsb.clearTestCerificate();
+						SDKProxy.clearTestCerificate();
 					}
 
 					ret.success(loginResult)
@@ -128,12 +131,12 @@ namespace UnityAppGDK {
 		}
 
 		async showUserCenter() {
-			let user = SDKProxy.loadUserRecord()[0];
+			if (!this.isSupport()) {
+				console.error("不支持User模块，跳过")
+				return;
+			}
 
 			let info = new ServedBindInfo();
-			info.loginNode = "";
-			info.visitorOpenId = "";
-			info.serverData = user;
 			nativeManager.getWrapper().servedUser.EnterPlatform(info, new TaskCallback<LoginServerResult>({
 				onSuccess : (p) => {
 
@@ -144,21 +147,34 @@ namespace UnityAppGDK {
 			}));
 		}
 
-		async showBindDialog() {
-			let user = SDKProxy.loadUserRecord()[0];
+		async showBindDialog () {
+			this.bindWithBus();
+		}
+
+		bindWithBus() : Promise<{success : boolean, data : any}> {
+			const ret = new GDK.RPromise<{success : boolean, data : any}>()
+			if (!this.isSupport()) {
+				console.error("不支持User模块")
+				ret.success({success: false, data: {}})
+				setTimeout(() => {
+					console.error("模拟绑定，确定为绑定成功，取消为绑定失败")
+					let isOk = confirm("模拟绑定，确定为绑定成功，取消为绑定失败")
+					ret.success({success: isOk, data: {}})
+				}, 0);
+				return ret.promise;
+			}
 
 			let info = new ServedBindInfo();
 			info.loginNode = "";
-			info.visitorOpenId = "";
-			info.serverData = user;
 			nativeManager.getWrapper().servedUser.Bind(info, new TaskCallback<LoginServerResult>({
 				onSuccess : (p) => {
-
+					ret.success({success: true, data: p.serverData});
 				},
 				onFailed : (e) => {
-
+					ret.success({success: false, data: {}});
 				}
 			}));
+			return ret.promise;
 		}
 
 		update(): Promise<GDK.UserDataUpdateResult> {
@@ -258,7 +274,6 @@ namespace UnityAppGDK {
 				}
 			}
 
-
 			devlog.info('-[UserCloudStorage] 提交用户成绩数据: ' + JSON.stringify(data))
 		}
 
@@ -296,13 +311,15 @@ namespace UnityAppGDK {
 		 * @param userId 登录时服务器返回的userId
 		 */
 		checkIsUserBind(userId): boolean {
-			let users = SDKProxy.loadUserRecord().where(u => u.userId == userId);
-
-			return users.length > 0 && !!users.find(user => user.loginType != "silent" && user.loginType != "visitor");
+			if (!this.isSupport()) {
+				return false;
+			}
+			return nativeManager.getWrapper().servedUser.IsBind();
 		}
 
 		setAccountChangeListener?(f: () => void) {
-			fOnAccountChange = f
+			// fOnAccountChange = f
+			console.error("setAccountChangeListener方法已弃用");
 		}
 
 	}

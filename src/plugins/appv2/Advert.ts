@@ -6,6 +6,9 @@ namespace UnityAppGDK {
 
 		api?: GDK.UserAPI
 		async initWithConfig?(_info: GDK.GDKConfig) {
+			console.log("initWithConfig 1")
+			if (_info == undefined) return;
+			console.log("initWithConfig 2")
 
 			let info = _info //as GDK.GDKAPPConfig
 			if (info.appv2 == undefined) {
@@ -16,6 +19,7 @@ namespace UnityAppGDK {
 					return;
 				}
 			}
+			console.log("initWithConfig 3")
 
 			info.appv2.advertPlatforms = info.appv2.advertPlatforms || []
 			if (info.appv2.advertPlatforms.length == 0) {
@@ -56,11 +60,7 @@ namespace UnityAppGDK {
 			adUnitId: string
 		}): GDK.IRewardedVideoAd {
 			if (!Advert._videoAd) {
-				// if (this.supportInterstitialAd) {
-				// 	Advert._videoAd = new InterstitialAd(params, this.api)
-				// } else {
 				Advert._videoAd = new VideoAd(params, this.api)
-				// }
 			}
 			return Advert._videoAd
 		}
@@ -119,7 +119,7 @@ namespace UnityAppGDK {
 		}
 
 		get supportFeedAd(): boolean {
-			return gdkjsb.country == "CN" && nativeHelper.checkActionExist("ironsrc:IronSource.createFeedAd")
+			return SDKProxy.country() == "CN" && nativeHelper.checkActionExist("ironsrc:IronSource.createFeedAd")
 		}
 
 		createFeedAd?(params: GDK.FeedAdCreateParam): GDK.IFeedAd {
