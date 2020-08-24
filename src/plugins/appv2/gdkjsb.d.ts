@@ -187,10 +187,24 @@ declare namespace gdkjsb {
 	/**
 	 * 生成Info文件
 	 */
-	export function makeAppInfo();
+	export function makeAppInfo() : string;
+	// 设置appinfo的参数
+	export function setAppInfo(key : string, value : string) : void;
 
 	export function gotoAppSystemSettings(p: string, calback: (p: string) => void);
 	export function checkAppSystemPermissions(p: string, calback: (p: string) => void);
+
+	/**
+	 * 游戏热更新功能
+	 * @returns tid 供暂停、恢复、取消使用
+	*/
+	export function hotupdateInGame(json : string, callback : (cur : number, total : number)=>void) : string;
+	// 暂停
+	export function hotupdatePause(tid : string) : void;
+	// 恢复
+	export function hotupdateResume(tid : string) : void;
+	// 取消
+	export function hotupdateCancel(tid : string) : void;
 
 	export class Bridge {
 

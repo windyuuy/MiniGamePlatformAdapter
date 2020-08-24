@@ -90,6 +90,10 @@ namespace GDK {
 			return this._m.advertV2;
 		}
 
+		get gdkjsb(): IGDKJSB {
+			return this._m.gdkjsb;
+		}
+
 		/** 批量导出接口 */
 		// $batch_export() begin
 
@@ -292,6 +296,13 @@ namespace GDK {
 				return this.createNonePromise("[user.showBindDialog]");
 			}
 			return this._m.user.showBindDialog();
+		}
+
+		bindWithBus(): Promise<{ success: boolean; data: any }> {
+			if (!this.checkModuleAttr("user", "bindWithBus", "function")) {
+				return this.createNonePromise("[user.bindWithBus]");
+			}
+			return this._m.user.bindWithBus();
 		}
 		/** 检查登录态是否过期 */
 		checkSession?(params?: ReqParams): Promise<void> {
@@ -1812,6 +1823,56 @@ namespace GDK {
 				return undefined;
 			}
 			return this._m.advertV2.isAdvertTypeSupported(advertType);
+		}
+		/**
+		 * 游戏热更新功能
+		 * @returns tid 供暂停、恢复、取消使用
+		 */
+		hotupdateInGame(
+			json: string,
+			callback: (cur: number, total: number) => void
+		): string {
+			if (!this.checkModuleAttr("gdkjsb", "hotupdateInGame", "function")) {
+				return undefined;
+			}
+			return this._m.gdkjsb.hotupdateInGame(json, callback);
+		}
+		// 暂停
+		hotupdatePause(tid: string): void {
+			if (!this.checkModuleAttr("gdkjsb", "hotupdatePause", "function")) {
+				return undefined;
+			}
+			return this._m.gdkjsb.hotupdatePause(tid);
+		}
+		// 恢复
+		hotupdateResume(tid: string): void {
+			if (!this.checkModuleAttr("gdkjsb", "hotupdateResume", "function")) {
+				return undefined;
+			}
+			return this._m.gdkjsb.hotupdateResume(tid);
+		}
+		// 取消
+		hotupdateCancel(tid: string): void {
+			if (!this.checkModuleAttr("gdkjsb", "hotupdateCancel", "function")) {
+				return undefined;
+			}
+			return this._m.gdkjsb.hotupdateCancel(tid);
+		}
+		/**
+		 * 生成Info文件
+		 */
+		makeAppInfo(): string {
+			if (!this.checkModuleAttr("gdkjsb", "makeAppInfo", "function")) {
+				return undefined;
+			}
+			return this._m.gdkjsb.makeAppInfo();
+		}
+		// 设置appinfo的参数
+		setAppInfo(key: string, value: string): void {
+			if (!this.checkModuleAttr("gdkjsb", "setAppInfo", "function")) {
+				return undefined;
+			}
+			return this._m.gdkjsb.setAppInfo(key, value);
 		}
 
 		// $batch_export() end

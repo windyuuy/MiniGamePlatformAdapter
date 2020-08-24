@@ -9,6 +9,9 @@ namespace UnityAppGDK {
 		protected getAddon(): CS.Glee.Bridge.LocalPushAddonWrapper {
 			return nativeManager.getWrapper().localPush;
 		}
+        public isSupport() : boolean {
+            return nativeManager.isSupport();
+        }
 
 
 		init() {

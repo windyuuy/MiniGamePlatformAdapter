@@ -18,5 +18,6 @@ namespace GDK {
 		Log?: new () => ILog = LogBase
 		LocalPush?: new () => ILocalPush
 		AdvertV2?: new () => IAdvertV2
+		gdkjsb?: new () => IGDKJSB
 	}
 }

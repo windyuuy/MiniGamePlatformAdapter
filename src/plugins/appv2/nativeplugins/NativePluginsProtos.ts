@@ -129,6 +129,7 @@ namespace UnityAppGDK {
 
     export class ShowAdUnityResult {
         public couldReward!: boolean;
+        public isEnded!: boolean;
     }
 
     export class SetAdUnitStyleInfo {

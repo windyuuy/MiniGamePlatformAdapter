@@ -9,10 +9,8 @@ namespace UnityAppGDK {
 		init() {
 			super.init();
 
-			//侦听show hide
-			if (gdkjsb.bridge) {
-				gdkjsb.bridge.on("app:show", (data: string) => {
-					let jsonData: any = null;
+			SDKProxy.appShow((data: string) => {
+				let jsonData: any = null;
 					try {
 						jsonData = JSON.parse(data);
 					} catch (e) {
@@ -20,76 +18,49 @@ namespace UnityAppGDK {
 					for (let f of this._showList.concat()) {
 						f(jsonData)
 					}
-				})
-				gdkjsb.bridge.on("app:hide", (data: string) => {
-					let jsonData: any = null;
-					try {
-						jsonData = JSON.parse(data);
-					} catch (e) {
-					}
-					for (let f of this._hideList.concat()) {
-						f(jsonData)
-					}
-				})
-			}
+			})
+			SDKProxy.appHide((data: string) => {
+				let jsonData: any = null;
+				try {
+					jsonData = JSON.parse(data);
+				} catch (e) {
+				}
+				for (let f of this._hideList.concat()) {
+					f(jsonData)
+				}
+			})
 		}
 
 		getSafeArea?(callback: (data: { left: number, right: number, top: number, bottom: number }) => void): void {
-			if (gdkjsb.bridge == undefined) {
-				//兼容无gdkjsb的包
-				callback({ left: 0, right: 0, top: 0, bottom: 0 });
-			} else {
-				if (gdkjsb.bridge.callAction("DisplayCutout:getSafeArea", "{}", (data: string, func) => {
-					callback(JSON.parse(data));
-				}) != true) {
-					//兼容 nativeVersion == 0
-					callback({ left: 0, right: 0, top: 0, bottom: 0 });
-				}
-			}
+			SDKProxy.getSafeArea(callback as any);
 		}
 
 		get nativeVersion() {
-			return gdkjsb.nativeVersion || 1;
+			return SDKProxy.nativeVersion();
 		}
 
 		get sdkFrameworkVersion() {
-			return gdkjsb.bridge.sdkFrameworkVersion || "2.0"
+			return SDKProxy.sdkFrameworkVersion()
 		}
 
 		openURL(url: string) {
-			gdkjsb.openURL(url);
+			SDKProxy.openURL(url)
 		}
 
 		startYunkefu(accessId: string, name: string, id: string, customField: Object, native?: boolean) {
-			if (native) {
-				gdkjsb.bridge.callAction("showsAssistantCenter", JSON.stringify({ name, id, customField }), (data, func) => { })
-				return
-			}
-
-			// if (nativeHelper.checkActionExist("StartYunkefu")) {
-			// 	nativeHelper.callAction("StartYunkefu", { accessId: accessId, name: name, id: id, customField: customField })
-			// } else {
-			let otherParams = {
-				nickName: name
-			}
-			gdk.openURL(encodeURI(`https://ykf-webchat.7moor.com/wapchat.html?accessId=${accessId}&clientId=${id}&otherParams=${JSON.stringify(otherParams)}&fromUrl=${gdk.systemInfo.packageName}&urlTitle=${gdk.systemInfo.packageTag}&customField=${JSON.stringify(customField)}`))
-			// }
+			SDKProxy.startYunkefu(accessId, name, id, customField, native);
 		}
 
 		hasNativeAssistantCenter(): boolean {
-			return gdkjsb.bridge.checkActionExist("showsAssistantCenter")
+			return SDKProxy.hasNativeAssistantCenter();
 		}
 
 		showHackWeb(url: string, duration: number) {
-			if (gdkjsb.showHackWeb) {
-				gdkjsb.showHackWeb(url, duration)
-			}
+			SDKProxy.showHackWeb(url, duration)
 		}
 
 		setSDKLanguage(lang: string) {
-			if (gdkjsb.setSDKLanguage) {
-				gdkjsb.setSDKLanguage(lang)
-			}
+			SDKProxy.setSDKLanguage(lang)
 		}
 
 
@@ -107,18 +78,16 @@ namespace UnityAppGDK {
 		}
 
 		async gotoAppSystemSettings?(params: GDK.IChooseDialogParams): Promise<GDK.IChooseDialogResult> {
-			// return nativeHelper.safeCallAction("utils:gotoAppSystemSettings", params)
 			return new Promise((resolve, reject) => {
-				gdkjsb.gotoAppSystemSettings(JSON.stringify(params), (p) => {
+				SDKProxy.gotoAppSystemSettings(JSON.stringify(params), (p) => {
 					resolve(JSON.parse(p || "null"))
 				})
 			})
 		}
 
 		async checkAppSystemPermissions?(params: GDK.ICheckPermissionParams): Promise<GDK.ICheckPermissionResult> {
-			// return nativeHelper.safeCallAction<GDK.ICheckPermissionResult>("utils:checkAppSystemPermissions", params)
 			return new Promise((resolve, reject) => {
-				gdkjsb.checkAppSystemPermissions(JSON.stringify(params), (p) => {
+				SDKProxy.checkAppSystemPermissions(JSON.stringify(params), (p) => {
 					resolve(JSON.parse(p || "null"))
 				})
 			})
@@ -126,9 +95,7 @@ namespace UnityAppGDK {
 
 		exitProgram(): Promise<void> {
 			const ret = new GDK.RPromise<void>()
-			if (gdkjsb.exitProgram) {
-				gdkjsb.exitProgram()
-			}
+			SDKProxy.exitProgram();
 			setTimeout(() => {
 				ret.success()
 			}, 0);

@@ -425,6 +425,12 @@ namespace AppGDK {
 			return ret.promise
 		}
 
+		bindWithBus () : Promise<{success : boolean, data : any}>{
+			const ret = new GDK.RPromise<{success : boolean, data : any}>()
+			ret.success({success: false, data: {}})
+			return ret.promise;
+		}
+
 		async showUserCenter() {
 			let user = SDKProxy.loadUserRecord()[0];
 			SDKProxy.showUserCenter(user);

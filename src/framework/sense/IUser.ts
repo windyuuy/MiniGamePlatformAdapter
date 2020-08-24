@@ -156,6 +156,8 @@ namespace GDK {
 		 */
 		showBindDialog(): Promise<void>;
 
+		bindWithBus() : Promise<{success : boolean, data : any}>;
+
 		/** 检查登录态是否过期 */
 		checkSession?(params?: ReqParams): Promise<void>
 

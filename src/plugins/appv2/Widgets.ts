@@ -33,43 +33,15 @@ namespace UnityAppGDK {
 			devlog.info("hideToast")
 		}
 		showConfirm(object: GDK.ShowConfirmOptions): Promise<GDK.ShowConfirmResult> {
-			return new Promise<GDK.ShowConfirmResult>((resolve, reject) => {
-				gdkjsb.showConfirm(object.content, object.title || slib.i18n.locSDKString("remind_tip"), object.okLabel || slib.i18n.locSDKString("ok"), object.cancelLabel || slib.i18n.locSDKString("cancel"), isOk => {
-					let r = new GDK.ShowConfirmResult()
-					r.confirm = isOk == true
-					r.cancel = isOk == false
-					resolve(r);
-				})
-			})
+			return SDKProxy.showConfirm(object);
 		}
 
 		showAlert(object: GDK.ShowAlertOptions): Promise<GDK.ShowAlertResult> {
-			return new Promise<GDK.ShowAlertResult>((resolve, reject) => {
-				gdkjsb.showAlert(object.content, object.title || slib.i18n.locSDKString("remind_tip"), object.okLabel || slib.i18n.locSDKString("ok"), () => {
-					let r = new GDK.ShowAlertResult()
-					resolve(r);
-				})
-			})
+			return SDKProxy.showAlert(object);
 		}
 
 		showPrompt(object: GDK.ShowPromptOptions): Promise<GDK.ShowPromptResult> {
-			return new Promise<GDK.ShowPromptResult>((resolve, reject) => {
-				if (gdkjsb.showPrompt == null) {
-					let r = new GDK.ShowPromptResult()
-					r.cancel = true;
-					r.confirm = false;
-					r.result = null;
-					resolve(r);
-					return;
-				}
-				gdkjsb.showPrompt(object.content, object.title || slib.i18n.locSDKString("remind_tip"), object.okLabel || slib.i18n.locSDKString("ok"), object.cancelLabel || slib.i18n.locSDKString("cancel"), (isOk, result) => {
-					let r = new GDK.ShowPromptResult()
-					r.confirm = isOk == true
-					r.cancel = isOk == false
-					r.result = result
-					resolve(r);
-				}, object.defaultValue || "")
-			})
+			return SDKProxy.showPrompt(object);
 		}
 
 		async hideLaunchingView(): Promise<void> {
