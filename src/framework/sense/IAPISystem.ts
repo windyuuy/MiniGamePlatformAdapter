@@ -242,6 +242,11 @@ namespace GDK {
 		  */
 		 getAppInfoString(key: string,def:string):string;
 
+		 /**
+		  * 获取资源版本号
+		  */
+		 getResVersion():number
+
 	}
 
 }

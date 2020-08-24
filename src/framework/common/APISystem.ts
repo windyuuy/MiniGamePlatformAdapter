@@ -188,6 +188,11 @@ namespace GDK {
 				return v.toString();
 			}
 		}
+		
+		getResVersion():number{
+			return 0;
+		}
+
 
 	}
 }
