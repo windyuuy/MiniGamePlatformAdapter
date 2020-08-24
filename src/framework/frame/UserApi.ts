@@ -298,11 +298,11 @@ namespace GDK {
 			return this._m.user.showBindDialog();
 		}
 
-		bindWithBus(): Promise<{ success: boolean; data: any }> {
-			if (!this.checkModuleAttr("user", "bindWithBus", "function")) {
-				return this.createNonePromise("[user.bindWithBus]");
+		bindUser(): Promise<{ success: boolean; data: any }> {
+			if (!this.checkModuleAttr("user", "bindUser", "function")) {
+				return this.createNonePromise("[user.bindUser]");
 			}
-			return this._m.user.bindWithBus();
+			return this._m.user.bindUser();
 		}
 		/** 检查登录态是否过期 */
 		checkSession?(params?: ReqParams): Promise<void> {

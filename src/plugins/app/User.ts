@@ -425,7 +425,7 @@ namespace AppGDK {
 			return ret.promise
 		}
 
-		bindWithBus () : Promise<{success : boolean, data : any}>{
+		bindUser () : Promise<{success : boolean, data : any}>{
 			const ret = new GDK.RPromise<{success : boolean, data : any}>()
 			ret.success({success: false, data: {}})
 			return ret.promise;

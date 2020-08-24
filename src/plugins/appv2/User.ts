@@ -148,10 +148,10 @@ namespace UnityAppGDK {
 		}
 
 		async showBindDialog () {
-			this.bindWithBus();
+			this.bindUser();
 		}
 
-		bindWithBus() : Promise<{success : boolean, data : any}> {
+		bindUser() : Promise<{success : boolean, data : any}> {
 			const ret = new GDK.RPromise<{success : boolean, data : any}>()
 			if (!this.isSupport()) {
 				console.error("不支持User模块")
