@@ -206,7 +206,7 @@ namespace UnityAppGDK {
     }
 
     export class RemoveLocalNotifiesParams {
-        public identifiers!: string;
+        public identifiers!: string[];
     }
 
     export class RemoveAllLocalNotifiesParams {

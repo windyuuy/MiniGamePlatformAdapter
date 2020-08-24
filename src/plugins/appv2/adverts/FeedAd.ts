@@ -99,7 +99,7 @@ namespace UnityAppGDK {
 
 		constructor(params: GDK.FeedAdCreateParam) {
 
-			this.isDebugMode = params.isDebugMode
+			this.isDebugMode = params.isDebugMode || false
 
 			let style = params.style
 			if (style != null) {

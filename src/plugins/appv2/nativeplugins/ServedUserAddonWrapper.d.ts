@@ -18,12 +18,6 @@ declare namespace CS.Glee.Bridge {
         public IsLogined (): boolean;
 
 		/**
-		* 判断是否已绑定
-		*/
-        public IsBind (): boolean;
-        
-
-		/**
 		* 登出
 		*/
         public Logout (info: AnyParams, callbacks: TaskCallback<AnyResult>):void;
@@ -36,89 +30,91 @@ declare namespace CS.Glee.Bridge {
 		/**
 		* 获取登陆记录信息，昵称等
 		*/
-        public GetRecordData (): LoginServerResult.RecordData;
+        public GetRecordData (): RecordData;
 
 		/**
 		* 进入平台中心
 		*/
         public EnterPlatform (info: ServedBindInfo, callbacks: TaskCallback<LoginServerResult>):void;
 
+        public IsBind (): boolean;
+
     }
 
    export class ServedLoginInfo {
-       public loginNode!: string;
+       public loginNode: string;
    }
 
    export class LoginServerResult {
-       public recordData!: RecordData;
-       public serverData!: ServerData;
-       public rawData!: any;
+       public rawData: any;
+       public recordData: RecordData;
+       public serverData: ServerData;
    }
 
    export class RecordData {
-       public type!: string;
-       public nickName!: string;
-       public gameRegDate!: number;
-       public token!: string;
-       public bindingInfo!: any[];
-       public accountName!: string;
-       public head!: string;
-       public openId!: string;
-       public gameUserId!: string;
+       public type: string;
+       public token: string;
+       public head: string;
+       public openId: string;
+       public bindingInfo: any[];
+       public accountName: string;
+       public nickName: string;
+       public gameUserId: string;
+       public gameRegDate: number;
    }
 
    export class ServerData {
-       public backupTime!: number;
-       public heart!: number;
-       public custom!: string;
-       public encryptKey!: string;
-       public noticeSign!: string;
-       public bindingInfo!: any[];
-       public gameCurrency!: GameCurrency;
-       public tableConf!: TableConf;
-       public gametoken!: string;
-       public dataTimestamp!: number;
-       public ad!: any;
-       public service24Timestamp!: number;
-       public serviceTimestamp!: number;
-       public openId!: string;
-       public profileImg!: string;
-       public gender!: number;
-       public userNew!: boolean;
-       public token!: string;
-       public verifiedInfo!: VerifiedInfo;
-       public nickname!: string;
-       public channelId!: number;
-       public userId!: number;
-       public createTime!: number;
-       public shareSwitch!: any;
-       public qa!: string;
-       public followGzh!: number;
-       public verified!: boolean;
-       public holidays!: boolean;
+       public gameCurrency: GameCurrency;
+       public qa: string;
+       public gender: number;
+       public serviceTimestamp: number;
+       public gametoken: string;
+       public profileImg: string;
+       public channelId: number;
+       public token: string;
+       public followGzh: number;
+       public tableConf: TableConf;
+       public dataTimestamp: number;
+       public heart: number;
+       public nickname: string;
+       public backupTime: number;
+       public userNew: boolean;
+       public bindingInfo: any[];
+       public service24Timestamp: number;
+       public verifiedInfo: VerifiedInfo;
+       public openId: string;
+       public custom: string;
+       public holidays: boolean;
+       public shareSwitch: any;
+       public createTime: number;
+       public verified: boolean;
+       public noticeSign: string;
+       public userId: number;
+       public ad: any;
+       public encryptKey: string;
    }
 
    export class GameCurrency {
-       public diamond!: string;
-       public seed!: string;
-       public gold!: string;
+       public gold: string;
+       public diamond: string;
+       public seed: string;
    }
 
    export class TableConf {
-       public tableSign!: string;
+       public tableSign: string;
    }
 
    export class VerifiedInfo {
-       public age!: number;
-       public idCard!: string;
-       public birthday!: string;
-       public name!: string;
+       public idCard: string;
+       public birthday: string;
+       public name: string;
+       public age: number;
    }
 
    export class ServedBindInfo {
-       public serverData!: ServerData;
-       public visitorOpenId!: string;
-       public loginNode!: string;
+       public serverData: ServerData;
+       public loginNode: string;
+       public visitorOpenId: string;
    }
 
 }

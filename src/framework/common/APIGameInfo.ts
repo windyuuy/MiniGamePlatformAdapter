@@ -1,7 +1,7 @@
 
 namespace GDK {
 	export abstract class GameInfoBase implements IGameInfo {
-		mode: "develop" | "test" | "release"
+		abstract mode: "develop" | "test" | "release"
 
 		abstract appId: string
 		abstract gameChannelId: number

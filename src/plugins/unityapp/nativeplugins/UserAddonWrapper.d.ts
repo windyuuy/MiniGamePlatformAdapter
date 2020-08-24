@@ -5,8 +5,14 @@ declare namespace CS.Glee.Bridge {
 		/**
 		* 登录
 		*/
+		/**
+		* 登录
+		*/
         public Login (info: LoginInfo, callbacks: TaskCallback<LoginResult>):void;
 
+		/**
+		* 绑定账号到SDK渠道账号
+		*/
 		/**
 		* 绑定账号到SDK渠道账号
 		*/
@@ -15,8 +21,14 @@ declare namespace CS.Glee.Bridge {
 		/**
 		* 登出
 		*/
+		/**
+		* 登出
+		*/
         public Logout (info: AnyParams, callbacks: TaskCallback<AnyResult>):void;
 
+		/**
+		* 切换账号
+		*/
 		/**
 		* 切换账号
 		*/
@@ -25,18 +37,22 @@ declare namespace CS.Glee.Bridge {
 		/**
 		* 进入平台中心
 		*/
+		/**
+		* 进入平台中心
+		*/
         public EnterPlatform (info: AnyParams, callbacks: TaskCallback<EnterPlatformResult>):void;
 
+		/**
+		* 显示悬浮工具栏
+		*/
 		/**
 		* 显示悬浮工具栏
 		*/
         public ShowToolBar (info: String): boolean;
 
 		/**
-		* 隐藏悬浮工具栏
+		* 提交游戏数据接口
 		*/
-        public HideToolBar (): boolean;
-
 		/**
 		* 提交游戏数据接口
 		*/
@@ -45,8 +61,14 @@ declare namespace CS.Glee.Bridge {
 		/**
 		* 实名注册
 		*/
+		/**
+		* 实名注册
+		*/
         public RealNameRegister (info: RealNameRegisterParams, callbacks: TaskCallback<AnyResult>):void;
 
+		/**
+		* 防沉迷查询
+		*/
 		/**
 		* 防沉迷查询
 		*/
@@ -58,13 +80,13 @@ declare namespace CS.Glee.Bridge {
    }
 
    export class LoginResult {
+       public type: string;
        public nickName: string;
        public email: string;
        public head: string;
-       public platform: string;
        public token: string;
-       public type: string;
        public openId: string;
+       public platform: string;
    }
 
    export class EnterPlatformResult {

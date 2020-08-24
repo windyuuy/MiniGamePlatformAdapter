@@ -2,7 +2,7 @@
 namespace UnityAppGDK {
 	export class SystemInfo extends GDK.SystemInfoBase {
 
-		api: GDK.UserAPI
+		api!: GDK.UserAPI
 
 		platform = "unknown"
 		brand: string = 'unknown'

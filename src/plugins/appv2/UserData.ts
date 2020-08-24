@@ -7,19 +7,19 @@ namespace UnityAppGDK {
 		get gameId(): number {
 			return -1
 		}
-		openKey: string
+		openKey!: string
 		password?: string
-		nickName: string
-		userId: number
-		isNewUser: boolean
-		avatarUrl: string
-		backupTime: number
-		followGzh: 0 | 1
-		token: string
-		gameToken: string
-		channelId: number
-		createTime: number
-		sex: number
+		nickName!: string
+		userId!: number
+		isNewUser!: boolean
+		avatarUrl!: string
+		backupTime!: number
+		followGzh!: 0 | 1
+		token!: string
+		gameToken!: string
+		channelId!: number
+		createTime!: number
+		sex!: number
 
 	}
 }

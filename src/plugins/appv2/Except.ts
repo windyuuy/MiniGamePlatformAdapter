@@ -1,6 +1,6 @@
 namespace UnityAppGDK {
 	export class Except implements GDK.IExcept {
-		protected _errorCallback: (err: { message: string, stack: string }) => void
+		protected _errorCallback?: (err: { message: string, stack: string }) => void
 		protected _isListener: boolean = false;
 
 		setErrorCallback(callback: (err: { message: string, stack: string }) => void) {

@@ -7,16 +7,13 @@
 			"dom",
 			"es2015.promise"
 		],
-		"strictPropertyInitialization": true,
-		"strictNullChecks": true,
-		"preserveConstEnums": true,
-		"sourceMap": true,
+		"experimentalDecorators":true,
 		"outFile": "../../../dist/appv2/appv2.js",
 		"declaration": true,
 		"composite": true,
 		"rootDir": "./",
 		"rootDirs": [
-			"../../framework",
+			"../../framework"
 		]
 	},
 	"compileOnSave": true,

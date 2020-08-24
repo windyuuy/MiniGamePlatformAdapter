@@ -3,7 +3,7 @@ namespace GDK {
 	const devlog = new slib.Log({ tags: ["DEVELOP"] })
 
 	class Clipboard implements IClipboard {
-		_data: ClipboardData
+		_data: ClipboardData = null
 		async getData(): Promise<ClipboardData> {
 			// return { ...this._data }
 			// return {};
@@ -22,7 +22,7 @@ namespace GDK {
 
 		clipboard?: IClipboard = new Clipboard()
 
-		init?() {
+		init() {
 			this._initEvents()
 		}
 
@@ -36,7 +36,7 @@ namespace GDK {
 
 		async navigateToApp?(params: AppCallUpParams): Promise<AppCallUpResult> {
 			devlog.info("打开小程序成功")
-			return null
+			return {}
 		}
 		async exitProgram?(): Promise<void> {
 			devlog.info("正在退出")

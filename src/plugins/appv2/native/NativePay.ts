@@ -15,9 +15,9 @@ namespace UnityAppGDK {
 		DEPENDENCE_APP_NOT_INSTALLED,
 	}
 	export class NativePayResult {
-		code: PayErrorCode
-		data: string
-		message: string
+		code!: PayErrorCode
+		data!: string
+		message!: string
 	}
 	export class NativePay {
 		/**

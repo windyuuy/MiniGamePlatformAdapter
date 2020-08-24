@@ -45,10 +45,10 @@ namespace UnityAppGDK {
 		/**
 		 * 移除对应的推送
 		 */
-		async removeLocalNoticeWithID?(params: { identifier: string }): Promise<void> {
+		async removeLocalNoticeWithID?(params: { identifier: string, identifiers:string[] }): Promise<void> {
 			let ret = new GDK.RPromise<void>();
 			let info = {} as UnityAppGDK.RemoveLocalNotifiesParams;
-			info.identifiers = params.identifier;
+			info.identifiers = params.identifiers;
 			this.getAddon().RemovePushesByID(info, new TaskCallback<AnyResult>({
 				onSuccess: (p) => {
                     ret.success(undefined)
@@ -101,7 +101,7 @@ namespace UnityAppGDK {
 			let ret = new GDK.RPromise<{ enabled: boolean }>();
 			// ret.success({enabled : true})
 			let enable = this.getAddon().IsPushEnabled();
-			if (enable == "true") {
+			if (enable == true) {
 				ret.success({enabled : true});
 			} else {
 				ret.success({enabled: false});

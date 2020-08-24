@@ -11,8 +11,14 @@ declare namespace CS.Glee.Bridge {
 		/**
 		* 发起支付
 		*/
+		/**
+		* 发起支付
+		*/
         public OnRequestPay (info: LogRequestPayParams, callbacks: TaskCallback<LogEventResult>):void;
 
+		/**
+		* 完成支付
+		*/
 		/**
 		* 完成支付
 		*/

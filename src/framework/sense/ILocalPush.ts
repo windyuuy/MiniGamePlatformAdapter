@@ -94,8 +94,9 @@ namespace GDK {
 		addLocalNotices?(notices: LocalPushBundle[]): Promise<void>;
 		/**
 		 * 移除对应的推送
+		 * - identifier 和 identifiers 只有其中一个生效
 		 */
-		removeLocalNoticeWithID?(params: { identifier: string }): Promise<void>;
+		removeLocalNoticeWithID?(params: { identifier?: string, identifiers?: string[] }): Promise<void>;
 
 		/**
 		 * 移除所有推送

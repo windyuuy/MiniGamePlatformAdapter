@@ -20,11 +20,11 @@ namespace GDK {
 		/**
 		 * banner 广告组件的左上角横坐标
 		 */
-		left: number
+		left?: number
 		/**
 		 * banner 广告组件的左上角纵坐标
 		 */
-		top: number
+		top?: number
 		/**
 		 * banner 广告组件的宽度。最小 300，最大至 屏幕宽度（屏幕宽度可以通过 wx.getSystemInfoSync() 获取）。
 		 */
@@ -198,11 +198,11 @@ namespace GDK {
 		/**
 		 * feed 广告组件的左上角横坐标
 		 */
-		left: number
+		left?: number
 		/**
 		 * feed 广告组件的左上角纵坐标
 		 */
-		top: number
+		top?: number
 		/**
 		 * feed 广告组件的宽度。最小 300，最大至 屏幕宽度（屏幕宽度可以通过 wx.getSystemInfoSync() 获取）。
 		 */

@@ -11,6 +11,7 @@
 		"sourceMap": true,
 		"outFile": "../../../dist/develop.js",
 		"declaration": true,
+		"experimentalDecorators": true,
 		"composite": true
 	},
 	"compileOnSave": true,

@@ -5,8 +5,14 @@ declare namespace CS.Glee.Bridge {
 		/**
 		* 判断广告类型是否支持
 		*/
+		/**
+		* 判断广告类型是否支持
+		*/
         public IsAdvertTypeSupported (info: String): boolean;
 
+		/**
+		* 预加载广告
+		*/
 		/**
 		* 预加载广告
 		*/
@@ -15,8 +21,14 @@ declare namespace CS.Glee.Bridge {
 		/**
 		* 对广告平台进行一些设置
 		*/
+		/**
+		* 对广告平台进行一些设置
+		*/
         public SetAdPlatformConfigs (info: AdPlatformConfigs, callbacks: TaskCallback<AnyResult>):void;
 
+		/**
+		* 创建广告单元
+		*/
 		/**
 		* 创建广告单元
 		*/
@@ -25,8 +37,14 @@ declare namespace CS.Glee.Bridge {
 		/**
 		* 加载
 		*/
+		/**
+		* 加载
+		*/
         public LoadAdUnit (info: AdUnitOpInfo, callbacks: TaskCallback<AnyResult>):void;
 
+		/**
+		* 展示
+		*/
 		/**
 		* 展示
 		*/
@@ -35,8 +53,14 @@ declare namespace CS.Glee.Bridge {
 		/**
 		* 隐藏
 		*/
+		/**
+		* 隐藏
+		*/
         public HideAdUnit (info: AdUnitOpInfo, callbacks: TaskCallback<AnyResult>):void;
 
+		/**
+		* 销毁
+		*/
 		/**
 		* 销毁
 		*/
@@ -45,8 +69,14 @@ declare namespace CS.Glee.Bridge {
 		/**
 		* 广告是否已经加载
 		*/
+		/**
+		* 广告是否已经加载
+		*/
         public IsAdUnitReady (info: AdUnitOpInfo): boolean;
 
+		/**
+		* 广告单元是否还可用
+		*/
 		/**
 		* 广告单元是否还可用
 		*/
@@ -55,8 +85,14 @@ declare namespace CS.Glee.Bridge {
 		/**
 		* 设置广告样式（比如banner广告）
 		*/
+		/**
+		* 设置广告样式（比如banner广告）
+		*/
         public SetAdUnitStyle (info: SetAdUnitStyleInfo, callbacks: TaskCallback<AdUnitStyle>):void;
 
+		/**
+		* 设置广告点击区域样式
+		*/
 		/**
 		* 设置广告点击区域样式
 		*/
@@ -65,8 +101,14 @@ declare namespace CS.Glee.Bridge {
 		/**
 		* 判断广告单元是否可用（如判断视频广告、banner广告是否已经加载）
 		*/
+		/**
+		* 判断广告单元是否可用（如判断视频广告、banner广告是否已经加载）
+		*/
         public GetAdUnitStatus (info: AdUnitOpInfo): AdUnitStatus;
 
+		/**
+		* 获取广告单元信息
+		*/
 		/**
 		* 获取广告单元信息
 		*/

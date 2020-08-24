@@ -1,5 +1,5 @@
 
-namespace CS.Glee.Bridge {
+declare namespace CS.Glee.Bridge {
     export class ChannelPluginWrapper {
         public sdkSystem: SDKSystemAddonWrapper;
         public user: UserAddonWrapper;

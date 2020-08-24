@@ -11,7 +11,7 @@ namespace UnityAppGDK {
 
 	export class Widgets implements GDK.IWidgets {
 
-		api?: GDK.UserAPI
+		api!: GDK.UserAPI
 
 		init(data) {
 			setTimeout(() => {

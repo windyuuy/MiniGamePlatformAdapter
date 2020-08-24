@@ -2,21 +2,21 @@
 namespace UnityAppGDK {
 	export class GameInfo extends GDK.GameInfoBase {
 
-		mode: "develop" | "test" | "release"
+		mode!: "develop" | "test" | "release"
 
-		appId: string
-		gameChannelId: number
+		appId!: string
+		gameChannelId!: number
 		/** 沙盒模式支付 */
-		isPayInSandbox: boolean
+		isPayInSandbox!: boolean
 		/** 支付侧应用id */
-		offerId: string
+		offerId!: string
 		/**
 		 * 分享结果检测的代理网址
 		 * * 仅微信使用
 		 */
-		shareProxyUrl: string;
+		shareProxyUrl!: string;
 
-		launchOptions: GDK.LaunchOptions
+		launchOptions!: GDK.LaunchOptions
 		/**
 		 * 游戏版本号
 		 **/
@@ -28,7 +28,7 @@ namespace UnityAppGDK {
 		/**
 		 * 游戏类型(手Q7.6.5及以上支持) 0: 普通游戏 1：红包游戏
 		 **/
-		gameType: number
+		gameType!: number
 
 		async initWithConfig(info: GDK.GDKConfig) {
 			if (info == undefined) return;

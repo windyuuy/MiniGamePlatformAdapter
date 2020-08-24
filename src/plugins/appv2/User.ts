@@ -50,7 +50,7 @@ namespace UnityAppGDK {
 			}
 			console.log("sdk_glee_userId4:", nUserId)
 
-			this.server.loginTest({ loginCode: nUserId!, node: params.node, clientSystemInfo: { deviceId: SDKProxy.deviceId() } }, (resp) => {
+			this.server.loginTest({ loginCode: nUserId!, node: params && params.node, clientSystemInfo: { deviceId: SDKProxy.deviceId() } }, (resp) => {
 				//玩家数据
 				if (resp.succeed) {
 					const data = resp.data

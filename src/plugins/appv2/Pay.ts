@@ -30,10 +30,15 @@ namespace UnityAppGDK {
 			info.extra = "";
 
 			this.getAddon().Pay(info, new FTaskCallback<CS.Glee.Bridge.PayResult, CS.Glee.Bridge.PayErrorInfo>({
-				onSuccess: (p : GDK.PayResult) => {
-                    p.extra = p.data;
-                    p.extra.data = p.data.extra;
-                    ret.success(p)
+				onSuccess: (p: CS.Glee.Bridge.PayResult) => {
+					let result:GDK.PayResult={
+						result:{
+							errCode:p.code,
+						},
+						extra:p.data,
+					}
+					result.extra.data = p.data.extra;
+					ret.success(result)
                 },
                 onFailed: (e) => {
                     ret.fail(e)

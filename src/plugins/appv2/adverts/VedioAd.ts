@@ -120,7 +120,7 @@ namespace UnityAppGDK {
 		/**
 		 * 调用异步原生接口获取`原生`视频广告是否加载成功
 		 */
-		async checkAvailable?(loadParams?: GDK.RewardVideoAdLoadParams): Promise<boolean> {
+		async checkAvailable(loadParams?: GDK.RewardVideoAdLoadParams): Promise<boolean> {
 			let { available } = await SDKProxy.nativeAdvert.isRewardedVideoAvailable(loadParams)
 			this._available = available
 			return available
@@ -155,7 +155,7 @@ namespace UnityAppGDK {
 		/**
 		 * 原生平台广告位
 		 */
-		protected placementId: string = null
+		protected placementId?: string = undefined
 
 		async load(loadParams?: GDK.RewardVideoAdLoadParams): Promise<void> {
 			loadParams = loadParams || {}
@@ -204,7 +204,7 @@ namespace UnityAppGDK {
 				waitting = false
 				ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_SHOW_ADVERT_TIMEOUT))
 			}, 5000);
-			SDKProxy.nativeAdvert.showRewardedVideo({ placementName: loadParams ? loadParams.placementId : "DefaultRewardedVideo" }).then(() => {
+			SDKProxy.nativeAdvert.showRewardedVideo({ placementName: loadParams && loadParams.placementId || "DefaultRewardedVideo" }).then(() => {
 				if (!waitting) {
 					return
 				}

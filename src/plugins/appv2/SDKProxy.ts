@@ -10,7 +10,7 @@ namespace UnityAppGDK {
 	const USER_INFO_KEY = "$OFNIRESU$";
 	const USER_INFO_XXTEA_KEY = "key$OFNIRESU$key";
 
-	type LoginType = "account" | "visitor" | "facebook" | "google" | "silent" | "gamecenter" | "wxapp" | "quick" | "huawei" | "vivoapp" | "OppoApp" | "baiduapp" | "aligame" | "yingyongbaoApp" | "meituApp" | "xiao7" | "chongchong" | "lufeifan" | "jingyou"
+	export type LoginType = "account" | "visitor" | "facebook" | "google" | "silent" | "gamecenter" | "wxapp" | "quick" | "huawei" | "vivoapp" | "OppoApp" | "baiduapp" | "aligame" | "yingyongbaoApp" | "meituApp" | "xiao7" | "chongchong" | "lufeifan" | "jingyou"
 
 
 	/**

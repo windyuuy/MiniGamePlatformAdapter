@@ -2,9 +2,9 @@ namespace UnityAppGDK {
 	type ReqResult = any
 
 	export class RReqPromise<T, F = undefined> extends GDK.RPromise<ReqResult>{
-		success: (value: T) => void
-		fail: (value?: F) => void
-		promise: Promise<ReqResult>
+		success!: (value: T) => void
+		fail!: (value?: F) => void
+		promise!: Promise<ReqResult>
 
 		constructor(params: { okmsg?: string, failmsg?: string, okreason?: string, failreason?: string }) {
 			super(params)
@@ -15,15 +15,15 @@ namespace UnityAppGDK {
 					const data1 = data == undefined ? {} : data
 
 					resolve(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.SUCCESS, {
-						msg: params.okmsg || undefined,
-						reason: params.okreason || data1['errMsg'] || undefined,
+						msg: (params && params.okmsg) || undefined,
+						reason: (params && params.okreason) || data1['errMsg'] || undefined,
 						data: data1
 					}))
 				}
 				this.fail = () => {
 					reject(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN, {
-						msg: params.failmsg || undefined,
-						reason: params.failreason || undefined
+						msg: (params && params.failmsg) || undefined,
+						reason: (params && params.failreason) || undefined
 					}))
 				}
 			})

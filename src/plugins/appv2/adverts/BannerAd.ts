@@ -25,10 +25,11 @@ namespace UnityAppGDK {
 			SDKProxy.nativeAdvert.setBannerListener()
 			SDKProxy.nativeAdvert.loadBanner(params)
 
-			this.style.x = params.style.x
-			this.style.y = params.style.y
-			this.style.left = params.style.left
-			this.style.top = params.style.top
+			let style = params.style || {}
+			this.style.x = style.x
+			this.style.y = style.y
+			this.style.left = style.left
+			this.style.top = style.top
 
 			SDKProxy.nativeAdvert.onBannerAdLoaded(() => {
 				this.onBannerAdLoaded()
@@ -45,10 +46,12 @@ namespace UnityAppGDK {
 			this.destroy()
 			SDKProxy.nativeAdvert.createBanner(params)
 			SDKProxy.nativeAdvert.loadBanner(params)
-			this.style.x = params.style.x
-			this.style.y = params.style.y
-			this.style.left = params.style.left
-			this.style.top = params.style.top
+
+			let style=params.style || {}
+			this.style.x = style.x
+			this.style.y = style.y
+			this.style.left = style.left
+			this.style.top = style.top
 		}
 
 		onBannerAdLoaded() {

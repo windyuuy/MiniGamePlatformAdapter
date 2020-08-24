@@ -5,8 +5,14 @@ declare namespace CS.Glee.Bridge {
 		/**
 		* 批量增加通知
 		*/
+		/**
+		* 批量增加通知
+		*/
         public AddPushes (info: AddNotifiesParams, callbacks: TaskCallback<AnyResult>):void;
 
+		/**
+		* 批量移除通知
+		*/
 		/**
 		* 批量移除通知
 		*/
@@ -15,13 +21,14 @@ declare namespace CS.Glee.Bridge {
 		/**
 		* 移除所有通知
 		*/
+		/**
+		* 移除所有通知
+		*/
         public RemoveAllPushes (info: RemoveAllLocalNotifiesParams, callbacks: TaskCallback<AnyResult>):void;
 
 		/**
-		* 判断用户是否允许通知
+		* 启用推送
 		*/
-        public IsPushEnabled (): boolean;
-
 		/**
 		* 启用推送
 		*/
@@ -30,35 +37,38 @@ declare namespace CS.Glee.Bridge {
 		/**
 		* 关闭推送
 		*/
+		/**
+		* 关闭推送
+		*/
         public DisablePush (info: AnyParams, callbacks: TaskCallback<AnyResult>):void;
 
     }
 
    export class AddNotifiesParams {
-       public notices: NotifyTemplate[];
+       public notices: NotifyTemplate;
    }
 
    export class NotifyTemplate {
-       public content: string;
-       public subText: string;
-       public userInfo: string;
-       public title: string;
-       public soundName: string;
-       public isBigText: boolean;
        public ticker: string;
+       public enableLightTip: boolean;
+       public content: string;
+       public identifier: string;
        public enableVibrateTip: boolean;
        public availableStage: number;
-       public identifier: string;
-       public repeat: number;
-       public enableLightTip: boolean;
+       public subText: string;
+       public soundName: string;
        public subtitle: string;
-       public interval: number;
-       public badge: number;
        public enableSoundTip: boolean;
+       public interval: number;
+       public title: string;
+       public repeat: number;
+       public isBigText: boolean;
+       public badge: number;
+       public userInfo: string;
    }
 
    export class RemoveLocalNotifiesParams {
-       public identifiers: string[];
+       public identifiers: string;
    }
 
    export class RemoveAllLocalNotifiesParams {

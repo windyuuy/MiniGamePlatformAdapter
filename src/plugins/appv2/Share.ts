@@ -41,7 +41,7 @@ namespace UnityAppGDK {
 
 		async getShareParam(): Promise<{ [key: string]: string }> {
 			devlog.info("getShareParam")
-			return null;
+			return {};
 		}
 
 		async getShareInfo(shareTicket: string): Promise<any> {

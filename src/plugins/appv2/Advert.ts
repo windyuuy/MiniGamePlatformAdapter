@@ -4,7 +4,7 @@ namespace UnityAppGDK {
 
 	export class Advert implements GDK.IAdvert {
 
-		api?: GDK.UserAPI
+		api!: GDK.UserAPI
 		async initWithConfig?(_info: GDK.GDKConfig) {
 			console.log("initWithConfig 1")
 			if (_info == undefined) return;

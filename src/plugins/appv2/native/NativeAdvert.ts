@@ -3,11 +3,11 @@
 namespace UnityAppGDK {
 	export namespace IronSrc {
 		export class Placement {
-			rewardName: string
-			rewardAmount: number
-			placementName: string
-			placementId: number
-			placementAvailabilitySettings: {
+			rewardName!: string
+			rewardAmount!: number
+			placementName!: string
+			placementId!: number
+			placementAvailabilitySettings!: {
 				pacingValue: number
 				cappingValue: number
 				deliveryEnabled: boolean
@@ -18,8 +18,8 @@ namespace UnityAppGDK {
 		}
 
 		export class IronSourceError {
-			errorMsg: string
-			errorCode: number
+			errorMsg!: string
+			errorCode!: number
 		}
 	}
 

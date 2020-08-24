@@ -98,8 +98,12 @@ namespace UnityAppGDK {
 		loginTest(
 			data: {
 				loginCode: number
+				node?: string | null
+				clientSystemInfo: {
+					deviceId: string
+				}
 			},
-			callback: (data: LoginCallbackData) => void, errorCallback: ((error: any, retry: () => void) => void) | null = null) {
+			callback: (data: LoginCallbackData) => void, errorCallback: ((error: any, retry: () => void) => void) | undefined = undefined) {
 			this.gameClient.request("user/loginTest", data, (data: any) => {
 				callback(data);
 			}, { modal: false, errorCallback: errorCallback })
@@ -116,7 +120,7 @@ namespace UnityAppGDK {
 				extraData?: any;
 			},
 			callback: (data: LoginCallbackData) => void,
-			errorCallback: ((error: any, retry: () => void) => void) | null = null) {
+			errorCallback: ((error: any, retry: () => void) => void) | undefined = undefined) {
 			this.gameClient.request("user/login", data, (data: any) => {
 				callback(data);
 			}, { errorCallback: errorCallback })
@@ -136,7 +140,7 @@ namespace UnityAppGDK {
 				node?: string | null,
 			},
 			callback: (data: LoginCallbackData) => void,
-			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | null = null) {
+			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | undefined = undefined) {
 			this.gameClient.request("user/loginOpenId", data, (data: any) => {
 				callback(data);
 			}, { modal: modal, errorCallback: errorCallback })
@@ -156,7 +160,7 @@ namespace UnityAppGDK {
 
 			},
 			callback: (data: LoginCallbackData) => void,
-			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | null = null) {
+			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | undefined = undefined) {
 			this.gameClient.request("user/loginFB", data, (data: any) => {
 				callback(data);
 			}, { modal: modal, errorCallback: errorCallback })
@@ -177,7 +181,7 @@ namespace UnityAppGDK {
 				node?: string | null,
 			},
 			callback: (data: LoginCallbackData) => void,
-			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | null = null) {
+			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | undefined = undefined) {
 			this.gameClient.request("user/loginQuick", data, (data: any) => {
 				callback(data);
 			}, { modal: modal, errorCallback: errorCallback })
@@ -199,7 +203,7 @@ namespace UnityAppGDK {
 				node?: string | null,
 			},
 			callback: (data: LoginCallbackData) => void,
-			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | null = null) {
+			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | undefined = undefined) {
 			this.gameClient.request("user/loginHwApp", data, (data: any) => {
 				callback(data);
 			}, { modal: modal, errorCallback: errorCallback })
@@ -216,7 +220,7 @@ namespace UnityAppGDK {
 				node?: string | null,
 			},
 			callback: (data: LoginCallbackData) => void,
-			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | null = null) {
+			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | undefined = undefined) {
 			this.gameClient.request("user/loginCcApp", data, (data: any) => {
 				callback(data);
 			}, { modal: modal, errorCallback: errorCallback })
@@ -234,7 +238,7 @@ namespace UnityAppGDK {
 				node?: string | null,
 			},
 			callback: (data: LoginCallbackData) => void,
-			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | null = null) {
+			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | undefined = undefined) {
 			this.gameClient.request("user/loginLffApp", data, (data: any) => {
 				callback(data);
 			}, { modal: modal, errorCallback: errorCallback })
@@ -253,7 +257,7 @@ namespace UnityAppGDK {
 				node?: string,
 			},
 			callback: (data: LoginCallbackData) => void,
-			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
+			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | undefined = undefined) {
 			this.gameClient.request("user/loginJinYouApp", data, (data) => {
 				callback(data);
 			}, { modal: modal, errorCallback: errorCallback })
@@ -270,7 +274,7 @@ namespace UnityAppGDK {
 				node?: string | null,
 			},
 			callback: (data: LoginCallbackData) => void,
-			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | null = null) {
+			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | undefined = undefined) {
 			this.gameClient.request("user/loginX7App", data, (data: any) => {
 				callback(data);
 			}, { modal: modal, errorCallback: errorCallback })
@@ -289,7 +293,7 @@ namespace UnityAppGDK {
 				node?: string | null,
 			},
 			callback: (data: LoginCallbackData) => void,
-			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | null = null) {
+			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | undefined = undefined) {
 			this.gameClient.request("user/loginAppWx", data, (data: any) => {
 				callback(data);
 			}, { modal: modal, errorCallback: errorCallback })
@@ -308,7 +312,7 @@ namespace UnityAppGDK {
 				node?: string | null,
 			},
 			callback: (data: LoginCallbackData) => void,
-			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | null = null) {
+			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | undefined = undefined) {
 			this.gameClient.request("user/loginAppWxAndroid", data, (data: any) => {
 				callback(data);
 			}, { modal: modal, errorCallback: errorCallback })
@@ -327,7 +331,7 @@ namespace UnityAppGDK {
 				node?: string | null,
 			},
 			callback: (data: LoginCallbackData) => void,
-			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | null = null) {
+			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | undefined = undefined) {
 			this.gameClient.request("user/loginVivoApp", data, (data: any) => {
 				callback(data);
 			}, { modal: modal, errorCallback: errorCallback })
@@ -346,7 +350,7 @@ namespace UnityAppGDK {
 				node?: string | null,
 			},
 			callback: (data: LoginCallbackData) => void,
-			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | null = null) {
+			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | undefined = undefined) {
 			this.gameClient.request("user/loginOppoApp", data, (data: any) => {
 				callback(data);
 			}, { modal: modal, errorCallback: errorCallback })
@@ -366,7 +370,7 @@ namespace UnityAppGDK {
 				node?: string | null,
 			},
 			callback: (data: LoginCallbackData) => void,
-			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | null = null) {
+			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | undefined = undefined) {
 			this.gameClient.request("user/loginYybApp", data, (data: any) => {
 				callback(data);
 			}, { modal: modal, errorCallback: errorCallback })
@@ -380,7 +384,7 @@ namespace UnityAppGDK {
 				node?: string | null,
 			},
 			callback: (data: LoginCallbackData) => void,
-			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | null = null) {
+			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | undefined = undefined) {
 			this.gameClient.request("user/loginMtApp", data, (data: any) => {
 				callback(data);
 			}, { modal: modal, errorCallback: errorCallback })
@@ -399,7 +403,7 @@ namespace UnityAppGDK {
 				node?: string | null,
 			},
 			callback: (data: LoginCallbackData) => void,
-			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | null = null) {
+			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | undefined = undefined) {
 			this.gameClient.request("user/loginOpenId", data, (data: any) => {
 				callback(data);
 			}, { modal: modal, errorCallback: errorCallback })
@@ -418,7 +422,7 @@ namespace UnityAppGDK {
 				node?: string | null,
 			},
 			callback: (data: LoginCallbackData) => void,
-			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | null = null) {
+			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | undefined = undefined) {
 			this.gameClient.request("user/loginJyApp", data, (data: any) => {
 				callback(data);
 			}, { modal: modal, errorCallback: errorCallback })
@@ -437,7 +441,7 @@ namespace UnityAppGDK {
 				node?: string | null,
 			},
 			callback: (data: LoginCallbackData) => void,
-			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | null = null) {
+			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | undefined = undefined) {
 			this.gameClient.request("user/loginGC", data, (data: any) => {
 				callback(data);
 			}, { modal: modal, errorCallback: errorCallback })
@@ -458,7 +462,7 @@ namespace UnityAppGDK {
 				node?: string | null,
 			},
 			callback: (data: LoginCallbackData) => void,
-			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | null = null) {
+			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | undefined = undefined) {
 			this.gameClient.request("user/loginGoogle", data, (data: any) => {
 				callback(data);
 			}, { modal: modal, errorCallback: errorCallback })
@@ -471,7 +475,7 @@ namespace UnityAppGDK {
 				type: 1 | 2//1登陆 2注册
 			},
 			callback: (data: LoginCallbackData) => void,
-			modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
+			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | undefined = undefined) {
 			this.gameClient.request("user/loginAccount", data, (data) => {
 				callback(data);
 			}, { modal: modal, errorCallback: errorCallback })
@@ -500,7 +504,7 @@ namespace UnityAppGDK {
 				clientSystemInfo: any
 			},
 			callback: (data: LoginCallbackData) => void,
-			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | null = null) {
+			modal: boolean = false, errorCallback: ((error: any, retry: () => void) => void) | undefined = undefined) {
 			this.gameClient.request("user/bindingAccount", data, (data: any) => {
 				callback(data);
 			}, { modal: modal, errorCallback: errorCallback })

@@ -20,16 +20,16 @@ namespace GDK {
 		/**
 		 * 点击了确定按钮
 		 */
-		confirm: boolean
+		confirm?: boolean
 		/**
 		 * 点击了取消按钮
 		 */
-		cancel: boolean
+		cancel?: boolean
 
 		/**
 		 * 输入结果
 		 */
-		result: string
+		result!: string
 
 		/**
 		 * 原始数据
@@ -46,19 +46,19 @@ namespace GDK {
 
 	export class ShowLoadingParams {
 		/** 提示的内容 */
-		title: string
+		title!: string
 	}
 	export interface ShowToastOptions {
 
 		/**
 		 * 提示的内容
 		 */
-		title: string;
+		title: string
 
 		/**
 		 * 提示的延迟时间，单位毫秒，默认：1500, 最大为10000
 		 */
-		duration?: number;
+		duration?: number
 	}
 	export interface ShowModalResult {
 
