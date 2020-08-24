@@ -49,6 +49,10 @@ namespace GDK {
 		 */
 		requireManagerAdLifecycle:boolean
 
+		/**
+		 * 是否是原生插件
+		 */
+		isNativePlugin:boolean
 
 	}
 }
