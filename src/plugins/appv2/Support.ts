@@ -8,5 +8,8 @@ namespace UnityAppGDK {
 		apiPlatform = "native"
 		requireAuthorize: boolean = false
 		apiNameLocale: string = "原生APP"
+		supportBuiltinCommitLog:boolean=true
+		supportBuiltinOnlineLoopLog:boolean=true
+		supportBuiltinIdentityCertification:boolean=true
 	}
 }

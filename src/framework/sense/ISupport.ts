@@ -27,5 +27,21 @@ namespace GDK {
 		requireAuthorize: boolean
 		/** api本地化名字 */
 		apiNameLocale: string
+
+		/**
+		 * 内部是否已经集成打点
+		 */
+		supportBuiltinCommitLog:boolean
+
+		/**
+		 * 是否已集成在线时长打点
+		 */
+		supportBuiltinOnlineLoopLog:boolean
+
+		/**
+		 * 是否自带实名认证
+		 */
+		supportBuiltinIdentityCertification:boolean
+
 	}
 }
