@@ -55,6 +55,8 @@ namespace UnityAppGDK {
 			gamecenter: boolean,
 		} = { google: true, visitor: true, facebook: true, wechat: true, gamecenter: true }
 
+		static appInfo : any
+
 		static getGdkjsb() : any {
 			return window["gdkjsb"]
 		}
@@ -437,7 +439,7 @@ namespace UnityAppGDK {
 			if (this.gdkjsbExist()) {
 				this.getGdkjsb().makeTestCertificate && this.getGdkjsb().makeTestCertificate(qa);
 			} else {
-				console.log("gdkjsb log : 生成测试正式")
+				console.log("gdkjsb log : 生成测试证书")
 			}
 		}
 
@@ -445,7 +447,7 @@ namespace UnityAppGDK {
 			if (this.gdkjsbExist()) {
 				this.getGdkjsb().clearTestCerificate && this.getGdkjsb().clearTestCerificate();
 			} else {
-				console.log("gdkjsb log : 清除测试正式")
+				console.log("gdkjsb log : 清除测试证书")
 			}
 		}
 
@@ -598,15 +600,29 @@ namespace UnityAppGDK {
 		 * 生成Info文件
 		 */
 		static makeAppInfo() {
-			if (this.gdkjsbExist()) {
-				return this.getGdkjsb().makeAppInfo();
-			} else {
-				return "{}";
+			if (this.appInfo) {
+				// 只拿一次
+				return
 			}
+			if (this.gdkjsbExist()) {
+				this.appInfo = {} as any;
+				let info : any = JSON.parse(this.getGdkjsb().makeAppInfo());
+				for (let key of info.parameters) {
+					this.appInfo[key] = info.parameters[key];
+				}
+			} else {
+				this.appInfo = {};
+			}
+			return this.appInfo;
 		}
 
 		// 设置appinfo的参数
-		static setAppInfo(key : string, value : string) : void {
+		static setAppInfo(key : string, value : any) : void {
+			if (!this.appInfo) {
+				// 没有数据，先去拿一次
+				this.makeAppInfo();
+			}
+			this.appInfo[key] = value;
 			if (this.gdkjsbExist()) {
 				this.getGdkjsb().setAppInfo(key, value);
 			} else {
@@ -615,190 +631,16 @@ namespace UnityAppGDK {
 		}
 
 		/**
-		 * 保存登陆信息
-		 * @param data 
+		 * 获取systeminfo
 		 */
-		static saveUserRecord(data: UserInfo[]) {
-			let str = JSON.stringify(data);
-			let xxt = slib.xxtea.encryptToBase64(str, USER_INFO_XXTEA_KEY);
-			console.log("saveUserRecord:", USER_INFO_KEY, str, xxt)
-			localStorage.setItem(USER_INFO_KEY, xxt);
+		static getSystemInfo() {
+			if (this.gdkjsbExist()) {
+				return this.getGdkjsb().getSystemInfo();
+			} else {
+				return undefined;
+			}
 		}
-
-		/**
-		 * 显示普通菊花
-		 */
-		static showLoading() {
-			console.log("showLoading 在原生SDK内实现，不需要JS调用")
-		}
-
-		/**
-		 * 隐藏普通菊花
-		 */
-		static hideLoading() {
-			console.log("hideLoading 在原生SDK内实现，不需要JS调用")
-		}
-
-		/**
-		 * 隐藏正在登陆提示
-		 */
-		static hideLogining() {
-			console.log("hideLogining 在原生SDK内实现，不需要JS调用")
-		}
-
-		/**
-		 * 显示正在登陆提示
-		 * @param message 提示信息
-		 */
-		static showLogining(message: string, loginType?: string) {
-			// TODO : 弃用
-			console.log("showLogining 在原生SDK内实现，不需要JS调用")
-		}
-
-		/**
-		 * 登陆登陆弹框
-		 * @param callback 玩家登陆的回掉
-		 */
-		static showLoginDialog() {
-			console.log("showLoginDialog 在原生SDK内实现，不需要JS调用")
-		}
-
-		/**
-		 * 隐藏登陆对话框
-		 */
-		static hideLoginDialog() {
-			console.log("hideLoginDialog 在原生SDK内实现，不需要JS调用")
-		}
-
-		static loginWithBus(loginInfo: ServedLoginInfo, callbacks: TaskCallback<LoginServerResult>) {
-			console.log("loginWithBus 在原生SDK内实现，不需要JS调用")
-		}
-
-		/**
-		 * 显示用户中心
-		 * @param info 玩家的基础信息
-		 * @param callback 绑定的回掉函数
-		 */
-		static showUserCenter(userInfo?: UserInfo) {
-			console.log("showUserCenter 已弃用")
-		}
-
-		/**
-		 * 隐藏用户中心图标
-		 */
-		static hideUserCenter() {
-			console.log("hideUserCenter 已弃用")
-		}
-
-		/**
-		 * 隐藏用户中心图标
-		 */
-		static hideBindDialog() {
-			console.log("hideBindDialog 已弃用")
-		}
-
-		static showBindDialog(userInfo?: UserInfo) {
-			console.log("showBindDialog 已弃用")
-		}
-
-		/**
-		 * 显示未成年人游戏描述信息
-		 */
-		static showMinorInfo(info: string, callback) {
-			console.log("showMinorInfo 已弃用. 在原生SDK内实现，不需要JS调用")
-		}
-		/**
-		 * 显示实名制弹框，进入实名制流程
-		 * @param force 是否强制
-		 */
-		static showRealNameDialog(userId: number, force: boolean, callback: (data: {
-			/**
-			 * 是否完成实名制
-			 */
-			isVerified: boolean,
-			/**
-			 * 当前年龄
-			 */
-			age: number,
-			/**
-			 * 当前玩家姓名
-			 */
-			name: string,
-			idCard: string,
-			birthday: string
-		}) => void) {
-			console.log("showRealNameDialog 已弃用. 在原生SDK内实现，不需要JS调用")
-		}
-
-
-		protected static cancelLoginingId?: number = undefined;
-		/**
-		 * 侦听取消登陆的回掉接口
-		 * @param callback 
-		 */
-		static onCancelLogining(callback: () => void) {
-			console.log("onCancelLogining 已弃用. 在原生SDK内实现，不需要JS调用")
-		}
-
-		/**
-		 * 对玩家执行自动登陆
-		 * @param user 
-		 */
-		static autoLogin(user: UserInfo) {
-			console.log("autoLogin 已弃用")
-		}
-
-		/**
-		 * 对玩家执行自动登陆
-		 * @param user 
-		 */
-		static loginNative() {
-			console.log("loginNative 已弃用")
-		}
-
-		protected static loginId?: number = undefined
-		static onLogin(
-			callback: (/**登陆的类型 */ type: LoginType,/**用户ID */ openId: string, token: string, nickName: string, email: string, head: string, platform?: string, exAuthData?: string) => void
-		) {
-			console.log("onLogin 已弃用")
-		}
-
-
-
-		protected static rebootLoginId?: number = undefined
-		static onRebootLogin(
-			callback: (/**登陆的类型 */ type: LoginType,/**用户ID */ openId: string, token: string, nickName: string, email: string, head: string) => void
-		) {
-			console.log("onRebootLogin 已弃用")
-		}
-
-		protected static bindId?: number = undefined
-		static onBind(
-			callback: (/**登陆的类型 */ type: LoginType,/**游客OpenId */visitorOpenId: string,/**用户ID */ openId: string, token: string, platform?: string) => void
-		) {
-			console.log("onBind 已弃用")
-		}
-
-		protected static loginFailId?: number = undefined
-		static onLoginFail(
-			callback: () => void
-		) {
-			console.log("onLoginFail 已弃用")
-		}
-
-		protected static removeUserId?: number = undefined
-		static onRemoveUser(
-			callback: (openId: string) => void
-		) {
-			console.log("onRemoveUser 已弃用")
-		}
-
-		protected static logoutId?: number = undefined
-		static onLogout(
-			callback: () => void
-		) {
-			console.log("onLogout 已弃用")
-		}
+		
 
 		/**
 		 * 隐藏启动屏

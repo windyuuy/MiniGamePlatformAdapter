@@ -74,6 +74,11 @@ namespace GDK {
 		 **/
 		SDKVersion: string
 		/**
+		 * - 客户端的SDK版本列表
+		 * - eg : [{name : "bus", "version" : "1.0.0"}, {...}]
+		 **/
+		SDKVersionList: []
+		/**
 		 * (仅Android小游戏) 性能等级
 		 * - -2 或 0：该设备无法运行小游戏
 		 * - -1：性能未知

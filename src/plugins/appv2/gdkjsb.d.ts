@@ -206,6 +206,12 @@ declare namespace gdkjsb {
 	// 取消
 	export function hotupdateCancel(tid : string) : void;
 
+	/**
+	 * 获取设备的硬件信息
+	 * @returns 硬件信息json字符串
+	*/
+	export function getSystemInfo() : string;
+
 	export class Bridge {
 
 		/**

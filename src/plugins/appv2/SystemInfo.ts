@@ -61,7 +61,7 @@ namespace UnityAppGDK {
             if (CS != undefined && CS.UnityEngine != undefined && CS.UnityEngine.SystemInfo != undefined && (CS.UnityEngine.SystemInfo.deviceType == CS.UnityEngine.DeviceType.Desktop)) {
                 return;
             }
-			var info : any = JSON.parse(SDKProxy.makeAppInfo());
+			var info : any = JSON.parse(SDKProxy.getSystemInfo());
 
 			this.deviceId = info.deviceId
 			this.uuid = info.uuid
@@ -86,8 +86,10 @@ namespace UnityAppGDK {
 			this.debugAccountServer = info.debugAccountServer
 			this.isCustomBackendCfg = info.isCustomBackendCfg
 
-			this.screenWidth = 768//window.screen.width
-			this.screenHeight = 1334//window.screen.height
+			this.SDKVersionList = info.SDKVersionList
+
+			this.screenWidth = info.screenWidth//768//window.screen.width
+			this.screenHeight = info.screenHeight//window.screen.height
 			this.androidId = info.androidId
 			this.mac = info.mac
 			this.userAgent = info.userAgent
