@@ -18,6 +18,7 @@ const ossFolderLibPub = 'libs'
 const ossFolderGDKDocs = 'gdk'
 
 const execon = (dir, fn) => {
+	updateVersion(dir);
 	const pwd = path.resolve(process.cwd())
 	try {
 		process.chdir(dir)
@@ -239,3 +240,30 @@ gulp.task("pubccfAllLibs", async () => {
 })
 
 gulp.task("pubccfAll", gulp.series("build", "pubccfAllLibs"))
+
+
+/**
+ * 打包时，根据codecanfly版本更新gdk版本
+*/
+const updateVersion = (dir) => {
+	const pwd = path.join(path.resolve(process.cwd()), "../src")
+
+	dir = path.isAbsolute(dir) ? dir : path.join(pwd, dir);
+	let fileName = path.join(dir, "ccfcfg/codecanfly.json");
+	console.log(dir);
+	console.log(fileName);
+	if (!fs.existsSync(fileName)) {
+		return;
+	}
+	const file = path.join(pwd, "framework/common/APISystemInfo.ts");
+	let read = fs.readFileSync(file, 'utf8');
+	let codecanfly = JSON.parse(fs.readFileSync(fileName, 'utf8'));
+	console.log("更新GDK版本号 ===> " + codecanfly.version);
+	read = read.replace(new RegExp("gdkVersion:\\s*string\\s*=\\s*\"\\S*\"", "g"), 'gdkVersion: string = \"' + codecanfly.version + '\"')
+
+	// let pluginName = path.basename(dir);
+	// console.log("更新GDK pluginName ===> " + pluginName);
+	// read = read.replace(new RegExp("gdkName:\\s*string\\s*=\\s*\"\\S*\"", "g"), 'gdkName: string = \"' + pluginName + '\"')
+
+	fs.writeFileSync(file, read);
+}
