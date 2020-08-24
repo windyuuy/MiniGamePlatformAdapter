@@ -5,6 +5,7 @@
 		"emitDeclarationOnly": true,
 		"declaration": true,
 		"composite": true,
+		"experimentalDecorators": true,
 	},
 	"include": [
 		"../libs/*.ts",

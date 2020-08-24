@@ -29,7 +29,7 @@ namespace GDK {
 		 * 初始化插件内各个模块
 		 * @param info 外部传入的配置
 		 */
-		protected async _initWithConfig(info: GDKConfig):Promise<void> {
+		protected async _initWithConfig(info: GDKConfig): Promise<void> {
 			for (let key in this._m) {
 				// 初始化广告等具体模块
 				let addon = <IModule>this._m[key];
