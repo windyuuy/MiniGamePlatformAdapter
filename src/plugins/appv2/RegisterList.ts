@@ -18,6 +18,6 @@ namespace UnityAppGDK {
 		LocalPush = LocalPush
 		Hardware = Hardware
 		AdvertV2 = AdvertV2
-		gdkjsb = GDKJSB
+		HotUpdate = HotUpdate
 	}
 }

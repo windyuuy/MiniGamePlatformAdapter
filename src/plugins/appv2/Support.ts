@@ -1,6 +1,8 @@
 
 namespace UnityAppGDK {
 	export class Support implements GDK.ISupport {
+		requireManagerAdLifecycle: boolean = false
+		isNativePlugin: boolean = true
 		pluginName = "appv2"
 		supportShare: boolean = true
 		supportShareTickets: boolean = false
@@ -8,8 +10,8 @@ namespace UnityAppGDK {
 		apiPlatform = "native"
 		requireAuthorize: boolean = false
 		apiNameLocale: string = "原生APP"
-		supportBuiltinCommitLog:boolean=true
-		supportBuiltinOnlineLoopLog:boolean=true
-		supportBuiltinIdentityCertification:boolean=true
+		supportBuiltinCommitLog: boolean = true
+		supportBuiltinOnlineLoopLog: boolean = true
+		supportBuiltinIdentityCertification: boolean = true
 	}
 }

@@ -3,7 +3,7 @@ namespace GDK {
 	/**
 	 * jsb
 	 */
-	export interface IGDKJSB {
+	export interface IHotUpdate {
 		
 		/**
 		 * 游戏热更新功能
@@ -17,11 +17,5 @@ namespace GDK {
 		// 取消
 		hotupdateCancel(tid : string) : void;
 
-		/**
-		 * 生成Info文件
-		 */
-		makeAppInfo() : string;
-		// 设置appinfo的参数
-		setAppInfo(key : string, value : string) : void;
 	}
 }

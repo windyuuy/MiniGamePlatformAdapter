@@ -1,6 +1,6 @@
 
 namespace UnityAppGDK {
-	export class GDKJSB implements GDK.IGDKJSB {
+	export class HotUpdate implements GDK.IHotUpdate {
 
 		/**
 		 * 游戏热更新功能
@@ -20,17 +20,6 @@ namespace UnityAppGDK {
 		// 取消
 		hotupdateCancel(tid : string) : void {
 			SDKProxy.hotupdateCancel(tid);
-		}
-
-		/**
-		 * 生成Info文件
-		 */
-		makeAppInfo() : string {
-			return SDKProxy.makeAppInfo();
-		}
-		// 设置appinfo的参数
-		setAppInfo(key : string, value : string) : void {
-			SDKProxy.setAppInfo(key, value);
 		}
 
 	}

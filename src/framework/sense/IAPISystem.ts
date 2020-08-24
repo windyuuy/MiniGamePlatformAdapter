@@ -213,7 +213,7 @@ namespace GDK {
 		 * @param key 
 		 * @param value 
 		 */
-		setAppInfo(key: string, value: string | number | boolean):Promise<void> ;
+		setAppInfo(key: string, value: string | number | boolean):void ;
 
 		/**
 		 * 获取应用AppInfo

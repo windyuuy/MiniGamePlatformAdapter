@@ -101,5 +101,14 @@ namespace UnityAppGDK {
 			}, 0);
 			return ret.promise
 		}
+
+
+		/**
+		 * 生成Info文件
+		 */
+		makeAppInfo(): string {
+			return SDKProxy.makeAppInfo();
+		}
+
 	}
 }

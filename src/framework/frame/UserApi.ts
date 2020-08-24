@@ -101,7 +101,7 @@ namespace GDK {
 			return this._m.advertV2;
 		}
 
-		get gdkjsb(): IGDKJSB {
+		get gdkjsb(): IHotUpdate {
 			return this._m.gdkjsb;
 		}
 
@@ -560,6 +560,15 @@ namespace GDK {
 			return this._m.systemInfo.pixelRatio;
 		}
 		/**
+		 * gdk的版本号
+		 **/
+		get gdkVersion(): string {
+			if (!this.checkModuleAttr("systemInfo", "gdkVersion")) {
+				return undefined;
+			}
+			return this._m.systemInfo.gdkVersion;
+		}
+		/**
 		 * 屏幕宽度
 		 **/
 		get screenWidth(): number {
@@ -661,6 +670,16 @@ namespace GDK {
 				return undefined;
 			}
 			return this._m.systemInfo.SDKVersion;
+		}
+		/**
+		 * - 客户端的SDK版本列表
+		 * - eg : [{name : "bus", "version" : "1.0.0"}, {...}]
+		 **/
+		get SDKVersionList(): [] {
+			if (!this.checkModuleAttr("systemInfo", "SDKVersionList")) {
+				return undefined;
+			}
+			return this._m.systemInfo.SDKVersionList;
 		}
 		/**
 		 * (仅Android小游戏) 性能等级
@@ -1144,12 +1163,78 @@ namespace GDK {
 			}
 			return this._m.apiSystem.checkAppSystemPermissions(params);
 		}
-
+		/**
+		 * 通过key获取原生SDK版本信息
+		 * @param params
+		 */
 		getSDKMetaInfo?(params: IGetSDKMetaInfo): Promise<any> {
 			if (!this.checkModuleAttr("apiSystem", "getSDKMetaInfo", "function")) {
 				return this.createNonePromise("[apiSystem.getSDKMetaInfo]");
 			}
 			return this._m.apiSystem.getSDKMetaInfo(params);
+		}
+		/**
+		 * 动态修改appInfo的值，仅在内存中生效，不会影响磁盘中的配置
+		 * @param key
+		 * @param value
+		 */
+		setAppInfo(key: string, value: string | number | boolean): void {
+			if (!this.checkModuleAttr("apiSystem", "setAppInfo", "function")) {
+				return undefined;
+			}
+			return this._m.apiSystem.setAppInfo(key, value);
+		}
+		/**
+		 * 获取应用AppInfo
+		 * @param key
+		 */
+		getAppInfo(key: string): string | number | boolean | null {
+			if (!this.checkModuleAttr("apiSystem", "getAppInfo", "function")) {
+				return undefined;
+			}
+			return this._m.apiSystem.getAppInfo(key);
+		}
+		/**
+		 * 获取Boolean类型的数据，当遇到异常数据时，将返回默认值
+		 * @param key
+		 * @param def
+		 */
+		getAppInfoBoolean(key: string, def: boolean): boolean {
+			if (!this.checkModuleAttr("apiSystem", "getAppInfoBoolean", "function")) {
+				return undefined;
+			}
+			return this._m.apiSystem.getAppInfoBoolean(key, def);
+		}
+		/**
+		 * 获取Number类型的数据，当遇到异常数据时，将返回默认值
+		 * @param key
+		 * @param def
+		 */
+		getAppInfoNumber(key: string, def: number): number {
+			if (!this.checkModuleAttr("apiSystem", "getAppInfoNumber", "function")) {
+				return undefined;
+			}
+			return this._m.apiSystem.getAppInfoNumber(key, def);
+		}
+		/**
+		 * 获取String类型的数据，当遇到异常数据时，将返回默认值
+		 * @param key
+		 * @param def
+		 */
+		getAppInfoString(key: string, def: string): string {
+			if (!this.checkModuleAttr("apiSystem", "getAppInfoString", "function")) {
+				return undefined;
+			}
+			return this._m.apiSystem.getAppInfoString(key, def);
+		}
+		/**
+		 * 获取资源版本号
+		 */
+		getResVersion(): number {
+			if (!this.checkModuleAttr("apiSystem", "getResVersion", "function")) {
+				return undefined;
+			}
+			return this._m.apiSystem.getResVersion();
 		}
 		/**
 		 * 分享到聊天窗口
@@ -1615,6 +1700,54 @@ namespace GDK {
 			return this._m.support.apiNameLocale;
 		}
 		/**
+		 * 内部是否已经集成打点
+		 */
+		get supportBuiltinCommitLog(): boolean {
+			if (!this.checkModuleAttr("support", "supportBuiltinCommitLog")) {
+				return undefined;
+			}
+			return this._m.support.supportBuiltinCommitLog;
+		}
+		/**
+		 * 是否已集成在线时长打点
+		 */
+		get supportBuiltinOnlineLoopLog(): boolean {
+			if (!this.checkModuleAttr("support", "supportBuiltinOnlineLoopLog")) {
+				return undefined;
+			}
+			return this._m.support.supportBuiltinOnlineLoopLog;
+		}
+		/**
+		 * 是否自带实名认证
+		 */
+		get supportBuiltinIdentityCertification(): boolean {
+			if (
+				!this.checkModuleAttr("support", "supportBuiltinIdentityCertification")
+			) {
+				return undefined;
+			}
+			return this._m.support.supportBuiltinIdentityCertification;
+		}
+		/**
+		 * 是否需要自己维护广告生命周期
+		 * （部分小游戏平台需要自己维护）
+		 */
+		get requireManagerAdLifecycle(): boolean {
+			if (!this.checkModuleAttr("support", "requireManagerAdLifecycle")) {
+				return undefined;
+			}
+			return this._m.support.requireManagerAdLifecycle;
+		}
+		/**
+		 * 是否是原生插件
+		 */
+		get isNativePlugin(): boolean {
+			if (!this.checkModuleAttr("support", "isNativePlugin")) {
+				return undefined;
+			}
+			return this._m.support.isNativePlugin;
+		}
+		/**
 		 * 注册全局的错误回调函数
 		 */
 		setErrorCallback(
@@ -1872,22 +2005,6 @@ namespace GDK {
 				return undefined;
 			}
 			return this._m.gdkjsb.hotupdateCancel(tid);
-		}
-		/**
-		 * 生成Info文件
-		 */
-		makeAppInfo(): string {
-			if (!this.checkModuleAttr("gdkjsb", "makeAppInfo", "function")) {
-				return undefined;
-			}
-			return this._m.gdkjsb.makeAppInfo();
-		}
-		// 设置appinfo的参数
-		setAppInfo(key: string, value: string): void {
-			if (!this.checkModuleAttr("gdkjsb", "setAppInfo", "function")) {
-				return undefined;
-			}
-			return this._m.gdkjsb.setAppInfo(key, value);
 		}
 
 		// $batch_export() end

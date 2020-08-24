@@ -148,9 +148,8 @@ namespace GDK {
 			return null
 		}
 
-
-		async setAppInfo(key: string, value: string | number | boolean) {
-			devlog.info("setAppInfo",key,value)
+		setAppInfo(key: string, value: string | number | boolean) {
+			devlog.info("setAppInfo", key, value)
 		}
 
 		getAppInfo(key: string):(string | number | boolean| null){

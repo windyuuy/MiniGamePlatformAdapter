@@ -41,6 +41,6 @@ namespace GDK {
 		/**
 		 * jsb
 		 */
-		gdkjsb: IGDKJSB
+		gdkjsb: IHotUpdate
 	}
 }
