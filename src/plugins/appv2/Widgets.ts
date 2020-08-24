@@ -45,7 +45,7 @@ namespace UnityAppGDK {
 		}
 
 		async hideLaunchingView(): Promise<void> {
-			
+			return SDKProxy.hideLaunchingView();
 		}
 
 	}

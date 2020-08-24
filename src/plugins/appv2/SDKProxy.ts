@@ -804,7 +804,8 @@ namespace UnityAppGDK {
 		 * 隐藏启动屏
 		 */
 		static hideLaunchingView() {
-			console.log("hideLaunchingView已弃用. 在原生SDK内实现，不需要JS调用")
+			// console.log("hideLaunchingView已弃用. 在原生SDK内实现，不需要JS调用")
+			return this.callAction("hideLaunchingView", "{}");
 		}
 
 		static nativeAdvert: UnityAppGDK.NativeAdvert = new UnityAppGDK.NativeAdvert()
