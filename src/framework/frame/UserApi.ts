@@ -1122,6 +1122,13 @@ namespace GDK {
 			}
 			return this._m.apiSystem.checkAppSystemPermissions(params);
 		}
+
+		getSDKMetaInfo?(params: IGetSDKMetaInfo): Promise<any> {
+			if (!this.checkModuleAttr("apiSystem", "getSDKMetaInfo", "function")) {
+				return this.createNonePromise("[apiSystem.getSDKMetaInfo]");
+			}
+			return this._m.apiSystem.getSDKMetaInfo(params);
+		}
 		/**
 		 * 分享到聊天窗口
 		 * * 如果目标平台没有明确的聊天窗口，则进行社会化分享。

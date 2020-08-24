@@ -124,5 +124,9 @@ namespace AppGDK {
 			}, 0);
 			return ret.promise
 		}
+
+		async getSDKMetaInfo?(params: GDK.IGetSDKMetaInfo): Promise<any> {
+			return nativeHelper.safeCallAction("sdk:getSDKMetaInfo", params)
+		}
 	}
 }

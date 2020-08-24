@@ -144,5 +144,9 @@ namespace GDK {
 			}
 		}
 
+		async getSDKMetaInfo?(params: IGetSDKMetaInfo): Promise<any> {
+			return null
+		}
+
 	}
 }

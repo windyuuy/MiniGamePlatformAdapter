@@ -74,6 +74,10 @@ namespace GDK {
 		requestAtSameTime?: boolean,
 	}
 
+	export interface IGetSDKMetaInfo {
+		key: string,
+	}
+
 	export interface ICheckPermissionResult {
 		/**
 		 * 缺失的权限列表
@@ -197,6 +201,8 @@ namespace GDK {
 		 * - 目前只支持 android
 		 */
 		checkAppSystemPermissions?(params: ICheckPermissionParams): Promise<ICheckPermissionResult>;
+
+		getSDKMetaInfo?(params: IGetSDKMetaInfo): Promise<any>
 	}
 
 }
