@@ -43,5 +43,12 @@ namespace GDK {
 		 */
 		supportBuiltinIdentityCertification:boolean
 
+		/**
+		 * 是否需要自己维护广告生命周期
+		 * （部分小游戏平台需要自己维护）
+		 */
+		requireManagerAdLifecycle:boolean
+
+
 	}
 }
