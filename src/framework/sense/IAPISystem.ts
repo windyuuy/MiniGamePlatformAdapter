@@ -209,17 +209,38 @@ namespace GDK {
 		getSDKMetaInfo?(params: IGetSDKMetaInfo): Promise<any>
 
 		/**
-		 * 
+		 * 动态修改appInfo的值，仅在内存中生效，不会影响磁盘中的配置
 		 * @param key 
 		 * @param value 
 		 */
 		setAppInfo(key: string, value: string | number | boolean):Promise<void> ;
 
 		/**
-		 * 
+		 * 获取应用AppInfo
 		 * @param key 
 		 */
 		 getAppInfo(key: string):Promise<string | number | boolean| null> ;
+
+		 /**
+		  * 获取Boolean类型的数据，当遇到异常数据时，将返回默认值
+		  * @param key 
+		  * @param def 
+		  */
+		 getAppInfoBoolean(key: string,def:boolean):Promise<boolean> ;
+
+		/**
+		  * 获取Number类型的数据，当遇到异常数据时，将返回默认值
+		  * @param key 
+		  * @param def 
+		  */
+		 getAppInfoNumber(key: string,def:number):Promise<number>
+
+		 /**
+		  * 获取String类型的数据，当遇到异常数据时，将返回默认值
+		  * @param key 
+		  * @param def 
+		  */
+		 getAppInfoString(key: string,def:string):Promise<string> ;
 
 	}
 

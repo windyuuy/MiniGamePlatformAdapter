@@ -157,5 +157,37 @@ namespace GDK {
 			return null;
 		}
 
+		async getAppInfoBoolean(key: string,def:boolean):Promise<boolean> {
+			let v=await this.getAppInfo(key)
+			if(typeof v=="boolean"){
+				return v;
+			}else if(typeof v=="string"){
+				return v.toLowerCase()=="true"
+			}else{
+				return def;
+			}
+			
+		}
+
+		async getAppInfoNumber(key: string,def:number):Promise<number> {
+			let v=await this.getAppInfo(key)
+			if(typeof v=="number"){
+				return v;
+			}else if(typeof v=="string" && parseFloat(v).toString()==v){
+				return parseFloat(v);
+			}else{
+				return def;
+			}
+		}
+
+		async getAppInfoString(key: string,def:string):Promise<string> {
+			let v=await this.getAppInfo(key);
+			if(v==null){
+				return def;
+			}else{
+				return v.toString();
+			}
+		}
+
 	}
 }
