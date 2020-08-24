@@ -202,7 +202,25 @@ namespace GDK {
 		 */
 		checkAppSystemPermissions?(params: ICheckPermissionParams): Promise<ICheckPermissionResult>;
 
+		/**
+		 * 通过key获取原生SDK版本信息
+		 * @param params 
+		 */
 		getSDKMetaInfo?(params: IGetSDKMetaInfo): Promise<any>
+
+		/**
+		 * 
+		 * @param key 
+		 * @param value 
+		 */
+		setAppInfo(key: string, value: string | number | boolean):Promise<void> ;
+
+		/**
+		 * 
+		 * @param key 
+		 */
+		 getAppInfo(key: string):Promise<string | number | boolean| null> ;
+
 	}
 
 }
