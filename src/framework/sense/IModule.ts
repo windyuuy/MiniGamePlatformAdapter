@@ -8,6 +8,6 @@ namespace GDK {
 		/**
 		 * 模块传入配置初始化入口
 		 */
-		initWithConfig?(info: GDKConfig): void
+		initWithConfig?(info: GDKConfig): Promise<void>
 	}
 }

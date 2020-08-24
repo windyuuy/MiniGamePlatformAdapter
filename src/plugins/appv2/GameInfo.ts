@@ -30,7 +30,7 @@ namespace UnityAppGDK {
 		 **/
 		gameType: number
 
-		initWithConfig(info: GDK.GDKConfig) {
+		async initWithConfig(info: GDK.GDKConfig) {
 			if (info == undefined) return;
 			if (info.appv2 == undefined) {
 				if (info.app != undefined) {

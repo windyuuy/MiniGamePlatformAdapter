@@ -30,7 +30,7 @@ namespace AppGDK {
 		 **/
 		gameType: number
 
-		initWithConfig(info: GDK.GDKConfig) {
+		async initWithConfig(info: GDK.GDKConfig) {
 			if (info.webview) {
 				for (let k in info.webview) {
 					this[k] = info.webview[k]

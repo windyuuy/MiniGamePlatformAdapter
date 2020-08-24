@@ -8,7 +8,7 @@ namespace BaiduGDK {
 			return MServer.inst
 		}
 
-		initWithConfig(info: GDK.GDKConfig) {
+		async initWithConfig(info: GDK.GDKConfig) {
 			this.api.userData.userId = info.baidu.userId
 		}
 

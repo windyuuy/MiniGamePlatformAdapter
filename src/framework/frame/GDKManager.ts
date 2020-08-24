@@ -5,12 +5,20 @@ namespace GDK {
 		protected _configMap: { [key: string]: PackConfig } = {}
 		protected _pluginMap: { [key: string]: UserAPI } = {}
 
+		/**
+		 * 注册GDK插件配置
+		 * @param name 插件名
+		 * @param config 插件配置
+		 */
 		registPluginConfig(name: string, config: PackConfig) {
 			slib.assert(!this._configMap[name], `config name ${name} exists already!`)
 			this._configMap[name] = config
 			defaultGDKName = name
 		}
 
+		/**
+		 * 通过配置模板生成插件
+		 */
 		protected genGdk(temp: ModuleClassMap) {
 			let map: IModuleMap = {} as IModuleMap
 			const addonList = []
@@ -59,18 +67,29 @@ namespace GDK {
 		/**
 		 * 传入配置并初始化
 		 */
-		initWithGDKConfig(info: GDKConfig) {
+		init(info: GDKConfig) {
 			for (let k in this._pluginMap) {
 				const plugin = this.getPlugin(k)
 				// 初始化插件内各个模块
-				plugin['_initWithConfig'](info)
+				plugin['_init'](info)
 			}
 		}
 
 		/**
-		 * 创建插件对象
+		 * 传入配置并初始化
 		 */
-		initializeGDKInstance() {
+		async initWithGDKConfig(info: GDKConfig): Promise<void> {
+			for (let k in this._pluginMap) {
+				const plugin = this.getPlugin(k)
+				// 初始化插件内各个模块
+				await plugin['_initWithConfig'](info)
+			}
+		}
+
+		/**
+		 * 创建插件对象，并注册
+		 */
+		instantiateGDKInstance() {
 			for (let k in this._configMap) {
 				const plugin = this.genGdk(new this._configMap[k].register)
 				this._pluginMap[k] = plugin
@@ -84,14 +103,18 @@ namespace GDK {
 	 * 初始入口
 	 */
 	class FakeUserApi {
+		init() {
+			gdkManager.instantiateGDKInstance()
+			gdkManager.setDefaultGdk(defaultGDKName)
+			return this
+		}
+
 		get pluginName(): string {
 			return defaultGDKName
 		}
 
-		initConfig(config: GDKConfig) {
-			gdkManager.initializeGDKInstance()
-			gdkManager.setDefaultGdk(defaultGDKName)
-			gdkManager.initWithGDKConfig(config)
+		async initConfig(config: GDKConfig): Promise<void> {
+			await gdkManager.initWithGDKConfig(config)
 		}
 	}
 

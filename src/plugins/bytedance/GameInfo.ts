@@ -32,7 +32,7 @@ namespace BytedanceGDK {
 		 **/
 		gameType: number
 
-		initWithConfig(info: GDK.GDKConfig) {
+		async initWithConfig(info: GDK.GDKConfig) {
 			for (let k in info.bytedance) {
 				this[k] = info.bytedance[k]
 			}

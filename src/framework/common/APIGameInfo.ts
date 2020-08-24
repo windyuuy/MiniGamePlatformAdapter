@@ -35,7 +35,7 @@ namespace GDK {
 
 		abstract init?()
 
-		abstract initWithConfig(info: GDKConfig)
+		abstract async initWithConfig(info: GDKConfig):Promise<void>
 
 	}
 }

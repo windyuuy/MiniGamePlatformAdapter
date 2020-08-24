@@ -30,7 +30,7 @@ namespace DevelopGDK {
 		 **/
 		gameType: number
 
-		initWithConfig(info: GDK.GDKConfig) {
+		async initWithConfig(info: GDK.GDKConfig) {
 			for (let k in info.develop) {
 				this[k] = info.develop[k]
 			}
