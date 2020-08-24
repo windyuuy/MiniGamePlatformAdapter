@@ -616,8 +616,19 @@ namespace UnityAppGDK {
 			return this.appInfo;
 		}
 
+		static getAppInfo(key : string) : (string | number | boolean| null) {
+			if (!this.appInfo) {
+				// 没有数据，先去拿一次
+				this.makeAppInfo();
+			}
+			if (this.appInfo[key]) {
+				return this.appInfo[key]
+			}
+			return null;
+		}
+
 		// 设置appinfo的参数
-		static setAppInfo(key : string, value : any) : void {
+		static setAppInfo(key : string, value : string | number | boolean) : void {
 			if (!this.appInfo) {
 				// 没有数据，先去拿一次
 				this.makeAppInfo();

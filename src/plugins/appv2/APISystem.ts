@@ -110,5 +110,20 @@ namespace UnityAppGDK {
 			return SDKProxy.makeAppInfo();
 		}
 
+
+		/**
+		 * 设置Info文件
+		 */
+		setAppInfo(key: string, value: string | number | boolean) {
+			SDKProxy.setAppInfo(key, value);
+		}
+
+		/**
+		 * 获取Info属性
+		 */
+		getAppInfo(key: string):(string | number | boolean| null){
+			return SDKProxy.getAppInfo(key);
+		}
+
 	}
 }
