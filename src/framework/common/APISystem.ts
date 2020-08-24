@@ -153,12 +153,12 @@ namespace GDK {
 			devlog.info("setAppInfo",key,value)
 		}
 
-		async getAppInfo(key: string):Promise<string | number | boolean| null> {
+		getAppInfo(key: string):(string | number | boolean| null){
 			return null;
 		}
 
-		async getAppInfoBoolean(key: string,def:boolean):Promise<boolean> {
-			let v=await this.getAppInfo(key)
+		getAppInfoBoolean(key: string,def:boolean):boolean{
+			let v=this.getAppInfo(key)
 			if(typeof v=="boolean"){
 				return v;
 			}else if(typeof v=="string"){
@@ -169,8 +169,8 @@ namespace GDK {
 			
 		}
 
-		async getAppInfoNumber(key: string,def:number):Promise<number> {
-			let v=await this.getAppInfo(key)
+		getAppInfoNumber(key: string,def:number):number{
+			let v=this.getAppInfo(key)
 			if(typeof v=="number"){
 				return v;
 			}else if(typeof v=="string" && parseFloat(v).toString()==v){
@@ -180,8 +180,8 @@ namespace GDK {
 			}
 		}
 
-		async getAppInfoString(key: string,def:string):Promise<string> {
-			let v=await this.getAppInfo(key);
+		getAppInfoString(key: string,def:string):string{
+			let v=this.getAppInfo(key);
 			if(v==null){
 				return def;
 			}else{

@@ -219,28 +219,28 @@ namespace GDK {
 		 * 获取应用AppInfo
 		 * @param key 
 		 */
-		 getAppInfo(key: string):Promise<string | number | boolean| null> ;
+		 getAppInfo(key: string):string | number | boolean| null;
 
 		 /**
 		  * 获取Boolean类型的数据，当遇到异常数据时，将返回默认值
 		  * @param key 
 		  * @param def 
 		  */
-		 getAppInfoBoolean(key: string,def:boolean):Promise<boolean> ;
+		 getAppInfoBoolean(key: string,def:boolean):boolean;
 
 		/**
 		  * 获取Number类型的数据，当遇到异常数据时，将返回默认值
 		  * @param key 
 		  * @param def 
 		  */
-		 getAppInfoNumber(key: string,def:number):Promise<number>
+		 getAppInfoNumber(key: string,def:number):number
 
 		 /**
 		  * 获取String类型的数据，当遇到异常数据时，将返回默认值
 		  * @param key 
 		  * @param def 
 		  */
-		 getAppInfoString(key: string,def:string):Promise<string> ;
+		 getAppInfoString(key: string,def:string):string;
 
 	}
 
