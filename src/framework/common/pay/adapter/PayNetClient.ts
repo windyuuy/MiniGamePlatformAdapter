@@ -1,5 +1,5 @@
 
-namespace GSSDK.PayFlow {
+namespace GDK.PayFlow {
 	export interface IGameClient {
 		getLoadingIndex: () => number;
 		showModalCallback: (index: number, url: string) => void

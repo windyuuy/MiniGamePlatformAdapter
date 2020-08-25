@@ -1,5 +1,5 @@
 
-namespace GSSDK.PayFlow {
+namespace GDK.PayFlow {
 
     /**
      * 订单状态

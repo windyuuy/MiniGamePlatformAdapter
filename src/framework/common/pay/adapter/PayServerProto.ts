@@ -1,6 +1,6 @@
 
 
-namespace GSSDK.PayFlow {
+namespace GDK.PayFlow {
 
 	export enum OrderState {
 		fail = 2,

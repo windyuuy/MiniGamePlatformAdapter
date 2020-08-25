@@ -1,5 +1,5 @@
 
-namespace GSSDK.PayFlow.PayOutsideWithOrder {
+namespace GDK.PayFlow.PayOutsideWithOrder {
 
 	const log = new slib.Log({ time: false, tags: ['[PayFlow]'] })
 

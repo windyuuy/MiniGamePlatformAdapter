@@ -1,5 +1,5 @@
 
-namespace GSSDK.PayFlow.PayInsideLocalV2 {
+namespace GDK.PayFlow.PayInsideLocalV2 {
 
 	const waitAllFinish = (ls: Promise<any>[]) => {
 		return new Promise((resolve, reject) => {

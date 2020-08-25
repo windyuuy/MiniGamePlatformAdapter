@@ -1,5 +1,5 @@
 
-namespace GSSDK.PayFlow.PayInsideLocalV1 {
+namespace GDK.PayFlow.PayInsideLocalV1 {
 
 	const log = new slib.Log({ time: false, tags: ['[PayFlow]'] })
 

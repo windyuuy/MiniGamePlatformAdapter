@@ -1,4 +1,4 @@
-namespace GSSDK.PayFlow {
+namespace GDK.PayFlow {
 
     const log = new slib.Log({ time: false, tags: ['[PayFlow]'] })
 

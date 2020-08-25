@@ -1,5 +1,5 @@
 
-namespace GSSDK.PayFlow {
+namespace GDK.PayFlow {
 
 	export class PayDeps {
 		storage: IStorage

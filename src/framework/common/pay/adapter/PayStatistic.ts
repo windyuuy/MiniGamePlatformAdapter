@@ -1,5 +1,5 @@
 
-namespace GSSDK.PayFlow {
+namespace GDK.PayFlow {
 	export interface IGSStatistic {
 		commitGSCommonLog(data: { index: number, eventName: string } | any): void
 

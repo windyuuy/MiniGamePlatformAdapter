@@ -206,6 +206,8 @@ namespace GDK {
 		 * 查询未消耗商品信息
 		 */
 		queryItemInfo?(params: PayQueryItemInfoParams): Promise<PayQueryItemInfoResult>
+
+		getUserPayFlow?():PayFlow.IPayFlow
 	}
 
 }

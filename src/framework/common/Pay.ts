@@ -1,6 +1,14 @@
 
 namespace GDK {
 	export abstract class PayBase implements IPay {
+		abstract getUserPayFlow(): PayFlow.IPayFlow
+		api?: UserAPI
+		init?(data?: any): void {
+			throw new Error("Method not implemented.")
+		}
+		initWithConfig?(info: GDKConfig): Promise<void> {
+			throw new Error("Method not implemented.")
+		}
 		abstract payPurchase(item: PayItemInfo, options?: PayOptions): Promise<PayResult>
 
 		consumePurchase?(params: ConsumePurchaseParams): Promise<ConsumePurchaseResult> {

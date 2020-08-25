@@ -1,5 +1,5 @@
 
-namespace GSSDK.PayFlow {
+namespace GDK.PayFlow {
 	export class PayFlowStatus {
 		// 充值屏蔽层
 		public _rechargeBlockLayerIndex: [number, string]

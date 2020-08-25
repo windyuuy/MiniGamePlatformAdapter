@@ -1,6 +1,26 @@
-/// <reference path="./PayFlowStatus.ts" />
 
-namespace GDK.PayFlow {
+namespace UnityAppGDK.PayFlow {
+	type IPayFlow = GDK.PayFlow.IPayFlow
+	type PayFlowStatus = GDK.PayFlow.PayFlowStatus
+	const PayFlowStatus = GDK.PayFlow.PayFlowStatus
+	type Parent = GDK.PayFlow.Parent
+	type PayWay = GDK.PayFlow.PayWay
+	const payNetClient = GDK.PayFlow.payNetClient
+	const PayInApp = GDK.PayFlow.PayInApp
+	const PayInAppWithAutoMakeup = GDK.PayFlow.PayInAppWithAutoMakeup
+	const YYBPayFlow = GDK.PayFlow.YYBPayFlow
+	const PayInsideLocalV2 = GDK.PayFlow.PayInsideLocalV2
+
+	const PayOutside = GDK.PayFlow.PayOutside
+	const PayOutsideGamepind = GDK.PayFlow.PayOutsideGamepind
+	const payDeps = GDK.PayFlow.payDeps
+
+	type PaymentParamsOptions = GDK.PayFlow.PaymentParamsOptions
+	type PaymentParams = GDK.PayFlow.PaymentParams
+	type PaymentSuccessCallback = GDK.PayFlow.PaymentSuccessCallback
+	type RechargeConfigRow = GDK.PayFlow.RechargeConfigRow
+	type OrderRecordExported = GDK.PayFlow.OrderRecordExported
+
 	const mdebug = (window as any)['wdebug'] && true
 
 	const log = new slib.Log({ time: false, tags: ['[PayFlow]'] })

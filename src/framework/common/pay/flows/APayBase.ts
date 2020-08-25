@@ -1,6 +1,6 @@
 /// <reference path="../PayFlowStatus.ts" />
 
-namespace GSSDK.PayFlow.APayBase {
+namespace GDK.PayFlow.APayBase {
 	const mdebug = window['wdebug'] && true
 
 	const log = new slib.Log({ time: false, tags: ['[PayFlow]'] })

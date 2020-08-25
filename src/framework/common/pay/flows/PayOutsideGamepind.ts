@@ -1,5 +1,5 @@
 
-namespace GSSDK.PayFlow.PayOutsideGamepind {
+namespace GDK.PayFlow.PayOutsideGamepind {
 
     const log = new slib.Log({ time: false, tags: ['[PayFlow]'] })
 
