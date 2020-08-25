@@ -1,6 +1,6 @@
 
-namespace AppGDK {
-	export class Support implements GDK.ISupport {
+namespace WebViewGDK {
+	export class Support extends GDK.SupportBase {
 		pluginName = "webview"
 		supportShare: boolean = true
 		supportShareTickets: boolean = false

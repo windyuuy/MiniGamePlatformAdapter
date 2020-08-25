@@ -1,6 +1,6 @@
 /// <reference path="./NativeHelper.ts" />
 
-namespace AppGDK {
+namespace WebViewGDK {
 	export enum PayErrorCode {
 		BIND_GOOGLE_SERVICE_FAILED,
 		SEND_PAY_REQUEST_FAILED,

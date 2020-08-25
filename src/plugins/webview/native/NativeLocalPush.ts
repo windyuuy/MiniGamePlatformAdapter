@@ -1,7 +1,7 @@
 /// <reference path="./NativeHelper.ts" />
 /// <reference path="../../../framework/sense/ILocalPush.ts" />
 
-namespace AppGDK {
+namespace WebViewGDK {
 	export class NativeLocalPushStyle extends GDK.LocalPushBundle {
 
 	}

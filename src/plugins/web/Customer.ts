@@ -1,5 +1,5 @@
 
-namespace webGDK {
+namespace WebGDK {
 	/** 客服 */
 	export class Customer implements GDK.ICustomer {
 		async openCustomerServiceConversation(params: GDK.OpenParam) {

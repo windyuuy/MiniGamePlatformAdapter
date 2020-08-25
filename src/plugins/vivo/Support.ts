@@ -1,6 +1,6 @@
 
 namespace VIVOGDK {
-	export class Support implements GDK.ISupport {
+	export class Support extends GDK.SupportBase {
 		pluginName = "vivo"
 		supportShare: boolean = false
 		supportShareTickets: boolean = false

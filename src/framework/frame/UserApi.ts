@@ -1359,6 +1359,13 @@ namespace GDK {
 			}
 			return this._m.pay.queryItemInfo(params);
 		}
+
+		getUserPayFlow?(): PayFlow.IPayFlow {
+			if (!this.checkModuleAttr("pay", "getUserPayFlow", "function")) {
+				return undefined;
+			}
+			return this._m.pay.getUserPayFlow();
+		}
 		/**
 		 * 是否需要先初始化广告服务
 		 */

@@ -1,6 +1,6 @@
 
 namespace BaiduGDK {
-	export class Support implements GDK.ISupport {
+	export class Support extends GDK.SupportBase {
 		pluginName = "baidu"
 		supportShare: boolean = true
 		supportShareTickets: boolean = true

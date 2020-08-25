@@ -1,5 +1,5 @@
 
-namespace webGDK {
+namespace WebGDK {
 	export class GameInfo extends GDK.GameInfoBase {
 
 		mode: "develop" | "test" | "release"

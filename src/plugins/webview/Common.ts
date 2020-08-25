@@ -1,4 +1,4 @@
-namespace AppGDK.Common {
+namespace WebViewGDK.Common {
 	/**
 	 * 服务器对象
 	 */

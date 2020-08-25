@@ -1,6 +1,6 @@
 
 namespace QQPlayGDK {
-	export class Support implements GDK.ISupport {
+	export class Support extends GDK.SupportBase {
 		pluginName = "qqplay"
 		supportShare: boolean = true
 		supportShareTickets: boolean = true

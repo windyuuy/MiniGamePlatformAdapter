@@ -1,5 +1,5 @@
 
-namespace webGDK {
+namespace WebGDK {
 
 	// default config
 	GDK.gdkManager.registPluginConfig('web', {

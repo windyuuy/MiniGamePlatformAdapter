@@ -1,10 +1,20 @@
 
-namespace AppGDK {
+namespace WebViewGDK {
 
 	const paylog = Common.paylog
 
 	export class Pay extends GDK.PayBase {
-		api?: GDK.UserAPI
+		api!: GDK.UserAPI
+
+		protected payFlow: PayFlow.PayFlowMG
+		getUserPayFlow(): GDK.PayFlow.IPayFlow {
+			if (this.payFlow != null) {
+				return this.payFlow
+			}
+
+			this.payFlow = new PayFlow.PayFlowMG()
+			return this.payFlow
+		}
 
 		payPurchase(config: GDK.PayItemInfo, options: GDK.PayOptions): Promise<GDK.PayResult> {
 			const ret = new GDK.RPromise<GDK.PayResult>()
@@ -50,7 +60,7 @@ namespace AppGDK {
 						extra: payret,
 					})
 				} else {
-					if (payret.code == AppGDK.PayErrorCode.PURCHASE_CANCELLED) {
+					if (payret.code == WebViewGDK.PayErrorCode.PURCHASE_CANCELLED) {
 						paylog.info("原生充值取消", payret, config)
 						ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_PAY_CANCEL))
 					} else {
@@ -91,7 +101,7 @@ namespace AppGDK {
 							extra: payret,
 						})
 					} else {
-						if (payret.code == AppGDK.PayErrorCode.PURCHASE_CANCELLED) {
+						if (payret.code == WebViewGDK.PayErrorCode.PURCHASE_CANCELLED) {
 							paylog.info("原生充值取消", payret, config)
 							ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_PAY_CANCEL))
 						} else {
@@ -134,7 +144,7 @@ namespace AppGDK {
 							extra: payret,
 						})
 					} else {
-						if (payret.code == AppGDK.PayErrorCode.PURCHASE_CANCELLED) {
+						if (payret.code == WebViewGDK.PayErrorCode.PURCHASE_CANCELLED) {
 							paylog.info("原生充值取消", payret, config)
 							ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_PAY_CANCEL))
 						} else {

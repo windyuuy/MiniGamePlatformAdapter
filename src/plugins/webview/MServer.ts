@@ -1,4 +1,4 @@
-namespace AppGDK {
+namespace WebViewGDK {
 
 	export type LoginCallbackData = {
 		succeed: boolean,

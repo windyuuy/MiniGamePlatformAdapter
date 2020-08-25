@@ -1,4 +1,4 @@
-namespace AppGDK {
+namespace WebViewGDK {
 	const devlog = Common.devlog
 
 	export class FullscreenVedioAd implements GDK.IFullscreedVideoAd {

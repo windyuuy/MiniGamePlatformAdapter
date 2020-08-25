@@ -1,6 +1,6 @@
 /// <reference path="./NativeHelper.ts" />
 
-namespace AppGDK {
+namespace WebViewGDK {
 	export namespace IronSrc {
 		export class Placement {
 			rewardName: string

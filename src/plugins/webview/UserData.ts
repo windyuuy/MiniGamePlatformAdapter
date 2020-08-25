@@ -1,5 +1,5 @@
 
-namespace AppGDK {
+namespace WebViewGDK {
 	export class UserData implements GDK.IUserData {
 		get openId(): string {
 			return '0999999'

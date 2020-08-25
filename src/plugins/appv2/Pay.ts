@@ -5,10 +5,18 @@ namespace UnityAppGDK {
 	const paylog = Common.paylog
 
 	export class Pay extends GDK.PayBase {
+		protected payFlow: PayFlow.PayFlowMG
+
 		getUserPayFlow(): GDK.PayFlow.IPayFlow {
-			return 
+			if (this.payFlow != null) {
+				return this.payFlow
+			}
+
+			this.payFlow = new PayFlow.PayFlowMG()
+			return this.payFlow
 		}
-		api?: GDK.UserAPI
+
+		api!: GDK.UserAPI
 
 		payPurchase(config: GDK.PayItemInfo, options: GDK.PayOptions): Promise<GDK.PayResult> {
 			const ret = new GDK.RPromise<GDK.PayResult>()

@@ -1,5 +1,5 @@
 
-namespace AppGDK {
+namespace WebViewGDK {
 	/** 客服 */
 	export class Customer implements GDK.ICustomer {
 		api?: GDK.UserAPI

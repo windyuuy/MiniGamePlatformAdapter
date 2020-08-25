@@ -1,5 +1,5 @@
 
-namespace AppGDK {
+namespace WebViewGDK {
 	const devlog = Common.devlog
 	class Vibration implements GDK.IVibration {
 		async vibrateLong() {

@@ -1,6 +1,6 @@
 
-namespace webGDK {
-	export class Support implements GDK.ISupport {
+namespace WebGDK {
+	export class Support extends GDK.SupportBase {
 		pluginName = "web"
 		supportShare: boolean = true
 		supportShareTickets: boolean = false

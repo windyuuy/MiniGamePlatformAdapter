@@ -123,6 +123,7 @@ namespace GDK.PayFlow {
         /**
          * 多个支付平台ID
          * - 当前发布渠道需要支持几个支付平台，那么在当前渠道对应的代码里填几个支付平台的payWay
+         * - 补单需要遍历
          */
         payWays?: PayWay[]
 

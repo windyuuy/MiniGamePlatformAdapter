@@ -1,5 +1,5 @@
 
-namespace webGDK {
+namespace WebGDK {
 	export class SystemInfo extends GDK.SystemInfoBase {
 		platform = "browser 1.0.0"
 		brand: string = 'unknown'

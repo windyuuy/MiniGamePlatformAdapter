@@ -6,11 +6,7 @@ namespace GDK.PayFlow {
 	const log = new slib.Log({ time: false, tags: ['[PayFlow]'] })
 
 	export class PayFlowMG implements IPayFlow {
-		get payFlowName() {
-			let payFlow = this.getPayFlow("WechatPay")
-			return payFlow.payFlowName
-		}
-
+		
 		_status: PayFlowStatus = new PayFlowStatus()
 
 		protected get _parent() {
@@ -32,6 +28,11 @@ namespace GDK.PayFlow {
 		}
 		protected set _rechargeBlockLayerIndex(value: [number, string]) {
 			this._status._rechargeBlockLayerIndex = value
+		}
+		
+		get payFlowName() {
+			let payFlow = this.getPayFlow("WechatPay")
+			return payFlow.payFlowName
 		}
 
 		protected _payFlow!: IPayFlow

@@ -2,7 +2,7 @@ declare function webvideo_is_load(): boolean;
 declare function webvideo_play(param: any): void;
 declare function webvideo_load(): void;
 
-namespace webGDK {
+namespace WebGDK {
 	const devlog = Common.devlog
 
 	class VideoAd implements GDK.IRewardedVideoAd {

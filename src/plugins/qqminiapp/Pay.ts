@@ -3,6 +3,17 @@ namespace QQMiniAppGDK {
 	const devlog = Common.paylog
 
 	export class Pay extends GDK.PayBase {
+
+		protected payFlow: PayFlow.PayFlowMG
+		getUserPayFlow(): GDK.PayFlow.IPayFlow {
+			if (this.payFlow != null) {
+				return this.payFlow
+			}
+
+			this.payFlow = new PayFlow.PayFlowMG()
+			return this.payFlow
+		}
+
 		private _isPaying: boolean = false;
 		private _payReturnCallback: Function = null;
 		init() {

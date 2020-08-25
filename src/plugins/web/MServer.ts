@@ -1,4 +1,4 @@
-namespace webGDK {
+namespace WebGDK {
 
 	export type LoginCallbackData = {
 		succeed: boolean,

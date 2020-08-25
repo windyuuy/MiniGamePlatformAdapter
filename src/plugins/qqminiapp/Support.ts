@@ -1,6 +1,6 @@
 
 namespace QQMiniAppGDK {
-	export class Support implements GDK.ISupport {
+	export class Support extends GDK.SupportBase {
 		pluginName = "qqminiapp"
 		supportShare: boolean = true
 		supportShareTickets: boolean = true

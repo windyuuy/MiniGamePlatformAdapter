@@ -33,6 +33,16 @@ namespace BytedanceGDK {
 	export class Pay extends GDK.PayBase {
 		api?: GDK.UserAPI
 
+		protected payFlow: PayFlow.PayFlowMG
+		getUserPayFlow(): GDK.PayFlow.IPayFlow {
+			if (this.payFlow != null) {
+				return this.payFlow
+			}
+
+			this.payFlow = new PayFlow.PayFlowMG()
+			return this.payFlow
+		}
+		
 		payOrigion(config: GDK.PayItemInfo, options: GDK.PayOptions): Promise<GDK.PayResult> {
 			const ret = new GDK.RPromise<GDK.PayResult>()
 

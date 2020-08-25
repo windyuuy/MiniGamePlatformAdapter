@@ -1,6 +1,6 @@
 
 namespace AppGDK {
-	export class Support implements GDK.ISupport {
+	export class Support extends GDK.SupportBase {
 		pluginName = "app"
 		supportShare: boolean = true
 		supportShareTickets: boolean = false

@@ -6,7 +6,18 @@ namespace GamepindGDK {
 	const devlog = Common.paylog
 
 	export class Pay extends GDK.PayBase {
-		api?: GDK.UserAPI
+		api!: GDK.UserAPI
+
+		protected payFlow: PayFlow.PayFlowMG
+		getUserPayFlow(): GDK.PayFlow.IPayFlow {
+			if (this.payFlow != null) {
+				return this.payFlow
+			}
+
+			this.payFlow = new PayFlow.PayFlowMG()
+			return this.payFlow
+		}
+
 		static ret: GDK.RPromise<GDK.PayResult>
 		payPurchase(config: GDK.PayItemInfo, options: GDK.PayOptions): Promise<GDK.PayResult> {
 			devlog.warn("gamepind payPurchase:", config)

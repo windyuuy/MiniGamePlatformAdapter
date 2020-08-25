@@ -1,5 +1,5 @@
 
-namespace AppGDK {
+namespace WebViewGDK {
 	export class SystemInfo extends GDK.SystemInfoBase {
 
 		api: GDK.UserAPI

@@ -1,6 +1,6 @@
 
 namespace GamepindGDK {
-	export class Support implements GDK.ISupport {
+	export class Support extends GDK.SupportBase {
 		pluginName = "gamepind"
 		supportShare: boolean = true
 		supportShareTickets: boolean = false

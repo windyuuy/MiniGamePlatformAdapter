@@ -1,5 +1,5 @@
 
-namespace AppGDK {
+namespace WebViewGDK {
 
 	export class APISystem extends GDK.APISystemBase {
 

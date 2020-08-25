@@ -30,7 +30,7 @@ namespace VIVOGDK {
 	export class APISystem extends GDK.APISystemBase {
 		clipboard?: GDK.IClipboard = new Clipboard()
 
-		init?() {
+		init() {
 		}
 
 		exitProgram(): Promise<void> {

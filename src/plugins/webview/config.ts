@@ -1,5 +1,5 @@
 
-namespace AppGDK {
+namespace WebViewGDK {
 
 	// default config
 	GDK.gdkManager.registPluginConfig('webview', {

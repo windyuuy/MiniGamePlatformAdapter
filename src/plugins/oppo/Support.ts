@@ -1,6 +1,6 @@
 
 namespace OPPOGDK {
-	export class Support implements GDK.ISupport {
+	export class Support extends GDK.SupportBase {
 		pluginName = "oppo"
 		supportShare: boolean = false
 		supportShareTickets: boolean = false

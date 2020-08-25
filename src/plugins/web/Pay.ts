@@ -1,9 +1,19 @@
 
-namespace webGDK {
+namespace WebGDK {
 
 	const paylog = Common.paylog
 
 	export class Pay extends GDK.PayBase {
+
+		protected payFlow: PayFlow.PayFlowMG
+		getUserPayFlow(): GDK.PayFlow.IPayFlow {
+			if (this.payFlow != null) {
+				return this.payFlow
+			}
+
+			this.payFlow = new PayFlow.PayFlowMG()
+			return this.payFlow
+		}
 
 		payPurchase(config: GDK.PayItemInfo): Promise<GDK.PayResult> {
 			const ret = new GDK.RPromise<GDK.PayResult>()

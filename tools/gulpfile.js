@@ -151,7 +151,6 @@ gulp.task("compile", async () => {
 		execon("./plugins/bytedance", () => exec("tsc"))
 		execon("./plugins/qqminiapp", () => exec("tsc"))
 		execon("./plugins/wechat", () => exec("tsc"))
-		execon("./plugins/unityapp", () => exec("ccf type2lua"))
 		execon("./plugins/app", () => exec("tsc"))
 		execon("./plugins/baidu", () => exec("tsc"))
 		execon("./plugins/develop", () => exec("tsc"))

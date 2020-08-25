@@ -1,4 +1,4 @@
-namespace webGDK.Common {
+namespace WebGDK.Common {
 	/**
 	 * 服务器对象
 	 */

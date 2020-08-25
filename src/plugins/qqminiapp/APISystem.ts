@@ -30,7 +30,7 @@ namespace QQMiniAppGDK {
 	export class APISystem extends GDK.APISystemBase {
 		clipboard?: GDK.IClipboard = new Clipboard()
 
-		init?() {
+		init() {
 		}
 
 		setEnableDebug(res: { enableDebug: boolean }) {

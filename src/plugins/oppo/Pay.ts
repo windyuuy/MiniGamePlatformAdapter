@@ -4,7 +4,17 @@ namespace OPPOGDK {
 	const paylog = Common.paylog
 
 	export class Pay extends GDK.PayBase {
-		api?: GDK.UserAPI
+		protected payFlow: PayFlow.PayFlowMG
+		getUserPayFlow(): GDK.PayFlow.IPayFlow {
+			if (this.payFlow != null) {
+				return this.payFlow
+			}
+
+			this.payFlow = new PayFlow.PayFlowMG()
+			return this.payFlow
+		}
+
+		api!: GDK.UserAPI
 		server: MServer
 
 		init() {

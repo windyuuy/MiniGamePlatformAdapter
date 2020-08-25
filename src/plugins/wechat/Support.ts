@@ -1,6 +1,6 @@
 
 namespace WechatGDK {
-	export class Support implements GDK.ISupport {
+	export class Support extends GDK.SupportBase {
 		pluginName = "wechat"
 		supportShare: boolean = true
 		supportShareTickets: boolean = true

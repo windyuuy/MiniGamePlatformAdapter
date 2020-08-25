@@ -1,4 +1,4 @@
-namespace AppGDK {
+namespace WebViewGDK {
 	type ReqResult = any
 
 	export class RReqPromise<T, F=undefined> extends GDK.RPromise<ReqResult>{

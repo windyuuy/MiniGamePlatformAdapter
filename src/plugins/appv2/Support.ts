@@ -1,6 +1,6 @@
 
 namespace UnityAppGDK {
-	export class Support implements GDK.ISupport {
+	export class Support extends GDK.SupportBase {
 		requireManagerAdLifecycle: boolean = false
 		isNativePlugin: boolean = true
 		pluginName = "appv2"

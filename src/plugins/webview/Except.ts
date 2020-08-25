@@ -1,4 +1,4 @@
-namespace AppGDK {
+namespace WebViewGDK {
 	export class Except implements GDK.IExcept {
 		protected _errorCallback: (err: { message: string, stack: string }) => void
 		protected _isListener: boolean = false;

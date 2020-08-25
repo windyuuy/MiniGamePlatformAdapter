@@ -4,8 +4,18 @@ namespace QQPlayGDK {
 	const paylog = Common.paylog
 
 	export class Pay extends GDK.PayBase {
-		api?: GDK.UserAPI
+		api!: GDK.UserAPI
 		server: MServer
+
+		protected payFlow: PayFlow.PayFlowMG
+		getUserPayFlow(): GDK.PayFlow.IPayFlow {
+			if (this.payFlow != null) {
+				return this.payFlow
+			}
+
+			this.payFlow = new PayFlow.PayFlowMG()
+			return this.payFlow
+		}
 
 		init() {
 			//回到前台后响应

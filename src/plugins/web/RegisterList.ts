@@ -1,4 +1,4 @@
-namespace webGDK {
+namespace WebGDK {
 	export class RegisterList extends GDK.ModuleClassMap {
 		Advert = Advert
 		GameInfo = GameInfo

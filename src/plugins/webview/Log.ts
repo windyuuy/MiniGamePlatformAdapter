@@ -1,4 +1,4 @@
-namespace AppGDK {
+namespace WebViewGDK {
 	export class Log implements GDK.ILog {
 
 		/**

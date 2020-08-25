@@ -1,5 +1,5 @@
 
-namespace webGDK {
+namespace WebGDK {
 
 	const devlog = Common.devlog
 

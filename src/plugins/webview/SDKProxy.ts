@@ -439,8 +439,8 @@ class SDKProxy {
 		this.callAction("hideLaunchingView", "{}", (data) => { });
 	}
 
-	static nativeAdvert: AppGDK.NativeAdvert = new AppGDK.NativeAdvert()
-	static nativePay: AppGDK.NativePay = new AppGDK.NativePay()
-	static nativeLocalPush: AppGDK.NativeLocalPush = new AppGDK.NativeLocalPush()
+	static nativeAdvert: WebViewGDK.NativeAdvert = new WebViewGDK.NativeAdvert()
+	static nativePay: WebViewGDK.NativePay = new WebViewGDK.NativePay()
+	static nativeLocalPush: WebViewGDK.NativeLocalPush = new WebViewGDK.NativeLocalPush()
 
 }
