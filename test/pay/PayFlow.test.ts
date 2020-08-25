@@ -44,7 +44,7 @@ class TestPayFlow {
 	init() {
 	}
 
-	test() {
+	testDiffOrderList() {
 
 		const userId = "235"
 		const timeStamp = Date.now()
@@ -318,7 +318,7 @@ class TestPayFlow {
 	}
 }
 
-test("normal", () => {
+test("testDiffOrderList", () => {
 	const a = new TestPayFlow()
-	a.test()
+	a.testDiffOrderList()
 })
