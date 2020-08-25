@@ -1,5 +1,5 @@
 /dist
-/tools/node_modules
+**/node_modules
 /tools/package-lock.json
 /docs/_book
 /tools/temp/
