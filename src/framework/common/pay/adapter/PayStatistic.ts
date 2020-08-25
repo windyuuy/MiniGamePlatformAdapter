@@ -1,9 +1,9 @@
 
 namespace GDK.PayFlow {
 	export interface IGSStatistic {
-		commitGSCommonLog(data: { index: number, eventName: string } | any): void
+		commitCommon(data: { index: number, eventName: string } | any): void
 
-		commitGSDevLog(data: {
+		commitDevlog(data: {
 			/**
 			 * 事件类型参考附录
 			 * 1. 新手引导
@@ -92,7 +92,7 @@ namespace GDK.PayFlow {
 		}
 
 		commitGSCommonLog(data: { index: number, eventName: string } | any): void {
-			return this.logCommitTool.commitGSCommonLog(data)
+			return this.logCommitTool.commitCommon(data)
 		}
 
 		commitGSDevLog(data: {
@@ -113,7 +113,7 @@ namespace GDK.PayFlow {
 			 */
 			eventName: string
 		} | any): void {
-			return this.logCommitTool.commitGSDevLog(data)
+			return this.logCommitTool.commitDevlog(data)
 		}
 	}
 	export const payStatistic = new PayStatistic()
