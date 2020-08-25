@@ -49,8 +49,6 @@ namespace GDK.PayFlow {
 			}
 		}
 
-		static readonly inst = new PayFlowMG()
-
 		get isPayCallbackValid(): boolean {
 			let payFlow = this.getPayFlow("WechatPay")
 			return payFlow.isPayCallbackValid

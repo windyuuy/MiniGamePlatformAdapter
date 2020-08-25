@@ -59,7 +59,9 @@ namespace GDK.PayFlow {
             this.Amt = config.amount
             this.ItemName = config.title
 
-            this.userId = `${gdk.userData.userId}`
+            if (gdk.userData != null) {
+                this.userId = `${gdk.userData.userId}`
+            }
         }
 
     }

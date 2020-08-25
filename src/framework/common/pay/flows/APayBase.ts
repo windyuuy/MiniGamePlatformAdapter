@@ -40,6 +40,10 @@ namespace GDK.PayFlow.APayBase {
 		}
 
 		constructor() {
+			this.init()
+		}
+
+		init(){
 			this._rechargeBlockLayerIndex = [payNetClient.client.getLoadingIndex(), 'payflow://index.html']
 		}
 
@@ -690,13 +694,18 @@ namespace GDK.PayFlow.APayBase {
 			})
 		}
 
-		// 求出差异的订单列表
-		diffOrderList(infos: OrderInfo[]): { result: OrderInfo[], diffExist: boolean, needSync: boolean } {
+		/**
+		 * 求出差异的订单列表
+		 * @param infos 输入订单列表
+		 * @param targets 现存订单列表
+		 * @param chargeconfig 配表
+		 */
+		diffOrderList(infos: OrderInfo[], targets: OrderRecord[], chargeconfig: RechargeConfigRow[]): { result: OrderInfo[], diffExist: boolean, needSync: boolean } {
 			let diffExist = false
 			// 有补发的时候才同步
 			let needSync = false
+			// 存在差异的订单
 			let result: OrderInfo[] = []
-			let targets = this.paysdk.orderRecordList
 			for (let remoteInfo of infos) {
 				let localInfo = targets.find(info => info.orderno == remoteInfo.outTradeNo)
 				// 本地不存在的订单,如果服务器列表中变为存在并且不成功,则加入这一单到本地历史订单中
@@ -704,7 +713,7 @@ namespace GDK.PayFlow.APayBase {
 				// 本地未知的订单如果服务器中为失败,则回滚
 				// 如果两者同时存在并且都不成功,则把本地的重置为服务器的状态
 				if (!localInfo) {
-					const config = this._parent.chargeconfig.find(info => info.id == remoteInfo.goodsId)
+					const config = chargeconfig.find(info => info.id == remoteInfo.goodsId)
 					targets.push(new OrderRecord(remoteInfo, OrderState.unknown, config))
 					if (remoteInfo.state == OrderState.ok) {
 						log.warn('查询到本地不存在的订单', remoteInfo.outTradeNo)
@@ -783,7 +792,7 @@ namespace GDK.PayFlow.APayBase {
 
 		// 合并订单历史
 		mergeOrderList(infos: OrderInfo[], options: PaymentMergeOptions, successCallback: (result: OrderInfo[], diffExist: boolean, needSync: boolean) => void, failCallback?: Function) {
-			let { result, diffExist, needSync } = this.diffOrderList(infos)
+			let { result, diffExist, needSync } = this.diffOrderList(infos, this.paysdk.orderRecordList,this._parent.chargeconfig)
 			this.applyOrderList(result, options)
 			log.info('订单合并完成,开始充值回调')
 			payStatistic.commitGSDevLog({ index: 3, eventName: "mergeOrderList sync: " + needSync });

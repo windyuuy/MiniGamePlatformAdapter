@@ -37,8 +37,6 @@ namespace GDK.PayFlow {
 			return this._payFlow
 		}
 
-		static readonly inst = new PayFlowMG()
-
 		get isPayCallbackValid(): boolean {
 			let payFlow = this.getPayFlow()
 			return payFlow.isPayCallbackValid

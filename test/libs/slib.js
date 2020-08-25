@@ -10086,7 +10086,7 @@ var slib;
             get: function () {
                 return this.stringsMap;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         /**
@@ -10334,7 +10334,7 @@ var slib;
                     }
                 }
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Log.toPlaneLog = function (args) {
@@ -10361,7 +10361,7 @@ var slib;
                     this._instance = new Log();
                 return this._instance;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         /**
@@ -10547,7 +10547,7 @@ var slib;
             set: function (value) {
                 this._progress = value;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         return LogicChain;
@@ -10726,7 +10726,7 @@ var slib;
             get: function () {
                 return this._creatorList;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         DataFactory.instance = new DataFactory;
@@ -12102,6 +12102,207 @@ var slib;
 })(slib || (slib = {}));
 var slib;
 (function (slib) {
+    var BusinessClient = /** @class */ (function () {
+        function BusinessClient(data) {
+            /**
+             * 所有请求都会+1
+             */
+            this._requestIndex = 0;
+            /**
+             * 当前所加载的协议
+             */
+            this._protocolContent = undefined;
+            /**
+             * 协议的包名
+             */
+            this._packageName = undefined;
+            this.url = data.url;
+            this.version = data.version;
+            this.contentType = data.contentType;
+            this.token = data.token;
+            this.timeout = data.timeout || 3000;
+            var matching = /([a-zA-Z]+):\/\/([\w-.]+):?(\d+)?/.exec(this.url.toLocaleLowerCase());
+            if (matching == null) {
+                throw new Error("\u670D\u52A1\u5668\u5730\u5740\u683C\u5F0F\u9519\u8BEF\uFF1A" + this.url);
+            }
+            var _ = matching[0], protocol = matching[1], hostname = matching[2], port = matching[3];
+            if (["http", "https", "ws", "wss"].indexOf(protocol) == -1) {
+                throw new Error("\u670D\u52A1\u5668\u5730\u5740\u683C\u5F0F\u9519\u8BEF\uFF1A" + this.url);
+            }
+            if (port == null) {
+                if (protocol == "http") {
+                    port = "80";
+                }
+                else if (protocol == "https") {
+                    port = "443";
+                }
+                else if (protocol == "ws") {
+                    port = "80";
+                }
+                else if (protocol == "wss") {
+                    port = "443";
+                }
+            }
+            else {
+                if (parseInt(port).toString() != port) {
+                    throw new Error("\u670D\u52A1\u5668\u5730\u5740\u683C\u5F0F\u9519\u8BEF\uFF1A" + this.url);
+                }
+            }
+            this.protocol = protocol;
+            this.hostname = hostname;
+            this.port = parseInt(port);
+        }
+        /**
+         * 从业务服加载协议
+         */
+        BusinessClient.prototype.loadProtocol = function (proto) {
+        };
+        /**
+         * 请求一个api
+         */
+        BusinessClient.prototype.request = function (data) {
+            return __awaiter(this, void 0, void 0, function () {
+                var requesting;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            requesting = data;
+                            requesting.requestIndex = this._requestIndex++;
+                            requesting.isRetry = false;
+                            requesting.retryCount = 0;
+                            return [4 /*yield*/, this.requesting(requesting)];
+                        case 1: return [2 /*return*/, _a.sent()];
+                    }
+                });
+            });
+        };
+        /**
+         * 请求过程中的逻辑
+         */
+        BusinessClient.prototype.requesting = function (data) {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            if (!(this.protocol == "http" || this.protocol == "https")) return [3 /*break*/, 2];
+                            return [4 /*yield*/, this.httpRequesting(data)];
+                        case 1: return [2 /*return*/, _a.sent()];
+                        case 2: return [4 /*yield*/, this.websocketRequesting(data)];
+                        case 3: return [2 /*return*/, _a.sent()];
+                    }
+                });
+            });
+        };
+        /**
+         * 序列化请求数据
+         * @param data 请求数据（对象）
+         * @param type 目标类型
+         * @returns 返回字符串或二进制
+         */
+        BusinessClient.prototype.serializeRequest = function (data, type) {
+        };
+        /**
+         * 反序列化响应数据
+         * @param data 响应数据（二进制或字符串）
+         * @param type 目标类型
+         */
+        BusinessClient.prototype.deserializationResponse = function (data, type) {
+        };
+        BusinessClient.prototype.httpRequesting = function (requestingData) {
+            var _this = this;
+            return new Promise(function (resolve, reject) {
+                if (_this._httpClient == null) {
+                    _this._httpClient = new slib.HttpClient();
+                }
+                var url = _this.protocol + "://" + _this.hostname + ":" + _this.port + "/" + _this.version + "/" + requestingData.action;
+                var headMap = {};
+                headMap["Content-Type"] = _this.contentType == "json" ? "application/json;charset=utf-8" : "application/x-protobuf";
+                headMap["Authorization"] = _this.token;
+                headMap["Request-Index"] = requestingData.requestIndex.toString();
+                headMap["Retry-Count"] = requestingData.retryCount.toString();
+                console.warn("[BusinessClient][request]", url, JSON.stringify(headMap));
+                var requestData = requestingData.data;
+                //初次打开模态
+                if (!requestingData.isRetry && requestingData.modal && _this.showLoadingModalCallback) {
+                    _this.showLoadingModalCallback(requestingData.requestIndex, url);
+                }
+                var onError = function (error, code) {
+                    //主动关闭模态
+                    if (requestingData.modal && _this.closeLoadingModalCallback) {
+                        _this.closeLoadingModalCallback(requestingData.requestIndex, url);
+                    }
+                    if (code == 202) {
+                        //业务错误
+                        var r = _this.deserializationResponse(error, "BusinessErrorVO");
+                        console.error("[BusinessClient][response]", code, url, JSON.stringify(headMap), JSON.stringify(r));
+                        reject({ type: "business-error", error: r });
+                    }
+                    else if (code == 500) {
+                        //内部服务器错误
+                        var r = _this.deserializationResponse(error, "InternalServerErrorVO");
+                        console.error("[BusinessClient][response]", code, url, JSON.stringify(headMap), JSON.stringify(r));
+                        reject({ type: "internal-server-error", error: r });
+                    }
+                    else {
+                        console.error("[BusinessClient][response]", code, url, JSON.stringify(headMap), error);
+                    }
+                    //重试函数
+                    var retry = function () {
+                        //重新打开模态
+                        if (requestingData.modal && _this.showLoadingModalCallback) {
+                            _this.showLoadingModalCallback(requestingData.requestIndex, url);
+                        }
+                        requestingData.isRetry = true;
+                        requestingData.retryCount++;
+                        _this.httpRequesting(requestingData);
+                    };
+                    if (requestingData.errorCallback) {
+                        //针对性错误处理
+                        requestingData.errorCallback(error, retry);
+                    }
+                    else if (_this.errorCallback) {
+                        //全局错误处理
+                        _this.errorCallback(error, retry);
+                    }
+                    else {
+                        //未处理网络错误
+                    }
+                    if (typeof error == "string" && error.indexOf('ssl hand shake error') != -1 || error.indexOf('证书无效') != -1) {
+                        console.error("[BusinessClient][response] ssl 握手错误", url);
+                    }
+                };
+                var onDone = function (responseData) {
+                    //进行回调
+                    var result = _this.deserializationResponse(responseData, requestingData.responseType);
+                    console.warn("[BusinessClient][response]", url, JSON.stringify(headMap), JSON.stringify(result));
+                    //主动关闭模态
+                    if (requestingData.modal && _this.closeLoadingModalCallback) {
+                        _this.closeLoadingModalCallback(requestingData.requestIndex, url);
+                    }
+                    resolve(result);
+                };
+                _this._httpClient.request({
+                    method: "POST",
+                    url: url,
+                    data: _this.serializeRequest(requestData, requestingData.requestType),
+                    headMap: headMap,
+                    onDone: onDone,
+                    onError: onError,
+                    onTimeout: function () {
+                        //超时进行重试
+                        onError("timeout");
+                    }
+                });
+            });
+        };
+        BusinessClient.prototype.websocketRequesting = function (data) {
+        };
+        return BusinessClient;
+    }());
+    slib.BusinessClient = BusinessClient;
+})(slib || (slib = {}));
+var slib;
+(function (slib) {
     var GameClient = /** @class */ (function () {
         function GameClient() {
             this._protocol = "https"; //协议
@@ -12142,7 +12343,7 @@ var slib;
             set: function (value) {
                 this._host = value;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(GameClient.prototype, "port", {
@@ -12152,7 +12353,7 @@ var slib;
             set: function (value) {
                 this._port = value;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(GameClient.prototype, "protocol", {
@@ -12162,7 +12363,7 @@ var slib;
             set: function (value) {
                 this._protocol = value;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(GameClient.prototype, "url", {
@@ -12189,7 +12390,7 @@ var slib;
                     }
                 }
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(GameClient.prototype, "showModalCallback", {
@@ -12199,7 +12400,7 @@ var slib;
             set: function (callback) {
                 this._showLoadingModalCallback = callback;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(GameClient.prototype, "closeModalCallback", {
@@ -12209,7 +12410,7 @@ var slib;
             set: function (callback) {
                 this._closeLoadingModalCallback = callback;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         return GameClient;
@@ -12251,12 +12452,22 @@ var slib;
                     case 4: //DONE (请求完成)
                         if (http.status == 200) {
                             if (onDone) {
-                                onDone(http.responseText);
+                                if (http.responseType == "json" || http.responseType == "text" || http.responseType == "document") {
+                                    onDone(http.responseText || http.response, http.status);
+                                }
+                                else {
+                                    onDone(http.response || http.responseText, http.status);
+                                }
                             }
                         }
                         else {
                             if (onError) {
-                                onError(http.responseText);
+                                if (http.responseType == "json" || http.responseType == "text" || http.responseType == "document") {
+                                    onError(http.responseText || http.response, http.status);
+                                }
+                                else {
+                                    onError(http.response || http.responseText, http.status);
+                                }
                             }
                         }
                         clearListener();
@@ -12311,7 +12522,7 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
@@ -12374,7 +12585,7 @@ var slib;
             set: function (value) {
                 this._timeout = value;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         /**
@@ -12605,14 +12816,14 @@ var slib;
             set: function (value) {
                 this._retryCount = value;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(HttpGameClient.prototype, "client", {
             get: function () {
                 return this._client;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         return HttpGameClient;
@@ -12763,14 +12974,14 @@ var slib;
             get: function () {
                 return this._connected;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(SocketGameClient.prototype, "connecting", {
             get: function () {
                 return this._connecting;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         SocketGameClient.prototype.request = function (action, data, callback, modal) {
@@ -12925,3 +13136,4 @@ var slib;
 // }
 // console.log('end')
 // // test case end
+//# sourceMappingURL=slib.js.map

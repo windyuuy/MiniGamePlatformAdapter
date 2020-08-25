@@ -9,6 +9,9 @@ namespace GDK.PayFlow {
 		 * 像oppo等渠道，登录会话信息过期，则需要重新登录
 		 */
 		login: Function
+		/**
+		 * 检查是否通过了实名认证
+		 */
 		checkRealNameVerify: () => boolean
 		// {
 
@@ -20,6 +23,9 @@ namespace GDK.PayFlow {
 		// }
 		// }
 
+		/**
+		 * 是否手动补单
+		 */
 		isUserDealingOrder():boolean{
 			return false
 		}
