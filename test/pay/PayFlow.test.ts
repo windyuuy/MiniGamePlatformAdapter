@@ -1,23 +1,7 @@
+import { assertEqualDeep } from "../libs/TestLib.test"
+
 require("../libs/slib.js")
 require("../../dist/develop/develop")
-
-const assert = (a: any) => {
-	expect(!!a).toEqual(true)
-}
-
-const assertEqual = (a: any, b: any) => {
-	expect(a).toBe(b)
-}
-
-const assertEqualDeep = (a: any, b: any) => {
-	expect(a).toEqual(b)
-}
-
-export function test_entry(desc: string, fun: () => void) {
-	console.log(`==>> test entry<${desc}> BEGIN`)
-	describe(desc, fun)
-	console.log(`==<< test entry<${desc}> PASS`)
-}
 
 class SimplePayFlow extends GDK.PayFlow.APayBase.PayFlow {
 	init() { }
