@@ -10,9 +10,18 @@ namespace GDK.PayFlow {
         extra?: any
     }
 
+    /**
+     * 支付成功回调参数
+     */
     export type PaymentSuccessCallbackParams = { config: PaymentParams, orderInfo?: OrderInfo }
+    /**
+     * 支付成功回调
+     */
     export type PaymentSuccessCallback = (res: PaymentSuccessCallbackParams) => void
 
+    /**
+     * 支付合并选项
+     */
     export type PaymentMergeOptions = {
         /**
          * 是否补单流程中补发的订单
@@ -48,6 +57,9 @@ namespace GDK.PayFlow {
         priceUSD?: number
     }
 
+    /**
+     * 发起支付选项
+     */
     export interface PaymentParamsOptions {
         /**
          * （正在弃用，用payUrl代替）每日给力支付app分区 ID
@@ -170,6 +182,9 @@ namespace GDK.PayFlow {
      * example: GlobalEmit.instance.messsgeEmit.emit("onApplyOrder",<ApplyOrderInfo>notifyData);
      */
     export interface IPayFlow {
+        /**
+         * 支付流程状态
+         */
         _status: PayFlowStatus
 
         /**

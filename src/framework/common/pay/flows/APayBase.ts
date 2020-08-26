@@ -51,6 +51,10 @@ namespace GDK.PayFlow.APayBase {
 			this._parent = parent
 		}
 
+		/**
+		 * 初始化前后台切换侦听
+		 * @param onShow 
+		 */
 		initListener(onShow?: (callback: Function) => void) {
 			if (onShow) {
 				log.info('设置自定义补单监听')
@@ -74,7 +78,9 @@ namespace GDK.PayFlow.APayBase {
 			}
 		}
 
-		// 充值屏蔽层
+		/**
+		 * 充值屏蔽层
+		 */
 		enableRechargeBlock() {
 			if (this._isRecharging) {
 				return false
@@ -87,7 +93,9 @@ namespace GDK.PayFlow.APayBase {
 			payNetClient.client.showModalCallback(...this._rechargeBlockLayerIndex)
 			return true
 		}
-		// 取消充值屏蔽层
+		/**
+		 * 取消充值屏蔽层
+		 */
 		disableRechargeBlock() {
 			this._isRecharging = false
 
@@ -97,7 +105,9 @@ namespace GDK.PayFlow.APayBase {
 			payNetClient.client.closeModalCallback(...this._rechargeBlockLayerIndex)
 		}
 
-		// 获取合适的历史订单检查点时间
+		/**
+		 * 获取合适的历史订单检查点时间
+		 */
 		getHistoryCutline(): number {
 			// 0表示本地没有历史订单,需要服务器全数返回
 			let reqTime = 0
@@ -409,6 +419,10 @@ namespace GDK.PayFlow.APayBase {
 			})
 		}
 
+		/**
+		 * 获取二级货币id
+		 * @param config 
+		 */
 		getCoinId(config: RechargeConfigRow): number {
 			let itemId = config.coinId
 			return itemId
@@ -762,7 +776,11 @@ namespace GDK.PayFlow.APayBase {
 			return { result: result, diffExist: diffExist, needSync: needSync }
 		}
 
-		// 应用有差异的订单列表，有需要补发的补发，需要回滚的暂时不作回滚处理
+		/**
+		 * 应用有差异的订单列表，有需要补发的补发，需要回滚的暂时不作回滚处理
+		 * @param infos 
+		 * @param options 
+		 */
 		applyOrderList(infos: OrderInfo[], options: PaymentMergeOptions) {
 			for (let remoteInfo of infos) {
 				const config = this._parent.chargeconfig.find(info => info.id == remoteInfo.goodsId)
@@ -790,7 +808,13 @@ namespace GDK.PayFlow.APayBase {
 			}
 		}
 
-		// 合并订单历史
+		/**
+		 * 合并订单历史
+		 * @param infos 
+		 * @param options 
+		 * @param successCallback 
+		 * @param failCallback 
+		 */
 		mergeOrderList(infos: OrderInfo[], options: PaymentMergeOptions, successCallback: (result: OrderInfo[], diffExist: boolean, needSync: boolean) => void, failCallback?: Function) {
 			let { result, diffExist, needSync } = this.diffOrderList(infos, this.paysdk.orderRecordList,this._parent.chargeconfig)
 			this.applyOrderList(result, options)
@@ -799,7 +823,9 @@ namespace GDK.PayFlow.APayBase {
 			successCallback(result, diffExist, needSync)
 		}
 
-		// 同步存档
+		/**
+		 * 同步存档
+		 */
 		syncStorage(successCallback?: Function, failCallback?: Function) {
 			log.info('GameProxy.backupSave')
 
@@ -812,11 +838,21 @@ namespace GDK.PayFlow.APayBase {
 			payDeps.storage.rescheduleBackup()
 		}
 
-		// 保存订单
+		/**
+		 * 保存订单
+		 * @param orderInfo 
+		 * @param config 
+		 */
 		saveOrder(orderInfo: OrderInfo, config: RechargeConfigRow) {
 			this.paysdk.addRecord(orderInfo, config)
 		}
 
+		/**
+		 * 应用订单
+		 * @param orderInfo 
+		 * @param config 
+		 * @param options 
+		 */
 		applyOrder(orderInfo: OrderInfo, config: RechargeConfigRow, options: PaymentMergeOptions) {
 			log.info('应用成功订单:', orderInfo, config, options)
 			this.paysdk.applyRecord(orderInfo, config, options)
@@ -835,6 +871,9 @@ namespace GDK.PayFlow.APayBase {
 			return PayRecords.saved
 		}
 
+		/**
+		 * 获取订单列表
+		 */
 		get orderRecordList(): OrderRecordExported[] {
 			return PayRecords.saved.orderRecordList.map(info => {
 				let clone: OrderRecordExported = {

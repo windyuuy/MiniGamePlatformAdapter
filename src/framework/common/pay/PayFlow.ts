@@ -5,6 +5,10 @@ namespace GDK.PayFlow {
 
 	const log = new slib.Log({ time: false, tags: ['[PayFlow]'] })
 
+	/**
+	 * 仅作为备份
+	 * @deprecated
+	 */
 	export class PayFlowMG implements IPayFlow {
 		
 		_status: PayFlowStatus = new PayFlowStatus()

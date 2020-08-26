@@ -5,6 +5,9 @@ namespace GDK.PayFlow {
 
 	const log = new slib.Log({ time: false, tags: ['[PayFlow]'] })
 
+	/**
+	 * 支付主流程管理
+	 */
 	export abstract class PayFlowMGBase implements IPayFlow {
 
 		_status: PayFlowStatus = new PayFlowStatus()

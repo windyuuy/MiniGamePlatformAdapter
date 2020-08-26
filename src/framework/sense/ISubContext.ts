@@ -13,6 +13,9 @@ namespace GDK {
 		 */
 		postMessage(message: OpenDataContextMessage)
 	}
+	/**
+	 * 子域
+	 */
 	export interface ISubContext {
 		/**
 		 * 监听主域发送的消息

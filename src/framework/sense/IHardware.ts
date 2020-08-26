@@ -122,6 +122,9 @@ namespace GDK {
 		offCancel?()
 	}
 
+	/**
+	 * 管理各种硬件功能
+	 */
 	export interface IHardware extends IModule {
 		/**
 		 * 振动器

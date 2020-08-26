@@ -1,4 +1,7 @@
 namespace GDK {
+	/**
+	 * 附件公共接口
+	 */
 	export interface IModule {
 		api?: UserAPI
 		/**

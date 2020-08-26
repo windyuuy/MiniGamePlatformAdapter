@@ -25,6 +25,9 @@ namespace GDK {
 		KVDataList: KVData[]
 	}
 
+	/**
+	 * 用户数据
+	 */
 	export interface IUserData extends IModule {
 		openId: string
 		openKey: string

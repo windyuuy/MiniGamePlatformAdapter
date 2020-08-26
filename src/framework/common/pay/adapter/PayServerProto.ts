@@ -8,7 +8,9 @@ namespace GDK.PayFlow {
 		unknown = 0,
 	}
 
-	// 订单信息
+	/**
+	 * 订单信息
+	 */
 	export type OrderInfoRaw = {
 		id: string //订单id
 		userId: string //用户id
@@ -22,7 +24,9 @@ namespace GDK.PayFlow {
 		payWay?: PayFlow.PayWay
 	}
 
-	// 订单信息
+	/**
+	 * 订单信息
+	 */
 	export type OrderInfo = {
 		outTradeNo: string //订单号,以此为准,例如: "20002_1_1530164811210"
 		state: OrderState //状态(0:未知,1:成功,2:失败)

@@ -1,7 +1,7 @@
 /** gdkjsb */
 namespace GDK {
 	/**
-	 * jsb
+	 * 热更
 	 */
 	export interface IHotUpdate {
 		

@@ -111,7 +111,10 @@ namespace GDK {
 	// }
 
 	// 自动生成
-	/** 登录接口 */
+	/**
+	 * 用户接口
+	 * @usage 包括登录、用户存档管理等
+	 */
 	export interface IUser extends IModule {
 		/** 登录 */
 		login(params?: LoginParams): Promise<LoginResult>

@@ -97,6 +97,10 @@ namespace GDK {
 			appId: string
 		}
 	}
+
+	/**
+	 * 游戏信息
+	 */
 	export interface IGameInfo extends IModule {
 		/**
          * 游戏的启动模式，可以是：

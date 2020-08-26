@@ -10,6 +10,7 @@ namespace GDK {
 	export type TSeconds = number
 	// export type senconds=number
 	export type primitive = number | string | boolean | null | undefined
+	export type PrimitiveData = number | string | boolean
 	export type PrimitiveMap = { [key: string]: primitive }
 
 	// /** 基本请求错误码 */

@@ -2,6 +2,9 @@ namespace GDK.PayFlow {
 
     const log = new slib.Log({ time: false, tags: ['[PayFlow]'] })
 
+    /**
+     * 应用订单信息
+     */
     export type ApplyOrderInfo = {
         /**
          * 订单信息
@@ -22,6 +25,9 @@ namespace GDK.PayFlow {
         options?: PaymentMergeOptions,
     }
 
+    /**
+     * 订单记录
+     */
     @slib.SafeClass('OrderRecord')
     export class OrderRecord {
         orderno: string = 'invalid'
@@ -66,6 +72,9 @@ namespace GDK.PayFlow {
 
     }
 
+    /**
+     * 订单记录列表
+     */
     @slib.SafeClass("PayRecords")
     export class PayRecords {
 
@@ -79,19 +88,40 @@ namespace GDK.PayFlow {
          */
         orderRecordList: OrderRecord[] = [];
 
+        /**
+         * 增加记录，并立即存档
+         * @param orderInfo 
+         * @param config 
+         */
         addRecord(orderInfo: OrderInfo, config: RechargeConfigRow) {
             this.orderRecordList.push(new OrderRecord(orderInfo, OrderState.unknown, config))
             payDeps.storage.saveToLocalStorage()
         }
 
+        /**
+         * 增加记录
+         * @param orderInfo
+         * @param config
+         */
         addRecordRaw(orderInfo: OrderInfo, config: RechargeConfigRow) {
             this.orderRecordList.push(new OrderRecord(orderInfo, orderInfo.state, config))
         }
 
+        /**
+         * 回滚订单
+         * @param orderInfo 
+         * @param config 
+         */
         deapplyRecord(orderInfo: OrderInfo, config: RechargeConfigRow) {
             log.error('产生订单回滚,暂不作处理')
         }
 
+        /**
+         * 提交埋点
+         * @param key 
+         * @param config 
+         * @param orderInfo 
+         */
         commitPayLog(key: string, config: PaymentParams, orderInfo: OrderInfo) {
             try {
                 payStatistic.commitLog(key, config, orderInfo)
@@ -100,6 +130,12 @@ namespace GDK.PayFlow {
             }
         }
 
+        /**
+         * 提交已经支付埋点
+         * @param key
+         * @param config
+         * @param orderInfo
+         */
         commitPaidLog(key: string, config: PaymentParams, orderInfo: OrderInfo) {
             try {
                 payStatistic.commitPaidLog(key, config, orderInfo)
@@ -108,6 +144,12 @@ namespace GDK.PayFlow {
             }
         }
 
+        /**
+         * 应用订单
+         * @param orderInfo 
+         * @param config 
+         * @param options 
+         */
         applyRecord(orderInfo: OrderInfo, config: RechargeConfigRow, options: PaymentMergeOptions) {
             // 由于没有记录历史商品配置,如果发生了订单记录丢失,那么就按照现在的商品配置来计量
 
@@ -165,6 +207,10 @@ namespace GDK.PayFlow {
 
         }
 
+        /**
+         * 该充值项是否已被购买过一次
+         * @param config 
+         */
         isItemBoughtEver(config: RechargeConfigRow): boolean {
             return !!this.orderRecordList.find(info => info.Id == config.id && info.state == OrderState.ok)
         }

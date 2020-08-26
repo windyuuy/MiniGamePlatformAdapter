@@ -31,6 +31,12 @@ namespace GDK.PayFlow {
 			return payDeps.logCommitTool
 		}
 
+		/**
+		 * 调用原生 logCustomEvent 接口打点
+		 * @param key 
+		 * @param config 
+		 * @param orderInfo 
+		 */
 		commitLog(key: string, config: PaymentParams, orderInfo: OrderInfo) {
 
 			if(!this.enableNativeLog){
@@ -67,6 +73,12 @@ namespace GDK.PayFlow {
 			})
 		}
 
+		/**
+		 * 调用原生 logRequestPay/logPurchased 接口打点
+		 * @param logType 
+		 * @param config 
+		 * @param orderInfo 
+		 */
 		commitPaidLog(logType: string, config: PaymentParams, orderInfo: OrderInfo) {
 
 			if (!this.enableNativeLog) {
@@ -104,6 +116,10 @@ namespace GDK.PayFlow {
 			})
 		}
 
+		/**
+		 * 调用 gleeserver 的 commitCommon
+		 * @param data 
+		 */
 		commitGSCommonLog(data: { index: number, eventName: string } | any): void {
 
 			if (!this.enableGSLog) {
@@ -113,6 +129,10 @@ namespace GDK.PayFlow {
 			return this.logCommitTool.commitCommon(data)
 		}
 
+		/**
+		* 调用 gleeserver 的 commitDevlog
+		* @param data
+		*/
 		commitGSDevLog(data: {
 			/**
 			 * 事件类型参考附录

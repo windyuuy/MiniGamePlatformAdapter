@@ -140,6 +140,10 @@ namespace GDK {
 		/** 隐藏键盘 */
 		hideKeyboard(object: Object): Promise<void>
 	}
+
+	/**
+	 * 各种UI小部件调用
+	 */
 	export interface IWidgets {
 		/** 系统键盘对象 */
 		readonly keyboard: IKeyBoard

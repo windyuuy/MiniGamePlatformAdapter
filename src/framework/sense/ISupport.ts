@@ -1,4 +1,7 @@
 namespace GDK {
+	/**
+	 * 各种功能支持项配置
+	 */
 	export interface ISupport {
 		/** 是否支持分享 */
 		supportShare: boolean

@@ -22,7 +22,13 @@ namespace GDK.PayFlow {
 		}
 
 
-		// 请求服务器生成订单
+		/**
+		 * 请求服务器生成订单
+		 * @param data 
+		 * @param callback 
+		 * @param modal 
+		 * @param errorCallback 
+		 */
 		orderGenOrder(
 			data: {
 				payWay: PayFlow.PayWay,
@@ -102,7 +108,13 @@ namespace GDK.PayFlow {
 			})();
 		}
 
-		// 检查订单状态
+		/**
+		 * 检查订单状态
+		 * @param data 
+		 * @param callback 
+		 * @param modal 
+		 * @param errorCallback 
+		 */
 		orderCheckOrderState(
 			data: {
 				payWay: PayFlow.PayWay,
@@ -234,7 +246,13 @@ namespace GDK.PayFlow {
 			}, { modal: modal, errorCallback: errorCallback })
 		}
 
-		// 请求历史差异订单
+		/**
+		 * 请求历史差异订单
+		 * @param data 
+		 * @param callback 
+		 * @param modal 
+		 * @param errorCallback 
+		 */
 		orderReqDiffOrderList(
 			data: {
                 /*
