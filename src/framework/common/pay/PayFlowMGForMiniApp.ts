@@ -45,15 +45,15 @@ namespace GDK.PayFlow {
 		initConfig(parent: Parent) {
 			this._parent = parent
 
-			if (gdk.gameInfo.requireCustomServicePay) {
+			if (payDeps.api.gameInfo.requireCustomServicePay) {
 				this._payFlow = new PayOutside.PayFlow()
 				this._payFlow['_status'] = this._status
 				this._payFlow.initConfig(this._parent)
-			} else if (gdk.gameInfo.requireMiniAppPay) {
+			} else if (payDeps.api.gameInfo.requireMiniAppPay) {
 				this._payFlow = new PayOutside.PayFlow()
 				this._payFlow['_status'] = this._status
 				this._payFlow.initConfig(this._parent)
-			} else if (gdk.gameInfo.requireIndiaSPSPay) {
+			} else if (payDeps.api.gameInfo.requireIndiaSPSPay) {
 				this._payFlow = new PayOutsideGamepind.PayFlow()
 				this._payFlow['_status'] = this._status
 				this._payFlow.initConfig(this._parent)
@@ -79,8 +79,8 @@ namespace GDK.PayFlow {
 					})
 				} else {
 					log.info('设置补单监听')
-					gdk.onShow!(() => {
-						log.info('程序切回前台 payflow', gdk.gameInfo.requireMiniAppPay, gdk.gameInfo.requireCustomServicePay)
+					payDeps.api.onShow!(() => {
+						log.info('程序切回前台 payflow', payDeps.api.gameInfo.requireMiniAppPay, payDeps.api.gameInfo.requireCustomServicePay)
 						if ((!payFlow.isPayCallbackValid)) {
 							// 小程序跳转支付和客服跳转支付才需要每次切换回来补单
 							this.pullDiffOrders(() => { })

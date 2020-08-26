@@ -55,16 +55,16 @@ namespace GDK.PayFlow.APayBase {
 			if (onShow) {
 				log.info('设置自定义补单监听')
 				onShow(() => {
-					if (gdk.gameInfo.requireMiniAppPay || gdk.gameInfo.requireCustomServicePay || gdk.gameInfo.requireIndiaSPSPay) {
+					if (payDeps.api.gameInfo.requireMiniAppPay || payDeps.api.gameInfo.requireCustomServicePay || payDeps.api.gameInfo.requireIndiaSPSPay) {
 						// 小程序跳转支付和客服跳转支付才需要每次切换回来补单
 						this.pullDiffOrders(() => { })
 					}
 				})
 			} else {
 				log.info('设置补单监听')
-				gdk.onShow(() => {
-					log.info('程序切回前台 paybase', gdk.gameInfo.requireMiniAppPay, gdk.gameInfo.requireCustomServicePay)
-					if (gdk.gameInfo.requireMiniAppPay || gdk.gameInfo.requireCustomServicePay || gdk.gameInfo.requireIndiaSPSPay) {
+				payDeps.api.onShow(() => {
+					log.info('程序切回前台 paybase', payDeps.api.gameInfo.requireMiniAppPay, payDeps.api.gameInfo.requireCustomServicePay)
+					if (payDeps.api.gameInfo.requireMiniAppPay || payDeps.api.gameInfo.requireCustomServicePay || payDeps.api.gameInfo.requireIndiaSPSPay) {
 						// 小程序跳转支付和客服跳转支付才需要每次切换回来补单
 						this.pullDiffOrders(() => { })
 					}
@@ -427,7 +427,7 @@ namespace GDK.PayFlow.APayBase {
 				districtId: extra && extra.customExtra || null,
 				itemId: this.getCoinId(config),
 				qqGoodid: config.productId,
-				token: (gdk.userData as any).token,
+				token: (payDeps.api.userData as any).token,
 				others: (config as PaymentParams).others,
 				// channelId: this._parent.channelId,
 				extra: extra,
@@ -439,7 +439,7 @@ namespace GDK.PayFlow.APayBase {
 					successCallback(data.data)
 				} else {
 					failCallback()
-					if (gdk.pluginName === "oppo") {
+					if (payDeps.api.pluginName === "oppo") {
 						log.info("oppo请求订单失败")
 						if (data.code && data.code == 501) {
 							log.info("oppo 重新登录")
@@ -469,7 +469,7 @@ namespace GDK.PayFlow.APayBase {
 			log.info(`errCode: ${errCode}, msg: ${msg}`)
 			if (mdebug && msg) {
 				setTimeout(() => {
-					gdk.showToast({ title: msg })
+					payDeps.api.showToast({ title: msg })
 				})
 			}
 		}
@@ -500,7 +500,7 @@ namespace GDK.PayFlow.APayBase {
 				let extraStr = ""
 				if (config.payWay == "meituAppPay") {
 					extraStr = orderInfo.payInfo
-				} else if (gdk.pluginName == "gamepind") {
+				} else if (payDeps.api.pluginName == "gamepind") {
 					extraStr = orderInfo.payInfo
 				} else if (config.payWay == "UnifiedSdk") {
 					extraStr = JSON.stringify({ outTradeNo: orderInfo.outTradeNo })
@@ -533,11 +533,11 @@ namespace GDK.PayFlow.APayBase {
 					gameSign: orderInfo.game_sign
 				}
 				let channelType: GDK.ChannelType
-				if (gdk.gameInfo.requireCustomServicePay) {
+				if (payDeps.api.gameInfo.requireCustomServicePay) {
 					channelType = "customer_service"
-				} else if (gdk.gameInfo.requireMiniAppPay) {
+				} else if (payDeps.api.gameInfo.requireMiniAppPay) {
 					channelType = "miniapp"
-				} else if (gdk.gameInfo.requireIndiaSPSPay) {
+				} else if (payDeps.api.gameInfo.requireIndiaSPSPay) {
 					channelType = "gamepind"
 				} else {
 					channelType = "origion"
@@ -554,7 +554,7 @@ namespace GDK.PayFlow.APayBase {
 					customExtra: customExtra,
 				}
 				log.info("ApiPay payWay", config.payWay);
-				gdk.payPurchase(params, nativePayInfo).then((data) => {
+				payDeps.api.payPurchase(params, nativePayInfo).then((data) => {
 					log.info("ApiPay充值结果", 0, item);
 					let errCode = 0
 					if (errCode == 0) {
@@ -567,7 +567,7 @@ namespace GDK.PayFlow.APayBase {
 							payStatistic.commitGSCommonLog({
 								eventId: 20001,
 								index: 3,
-								eventName: "gdk.payPurchase",
+								eventName: "payDeps.api.payPurchase",
 								eventValue: JSON.stringify({
 									reason: { errCode: errCode, state: OrderState.unknown, extra: data.extra },
 									config: config,
@@ -586,7 +586,7 @@ namespace GDK.PayFlow.APayBase {
 						payStatistic.commitGSCommonLog({
 							eventId: 20001,
 							index: 2,
-							eventName: "gdk.payPurchase",
+							eventName: "payDeps.api.payPurchase",
 							eventValue: JSON.stringify({
 								reason: reason,
 								config: config,
@@ -615,7 +615,7 @@ namespace GDK.PayFlow.APayBase {
 					payStatistic.commitGSCommonLog({
 						eventId: 20001,
 						index: 1,
-						eventName: "gdk.payPurchase",
+						eventName: "payDeps.api.payPurchase",
 						eventValue: JSON.stringify({
 							reason: e && e.toString(),
 							config: config,
@@ -636,7 +636,7 @@ namespace GDK.PayFlow.APayBase {
 		// 检查订单状态
 		checkOrderState({ orderno, extra, config }: { orderno: string, extra: wxPayState, config: RechargeConfigRow }, successCallback: (state: number) => void, failCallback?: Function) {
 			let nativePayData: { purchaseData?: string, dataSignature?: string } = {}
-			if (gdk.pluginName == "app" || gdk.pluginName == "appv2") {
+			if (payDeps.api.pluginName == "app" || payDeps.api.pluginName == "appv2") {
 				try {
 					nativePayData = typeof (extra.extra.data) == 'string' ? JSON.parse(extra.extra.data) : extra.extra.data
 					log.info('原生支付订单验证信息:', nativePayData.purchaseData, nativePayData.dataSignature)
@@ -651,8 +651,8 @@ namespace GDK.PayFlow.APayBase {
 				errCode: extra.errCode,
 				state: extra.state,
 				goodsId: config.id,
-				gameId: gdk.gameInfo.gameId,
-				openKey: gdk.userData.openKey,
+				gameId: payDeps.api.gameInfo.gameId,
+				openKey: payDeps.api.userData.openKey,
 				purchaseData: nativePayData && nativePayData.purchaseData,
 				signature: nativePayData && nativePayData.dataSignature,
 				// channelId: this._parent.channelId,
@@ -678,8 +678,8 @@ namespace GDK.PayFlow.APayBase {
 			log.info("[APayBase]reqDiffOrderList:")
 			payNetClient.orderReqDiffOrderList({
 				time: time,
-				gameId: gdk.gameInfo.gameId,
-				openKey: gdk.userData.openKey,
+				gameId: payDeps.api.gameInfo.gameId,
+				openKey: payDeps.api.userData.openKey,
 				// purchaseData: {},
 				purchaseData: null,
 			}, (data) => {
@@ -773,7 +773,7 @@ namespace GDK.PayFlow.APayBase {
 
 					// PayRecords 已经加过，此处不需要再加
 					// //log order
-					// gdk.commitChannelsLog("Paid", {
+					// payDeps.api.commitChannelsLog("Paid", {
 					// 	id: config.productId,
 					// 	count: config.amount,
 					// 	currency: "$",

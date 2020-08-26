@@ -27,17 +27,17 @@ namespace GDK.PayFlow.PayOutsideGamepind {
                 districtId: extra && extra.customExtra || null,
                 itemId: this.getCoinId(config),
                 qqGoodid: config.productId,
-                token: (gdk.userData as any).token,
+                token: (payDeps.api.userData as any).token,
                 // channelId: this._parent.channelId,
                 extra: extra,
-                others: { redirectUrl: (gdk.userData as any).ext1, deviceId: (gdk.userData as any).ext2 }
+                others: { redirectUrl: (payDeps.api.userData as any).ext1, deviceId: (payDeps.api.userData as any).ext2 }
             }, data => {
                 if (data.succeed) {
                     log.info("gamepind: 订单获取成功", data)
                     successCallback(data.data)
                 } else {
                     failCallback()
-                    if (gdk.pluginName === "oppo") {
+                    if (payDeps.api.pluginName === "oppo") {
                         log.info("oppo请求订单失败")
                         if (data.code && data.code == 501) {
                             log.info("oppo 重新登录")

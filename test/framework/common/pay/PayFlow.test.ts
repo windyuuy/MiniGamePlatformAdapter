@@ -26,6 +26,8 @@ type TestSet_diffOrderList = {
 
 class TestPayFlow {
 	init() {
+		GDK.PayFlow.payDeps.api = gdk
+		return this
 	}
 
 	test_diffOrderList() {
@@ -303,6 +305,6 @@ class TestPayFlow {
 }
 
 test("diffOrderList", () => {
-	const a = new TestPayFlow()
+	const a = new TestPayFlow().init()
 	a.test_diffOrderList()
 })

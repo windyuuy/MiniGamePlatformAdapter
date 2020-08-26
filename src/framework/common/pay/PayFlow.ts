@@ -38,8 +38,8 @@ namespace GDK.PayFlow {
 		protected _payFlow!: IPayFlow
 		protected _appPayFlowMap: { [index: string]: IPayFlow } = {}
 		getPayFlow(payWay: string): IPayFlow {
-			if (gdk.pluginName == "app" || gdk.pluginName == "appv2") {
-				if (gdk.nativeVersion <= 0) {
+			if (payDeps.api.pluginName == "app" || payDeps.api.pluginName == "appv2") {
+				if (payDeps.api.nativeVersion <= 0) {
 					return this._appPayFlowMap["NativeVersionLessThan0"];
 				} else {
 					return this._appPayFlowMap[payWay]
@@ -61,7 +61,7 @@ namespace GDK.PayFlow {
 		initConfig(parent: Parent) {
 			this._parent = parent
 
-			if (gdk.pluginName == "app" || gdk.pluginName == "appv2") {
+			if (payDeps.api.pluginName == "app" || payDeps.api.pluginName == "appv2") {
 				// 统一格式为payWays
 				let payWays: PayWay[] = []
 				if (this._parent.payWays instanceof Array) {
@@ -83,8 +83,8 @@ namespace GDK.PayFlow {
 				this._parent.payWays = payWays
 			}
 
-			if (gdk.pluginName == "app" || gdk.pluginName == "appv2") {
-				console.log("nativeVersion:", gdk.nativeVersion)
+			if (payDeps.api.pluginName == "app" || payDeps.api.pluginName == "appv2") {
+				console.log("nativeVersion:", payDeps.api.nativeVersion)
 
 				this._appPayFlowMap["WechatPay"] = new PayInApp.PayFlow()
 				this._appPayFlowMap["AliPay"] = new PayInAppWithAutoMakeup.PayFlow()
@@ -104,15 +104,15 @@ namespace GDK.PayFlow {
 					payFlow.initConfig(this._parent)
 					payFlow['_status'] = this._status
 				}
-			} else if (gdk.gameInfo.requireCustomServicePay) {
+			} else if (payDeps.api.gameInfo.requireCustomServicePay) {
 				this._payFlow = new PayOutside.PayFlow()
 				this._payFlow['_status'] = this._status
 				this._payFlow.initConfig(this._parent)
-			} else if (gdk.gameInfo.requireMiniAppPay) {
+			} else if (payDeps.api.gameInfo.requireMiniAppPay) {
 				this._payFlow = new PayOutside.PayFlow()
 				this._payFlow['_status'] = this._status
 				this._payFlow.initConfig(this._parent)
-			} else if (gdk.gameInfo.requireIndiaSPSPay) {
+			} else if (payDeps.api.gameInfo.requireIndiaSPSPay) {
 				this._payFlow = new PayOutsideGamepind.PayFlow()
 				this._payFlow['_status'] = this._status
 				this._payFlow.initConfig(this._parent)
@@ -131,16 +131,16 @@ namespace GDK.PayFlow {
 				if (onShow) {
 					log.info('设置自定义补单监听')
 					onShow(() => {
-						if ((!payFlow.isPayCallbackValid) || gdk.pluginName == 'oppo' || gdk.pluginName == "vivo") {
+						if ((!payFlow.isPayCallbackValid) || payDeps.api.pluginName == 'oppo' || payDeps.api.pluginName == "vivo") {
 							// 小程序跳转支付和客服跳转支付才需要每次切换回来补单
 							this.pullDiffOrders(() => { })
 						}
 					})
 				} else {
 					log.info('设置补单监听')
-					gdk.onShow!(() => {
-						log.info('程序切回前台 payflow', gdk.gameInfo.requireMiniAppPay, gdk.gameInfo.requireCustomServicePay)
-						if ((!payFlow.isPayCallbackValid) || gdk.pluginName == 'oppo' || gdk.pluginName == "vivo") {
+					payDeps.api.onShow!(() => {
+						log.info('程序切回前台 payflow', payDeps.api.gameInfo.requireMiniAppPay, payDeps.api.gameInfo.requireCustomServicePay)
+						if ((!payFlow.isPayCallbackValid) || payDeps.api.pluginName == 'oppo' || payDeps.api.pluginName == "vivo") {
 							// 小程序跳转支付和客服跳转支付才需要每次切换回来补单
 							this.pullDiffOrders(() => { })
 						}
@@ -156,7 +156,7 @@ namespace GDK.PayFlow {
 
 			// let payFlow = this.getPayFlow("WechatPay")
 			// return payFlow.pullDiffOrders(successCallback, failCallback)
-			if (gdk.pluginName == "app" || gdk.pluginName == "appv2") {
+			if (payDeps.api.pluginName == "app" || payDeps.api.pluginName == "appv2") {
 				let payWays = this._parent.payWays!
 				let payFlows = payWays.map(thePayWay => this._appPayFlowMap[thePayWay])
 
@@ -206,7 +206,7 @@ namespace GDK.PayFlow {
 		 * @param callback 支付成功回调
 		 */
 		public payment(config: PaymentParams, successCallback?: PaymentSuccessCallback, failCallback?: Function) {
-			if (gdk.sdkFrameworkVersion == '2.0') {
+			if (payDeps.api.sdkFrameworkVersion == '2.0') {
 				// sdk2.0自带实名认证
 				config.payWay = config.payWay || (this._parent.channelId as PayWay)
 				let payFlow = this.getPayFlow(config.payWay)

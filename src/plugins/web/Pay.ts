@@ -11,7 +11,7 @@ namespace WebGDK {
 				return this.payFlow
 			}
 
-			this.payFlow = new PayFlow.PayFlowMG()
+			this.payFlow = new PayFlow.PayFlowMG().init(this.api)
 			return this.payFlow
 		}
 

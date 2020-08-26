@@ -32,18 +32,18 @@ namespace GDK.PayFlow.PayInsideLocalV1 {
 		// 			currencyUnit: "CNY",
 		// 		}
 		// 		let channelType: GDK.ChannelType
-		// 		if (gdk.gameInfo.requireCustomServicePay) {
+		// 		if (payDeps.api.gameInfo.requireCustomServicePay) {
 		// 			channelType = "customer_service"
-		// 		} else if (gdk.gameInfo.requireMiniAppPay) {
+		// 		} else if (payDeps.api.gameInfo.requireMiniAppPay) {
 		// 			channelType = "miniapp"
 		// 		} else {
 		// 			channelType = "origion"
 		// 		}
 
 		// 		let consumeLeft = (onDone: Function) => {
-		// 			gdk.queryItemInfo({ productId: config.productId }).then((ret) => {
+		// 			payDeps.api.queryItemInfo({ productId: config.productId }).then((ret) => {
 		// 				if (ret.code == 0) {
-		// 					gdk.consumePurchase({ purchaseToken: ret.data.purchaseToken }).then((ret) => {
+		// 					payDeps.api.consumePurchase({ purchaseToken: ret.data.purchaseToken }).then((ret) => {
 		// 						onDone()
 		// 					}, () => {
 		// 						onDone()
@@ -57,7 +57,7 @@ namespace GDK.PayFlow.PayInsideLocalV1 {
 		// 		}
 
 		// 		let payMoney = () => {
-		// 			gdk.payPurchase(params, {
+		// 			payDeps.api.payPurchase(params, {
 		// 				gameOrientation: gameOrientation,
 		// 				channelType: channelType,
 		// 				gleeZoneId: gleeZoneId,
@@ -71,7 +71,7 @@ namespace GDK.PayFlow.PayInsideLocalV1 {
 		// 					let checkSign: { purchaseToken: string } = data.extra.data
 		// 					log.info("ApiPay充值成功", item);
 		// 					successCallback({ errCode: errCode, state: OrderState.ok, extra: data.extra })
-		// 					gdk.consumePurchase({ purchaseToken: checkSign.purchaseToken })
+		// 					payDeps.api.consumePurchase({ purchaseToken: checkSign.purchaseToken })
 		// 				} else {
 		// 					log.info("ApiPay充值失败", item);
 		// 					failCallback({ errCode: errCode, state: OrderState.unknown, extra: data.extra })

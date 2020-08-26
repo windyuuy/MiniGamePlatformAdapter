@@ -32,6 +32,8 @@ namespace GDK.PayFlow {
 		isUserDealingOrder():boolean{
 			return false
 		}
+
+		api!:UserAPI
 	}
 
 	export const payDeps = new PayDeps()

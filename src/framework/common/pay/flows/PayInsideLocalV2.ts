@@ -163,7 +163,7 @@ namespace GDK.PayFlow.PayInsideLocalV2 {
 				if (state == OrderState.ok || state == OrderState.fail) {
 					// 成功（正常订单）、失败（异常订单）都需要消耗
 					// 但合并中，只有成功的才发奖励，失败的不发
-					gdk.consumePurchase({ payWay: config.payWay, purchaseToken }).then((ret) => {
+					payDeps.api.consumePurchase({ payWay: config.payWay, purchaseToken }).then((ret) => {
 						if (ret.code == 0 || ret.code == 8) {
 							mergeOrders()
 						} else {
@@ -209,7 +209,7 @@ namespace GDK.PayFlow.PayInsideLocalV2 {
 				if (state == OrderState.ok || state == OrderState.fail) {
 					// 成功（正常订单）、失败（异常订单）都需要消耗
 					// 但合并中，只有成功的才发奖励，失败的不发
-					gdk.consumePurchase({ payWay: config.payWay, purchaseToken }).then((ret) => {
+					payDeps.api.consumePurchase({ payWay: config.payWay, purchaseToken }).then((ret) => {
 						if (ret.code == 0 || ret.code == 8) {
 							mergeOrders()
 						} else {
@@ -274,7 +274,7 @@ namespace GDK.PayFlow.PayInsideLocalV2 {
 
 			var beginRequestPay = () => {
 				let productId = config.productId
-				gdk.queryItemInfo({ payWay: config.payWay, productId: productId }).then((ret) => {
+				payDeps.api.queryItemInfo({ payWay: config.payWay, productId: productId }).then((ret) => {
 					if (ret.code == 0) {
 						// 签名数据
 						let checkSign = ret.data
@@ -366,7 +366,7 @@ namespace GDK.PayFlow.PayInsideLocalV2 {
 				let delay = 0
 				let genUnconsumedOrder = (config: RechargeConfigRow) => {
 					return new Promise((resolve, reject) => {
-						gdk.queryItemInfo({ payWay: config.payWay, productId: config.productId }).then((ret) => {
+						payDeps.api.queryItemInfo({ payWay: config.payWay, productId: config.productId }).then((ret) => {
 							if (ret.code == 0) {
 								let isBindOrderExist = diffList.find(info => info.purchaseToken == ret.data.purchaseToken) || this.checkOutLocalOrder(ret.data.purchaseToken, config.payWay)
 								if (isBindOrderExist) {
@@ -407,7 +407,7 @@ namespace GDK.PayFlow.PayInsideLocalV2 {
 
 				let genQueryAwait = (info: OrderInfo, config: RechargeConfigRow) => {
 					return new Promise((resolve, reject) => {
-						gdk.queryItemInfo({ payWay: config.payWay, productId: config.productId }).then((ret) => {
+						payDeps.api.queryItemInfo({ payWay: config.payWay, productId: config.productId }).then((ret) => {
 							if (ret.code == 0) {
 								// 签名数据
 								let checkSign = ret.data
@@ -453,7 +453,7 @@ namespace GDK.PayFlow.PayInsideLocalV2 {
 						if (info.purchaseToken) {
 							if (info.state == OrderState.ok || info.state == OrderState.fail) {
 								// 只有成功、失败订单才能尝试消耗
-								let p = gdk.consumePurchase({ payWay: info.payWay, purchaseToken: info.purchaseToken })
+								let p = payDeps.api.consumePurchase({ payWay: info.payWay, purchaseToken: info.purchaseToken })
 								consumeAwaitList.push(p)
 								p.then((ret) => {
 									if (ret.code == 0 || ret.code == 8) {

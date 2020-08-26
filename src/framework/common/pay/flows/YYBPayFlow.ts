@@ -96,12 +96,12 @@ namespace GDK.PayFlow.YYBPayFlow {
         // 请求订单清单
         reqDiffOrderList({ time }: { time: number }, successCallback: (result: OrderInfo[]) => void, failCallback?: Function) {
             log.info('YYBPayFlow: queryItemInfo')
-            gdk.queryItemInfo({ payWay: "YYBPay", productId: "xxxx" }).then((ret) => {
+            payDeps.api.queryItemInfo({ payWay: "YYBPay", productId: "xxxx" }).then((ret) => {
                 if (ret.code == 0) {
                     payNetClient.orderReqDiffOrderList({
                         time: time,
-                        gameId: gdk.gameInfo.gameId,
-                        openKey: gdk.userData.openKey,
+                        gameId: payDeps.api.gameInfo.gameId,
+                        openKey: payDeps.api.userData.openKey,
                         purchaseData: { "payType": ret.data.productId, "token": ret.data.purchaseToken, "pf": ret.data.purchaseData, "pf_key": ret.data.dataSignature },
                     }, (data) => {
                         if (data.succeed) {

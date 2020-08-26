@@ -37,7 +37,7 @@ namespace GDK.PayFlow {
 				return
 			}
 
-			// gdk.commitChannelsLog("PayLog", {
+			// payDeps.api.commitChannelsLog("PayLog", {
 			// 	id: config.productId,
 			// 	count: config.amount,
 			// 	currency: '',
@@ -46,7 +46,7 @@ namespace GDK.PayFlow {
 
 			config = config || {} as PaymentParams
 			orderInfo = orderInfo || {} as OrderInfo
-			gdk.commitLog(key, {
+			payDeps.api.commitLog(key, {
 				id: `${config.id}`,
 				money: `${config.money}`,
 				price: `${config.price}`,
@@ -95,7 +95,7 @@ namespace GDK.PayFlow {
 			}
 
 			//log order
-			gdk.commitChannelsLog(logType, {
+			payDeps.api.commitChannelsLog(logType, {
 				id: config.productId,
 				count: config.amount,
 				currency: currency,

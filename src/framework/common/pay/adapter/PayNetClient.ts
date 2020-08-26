@@ -52,14 +52,14 @@ namespace GDK.PayFlow {
 		) {
 			(async () => {
 				let path = 'order/createOrder'
-				if (gdk.pluginName == 'app' || gdk.pluginName == 'appv2') {
+				if (payDeps.api.pluginName == 'app' || payDeps.api.pluginName == 'appv2') {
 					if (data.payWay == "WechatPay") {
 						path = 'order/wx/createWxAppOrder'
 					} else if (data.payWay == "AliPay") {
 						path = 'alipay/createOrder'
 					} else if (data.payWay == "VivoAppPay") {
 						path = 'vivo/createOrder'
-						let metaInfo = await gdk.getSDKMetaInfo({ key: "vivo:SDKVersionCode" })
+						let metaInfo = await payDeps.api.getSDKMetaInfo({ key: "vivo:SDKVersionCode" })
 						if (metaInfo != null && metaInfo.version == 2) {
 							path = "vivo/app/createOrder"
 						}
@@ -78,14 +78,14 @@ namespace GDK.PayFlow {
 					} else if (data.payWay == "IosPay") {
 						path = 'order/createOrder';
 					}
-				} else if (gdk.pluginName == 'oppo') {
+				} else if (payDeps.api.pluginName == 'oppo') {
 					path = 'oppok/createOrder'
-					data["userToken"] = (gdk.userData as any).token
-				} else if (gdk.pluginName == 'qqminiapp') {
+					data["userToken"] = (payDeps.api.userData as any).token
+				} else if (payDeps.api.pluginName == 'qqminiapp') {
 					path = 'qqn/createOrder'
-				} else if (gdk.pluginName == 'vivo') {
+				} else if (payDeps.api.pluginName == 'vivo') {
 					path = 'vivo/createOrder'
-				} else if (gdk.pluginName == 'gamepind') {
+				} else if (payDeps.api.pluginName == 'gamepind') {
 					path = 'pind/createOrder'
 				}
 				this.client.request(path, data, (data) => {
@@ -94,7 +94,7 @@ namespace GDK.PayFlow {
 					}
 
 					if (data.code == 800) {
-						gdk.showAlert({ okLabel: "确定", content: data.message, title: "提示" })
+						payDeps.api.showAlert({ okLabel: "确定", content: data.message, title: "提示" })
 					}
 
 					callback(data);
@@ -212,19 +212,19 @@ namespace GDK.PayFlow {
 					normal: 'order/apple/synchronizeAppleOrder',
 				},
 			}
-			let pathInfo = pluginPathMap[gdk.pluginName]
+			let pathInfo = pluginPathMap[payDeps.api.pluginName]
 			let path = pathInfo.normal
 			// 细分app渠道
-			if ((gdk.pluginName == 'app' || gdk.pluginName == 'appv2') && (!!appChannelPathMap[data.payWay])) {
+			if ((payDeps.api.pluginName == 'app' || payDeps.api.pluginName == 'appv2') && (!!appChannelPathMap[data.payWay])) {
 				const payWay = data.payWay
 				path = appChannelPathMap[payWay].normal || appChannelPathMap['default'].normal
-			} else if (gdk.platform == "android") {
+			} else if (payDeps.api.platform == "android") {
 				path = pathInfo.android || path
-			} else if (gdk.platform == "ios") {
+			} else if (payDeps.api.platform == "ios") {
 				path = pathInfo.ios || path
 			}
 			this.client.request(path, data, (data) => {
-				if (gdk.pluginName == "develop") {
+				if (payDeps.api.pluginName == "develop") {
 					// 浏览器上模拟测试充值
 					data.succeed = true
 					data.code = 0
@@ -288,17 +288,17 @@ namespace GDK.PayFlow {
 					normal: "order/getOrderList",
 				}
 			}
-			let info = pluginPathMap[gdk.pluginName]
-			if ((gdk.pluginName == 'app' || gdk.pluginName == 'appv2') && gdk.systemInfo.packageTag == "yingyongbaoApp") {
+			let info = pluginPathMap[payDeps.api.pluginName]
+			if ((payDeps.api.pluginName == 'app' || payDeps.api.pluginName == 'appv2') && payDeps.api.systemInfo.packageTag == "yingyongbaoApp") {
 				info = pluginPathMap['YYB']
 			}
 			let path = ''
-			if (gdk.requireMiniAppPay || gdk.requireCustomServicePay) {
+			if (payDeps.api.requireMiniAppPay || payDeps.api.requireCustomServicePay) {
 				path = info.thirdApp
 				data.state = 1
 
 				if (!path) {
-					console.error(`充值配置不正确，生成参数异常，检查 requireMiniAppPay 值是否正确，当前值：${gdk.requireMiniAppPay}`)
+					console.error(`充值配置不正确，生成参数异常，检查 requireMiniAppPay 值是否正确，当前值：${payDeps.api.requireMiniAppPay}`)
 					path = info.normal
 				}
 			} else {

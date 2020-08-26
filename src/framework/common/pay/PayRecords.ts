@@ -59,8 +59,8 @@ namespace GDK.PayFlow {
             this.Amt = config.amount
             this.ItemName = config.title
 
-            if (gdk.userData != null) {
-                this.userId = `${gdk.userData.userId}`
+            if (payDeps.api.userData != null) {
+                this.userId = `${payDeps.api.userData.userId}`
             }
         }
 
@@ -115,7 +115,7 @@ namespace GDK.PayFlow {
             this.commitPaidLog("Paid", config, orderInfo);
 
             // //log order
-            // gdk.commitChannelsLog("Paid", {
+            // payDeps.api.commitChannelsLog("Paid", {
             //     id: config.productId,
             //     count: config.amount,
             //     currency: "$",

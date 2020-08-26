@@ -6,7 +6,7 @@ namespace GDK.PayFlow {
 	const log = new slib.Log({ time: false, tags: ['[PayFlow]'] })
 
 	export abstract class PayFlowMGBase implements IPayFlow {
-		
+
 		_status: PayFlowStatus = new PayFlowStatus()
 
 		protected get _parent() {
@@ -30,20 +30,18 @@ namespace GDK.PayFlow {
 			this._status._rechargeBlockLayerIndex = value
 		}
 
-		constructor() {
-			this.init()
-		}
-
-		init() {
+		init(api: UserAPI) {
+			payDeps.api = api
 			this._rechargeBlockLayerIndex = [payNetClient.client.getLoadingIndex(), 'payflow://index.html']
+			return this
 		}
 
 		abstract readonly payFlowName: string
-		abstract initConfig(parent: Parent): void 
-		abstract payment(config: PaymentParams, successCallback?: PaymentSuccessCallback, failCallback?: Function): void 
+		abstract initConfig(parent: Parent): void
+		abstract payment(config: PaymentParams, successCallback?: PaymentSuccessCallback, failCallback?: Function): void
 		abstract isItemBoughtEver(config: RechargeConfigRow): boolean
 		abstract pullDiffOrders(successCallback: Function, failCallback?: Function, options?: PaymentParamsOptions)
-		abstract initListener(onShow?: (callback: Function) => void): void 
+		abstract initListener(onShow?: (callback: Function) => void): void
 		abstract isPayCallbackValid: boolean
 		abstract orderRecordList: OrderRecordExported[]
 
