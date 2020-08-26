@@ -632,7 +632,11 @@ namespace UnityAppGDK {
 		*/
 		static getResVersion():number {
 			if (this.gdkjsbExist()) {
-				return this.getGdkjsb().getResVersion();
+				let num = parseInt(this.getGdkjsb().getResVersion());
+				if (num == NaN) {
+					return -1;
+				}
+				return num;
 			} else {
 				return -1;
 			}
