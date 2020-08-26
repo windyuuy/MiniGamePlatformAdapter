@@ -1190,6 +1190,20 @@ namespace GDK {
 			}
 			return this._m.apiSystem.getResVersion();
 		}
+
+		get launchOptions(): {
+			scene: number;
+			query: any;
+			path?: string;
+			isSticky: boolean;
+			shareTicket: string;
+			referrerInfo: { appId: string; extraData: any };
+		} {
+			if (!this.checkModuleAttr("share", "launchOptions")) {
+				return undefined;
+			}
+			return this._m.share.launchOptions;
+		}
 		/**
 		 * 分享到聊天窗口
 		 * * 如果目标平台没有明确的聊天窗口，则进行社会化分享。
@@ -1319,6 +1333,25 @@ namespace GDK {
 				return undefined;
 			}
 			return this._m.pay.getUserPayFlow();
+		}
+		/**
+		 * 是个单例
+		 * 创建激励视频广告对象
+		 */
+		createAdvertUnit(createInfo: AdCreateInfo): Promise<IAdvertUnit> {
+			if (!this.checkModuleAttr("advertV2", "createAdvertUnit", "function")) {
+				return this.createNonePromise("[advertV2.createAdvertUnit]");
+			}
+			return this._m.advertV2.createAdvertUnit(createInfo);
+		}
+
+		isAdvertTypeSupported(advertType: AdvertType): boolean {
+			if (
+				!this.checkModuleAttr("advertV2", "isAdvertTypeSupported", "function")
+			) {
+				return undefined;
+			}
+			return this._m.advertV2.isAdvertTypeSupported(advertType);
 		}
 		/**
 		 * 是否需要先初始化广告服务
@@ -1879,25 +1912,6 @@ namespace GDK {
 				return this.createNonePromise("[localPush.isLocalNoticeEnabled]");
 			}
 			return this._m.localPush.isLocalNoticeEnabled();
-		}
-		/**
-		 * 是个单例
-		 * 创建激励视频广告对象
-		 */
-		createAdvertUnit(createInfo: AdCreateInfo): Promise<IAdvertUnit> {
-			if (!this.checkModuleAttr("advertV2", "createAdvertUnit", "function")) {
-				return this.createNonePromise("[advertV2.createAdvertUnit]");
-			}
-			return this._m.advertV2.createAdvertUnit(createInfo);
-		}
-
-		isAdvertTypeSupported(advertType: AdvertType): boolean {
-			if (
-				!this.checkModuleAttr("advertV2", "isAdvertTypeSupported", "function")
-			) {
-				return undefined;
-			}
-			return this._m.advertV2.isAdvertTypeSupported(advertType);
 		}
 		/**
 		 * 游戏热更新功能
