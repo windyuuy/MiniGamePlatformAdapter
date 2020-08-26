@@ -32,6 +32,11 @@ namespace GDK.PayFlow {
 		}
 
 		commitLog(key: string, config: PaymentParams, orderInfo: OrderInfo) {
+
+			if(!this.enableNativeLog){
+				return
+			}
+
 			// gdk.commitChannelsLog("PayLog", {
 			// 	id: config.productId,
 			// 	count: config.amount,
@@ -63,6 +68,11 @@ namespace GDK.PayFlow {
 		}
 
 		commitPaidLog(logType: string, config: PaymentParams, orderInfo: OrderInfo) {
+
+			if (!this.enableNativeLog) {
+				return
+			}
+
 			let price = config.priceUSD;
 			let currency = "USD"
 
@@ -95,6 +105,11 @@ namespace GDK.PayFlow {
 		}
 
 		commitGSCommonLog(data: { index: number, eventName: string } | any): void {
+
+			if (!this.enableGSLog) {
+				return
+			}
+
 			return this.logCommitTool.commitCommon(data)
 		}
 
@@ -116,6 +131,11 @@ namespace GDK.PayFlow {
 			 */
 			eventName: string
 		} | any): void {
+
+			if (!this.enableGSLog) {
+				return
+			}
+
 			return this.logCommitTool.commitDevlog(data)
 		}
 	}
