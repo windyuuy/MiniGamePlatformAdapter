@@ -78,6 +78,30 @@ namespace GDK {
 		key: string,
 	}
 
+	export type AppInfo={
+		/**
+		 * sdk的相关配置
+		 */
+		sdkConfigs?:{
+			/**
+			 * sdk名称
+			 */
+			name:string,
+			/**
+			 * 需要禁用的功能
+			 */
+			disables?:{[key:string]:boolean},
+			/**
+			 * sdk中的参数列表
+			 */
+			parameters?:{[key:string]:string|number|boolean}
+		}[]
+		/**
+		 * 全局参数，往往存放一些自定义参数
+		 */
+		parameters?:{[key:string]:string|number|boolean}
+	} 
+
 	export interface ICheckPermissionResult {
 		/**
 		 * 缺失的权限列表
@@ -207,6 +231,12 @@ namespace GDK {
 		 * @param params 
 		 */
 		getSDKMetaInfo?(params: IGetSDKMetaInfo): Promise<any>
+
+		/**
+		 * 初始化appinfo
+		 * 最终的参数优先从 优先从外层parameters加载，如果找不到则从sdk模块中加载。 
+		 */
+		initAppinfo(appInfo:AppInfo):void;
 
 		/**
 		 * 动态修改appInfo的值，仅在内存中生效，不会影响磁盘中的配置

@@ -4,7 +4,7 @@ namespace AppGDK {
 	export class Advert implements GDK.IAdvert {
 
 		api?: GDK.UserAPI
-		async initWithConfig?(_info: GDK.GDKConfig) {
+		async initWithConfig?(_info: GDK.GDKConfigV2) {
 
 			let info = _info //as GDK.GDKAPPConfig
 

@@ -148,12 +148,25 @@ namespace GDK {
 			return null
 		}
 
+		appInfo:{[key:string]:string | number | boolean}={}
+
+		initAppinfo(info:AppInfo):void{
+			if(info.sdkConfigs)for(let sdk of info.sdkConfigs){
+				if(sdk.parameters)for(let k in sdk.parameters){
+					this.appInfo[`${sdk.name}.${k}`]=sdk.parameters[k];
+				}
+			}
+			if(info.parameters)for(let k in info.parameters){
+				this.appInfo[k]=info.parameters[k];
+			}
+		}
+
 		setAppInfo(key: string, value: string | number | boolean) {
-			devlog.info("setAppInfo", key, value)
+			this.appInfo[key]=value;
 		}
 
 		getAppInfo(key: string):(string | number | boolean| null){
-			return null;
+			return this.appInfo[key];
 		}
 
 		getAppInfoBoolean(key: string,def:boolean):boolean{
@@ -172,7 +185,7 @@ namespace GDK {
 			let v=this.getAppInfo(key)
 			if(typeof v=="number"){
 				return v;
-			}else if(typeof v=="string" && parseFloat(v).toString()==v){
+			}else if(typeof v=="string" && !isNaN(parseFloat(v))){
 				return parseFloat(v);
 			}else{
 				return def;
@@ -189,7 +202,21 @@ namespace GDK {
 		}
 		
 		getResVersion():number{
-			return 0;
+			if((window as any).remoteDownloader && (window as any).remoteDownloader.REMOTE_SERVER_ROOT){
+				//读取最后一位的版本号
+				let r=(window as any).remoteDownloader.REMOTE_SERVER_ROOT as string;
+				let versionList=r.split("/")
+				let a=versionList[versionList.length-1]
+				let b=versionList[versionList.length-2]
+				if(parseInt(a).toString()==a){
+					return parseInt(a)
+				}
+				if(parseInt(b).toString()==a){
+					return parseInt(b)
+				}
+			}
+			//无法拿到版本号
+			return -1;
 		}
 
 

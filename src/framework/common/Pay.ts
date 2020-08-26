@@ -6,7 +6,7 @@ namespace GDK {
 		init?(data?: any): void {
 			throw new Error("Method not implemented.")
 		}
-		initWithConfig?(info: GDKConfig): Promise<void> {
+		initWithConfig?(info: GDKConfigV2): Promise<void> {
 			throw new Error("Method not implemented.")
 		}
 		abstract payPurchase(item: PayItemInfo, options?: PayOptions): Promise<PayResult>

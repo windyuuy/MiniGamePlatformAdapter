@@ -45,6 +45,8 @@ namespace QQMiniAppGDK {
 	export class Share implements GDK.IShare {
 		api?: GDK.UserAPI
 
+		_launchOptions: { scene: number, query: any, path?: string, isSticky: boolean, shareTicket: string, referrerInfo: { appId: string, extraData: any } }
+
 		/**
 		 * 分享的启动参数
 		 */
@@ -53,10 +55,17 @@ namespace QQMiniAppGDK {
 		protected _shareTicket: string = null
 
 		init() {
+			this._launchOptions = wx.getLaunchOptionsSync()
 			wx.onShow((res) => {
 				//获取对应的分享启动参数
 				this._shareParam = res.query
 				this._shareTicket = res.shareTicket
+
+				//刷新启动参数
+				this._launchOptions.query = res.query
+				this._launchOptions.shareTicket = res.shareTicket
+				this._launchOptions.scene = res.scene
+				this._launchOptions.referrerInfo = res.referrerInfo
 			})
 		}
 

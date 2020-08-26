@@ -108,64 +108,17 @@ namespace GDK {
 		 * - 测试
 		 * - 发布
 		 */
-		mode: "develop" | "test" | "release"
+		readonly mode: "develop" | "test" | "release"
 
 		/**
 		 * 程序appid
 		 */
-		appId: string
+		readonly appId: string
 
-		/**
-		 * 游戏启动的渠道id
-		 */
-		gameChannelId: number
-
-		/** 沙盒模式支付 */
-		isPayInSandbox: boolean
-
-		/** 跳转支付app模式 */
-		payAppEnvVersion?: "trial" | "release" | "develop"
-
-		/** 支付侧应用id */
-		offerId: string
-		/**
-		 * 跳转小程序支付offerid
-		 * - 填对方小程序appid
-		 **/
-		miniAppOfferId?: string
-		/**
-		 * 分享结果检测的代理网址
-		 * * 仅微信使用
-		 */
-		shareProxyUrl?: string;
-
-		/** 小游戏启动时的参数。 */
-		launchOptions: LaunchOptions
 		/**
 		 * 游戏版本号
 		 **/
-		gameVersion?: string
-		/**
-		 * 游戏id
-		 **/
-		gameId?: number
-		/**
-		 * 游戏类型(手Q7.6.5及以上支持) 0: 普通游戏 1：红包游戏
-		 **/
-		gameType: number
-
-		/**
-		 * 优先只启用客服跳转支付
-		 * - 支持ios和安卓
-		 */
-		requireCustomServicePay: boolean
-		/**
-		 * 优先只启用小程序跳转支付
-		 * 只支持安卓
-		 */
-		requireMiniAppPay: boolean
-
-		requireIndiaSPSPay: boolean
+		gameVersion: string
 
 	}
 

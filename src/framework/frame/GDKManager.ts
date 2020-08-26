@@ -78,18 +78,18 @@ namespace GDK {
 		/**
 		 * 传入配置并初始化
 		 */
-		init(info: GDKConfig) {
+		init() {
 			for (let k in this._pluginMap) {
 				const plugin = this.getPlugin(k)
 				// 初始化插件内各个模块
-				plugin['_init'](info)
+				plugin['_init']()
 			}
 		}
 
 		/**
 		 * 传入配置并初始化
 		 */
-		async initWithGDKConfig(info: GDKConfig): Promise<void> {
+		async initWithGDKConfig(info: GDKConfigV2): Promise<void> {
 			for (let k in this._pluginMap) {
 				const plugin = this.getPlugin(k)
 				// 初始化插件内各个模块
@@ -125,7 +125,7 @@ namespace GDK {
 			return defaultGDKName
 		}
 
-		async initConfig(config: GDKConfig): Promise<void> {
+		async initConfig(config: GDKConfigV2): Promise<void> {
 			await gdkManager.initWithGDKConfig(config)
 		}
 	}

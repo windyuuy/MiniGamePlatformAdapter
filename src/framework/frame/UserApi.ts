@@ -19,7 +19,7 @@ namespace GDK {
 			return this.metaInfo.version;
 		}
 
-		initConfig(config: GDKConfig) {
+		initConfig(config: GDKConfigV2) {
 			devlog.warn("redundant init for gdk, ignored");
 		}
 
@@ -27,7 +27,7 @@ namespace GDK {
 		 * 初始化插件内各个模块
 		 * @param info 外部传入的配置
 		 */
-		protected _init(info: GDKConfig) {
+		protected _init() {
 			for (let key in this._m) {
 				// 初始化广告等具体模块
 				let addon = <IModule>this._m[key];
@@ -41,7 +41,7 @@ namespace GDK {
 		 * 初始化插件内各个模块
 		 * @param info 外部传入的配置
 		 */
-		protected async _initWithConfig(info: GDKConfig): Promise<void> {
+		protected async _initWithConfig(info: GDKConfigV2): Promise<void> {
 			for (let key in this._m) {
 				// 初始化广告等具体模块
 				let addon = <IModule>this._m[key];
@@ -475,63 +475,6 @@ namespace GDK {
 			return this._m.gameInfo.appId;
 		}
 		/**
-		 * 游戏启动的渠道id
-		 */
-		get gameChannelId(): number {
-			if (!this.checkModuleAttr("gameInfo", "gameChannelId")) {
-				return undefined;
-			}
-			return this._m.gameInfo.gameChannelId;
-		}
-		/** 沙盒模式支付 */
-		get isPayInSandbox(): boolean {
-			if (!this.checkModuleAttr("gameInfo", "isPayInSandbox")) {
-				return undefined;
-			}
-			return this._m.gameInfo.isPayInSandbox;
-		}
-		/** 跳转支付app模式 */
-		get payAppEnvVersion(): "trial" | "release" | "develop" {
-			if (!this.checkModuleAttr("gameInfo", "payAppEnvVersion")) {
-				return undefined;
-			}
-			return this._m.gameInfo.payAppEnvVersion;
-		}
-		/** 支付侧应用id */
-		get offerId(): string {
-			if (!this.checkModuleAttr("gameInfo", "offerId")) {
-				return undefined;
-			}
-			return this._m.gameInfo.offerId;
-		}
-		/**
-		 * 跳转小程序支付offerid
-		 * - 填对方小程序appid
-		 **/
-		get miniAppOfferId(): string {
-			if (!this.checkModuleAttr("gameInfo", "miniAppOfferId")) {
-				return undefined;
-			}
-			return this._m.gameInfo.miniAppOfferId;
-		}
-		/**
-		 * 分享结果检测的代理网址
-		 * * 仅微信使用
-		 */
-		get shareProxyUrl(): string {
-			if (!this.checkModuleAttr("gameInfo", "shareProxyUrl")) {
-				return undefined;
-			}
-			return this._m.gameInfo.shareProxyUrl;
-		}
-		/** 小游戏启动时的参数。 */
-		get launchOptions(): LaunchOptions {
-			if (!this.checkModuleAttr("gameInfo", "launchOptions")) {
-				return undefined;
-			}
-			return this._m.gameInfo.launchOptions;
-		}
-		/**
 		 * 游戏版本号
 		 **/
 		get gameVersion(): string {
@@ -539,51 +482,6 @@ namespace GDK {
 				return undefined;
 			}
 			return this._m.gameInfo.gameVersion;
-		}
-		/**
-		 * 游戏id
-		 **/
-		get gameId(): number {
-			if (!this.checkModuleAttr("gameInfo", "gameId")) {
-				return undefined;
-			}
-			return this._m.gameInfo.gameId;
-		}
-		/**
-		 * 游戏类型(手Q7.6.5及以上支持) 0: 普通游戏 1：红包游戏
-		 **/
-		get gameType(): number {
-			if (!this.checkModuleAttr("gameInfo", "gameType")) {
-				return undefined;
-			}
-			return this._m.gameInfo.gameType;
-		}
-		/**
-		 * 优先只启用客服跳转支付
-		 * - 支持ios和安卓
-		 */
-		get requireCustomServicePay(): boolean {
-			if (!this.checkModuleAttr("gameInfo", "requireCustomServicePay")) {
-				return undefined;
-			}
-			return this._m.gameInfo.requireCustomServicePay;
-		}
-		/**
-		 * 优先只启用小程序跳转支付
-		 * 只支持安卓
-		 */
-		get requireMiniAppPay(): boolean {
-			if (!this.checkModuleAttr("gameInfo", "requireMiniAppPay")) {
-				return undefined;
-			}
-			return this._m.gameInfo.requireMiniAppPay;
-		}
-
-		get requireIndiaSPSPay(): boolean {
-			if (!this.checkModuleAttr("gameInfo", "requireIndiaSPSPay")) {
-				return undefined;
-			}
-			return this._m.gameInfo.requireIndiaSPSPay;
 		}
 		/**
 		 * 手机品牌
@@ -1218,6 +1116,16 @@ namespace GDK {
 				return this.createNonePromise("[apiSystem.getSDKMetaInfo]");
 			}
 			return this._m.apiSystem.getSDKMetaInfo(params);
+		}
+		/**
+		 * 初始化appinfo
+		 * 最终的参数优先从 优先从外层parameters加载，如果找不到则从sdk模块中加载。
+		 */
+		initAppinfo(appInfo: AppInfo): void {
+			if (!this.checkModuleAttr("apiSystem", "initAppinfo", "function")) {
+				return undefined;
+			}
+			return this._m.apiSystem.initAppinfo(appInfo);
 		}
 		/**
 		 * 动态修改appInfo的值，仅在内存中生效，不会影响磁盘中的配置
