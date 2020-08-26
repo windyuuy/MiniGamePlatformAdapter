@@ -43,6 +43,6 @@ namespace GDK {
 		/**
 		 * jsb
 		 */
-		gdkjsb: IHotUpdate
+		hotUpdate: IHotUpdate
 	}
 }
