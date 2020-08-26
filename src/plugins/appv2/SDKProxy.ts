@@ -627,6 +627,17 @@ namespace UnityAppGDK {
 			return null;
 		}
 
+		/**
+		 * 获取热更新版本号
+		*/
+		static getResVersion():number {
+			if (this.gdkjsbExist()) {
+				return this.getGdkjsb().getResVersion();
+			} else {
+				return -1;
+			}
+		}
+
 		// 设置appinfo的参数
 		static setAppInfo(key : string, value : string | number | boolean) : void {
 			if (!this.appInfo) {

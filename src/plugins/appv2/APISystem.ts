@@ -125,5 +125,12 @@ namespace UnityAppGDK {
 			return SDKProxy.getAppInfo(key);
 		}
 
+		/**
+		 * 获取热更新版本号
+		*/
+		getResVersion():number {
+			return SDKProxy.getResVersion();
+		}
+
 	}
 }
