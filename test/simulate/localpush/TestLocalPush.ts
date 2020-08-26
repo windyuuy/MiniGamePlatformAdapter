@@ -1,11 +1,11 @@
 
 namespace TestGDK {
 	export class TestLocalPush implements ITest {
-		api: GDK.UserAPI
+		api!: GDK.UserAPI
 
 		async main(): Promise<TestResult> {
-			await this.api.requireLocalNoticePermission()
-			let { enabled } = await this.api.isLocalNoticeEnabled()
+			await this.api.requireLocalNoticePermission!()
+			let { enabled } = await this.api.isLocalNoticeEnabled!()
 			console.log("isLocalNoticeEnabled:", enabled)
 			// await this.api.removeAllLocalNotices()
 
@@ -47,14 +47,14 @@ namespace TestGDK {
 				bundle.ticker = "哈哈哈4"
 				bundles.push(bundle)
 			}
-			await this.api.addLocalNotices([{
+			await this.api.addLocalNotices!([{
 				identifier: "4343",
 				interval: 2332,
 			}])
-			await this.api.removeAllLocalNotices()
-			await this.api.addLocalNotices([bundles[0], bundles[1], bundles[2],])
-			await this.api.removeLocalNoticeWithID({ identifier: "3" })
-			await this.api.addLocalNotices([bundles[3]])
+			await this.api.removeAllLocalNotices!()
+			await this.api.addLocalNotices!([bundles[0], bundles[1], bundles[2],])
+			await this.api.removeLocalNoticeWithID!({ identifier: "3" })
+			await this.api.addLocalNotices!([bundles[3]])
 			return new TestResult()
 		}
 	}

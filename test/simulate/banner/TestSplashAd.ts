@@ -1,7 +1,7 @@
 
 {
 	if (gdk.supportSplashAd) {
-		let ad = gdk.createSplashAd({
+		let ad = gdk.createSplashAd!({
 		});
 		ad.onClose(function (ret) {
 			console.log(ret);

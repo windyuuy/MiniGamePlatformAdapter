@@ -3,10 +3,10 @@ namespace TestGDK {
 	export const devlog = new slib.Log({ tags: ["[gdk]", "[wechat]"] });
 
 	export class Main {
-		api: GDK.UserAPI
+		api!: GDK.UserAPI
 
 		constructor(api?: GDK.UserAPI) {
-			this.init(api)
+			this.init(this.api)
 		}
 
 		init(api: GDK.UserAPI) {
