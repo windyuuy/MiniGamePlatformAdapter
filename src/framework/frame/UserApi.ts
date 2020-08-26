@@ -114,7 +114,7 @@ namespace GDK {
 		}
 
 		get gdkjsb(): IHotUpdate {
-			return this._m.gdkjsb;
+			return this._m.hotUpdate;
 		}
 
 		/** 批量导出接口 */
@@ -1907,31 +1907,31 @@ namespace GDK {
 			json: string,
 			callback: (cur: number, total: number) => void
 		): string {
-			if (!this.checkModuleAttr("gdkjsb", "hotupdateInGame", "function")) {
+			if (!this.checkModuleAttr("hotUpdate", "hotupdateInGame", "function")) {
 				return undefined;
 			}
-			return this._m.gdkjsb.hotupdateInGame(json, callback);
+			return this._m.hotUpdate.hotupdateInGame(json, callback);
 		}
 		// 暂停
 		hotupdatePause(tid: string): void {
-			if (!this.checkModuleAttr("gdkjsb", "hotupdatePause", "function")) {
+			if (!this.checkModuleAttr("hotUpdate", "hotupdatePause", "function")) {
 				return undefined;
 			}
-			return this._m.gdkjsb.hotupdatePause(tid);
+			return this._m.hotUpdate.hotupdatePause(tid);
 		}
 		// 恢复
 		hotupdateResume(tid: string): void {
-			if (!this.checkModuleAttr("gdkjsb", "hotupdateResume", "function")) {
+			if (!this.checkModuleAttr("hotUpdate", "hotupdateResume", "function")) {
 				return undefined;
 			}
-			return this._m.gdkjsb.hotupdateResume(tid);
+			return this._m.hotUpdate.hotupdateResume(tid);
 		}
 		// 取消
 		hotupdateCancel(tid: string): void {
-			if (!this.checkModuleAttr("gdkjsb", "hotupdateCancel", "function")) {
+			if (!this.checkModuleAttr("hotUpdate", "hotupdateCancel", "function")) {
 				return undefined;
 			}
-			return this._m.gdkjsb.hotupdateCancel(tid);
+			return this._m.hotUpdate.hotupdateCancel(tid);
 		}
 
 		// $batch_export() end

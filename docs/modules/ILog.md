@@ -2,17 +2,11 @@
 - 提交日志
 
 
-### ** * commitChannelsLog(logType: "PayLog",params: PayLogParams): Promise**
-- commitChannelsLog(logType: "PayLog",params: PayLogParams): Promise
-- ***参数定义***
+### ** * commitChannelsLog(logType: string,params: PayLogParams): Promise**
+- commitChannelsLog(logType: string,params: PayLogParams): Promise
 
-```typescript
-type PayLogParams = {
-	id: string
-	price: number
-	count: number
-	currency: string
-}
 
-```
+### ** * commitPayLog(index: number): void**
+付费打点
+- @param index 1-6  代表6种不同金额
 

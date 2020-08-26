@@ -60,6 +60,11 @@
 - app nativeVersion
 
 
+### ** * SDKVersionList: []**
+- 客户端的SDK版本列表
+- eg : [{name : "bus", "version" : "1.0.0"}, {...}]
+
+
 ### ** * benchmarkLevel: number**
 (仅Android小游戏) 性能等级
 - -2 或 0：该设备无法运行小游戏
@@ -99,6 +104,10 @@
 - 设备ID
 
 
+### ** * uuid: string**
+- 设备ID
+
+
 ### ** * gameDeviceId: string**
 - 游戏设备ID，每次重新安装游戏都会改变
 
@@ -115,8 +124,52 @@
 - 渠道ID
 
 
+### ** * quickChannelId: string**
+- quick渠道ID
+
+
 ### ** * country: string**
 - 地区国家
+
+
+### ** * installTime: number**
+- 安装时间
+
+
+### ** * imei: string**
+- imei
+
+
+### ** * packageName: string**
+- 包名
+
+
+### ** * packageTag: string**
+- 发行渠道
+
+
+### ** * debugAccountServer: string**
+- 测试用 account server
+
+
+### ** * isCustomBackendCfg: boolean**
+- 是否支持按packageTag 定制后端参数
+
+
+### ** * androidId: string**
+- android id
+
+
+### ** * mac: string**
+- mac address
+
+
+### ** * userAgent: string**
+- http user Agent
+
+
+### ** * tableConf: { tableSign: string }**
+- 服务器表格配置信息
 
 
 ### ** * fetchNetworkInfo(): Promise**

@@ -340,6 +340,10 @@ namespace GDK {
 		isDebug: boolean
 	}
 
+	/**
+	 * 广告
+	 * - app平台使用 IAdvertV2 的接口调度更方便
+	 */
 	export interface IAdvert extends IModule {
 		/**
 		 * 是否需要先初始化广告服务

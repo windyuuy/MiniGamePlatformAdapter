@@ -1,33 +1,5 @@
 ### ** * navigateToApp(params: AppCallUpParams): Promise**
 - 跳转游戏
-- ***参数定义***
-
-```typescript
-type AppCallUpParams = {
-	/**
-	 * 要打开的外部程序类型
-	 */
-	apptype: "MiniProgram" | "NativeApp"
-	/**
-	 * 要打开的小程序 appId
-	 **/
-	appId: string
-	/**
-	 * 打开的页面路径，如果为空则打开首页
-	 **/
-	path?: string
-	/**
-	 * 需要传递给目标小程序的数据，目标小程序可在 App.onLaunch，App.onShow 中获取到这份数据。
-	 **/
-	extraData?: object
-	/**
-	 * - 要打开的小程序版本。仅在当前小程序为开发版或体验版时此参数有效。如果当前小程序是正式版，则打开的小程序必定是正式版。
-	 * - 默认值 release
-	 **/
-	envVersion?: string
-}
-
-```
 
 
 ### ** * exitProgram(): Promise**
@@ -35,7 +7,12 @@ type AppCallUpParams = {
 
 
 ### ** * onShow(callback: (data: any) => void): void**
-- onShow(callback: (data: any) => void): void
+用法示例：
+```typescript
+onShow((data)=>{
+	...
+})
+```
 
 
 ### ** * offShow(callback: Function): void**
@@ -43,7 +20,12 @@ type AppCallUpParams = {
 
 
 ### ** * onHide(callback: Function): void**
-- onHide(callback: Function): void
+用法示例：
+```typescript
+onHide(()=>{
+	...
+})
+```
 
 
 ### ** * offHide(callback: Function): void**
@@ -65,30 +47,103 @@ type AppCallUpParams = {
 
 ### ** * clipboard: IClipboard**
 - 剪切板
-- ***参数定义***
-
-```typescript
-type IClipboard = {
-	getData(): Promise<ClipboardData>
-	setData(res: ClipboardData): Promise<void>
-}
-
-```
 
 
 ### ** * getSafeArea(callback: ParamType): void**
 获取屏幕的安全区域，单位像素
-@param callback
+- @param callback
 - ***参数定义***
 
 ```typescript
-type ParamType = (
-	data: { left: number; right: number; top: number; bottom: number }
-) => void
+type ParamType = (data: {
+	left: number
+	right: number
+	top: number
+	bottom: number
+}) => void
 
 ```
 
 
+### ** * setLoadingProgress(params: { progress: number }): void**
+
+
+
+### ** * openURL(url: string): void**
+网页跳转
+- @param url
+
+
+### ** * startYunkefu(accessId: string,name: string,id: string,customField: Object,native: boolean): void**
+- 开启云客服
+
+
+### ** * hasNativeAssistantCenter(): void**
+- 是否存在原生客服中心
+
+
+### ** * showHackWeb(url: string,duration: number): void**
+hack web
+- @param url
+
+
+### ** * setSDKLanguage(lang: string): void**
+set native sdk language
+- @param lang
+
+
 ### ** * nativeVersion: number**
 - 原生版本号，具体看C++
+
+
+### ** * sdkFrameworkVersion: string**
+- SDK框架版本
+
+
+### ** * gotoAppSystemSettings(params: IChooseDialogParams): Promise**
+跳转app设置界面
+- 目前只支持 android
+
+
+### ** * checkAppSystemPermissions(params: ICheckPermissionParams): Promise**
+检查是否已授予权限
+- 目前只支持 android
+
+
+### ** * getSDKMetaInfo(params: IGetSDKMetaInfo): Promise**
+通过key获取原生SDK版本信息
+- @param params
+
+
+### ** * setAppInfo(key: string,value: string | number | boolean): void**
+动态修改appInfo的值，仅在内存中生效，不会影响磁盘中的配置
+- @param key
+- @param value
+
+
+### ** * getAppInfo(key: string): void**
+获取应用AppInfo
+- @param key
+
+
+### ** * getAppInfoBoolean(key: string,def: boolean): void**
+获取Boolean类型的数据，当遇到异常数据时，将返回默认值
+- @param key
+- @param def
+
+
+### ** * getAppInfoNumber(key: string,def: number): void**
+获取Number类型的数据，当遇到异常数据时，将返回默认值
+- @param key
+- @param def
+
+
+### ** * getAppInfoString(key: string,def: string): void**
+获取String类型的数据，当遇到异常数据时，将返回默认值
+- @param key
+- @param def
+
+
+### ** * getResVersion(): void**
+- 获取资源版本号
 
