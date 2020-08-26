@@ -39,6 +39,9 @@ namespace UnityAppGDK.PayFlow {
 		initConfig(parent: Parent) {
 			this._parent = parent
 
+			GDK.PayFlow.payStatistic.enableNativeLog = false
+			GDK.PayFlow.payStatistic.enableGSLog = false
+
 			{
 				// 统一格式为payWays
 				let payWays: PayWay[] = []

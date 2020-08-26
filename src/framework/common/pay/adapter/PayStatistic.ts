@@ -24,6 +24,9 @@ namespace GDK.PayFlow {
 	}
 
 	export class PayStatistic {
+		enableNativeLog: boolean = true
+		enableGSLog: boolean = true
+
 		get logCommitTool(): IGSStatistic {
 			return payDeps.logCommitTool
 		}
