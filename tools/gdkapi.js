@@ -224,6 +224,9 @@ function makeModuleBody(moduleList) {
 	return exportList
 }
 
+/**
+ * 构建gdk api
+ */
 async function buildApi() {
 
 	const srcfile = baseDir + '/framework/frame/UserApi.ts'
@@ -260,16 +263,23 @@ async function buildApi() {
 	fs.writeFileSync(destfile, output, { encoding: 'utf-8' })
 }
 
+/**
+ * 加载格式化后的文件内容
+ * @param {*} srcfile 
+ */
 const loadFormattedTSContent = (srcfile) => {
 	const content = fs.readFileSync(srcfile, { encoding: 'utf-8' })
 	let txt = prettier.format(content, { semi: false, parser: "typescript", useTabs: true })
 	return txt
 }
 
-const scanInterfaces = (path, parent) => {
+/**
+ * 扫描文件中接口
+ */
+const scanInterfaces = (filepath, parent) => {
 	const interfaceList = []
 
-	const content = loadFormattedTSContent(path)
+	const content = loadFormattedTSContent(filepath)
 	prettier.format(content, {
 		parser(text, { typescript }) {
 			const ast = typescript(text);
@@ -340,6 +350,9 @@ const scanInterfaces = (path, parent) => {
 	return interfaceList
 }
 
+/**
+ * 扫描项目中所有接口
+ */
 const scanInterfacesInProject = (folder) => {
 	return new Promise((resolve, reject) => {
 		let interfaceListAll = []
@@ -393,8 +406,12 @@ async function genDoc() {
 		const paramsDef = def.paramsDef
 
 		let interfaceLine = alias
+		// 类型声明列表
 		let typeDeclareList = []
 
+		/**
+		 * 从接口列表中扫描所有的类型声明
+		 */
 		{
 			let typeRefer = '{/** ReferedType */}'
 			let referDef = interfaceListAll.find(info => info.name == membertype)
@@ -410,10 +427,13 @@ async function genDoc() {
 		}
 
 		if (def.deftype == 'TSMethodSignature') {
+			// 如果是方法签名
+
 			const info = (() => {
 				const pts = []
 				const typeDeclareList = []
 
+				// 遍历参数引用
 				let counter = 0
 				for (let param of paramsDef) {
 					counter++
@@ -484,6 +504,7 @@ async function genDoc() {
 			interfaceLine = `${alias}: ${membertype}`
 		}
 
+		// 处理注释
 		let comment = explain || ''
 		if (comment) {
 			const lines = comment.split('\n')
@@ -491,7 +512,14 @@ async function genDoc() {
 			for (let line of lines) {
 				let content = line.match('\s*[\*] (.*)')
 				if (content) {
-					contents.push(content[1])
+					let raw = content[1]
+
+					// 处理 @param 等不换行的问题
+					if (raw.startsWith("@")) {
+						raw = `- ${raw}`
+					}
+					
+					contents.push(raw)
 				}
 			}
 			if (contents.length == 1) {

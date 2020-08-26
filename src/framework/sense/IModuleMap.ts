@@ -16,6 +16,8 @@ namespace GDK {
 		share: IShare
 		/** 支付 */
 		pay: IPay
+		/** 原生广告V2 */
+		advertV2: IAdvertV2
 		/** 广告 */
 		advert: IAdvert
 		/** 客服反馈 */
@@ -36,13 +38,7 @@ namespace GDK {
 		log: ILog
 		/** 本地推送通知 */
 		localPush: ILocalPush
-		/**
-		 * 原生广告v2
-		 */
-		advertV2: IAdvertV2
-		/**
-		 * jsb
-		 */
+		/** 热更 */
 		hotUpdate: IHotUpdate
 	}
 }
