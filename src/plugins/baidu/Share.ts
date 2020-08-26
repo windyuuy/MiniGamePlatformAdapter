@@ -163,7 +163,7 @@ namespace BaiduGDK {
 
 				let platform = swan.getSystemInfoSync().platform
 				if (platform == "android") {
-					imageUrl = ShareProxy.apiSetValue(this.api.gameInfo.shareProxyUrl, this.api.gameInfo.appId, beginShareTime, data.imageUrl)
+					imageUrl = ShareProxy.apiSetValue(this.api.getAppInfoString(AppInfoKeys.shareProxyUrl,""), this.api.gameInfo.appId, beginShareTime, data.imageUrl)
 				}
 				devlog.info("share", {
 					title: data.title,
@@ -229,7 +229,7 @@ namespace BaiduGDK {
 
 						//安卓平台使用
 						if (platform == "android") {
-							ShareProxy.apiGetValue(this.api.gameInfo.shareProxyUrl, this.api.gameInfo.appId, beginShareTime, (rep) => {
+							ShareProxy.apiGetValue(this.api.getAppInfoString(AppInfoKeys.shareProxyUrl,""), this.api.gameInfo.appId, beginShareTime, (rep) => {
 								if (rep && rep.data) {
 									shareMaySuc()
 								} else {

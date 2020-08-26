@@ -45,7 +45,7 @@ namespace QQMiniAppGDK {
 	export class Share implements GDK.IShare {
 		api?: GDK.UserAPI
 
-		_launchOptions: { scene: number, query: any, path?: string, isSticky: boolean, shareTicket: string, referrerInfo: { appId: string, extraData: any } }
+		launchOptions: { scene: number, query: any, path?: string, isSticky: boolean, shareTicket: string, referrerInfo: { appId: string, extraData: any } }
 
 		/**
 		 * 分享的启动参数
@@ -55,17 +55,17 @@ namespace QQMiniAppGDK {
 		protected _shareTicket: string = null
 
 		init() {
-			this._launchOptions = wx.getLaunchOptionsSync()
+			this.launchOptions = wx.getLaunchOptionsSync()
 			wx.onShow((res) => {
 				//获取对应的分享启动参数
 				this._shareParam = res.query
 				this._shareTicket = res.shareTicket
 
 				//刷新启动参数
-				this._launchOptions.query = res.query
-				this._launchOptions.shareTicket = res.shareTicket
-				this._launchOptions.scene = res.scene
-				this._launchOptions.referrerInfo = res.referrerInfo
+				this.launchOptions.query = res.query
+				this.launchOptions.shareTicket = res.shareTicket
+				this.launchOptions.scene = res.scene
+				this.launchOptions.referrerInfo = res.referrerInfo
 			})
 		}
 
@@ -131,7 +131,7 @@ namespace QQMiniAppGDK {
 
 				let platform = wx.getSystemInfoSync().platform
 				if (platform == "android") {
-					imageUrl = ShareProxy.apiSetValue(this.api.gameInfo.shareProxyUrl, this.api.gameInfo.appId, beginShareTime, data.imageUrl)
+					imageUrl = ShareProxy.apiSetValue(this.api.getAppInfoString(AppInfoKeys.shareProxyUrl,""), this.api.gameInfo.appId, beginShareTime, data.imageUrl)
 				}
 				devlog.info("share", {
 					title: data.title,
@@ -197,7 +197,7 @@ namespace QQMiniAppGDK {
 
 						//安卓平台使用
 						if (platform == "android") {
-							ShareProxy.apiGetValue(this.api.gameInfo.shareProxyUrl, this.api.gameInfo.appId, beginShareTime, (rep) => {
+							ShareProxy.apiGetValue(this.api.getAppInfoString(AppInfoKeys.shareProxyUrl,""), this.api.gameInfo.appId, beginShareTime, (rep) => {
 								if (rep && rep.data) {
 									shareMaySuc()
 								} else {
