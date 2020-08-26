@@ -2,9 +2,11 @@
 namespace UnityAppGDK {
 
 	// default config
-	GDK.gdkManager.registPluginConfig('appv2', {
-		platform: 'appv2',
+	GDK.gdkManager.registPluginConfig({
+		name: 'appv2',
 		version: '1.0.0',
+		platform: "native",
+		platformLocale: "原生APP",
 		register: RegisterList,
 	})
 }

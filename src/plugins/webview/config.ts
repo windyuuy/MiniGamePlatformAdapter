@@ -2,9 +2,11 @@
 namespace WebViewGDK {
 
 	// default config
-	GDK.gdkManager.registPluginConfig('webview', {
-		platform: 'webview',
+	GDK.gdkManager.registPluginConfig({
+		name: 'webview',
 		version: '1.0.0',
+		platform: "native",
+		platformLocale: "androidWebview",
 		register: RegisterList,
 	})
 }

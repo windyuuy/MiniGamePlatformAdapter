@@ -2,9 +2,11 @@
 namespace AppGDK {
 
 	// default config
-	GDK.gdkManager.registPluginConfig('app', {
-		platform: 'app',
+	GDK.gdkManager.registPluginConfig({
+		name: 'app',
 		version: '1.0.0',
+		platform: "native",
+		platformLocale: "原生APP",
 		register: RegisterList,
 	})
 }

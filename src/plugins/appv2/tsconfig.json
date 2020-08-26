@@ -11,6 +11,7 @@
 		"outFile": "../../../dist/appv2/appv2.js",
 		"declaration": true,
 		"composite": true,
+		"skipLibCheck": true,
 		"rootDir": "./",
 		"rootDirs": [
 			"../../framework"

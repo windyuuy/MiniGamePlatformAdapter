@@ -107,6 +107,49 @@ namespace GDK {
 
 		/** 批量导出接口 */
 		// $batch_export() begin
+		/**
+		 * 插件名
+		 * * develop 网页开发测试
+		 * * wechat 微信
+		 * * qqplay 玩一玩
+		 * * app 原生APP
+		 **/
+		get pluginName(): string {
+			if (!this.checkModuleAttr("metaInfo", "pluginName")) {
+				return undefined;
+			}
+			return this._m.metaInfo.pluginName;
+		}
+		/**
+		 * 插件版本
+		 */
+		get pluginVersion(): string {
+			if (!this.checkModuleAttr("metaInfo", "pluginVersion")) {
+				return undefined;
+			}
+			return this._m.metaInfo.pluginVersion;
+		}
+		/**
+		 * api平台名称
+		 * * browser 浏览器
+		 * * native APP原生
+		 * * wechatgame 微信
+		 * * qqplay QQ玩一玩
+		 * * unknown 未知平台
+		 */
+		get apiPlatform(): string {
+			if (!this.checkModuleAttr("metaInfo", "apiPlatform")) {
+				return undefined;
+			}
+			return this._m.metaInfo.apiPlatform;
+		}
+		/** 本地化api平台名 */
+		get apiPlatformLocale(): string {
+			if (!this.checkModuleAttr("metaInfo", "apiPlatformLocale")) {
+				return undefined;
+			}
+			return this._m.metaInfo.apiPlatformLocale;
+		}
 
 		get openId(): string {
 			if (!this.checkModuleAttr("userData", "openId")) {
@@ -1644,33 +1687,6 @@ namespace GDK {
 			}
 			return this._m.subContext.getOpenDataContext();
 		}
-		/**
-		 * api平台名称
-		 * * browser 浏览器
-		 * * native APP原生
-		 * * wechatgame 微信
-		 * * qqplay QQ玩一玩
-		 * * unknown 未知平台
-		 */
-		get apiPlatform(): string {
-			if (!this.checkModuleAttr("support", "apiPlatform")) {
-				return undefined;
-			}
-			return this._m.support.apiPlatform;
-		}
-		/**
-		 * 插件名
-		 * * develop 网页开发测试
-		 * * wechat 微信
-		 * * qqplay 玩一玩
-		 * * app 原生APP
-		 **/
-		get pluginName(): string {
-			if (!this.checkModuleAttr("support", "pluginName")) {
-				return undefined;
-			}
-			return this._m.support.pluginName;
-		}
 		/** 是否支持分享 */
 		get supportShare(): boolean {
 			if (!this.checkModuleAttr("support", "supportShare")) {
@@ -1698,13 +1714,6 @@ namespace GDK {
 				return undefined;
 			}
 			return this._m.support.requireAuthorize;
-		}
-		/** api本地化名字 */
-		get apiNameLocale(): string {
-			if (!this.checkModuleAttr("support", "apiNameLocale")) {
-				return undefined;
-			}
-			return this._m.support.apiNameLocale;
 		}
 		/**
 		 * 内部是否已经集成打点

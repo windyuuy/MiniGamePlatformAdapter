@@ -10,7 +10,8 @@ namespace GDK {
 		 * @param name 插件名
 		 * @param config 插件配置
 		 */
-		registPluginConfig(name: string, config: PackConfig) {
+		registPluginConfig(config: PackConfig) {
+			const name = config.name
 			slib.assert(!this._configMap[name], `config name ${name} exists already!`)
 			this._configMap[name] = config
 			defaultGDKName = name
@@ -19,7 +20,8 @@ namespace GDK {
 		/**
 		 * 通过配置模板生成插件
 		 */
-		protected genGdk(temp: ModuleClassMap) {
+		protected genGdk(config: PackConfig) {
+			const temp = new config.register
 			let map: IModuleMap = {} as IModuleMap
 			const addonList = []
 			for (let k in temp) {
@@ -40,6 +42,15 @@ namespace GDK {
 				map[pname] = new temp[k]();
 				addonList.push(map[pname])
 			}
+
+			{
+				const metaInfo = map.metaInfo
+				metaInfo.pluginName = config.name
+				metaInfo.pluginVersion = config.version
+				metaInfo.apiPlatformLocale = config.platform
+				metaInfo.apiPlatformLocale = config.platformLocale
+			}
+
 			let api = new UserAPI(map)
 			for (let addon of addonList) {
 				addon.api = api
@@ -91,7 +102,8 @@ namespace GDK {
 		 */
 		instantiateGDKInstance() {
 			for (let k in this._configMap) {
-				const plugin = this.genGdk(new this._configMap[k].register)
+				const config = this._configMap[k]
+				const plugin = this.genGdk(config)
 				this._pluginMap[k] = plugin
 			}
 		}

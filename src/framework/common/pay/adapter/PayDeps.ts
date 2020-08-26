@@ -1,6 +1,9 @@
 
 namespace GDK.PayFlow {
 
+	/**
+	 * 支付所需外部依赖
+	 */
 	export class PayDeps {
 		storage: IStorage
 		logCommitTool: IGSStatistic

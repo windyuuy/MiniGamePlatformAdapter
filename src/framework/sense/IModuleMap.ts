@@ -1,5 +1,7 @@
 namespace GDK {
 	export interface IModuleMap {
+		/** 插件元信息 */
+		metaInfo: IMetaInfo
 		/** 用户信息 */
 		userData: IUserData
 		/** 用户管理 */
