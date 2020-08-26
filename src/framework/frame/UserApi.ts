@@ -2,9 +2,21 @@ namespace GDK {
 	const devlog = new slib.Log({ tags: ["DEVELOP"] });
 	// 自动生成，成员使用register函数注册
 	export class UserAPI {
+		/**
+		 * 附件map
+		 */
 		private _m!: IModuleMap;
 		constructor(moduleMap: IModuleMap) {
 			this._m = moduleMap;
+		}
+
+		protected readonly metaInfo = getGDKMetaInfo();
+
+		/**
+		 * gdk的框架版本号
+		 **/
+		get gdkVersion(): string {
+			return this.metaInfo.version;
 		}
 
 		initConfig(config: GDKConfig) {
@@ -601,15 +613,6 @@ namespace GDK {
 				return undefined;
 			}
 			return this._m.systemInfo.pixelRatio;
-		}
-		/**
-		 * gdk的版本号
-		 **/
-		get gdkVersion(): string {
-			if (!this.checkModuleAttr("systemInfo", "gdkVersion")) {
-				return undefined;
-			}
-			return this._m.systemInfo.gdkVersion;
 		}
 		/**
 		 * 屏幕宽度

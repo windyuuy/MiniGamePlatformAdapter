@@ -2,7 +2,6 @@
 namespace GDK {
 	export abstract class SystemInfoBase implements ISystemInfo {
 		SDKVersionList: []
-		gdkVersion: string = "1.0.21"
 		platform = "devtools"
 		brand: string = 'unknown'
 		model: string = 'unknown'

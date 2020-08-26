@@ -18,7 +18,6 @@ const ossFolderLibPub = 'libs'
 const ossFolderGDKDocs = 'gdk'
 
 const execon = (dir, fn) => {
-	updateVersion(dir);
 	const pwd = path.resolve(process.cwd())
 	try {
 		process.chdir(dir)
@@ -146,22 +145,26 @@ gulp.task("mini", () => {
 
 gulp.task("compile", async () => {
 
+	let execCompile = () => {
+		updateVersion()
+		exec("tsc")
+	}
 	execon("../src", () => {
-		execon("./framework", () => exec("tsc"))
-		execon("./plugins/bytedance", () => exec("tsc"))
-		execon("./plugins/qqminiapp", () => exec("tsc"))
-		execon("./plugins/wechat", () => exec("tsc"))
-		execon("./plugins/app", () => exec("tsc"))
-		execon("./plugins/baidu", () => exec("tsc"))
-		execon("./plugins/develop", () => exec("tsc"))
-		execon("./plugins/gamepind", () => exec("tsc"))
-		execon("./plugins/web", () => exec("tsc"))
-		execon("./plugins/oppo", () => exec("tsc"))
-		execon("./plugins/vivo", () => exec("tsc"))
-		execon("./plugins/webview", () => exec("tsc"))
-		execon("./plugins/appv2", () => exec("tsc"))
+		execon("./framework", () => execCompile())
+		execon("./plugins/bytedance", () => execCompile())
+		execon("./plugins/qqminiapp", () => execCompile())
+		execon("./plugins/wechat", () => execCompile())
+		execon("./plugins/app", () => execCompile())
+		execon("./plugins/baidu", () => execCompile())
+		execon("./plugins/develop", () => execCompile())
+		execon("./plugins/gamepind", () => execCompile())
+		execon("./plugins/web", () => execCompile())
+		execon("./plugins/oppo", () => execCompile())
+		execon("./plugins/vivo", () => execCompile())
+		execon("./plugins/webview", () => execCompile())
+		execon("./plugins/appv2", () => execCompile())
 
-		execon("./test", () => exec("tsc"))
+		execon("./test", () => execCompile())
 	})
 
 })
@@ -244,21 +247,21 @@ gulp.task("pubccfAll", gulp.series("build", "pubccfAllLibs"))
 /**
  * 打包时，根据codecanfly版本更新gdk版本
 */
-const updateVersion = (dir) => {
-	const pwd = path.join(path.resolve(process.cwd()), "../src")
+const updateVersion = () => {
+	// const pwd = path.join(path.resolve(process.cwd()), "../src")
 
-	dir = path.isAbsolute(dir) ? dir : path.join(pwd, dir);
-	let fileName = path.join(dir, "ccfcfg/codecanfly.json");
-	console.log(dir);
+	// dir = path.isAbsolute(dir) ? dir : path.join(pwd, dir);
+	let fileName = path.join("", "ccfcfg/codecanfly.json");
+	// console.log(dir);
 	console.log(fileName);
 	if (!fs.existsSync(fileName)) {
 		return;
 	}
-	const file = path.join(pwd, "framework/common/APISystemInfo.ts");
+	const file = path.join("", "config.ts");
 	let read = fs.readFileSync(file, 'utf8');
 	let codecanfly = JSON.parse(fs.readFileSync(fileName, 'utf8'));
 	console.log("更新GDK版本号 ===> " + codecanfly.version);
-	read = read.replace(new RegExp("gdkVersion:\\s*string\\s*=\\s*\"\\S*\"", "g"), 'gdkVersion: string = \"' + codecanfly.version + '\"')
+	read = read.replace(new RegExp("version\\s*:\\s*\'\\S*\'", "g"), 'version: \'' + codecanfly.version + '\'')
 
 	// let pluginName = path.basename(dir);
 	// console.log("更新GDK pluginName ===> " + pluginName);

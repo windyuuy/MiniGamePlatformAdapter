@@ -18,10 +18,6 @@ namespace GDK {
 		 **/
 		pixelRatio: number
 		/**
-		 * gdk的版本号
-		 **/
-		gdkVersion: string
-		/**
 		 * gdk的渠道名
 		 **/
 		// gdkName: string
