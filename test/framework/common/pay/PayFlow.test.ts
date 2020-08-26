@@ -1,7 +1,7 @@
-import { assertEqualDeep } from "../libs/TestLib.test"
+import { assertEqualDeep } from "../../../libs/TestLib.test"
 
-require("../libs/slib.js")
-require("../../dist/develop/develop")
+import "../../../libs/slib"
+import "../../../../dist/develop/develop"
 
 class SimplePayFlow extends GDK.PayFlow.APayBase.PayFlow {
 	init() { }
