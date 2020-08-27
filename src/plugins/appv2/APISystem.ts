@@ -115,21 +115,33 @@ namespace AppV2GDK {
 		 * 设置Info文件
 		 */
 		setAppInfo(key: string, value: string | number | boolean) {
-			SDKProxy.setAppInfo(key, value);
+			if (SDKProxy.gdkjsbExist()) {
+				SDKProxy.setAppInfo(key, value);
+			} else {
+				super.setAppInfo(key, value);
+			}
 		}
 
 		/**
 		 * 获取Info属性
 		 */
 		getAppInfo(key: string):(string | number | boolean| null){
-			return SDKProxy.getAppInfo(key);
+			if (SDKProxy.gdkjsbExist()) {
+				return SDKProxy.getAppInfo(key);
+			} else {
+				return super.getAppInfo(key);
+			}
 		}
 
 		/**
 		 * 获取热更新版本号
 		*/
 		getResVersion():number {
-			return SDKProxy.getResVersion();
+			if (SDKProxy.gdkjsbExist()) {
+				return SDKProxy.getResVersion();
+			} else {
+				return super.getResVersion();
+			}
 		}
 
 	}
