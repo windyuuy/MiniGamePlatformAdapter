@@ -84,8 +84,8 @@ namespace AppV2GDK {
 
         get isAlive(): boolean {
             if (!this.isSupport()) {
-                console.log("不支持广告模块, 默认返回false")
-                return false;
+                console.log("不支持广告模块, 默认返回true")
+                return true;
             }
             return this.getAddon().IsAdUnitAlive(new AdUnitOpInfo(this.nativeUnitInfo, new ShowAdUnitOpInfo()))
         }

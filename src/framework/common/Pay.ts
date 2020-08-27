@@ -4,10 +4,10 @@ namespace GDK {
 		abstract getUserPayFlow(): PayFlow.IPayFlow
 		api?: UserAPI
 		init?(data?: any): void {
-			throw new Error("Method not implemented.")
+
 		}
 		initWithConfig?(info: GDKConfigV2): Promise<void> {
-			throw new Error("Method not implemented.")
+			return null
 		}
 		abstract payPurchase(item: PayItemInfo, options?: PayOptions): Promise<PayResult>
 

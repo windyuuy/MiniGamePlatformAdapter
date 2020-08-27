@@ -9,10 +9,10 @@ namespace OPPOGDK {
 
 	export class User extends GDK.UserBase {
 		showUserCenter(): Promise<void> {
-			throw new Error("Method not implemented.");
+			return null;
 		}
 		showBindDialog(): Promise<void> {
-			throw new Error("Method not implemented.");
+			return null
 		}
 		api?: GDK.UserAPI
 		get server(): MServer {

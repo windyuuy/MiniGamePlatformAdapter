@@ -2,19 +2,19 @@
 namespace GDK {
 	export abstract class UserBase implements IUser {
 		isNativeRealNameSystem?(): boolean {
-			throw new Error("Method not implemented.")
+			return false;
 		}
 		showMinorInfo?(info: string): Promise<void> {
-			throw new Error("Method not implemented.")
+			return null
 		}
 		showRealNameDialog?(userID: number, force: boolean): Promise<{ isVerified: boolean; age: number; name: string; idCard: string; birthday: string }> {
-			throw new Error("Method not implemented.")
+			return null
 		}
 		bindUser(): Promise<{ success: boolean; data: any }> {
-			throw new Error("Method not implemented.")
+			return null;
 		}
 		setAccountChangeListener?(f: () => void): void {
-			throw new Error("Method not implemented.")
+			return null;
 		}
 		init(data?: any): void {
 		}

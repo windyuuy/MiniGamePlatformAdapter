@@ -374,7 +374,7 @@ namespace AppV2GDK {
 		static checkActionExist(key: string): boolean {
 
 			if (this.gdkjsbExist()) {
-				return this.getGdkjsb().checkActionExist(key)
+				return this.getBridge().checkActionExist(key)
 			} else {
 				// 网页
 			}
