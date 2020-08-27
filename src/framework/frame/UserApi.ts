@@ -28,6 +28,7 @@ namespace GDK {
 			if (this.beInitConfigOnce) {
 				devlog.warn("redundant initConfig for gdk, skipped");
 			} else {
+				this.beInitConfigOnce = true
 				return await gdkManager.initWithGDKConfig(config);
 			}
 		}
