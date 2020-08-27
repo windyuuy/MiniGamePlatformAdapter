@@ -23,16 +23,6 @@ namespace OPPOGDK.PayFlow {
 		partnerId?: string
 		/** 随机字符串 */
 		nonceStr?: string
-		/** vivo订单信息 */
-		vivoOrderInfo?: string
-		/** 支付宝支付特有 */
-		extraStr: string
-		/** aligame accountId */
-		accountId?: string;
-		/** aligame aliamount */
-		aliamount?: string;
-		/** xiao7 game sign */
-		gameSign?: string;
 	}
 
     /**
@@ -41,7 +31,6 @@ namespace OPPOGDK.PayFlow {
 	export interface CustomNetOrderInfo extends GDK.PayFlow.NetOrderInfo {
 		sign?: string;
 		accessKey?: string;
-		vivoOrderNumber?: string;
 		prepayId?: string;
 		appid?: string;
 		mch_id?: string;
@@ -81,18 +70,13 @@ namespace OPPOGDK.PayFlow {
 				title: item.title,
 				gleeOrderNo: orderInfo.outTradeNo,
 				paySign: orderInfo.sign || orderInfo.accessKey,
-				orderNo: orderInfo.platOrderNo || orderInfo.vivoOrderNumber,
+				orderNo: orderInfo.platOrderNo,
 				timestamp: orderInfo.timeStamp || orderInfo.createTime,
 				prepayId: orderInfo.prepayId,
 				channelAppId: orderInfo.appid,
 				partnerId: orderInfo.mch_id,
 				nonceStr: orderInfo.nonce_str,
-				extraStr: extraStr,
-				vivoOrderInfo: orderInfo.vivoOrderNumber,
-				accountId: orderInfo.accountId,
 				notifyUrl: orderInfo.notifyUrl,
-				aliamount: orderInfo.amount,
-				gameSign: orderInfo.game_sign
 			}
 			return params
 		}

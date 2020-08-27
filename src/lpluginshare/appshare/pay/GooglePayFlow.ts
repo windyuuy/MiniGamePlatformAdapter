@@ -7,16 +7,10 @@ namespace AppShare.PayFlow.GooglePayFlow {
      * 自定义原生支付请求参数
      */
     export interface CustomNativeAppPayParams extends GDK.PayItemInfo {
-        /** oppo包名 */
-        pkgName?: string
         /** oppo登录返回的token */
         token?: string
         /** 支付签名 */
         paySign?: string
-        /** 游戏在oppo快游戏的id */
-        oppoId?: string
-        /** 游戏在该平台的appid */
-        channelAppId?: string
         merchantId?: string
         /** 手q后台生成的预支付id */
         prepayId?: string
@@ -25,16 +19,6 @@ namespace AppShare.PayFlow.GooglePayFlow {
         partnerId?: string
         /** 随机字符串 */
         nonceStr?: string
-        /** vivo订单信息 */
-        vivoOrderInfo?: string
-        /** 支付宝支付特有 */
-        extraStr: string
-        /** aligame accountId */
-        accountId?: string;
-        /** aligame aliamount */
-        aliamount?: string;
-        /** xiao7 game sign */
-        gameSign?: string;
     }
 
     export class GooglePayRequests extends GDK.PayFlow.PayRequestsNormal {
@@ -139,7 +123,6 @@ namespace AppShare.PayFlow.GooglePayFlow {
     export interface CustomNetOrderInfo extends GDK.PayFlow.NetOrderInfo {
         sign?: string;
         accessKey?: string;
-        vivoOrderNumber?: string;
         prepayId?: string;
         appid?: string;
         mch_id?: string;
@@ -178,18 +161,12 @@ namespace AppShare.PayFlow.GooglePayFlow {
                 title: item.title,
                 gleeOrderNo: orderInfo.outTradeNo,
                 paySign: orderInfo.sign || orderInfo.accessKey,
-                orderNo: orderInfo.platOrderNo || orderInfo.vivoOrderNumber,
+                orderNo: orderInfo.platOrderNo,
                 timestamp: orderInfo.timeStamp || orderInfo.createTime,
                 prepayId: orderInfo.prepayId,
-                channelAppId: orderInfo.appid,
                 partnerId: orderInfo.mch_id,
                 nonceStr: orderInfo.nonce_str,
-                extraStr: extraStr,
-                vivoOrderInfo: orderInfo.vivoOrderNumber,
-                accountId: orderInfo.accountId,
                 notifyUrl: orderInfo.notifyUrl,
-                aliamount: orderInfo.amount,
-                gameSign: orderInfo.game_sign
             }
             return params
         }

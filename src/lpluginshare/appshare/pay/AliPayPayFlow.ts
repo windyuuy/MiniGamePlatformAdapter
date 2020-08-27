@@ -140,7 +140,6 @@ namespace AppShare.PayFlow.AliPayPayFlow {
         alipayOrderInfo: any;
         sign?: string;
         accessKey?: string;
-        vivoOrderNumber?: string;
         prepayId?: string;
         appid?: string;
         mch_id?: string;
@@ -179,14 +178,13 @@ namespace AppShare.PayFlow.AliPayPayFlow {
                 title: item.title,
                 gleeOrderNo: orderInfo.outTradeNo,
                 paySign: orderInfo.sign || orderInfo.accessKey,
-                orderNo: orderInfo.platOrderNo || orderInfo.vivoOrderNumber,
+                orderNo: orderInfo.platOrderNo,
                 timestamp: orderInfo.timeStamp || orderInfo.createTime,
                 prepayId: orderInfo.prepayId,
                 channelAppId: orderInfo.appid,
                 partnerId: orderInfo.mch_id,
                 nonceStr: orderInfo.nonce_str,
                 extraStr: extraStr,
-                vivoOrderInfo: orderInfo.vivoOrderNumber,
                 accountId: orderInfo.accountId,
                 notifyUrl: orderInfo.notifyUrl,
                 aliamount: orderInfo.amount,

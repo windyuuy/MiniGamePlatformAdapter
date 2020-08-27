@@ -21,7 +21,6 @@ namespace WechatGDK.PayFlow {
 	export interface CustomNetOrderInfo extends GDK.PayFlow.NetOrderInfo {
 		sign?: string;
 		accessKey?: string;
-		vivoOrderNumber?: string;
 		prepayId?: string;
 		appid?: string;
 		mch_id?: string;
@@ -69,7 +68,7 @@ namespace WechatGDK.PayFlow {
 				title: item.title,
 				gleeOrderNo: orderInfo.outTradeNo,
 				paySign: orderInfo.sign || orderInfo.accessKey,
-				orderNo: orderInfo.platOrderNo || orderInfo.vivoOrderNumber,
+				orderNo: orderInfo.platOrderNo,
 				timestamp: orderInfo.timeStamp || orderInfo.createTime,
 				partnerId: orderInfo.mch_id,
 				nonceStr: orderInfo.nonce_str,

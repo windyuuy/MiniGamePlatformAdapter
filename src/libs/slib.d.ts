@@ -1994,11 +1994,6 @@ interface Array<T> {
      */
     unpack(): T;
 
-    /**
-     * 兼容es5浏览器
-     * @param callback 
-     */
-    find(callback: (a: T) => boolean): T
 }
 
 
