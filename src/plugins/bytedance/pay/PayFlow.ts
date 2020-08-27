@@ -1,5 +1,5 @@
 
-namespace WechatGDK.PayFlow {
+namespace BytedanceGDK.PayFlow {
 
 	export interface CustomNativeAppPayParams extends GDK.PayItemInfo {
 		/** oppo包名 */
@@ -35,17 +35,9 @@ namespace WechatGDK.PayFlow {
 	/**
 	 * 针对小游戏平台
 	 */
-	export class CustomPayOutside extends GDK.PayFlow.PayOutside.PayFlow {
+	export class CustomPayInApp extends GDK.PayFlow.PayOutside.PayFlow {
 		get isPayCallbackValid(): boolean {
 			return false
-		}
-
-		get requireCustomServicePay() {
-			return payDeps.api.getAppInfoBoolean(AppInfoKeys.requireCustomServicePay)
-		}
-
-		get requireMiniAppPay() {
-			return payDeps.api.getAppInfoBoolean(AppInfoKeys.requireMiniAppPay)
 		}
 
 		payNetClient = new CustomPayRequests()
@@ -99,14 +91,7 @@ namespace WechatGDK.PayFlow {
 			const payUrl: string = slib.defaultValue(options.payUrl, options.payUrl)
 			const customExtra: string = slib.defaultValue(options.customExtra, null)
 
-			let channelType: GDK.ChannelType
-			if (this.requireCustomServicePay) {
-				channelType = "customer_service"
-			} else if (this.requireMiniAppPay) {
-				channelType = "miniapp"
-			} else {
-				channelType = "origion"
-			}
+			let channelType: GDK.ChannelType = "origion"
 
 			var nativePayInfo: GDK.PayOptions = {
 				gameOrientation: gameOrientation,

@@ -42,11 +42,11 @@ namespace WechatGDK.PayFlow {
 			this._parent = parent
 
 			if (this.requireCustomServicePay) {
-				this._payFlow = new WechatPayOutside()
+				this._payFlow = new CustomPayOutside()
 				this._payFlow['_status'] = this._status
 				this._payFlow.initConfig(this._parent)
 			} else if (this.requireMiniAppPay) {
-				this._payFlow = new WechatPayOutside()
+				this._payFlow = new CustomPayOutside()
 				this._payFlow['_status'] = this._status
 				this._payFlow.initConfig(this._parent)
 			} else {

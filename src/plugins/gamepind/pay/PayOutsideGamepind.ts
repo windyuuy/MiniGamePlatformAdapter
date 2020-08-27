@@ -3,22 +3,9 @@ namespace GamepindGDK.PayFlow.PayOutsideGamepind {
 
     const log = new slib.Log({ time: false, tags: ['[PayFlow]'] })
 
-    type IPayFlow = GDK.PayFlow.IPayFlow
-    type Parent = GDK.PayFlow.Parent
-    type PayWay = GDK.PayFlow.PayWay
-    const PayInApp = GDK.PayFlow.PayInApp
-    const PayOutside = GDK.PayFlow.PayOutside
-    const APayBase = GDK.PayFlow.APayBase
-    type OrderInfo = GDK.PayFlow.OrderInfo
-    type wxPayState = GDK.PayFlow.wxPayState
-
-    const payDeps = GDK.PayFlow.payDeps
-
-    type PaymentParamsOptions = GDK.PayFlow.PaymentParamsOptions
-    type PaymentParams = GDK.PayFlow.PaymentParams
-    type PaymentSuccessCallback = GDK.PayFlow.PaymentSuccessCallback
-    type RechargeConfigRow = GDK.PayFlow.RechargeConfigRow
-    type OrderRecordExported = GDK.PayFlow.OrderRecordExported
+    export const PayOutside = GDK.PayFlow.PayOutside
+    export const APayBase = GDK.PayFlow.APayBase
+    export type wxPayState = GDK.PayFlow.wxPayState
 
 	/**
 	 * 这种流程需要提前生成第三方订单号，并且只通过后台切回补单事件通知来完成充值，不存在直接payment充值成功回调
@@ -26,6 +13,8 @@ namespace GamepindGDK.PayFlow.PayOutsideGamepind {
     export class PayFlow extends APayBase.PayFlow {
 
         payFlowName = "PayOutsideWithOrder"
+
+        payNetClient = new CustomPayRequests()
 
         get isPayCallbackValid(): boolean {
             return false
