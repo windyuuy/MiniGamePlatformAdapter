@@ -16,19 +16,9 @@ namespace OPPOGDK.PayFlow {
 		initConfig(parent: Parent) {
 			this._parent = parent
 
-			if (gdk.gameInfo.requireCustomServicePay) {
-				this._payFlow = new PayOutside.PayFlow()
-				this._payFlow['_status'] = this._status
-				this._payFlow.initConfig(this._parent)
-			} else if (gdk.gameInfo.requireMiniAppPay) {
-				this._payFlow = new PayOutside.PayFlow()
-				this._payFlow['_status'] = this._status
-				this._payFlow.initConfig(this._parent)
-			} else {
-				this._payFlow = new PayInAppWithAutoMakeup.PayFlow()
-				this._payFlow['_status'] = this._status
-				this._payFlow.initConfig(this._parent)
-			}
+			this._payFlow = new PayInAppWithAutoMakeup.PayFlow()
+			this._payFlow['_status'] = this._status
+			this._payFlow.initConfig(this._parent)
 		}
 
 	}

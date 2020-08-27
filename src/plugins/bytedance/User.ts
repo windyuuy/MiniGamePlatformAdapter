@@ -8,10 +8,6 @@ namespace BytedanceGDK {
 			return MServer.inst
 		}
 
-		async initWithConfig(info: GDK.GDKConfigV2) {
-			this.api.userData.userId = info.bytedance.userId
-		}
-
 		login(params?: GDK.LoginParams) {
 			const ret = new GDK.RPromise<GDK.LoginResult>()
 			wx.login({

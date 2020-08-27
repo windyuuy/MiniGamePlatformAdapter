@@ -8,10 +8,6 @@ namespace QQMiniAppGDK {
 			return MServer.inst
 		}
 
-		async initWithConfig(info: GDK.GDKConfigV2) {
-			this.api.userData.userId = info.qqminiapp.userId
-		}
-
 		login(params?: GDK.LoginParams) {
 			const ret = new GDK.RPromise<GDK.LoginResult>()
 			wx.login({

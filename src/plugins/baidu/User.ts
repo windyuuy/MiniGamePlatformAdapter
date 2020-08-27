@@ -8,10 +8,6 @@ namespace BaiduGDK {
 			return MServer.inst
 		}
 
-		async initWithConfig(info: GDK.GDKConfigV2) {
-			this.api.userData.userId = info.baidu.userId
-		}
-
 		userLogin(p: { code?: string, openId?: string, token?: string }, ret: GDK.RPromise<GDK.LoginResult>) {
 			// 解密数据
 			const system = this.api.systemInfo.platform == "android" ? 1 : this.api.systemInfo.platform == "ios" ? 2 : 0
