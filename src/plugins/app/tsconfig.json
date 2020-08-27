@@ -1,5 +1,6 @@
 {
 	"extends": "../../base",
+	"target": "ES2017",
 	"compilerOptions": {
 		"outFile": "../../../dist/app/app.js"
 	},
