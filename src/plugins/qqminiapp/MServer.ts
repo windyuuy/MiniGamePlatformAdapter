@@ -94,7 +94,7 @@ namespace QQMiniAppGDK {
 			},
 			callback: (data: LoginCallbackData) => void,
 			errorCallback: (error: any, retry: () => void) => void = null) {
-			Common.httpClient.request("user/loginQQN", data, (data) => {
+			this.gameClient.request("user/loginQQN", data, (data) => {
 				callback(data);
 			}, { errorCallback: errorCallback })
 		}

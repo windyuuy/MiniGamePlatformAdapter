@@ -92,7 +92,7 @@ namespace OPPOGDK {
 			}) => void,
 			errorCallback: (error: any, retry: () => void) => void = null) {
 			console.warn(`this.gameClient.request("user/loginOPPOK"`, JSON.stringify(data))
-			Common.httpClient.request("user/loginOPPOK", data, (data) => {
+			this.gameClient.request("user/loginOPPOK", data, (data) => {
 				console.warn(`login back user/loginOPPOK"`, data)
 				callback(data);
 			}, { errorCallback: errorCallback })

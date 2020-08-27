@@ -98,7 +98,7 @@ namespace BaiduGDK {
 			},
 			callback: (data: LoginCallbackData) => void,
 			errorCallback: (error: any, retry: () => void) => void = null) {
-			Common.httpClient.request("user/loginBdXyx", data, (data) => {
+			this.gameClient.request("user/loginBdXyx", data, (data) => {
 				callback(data);
 			}, { errorCallback: errorCallback })
 		}
