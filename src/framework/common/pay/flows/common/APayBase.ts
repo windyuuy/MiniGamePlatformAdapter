@@ -61,7 +61,7 @@ namespace GDK.PayFlow.APayBase {
 			if (onShow) {
 				log.info('设置自定义补单监听')
 				onShow(() => {
-					if (payDeps.api.gameInfo.requireMiniAppPay || payDeps.api.gameInfo.requireCustomServicePay || payDeps.api.gameInfo.requireIndiaSPSPay) {
+					if (!this.isPayCallbackValid) {
 						// 小程序跳转支付和客服跳转支付才需要每次切换回来补单
 						this.pullDiffOrders(() => { })
 					}
@@ -69,8 +69,8 @@ namespace GDK.PayFlow.APayBase {
 			} else {
 				log.info('设置补单监听')
 				payDeps.api.onShow(() => {
-					log.info('程序切回前台 paybase', payDeps.api.gameInfo.requireMiniAppPay, payDeps.api.gameInfo.requireCustomServicePay)
-					if (payDeps.api.gameInfo.requireMiniAppPay || payDeps.api.gameInfo.requireCustomServicePay || payDeps.api.gameInfo.requireIndiaSPSPay) {
+					log.info('程序切回前台 paybase', this.isPayCallbackValid)
+					if (!this.isPayCallbackValid) {
 						// 小程序跳转支付和客服跳转支付才需要每次切换回来补单
 						this.pullDiffOrders(() => { })
 					}
@@ -573,16 +573,7 @@ namespace GDK.PayFlow.APayBase {
 			const payUrl: string = slib.defaultValue(options.payUrl, options.payUrl)
 			const customExtra: string = slib.defaultValue(options.customExtra, null)
 
-			let channelType: GDK.ChannelType
-			if (payDeps.api.gameInfo.requireCustomServicePay) {
-				channelType = "customer_service"
-			} else if (payDeps.api.gameInfo.requireMiniAppPay) {
-				channelType = "miniapp"
-			} else if (payDeps.api.gameInfo.requireIndiaSPSPay) {
-				channelType = "gamepind"
-			} else {
-				channelType = "origion"
-			}
+			let channelType: GDK.ChannelType = "origion"
 
 			var nativePayInfo: PayOptions = {
 				gameOrientation: gameOrientation,
@@ -690,8 +681,7 @@ namespace GDK.PayFlow.APayBase {
 			}
 		}
 
-		// 检查订单状态
-		checkOrderState({ orderno, extra, config }: { orderno: string, extra: wxPayState, config: RechargeConfigRow }, successCallback: (state: number) => void, failCallback?: Function) {
+		protected wrapCheckOrderStateParams(orderno: string, extra: wxPayState, config: RechargeConfigRow): CheckOrderStateParams {
 			let nativePayData: { purchaseData?: string, dataSignature?: string } = {}
 			if (payDeps.api.isNativePlugin) {
 				try {
@@ -702,18 +692,22 @@ namespace GDK.PayFlow.APayBase {
 				}
 			}
 
-			this.payNetClient.orderCheckOrderState({
+			return {
 				payWay: config.payWay,
 				outTradeNo: orderno,
 				errCode: extra.errCode,
 				state: extra.state,
 				goodsId: config.id,
-				gameId: payDeps.api.gameInfo.gameId,
 				openKey: payDeps.api.userData.openKey,
 				purchaseData: nativePayData && nativePayData.purchaseData,
 				signature: nativePayData && nativePayData.dataSignature,
-				// channelId: this._parent.channelId,
-			}, (data) => {
+			}
+		}
+
+		// 检查订单状态
+		checkOrderState({ orderno, extra, config }: { orderno: string, extra: wxPayState, config: RechargeConfigRow }, successCallback: (state: number) => void, failCallback?: Function) {
+			let reqParams = this.wrapCheckOrderStateParams(orderno, extra, config)
+			this.payNetClient.orderCheckOrderState(reqParams, (data) => {
 				// 测试数据
 				// if(false){
 				//     data.succeed=true
@@ -730,16 +724,21 @@ namespace GDK.PayFlow.APayBase {
 			])
 		}
 
-		// 请求订单清单
-		reqDiffOrderList({ time }: { time: number }, successCallback: (result: OrderInfo[]) => void, failCallback?: Function) {
-			log.info("[APayBase]reqDiffOrderList:")
-			this.payNetClient.orderReqDiffOrderList({
-				time: time,
-				gameId: payDeps.api.gameInfo.gameId,
+		protected wrapReqDiffOrderListParams(paras: { time: number }): ReqDiffOrderListParams {
+			return {
+				time: paras.time,
 				openKey: payDeps.api.userData.openKey,
 				// purchaseData: {},
 				purchaseData: null,
-			}, (data) => {
+			}
+		}
+
+		// 请求订单清单
+		reqDiffOrderList({ time }: { time: number }, successCallback: (result: OrderInfo[]) => void, failCallback?: Function) {
+			log.info("[APayBase]reqDiffOrderList:")
+			
+			let reqParams = this.wrapReqDiffOrderListParams({ time })
+			this.payNetClient.orderReqDiffOrderList(reqParams, (data) => {
 				if (data.succeed) {
 					let recordInfos = data.data
 					successCallback(recordInfos)

@@ -42,7 +42,11 @@ namespace GDK {
 		 * @param info 外部传入的配置
 		 */
 		protected async _initWithConfig(info: GDKConfigV2): Promise<void> {
+			this._m["gameInfo"].initWithConfig(info);
 			for (let key in this._m) {
+				if (key == "gameInfo") {
+					continue;
+				}
 				// 初始化广告等具体模块
 				let addon = <IModule>this._m[key];
 				if (addon.initWithConfig) {
@@ -1153,7 +1157,7 @@ namespace GDK {
 		 * @param key
 		 * @param def
 		 */
-		getAppInfoBoolean(key: string, def: boolean): boolean {
+		getAppInfoBoolean(key: string, def?: boolean): boolean {
 			if (!this.checkModuleAttr("apiSystem", "getAppInfoBoolean", "function")) {
 				return undefined;
 			}

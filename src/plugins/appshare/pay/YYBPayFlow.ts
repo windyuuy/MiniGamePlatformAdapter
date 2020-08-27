@@ -3,7 +3,7 @@ namespace AppShare.PayFlow.YYBPayFlow {
 
     const log = new slib.Log({ time: false, tags: ['[PayFlow]'] })
 
-    export interface CustomAppPayParams extends GDK.PayItemInfo {
+    export interface CustomNativeAppPayParams extends GDK.PayItemInfo {
         /** oppo包名 */
         pkgName?: string
         /** oppo登录返回的token */
@@ -50,7 +50,7 @@ namespace AppShare.PayFlow.YYBPayFlow {
             const item: RechargeConfigRow = config
 
             let extraStr = orderInfo.alipayOrderInfo
-            const params: CustomAppPayParams = {
+            const params: CustomNativeAppPayParams = {
                 goodsId: item.id,
                 coinId: item.coinId,
                 productId: item.productId,
@@ -167,7 +167,6 @@ namespace AppShare.PayFlow.YYBPayFlow {
                 if (ret.code == 0) {
                     this.payNetClient.orderReqDiffOrderList({
                         time: time,
-                        gameId: payDeps.api.gameInfo.gameId,
                         openKey: payDeps.api.userData.openKey,
                         purchaseData: { "payType": ret.data.productId, "token": ret.data.purchaseToken, "pf": ret.data.purchaseData, "pf_key": ret.data.dataSignature },
                     }, (data) => {

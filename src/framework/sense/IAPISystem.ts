@@ -256,7 +256,7 @@ namespace GDK {
 		  * @param key 
 		  * @param def 
 		  */
-		 getAppInfoBoolean(key: string,def:boolean):boolean;
+		 getAppInfoBoolean(key: string,def?:boolean):boolean;
 
 		/**
 		  * 获取Number类型的数据，当遇到异常数据时，将返回默认值

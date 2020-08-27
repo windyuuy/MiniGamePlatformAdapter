@@ -5,31 +5,25 @@ namespace UnityAppGDK {
 	export class Advert implements GDK.IAdvert {
 
 		api!: GDK.UserAPI
-		async initWithConfig?(_info: GDK.GDKConfig) {
-			console.log("initWithConfig 1")
-			if (_info == undefined) return;
-			console.log("initWithConfig 2")
+		async initWithConfig?(_info: GDK.GDKConfigV2) {
 
-			let info = _info //as GDK.GDKAPPConfig
-			if (info.appv2 == undefined) {
-				if (info.app) {
-					info.appv2 = info.app;
-				} else {
-					console.log("AppInfo 有问题， 请检查gssdk.init()")
-					return;
-				}
+			let advertPlatforms = []
+			let strAdvertPlatforms = this.api.getAppInfoString(AppInfoKeys.advertPlatforms, null)
+			if (strAdvertPlatforms != null) {
+				advertPlatforms = strAdvertPlatforms.split("|")
 			}
-			console.log("initWithConfig 3")
+			let advertPlatform = this.api.getAppInfoString(AppInfoKeys.advertPlatform, null)
 
-			info.appv2.advertPlatforms = info.appv2.advertPlatforms || []
-			if (info.appv2.advertPlatforms.length == 0) {
-				info.appv2.advertPlatform = info.appv2.advertPlatform || 'ironsource'
+			advertPlatforms = advertPlatforms || []
+			if (advertPlatforms.length == 0) {
+				advertPlatform = advertPlatform || 'ironsource'
 			}
-			if (info.appv2.advertPlatform) {
-				info.appv2.advertPlatforms.remove(info.appv2.advertPlatform)
-				info.appv2.advertPlatforms.push(info.appv2.advertPlatform)
+			if (advertPlatform) {
+				advertPlatforms.remove(advertPlatform)
+				advertPlatforms.push(advertPlatform)
 			}
-			for (let key of info.appv2.advertPlatforms) {
+
+			for (let key of advertPlatforms) {
 				// 选择广告平台
 				await SDKProxy.nativeAdvert.advertPlatformSelect(key)
 

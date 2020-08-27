@@ -169,7 +169,7 @@ namespace GDK {
 			return this.appInfo[key];
 		}
 
-		getAppInfoBoolean(key: string,def:boolean):boolean{
+		getAppInfoBoolean(key: string,def:boolean=false):boolean{
 			let v=this.getAppInfo(key)
 			if(typeof v=="boolean"){
 				return v;

@@ -3,7 +3,7 @@ namespace AppShare.PayFlow.WechatPayFlow {
 
     const log = new slib.Log({ time: false, tags: ['[PayFlow]'] })
 
-    export interface CustomAppPayParams extends GDK.PayItemInfo {
+    export interface CustomNativeAppPayParams extends GDK.PayItemInfo {
         /** oppo包名 */
         pkgName?: string
         /** oppo登录返回的token */
@@ -50,7 +50,7 @@ namespace AppShare.PayFlow.WechatPayFlow {
             const item: RechargeConfigRow = config
 
             let extraStr = orderInfo.alipayOrderInfo
-            const params: CustomAppPayParams = {
+            const params: CustomNativeAppPayParams = {
                 goodsId: item.id,
                 coinId: item.coinId,
                 productId: item.productId,

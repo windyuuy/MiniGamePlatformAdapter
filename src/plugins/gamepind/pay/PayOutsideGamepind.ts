@@ -1,7 +1,24 @@
 
-namespace GDK.PayFlow.PayOutsideGamepind {
+namespace GamepindGDK.PayFlow.PayOutsideGamepind {
 
     const log = new slib.Log({ time: false, tags: ['[PayFlow]'] })
+
+    type IPayFlow = GDK.PayFlow.IPayFlow
+    type Parent = GDK.PayFlow.Parent
+    type PayWay = GDK.PayFlow.PayWay
+    const PayInApp = GDK.PayFlow.PayInApp
+    const PayOutside = GDK.PayFlow.PayOutside
+    const APayBase = GDK.PayFlow.APayBase
+    type OrderInfo = GDK.PayFlow.OrderInfo
+    type wxPayState = GDK.PayFlow.wxPayState
+
+    const payDeps = GDK.PayFlow.payDeps
+
+    type PaymentParamsOptions = GDK.PayFlow.PaymentParamsOptions
+    type PaymentParams = GDK.PayFlow.PaymentParams
+    type PaymentSuccessCallback = GDK.PayFlow.PaymentSuccessCallback
+    type RechargeConfigRow = GDK.PayFlow.RechargeConfigRow
+    type OrderRecordExported = GDK.PayFlow.OrderRecordExported
 
 	/**
 	 * 这种流程需要提前生成第三方订单号，并且只通过后台切回补单事件通知来完成充值，不存在直接payment充值成功回调
@@ -12,6 +29,67 @@ namespace GDK.PayFlow.PayOutsideGamepind {
 
         get isPayCallbackValid(): boolean {
             return false
+        }
+
+        get requireIndiaSPSPay() {
+            return payDeps.api.getAppInfoBoolean(AppInfoKeys.requireIndiaSPSPay)
+        }
+
+		/**
+		 * 包装调起原生支付时需要的一些定制选项
+		 * @param config 
+		 * @param orderInfo 
+		 */
+        protected wrapPayAPICallOptions(config: PaymentParams, orderInfo: any): GDK.PayOptions {
+            const options = config.options || {}
+            const gleeZoneId = options.gleeZoneId
+            const subTitle = options.subTitle
+            const imagePath = options.imagePath
+            const gameOrientation = slib.defaultValue(options.gameOrientation, 1)
+            const payUrl: string = slib.defaultValue(options.payUrl, options.payUrl)
+            const customExtra: string = slib.defaultValue(options.customExtra, null)
+
+            let channelType: GDK.ChannelType
+            if (this.requireIndiaSPSPay) {
+                channelType = "gamepind"
+            } else {
+                channelType = "origion"
+            }
+
+            var nativePayInfo: GDK.PayOptions = {
+                gameOrientation: gameOrientation,
+                payWay: config.payWay,
+                channelType: channelType,
+                gleeZoneId: gleeZoneId,
+                payUrl: payUrl,
+                subTitle: subTitle,
+                imagePath: imagePath,
+                customExtra: customExtra,
+            }
+
+            return nativePayInfo
+        }
+
+        protected wrapReqDiffOrderListParams(paras: { time: number }): GDK.PayFlow.ReqDiffOrderListParams {
+            return {
+                time: paras.time,
+                gameId: payDeps.api.getAppInfoNumber(AppInfoKeys.gameId, null),
+                openKey: payDeps.api.userData.openKey,
+                // purchaseData: {},
+                purchaseData: null,
+            }
+        }
+
+        protected wrapCheckOrderStateParams(orderno: string, extra: wxPayState, config: RechargeConfigRow): GDK.PayFlow.CheckOrderStateParams {
+            return {
+                payWay: config.payWay,
+                outTradeNo: orderno,
+                errCode: extra.errCode,
+                state: extra.state,
+                goodsId: config.id,
+                gameId: payDeps.api.getAppInfoNumber(AppInfoKeys.gameId, null),
+                openKey: payDeps.api.userData.openKey,
+            }
         }
 
         // 请求服务器创建并回发订单信息

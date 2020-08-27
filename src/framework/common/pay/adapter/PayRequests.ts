@@ -1,6 +1,58 @@
 
 namespace GDK.PayFlow {
-	export class PayRequestsNormal{
+
+	export type GenOrderParams = {
+		payWay: PayFlow.PayWay,
+		price?: number,//商品实际付款价格
+		priceCNY: number,//人民币价格
+		priceUSD: number,//美元价格
+		quantity: number,//消费金额
+		goodsId: number,//商品id
+		title: string,//商品标题
+		itemId: number, //二级货币ID
+		districtId?: string,//分服ID，用于统计
+		qqGoodid?: string,//新手q商品id
+		token?: string,
+		// channelId?: string, //支付平台或渠道（不是发行渠道）
+		extra?: Object,
+		others?: Object, //!!!其他请求订单需要的参数，前面没有请放在 others 对象里面
+		customKey?: string,
+	}
+
+	export type CheckOrderStateParams = {
+		payWay: PayFlow.PayWay,
+		quantity?: number,//消费金额
+		goodsId?: number,//商品id
+		title?: string,//商品名称
+		state?: 2 | 1 | 0,//0未知 1成功 2失败
+		errCode?: number,//错误码
+		/**
+		 * aligameapp专用
+		 */
+		gameId?: number
+		openKey?: string
+		outTradeNo: string//客户端自己形成的唯一订单标识
+
+		// 谷歌支付返回信息
+		purchaseData?: string
+		signature?: string
+		// channelId?: string //支付平台或渠道（不是发行渠道）
+	}
+
+	export type ReqDiffOrderListParams = {
+		/*
+		 * 历史订单检查点时间
+		 *  如果为0,则返回全部历史订单
+		 *  如果不为0,则返回该时间点之后的所有历史订单
+		 */
+		gameId?: number
+		openKey: string
+		time: number,
+		state?: number, // 用于按状态过滤订单
+		purchaseData: any,
+	}
+
+	export class PayRequestsNormal {
 		get client(): IGameClient {
 			return payDeps.gameClient
 		}
@@ -13,23 +65,7 @@ namespace GDK.PayFlow {
 		 * @param errorCallback 
 		 */
 		orderGenOrder(
-			data: {
-				payWay: PayFlow.PayWay,
-				price?: number,//商品实际付款价格
-				priceCNY: number,//人民币价格
-				priceUSD: number,//美元价格
-				quantity: number,//消费金额
-				goodsId: number,//商品id
-				title: string,//商品标题
-				itemId: number, //二级货币ID
-				districtId?: string,//分服ID，用于统计
-				qqGoodid?: string,//新手q商品id
-				token?: string,
-				// channelId?: string, //支付平台或渠道（不是发行渠道）
-				extra?: Object,
-				others?: Object, //!!!其他请求订单需要的参数，前面没有请放在 others 对象里面
-				customKey?: string,
-			},
+			data: GenOrderParams,
 			callback: (data: {
 				succeed: boolean,
 				code: 0 | number,
@@ -99,23 +135,7 @@ namespace GDK.PayFlow {
 		 * @param errorCallback 
 		 */
 		orderCheckOrderState(
-			data: {
-				payWay: PayFlow.PayWay,
-				quantity?: number,//消费金额
-				goodsId?: number,//商品id
-				title?: string,//商品名称
-				state?: 2 | 1 | 0,//0未知 1成功 2失败
-				errCode?: number,//错误码
-				gameId?: number
-				openKey?: string
-				outTradeNo: string//客户端自己形成的唯一订单标识
-
-				// 谷歌支付返回信息
-				purchaseData?: string
-				signature?: string
-
-				// channelId?: string //支付平台或渠道（不是发行渠道）
-			},
+			data: CheckOrderStateParams,
 			callback: (data: {
 				succeed: boolean,
 				code: 0 | number,
@@ -237,18 +257,7 @@ namespace GDK.PayFlow {
 		 * @param errorCallback 
 		 */
 		orderReqDiffOrderList(
-			data: {
-                /*
-                 * 历史订单检查点时间
-                 *  如果为0,则返回全部历史订单
-                 *  如果不为0,则返回该时间点之后的所有历史订单
-                 */
-				gameId: number
-				openKey: string
-				time: number,
-				state?: number, // 用于按状态过滤订单
-				purchaseData: any,
-			},
+			data: ReqDiffOrderListParams,
 			callback: (data: {
 				succeed: boolean,
 				code: 0 | number,
@@ -293,18 +302,7 @@ namespace GDK.PayFlow {
 			if ((payDeps.api.isNativePlugin) && payDeps.api.systemInfo.packageTag == "yingyongbaoApp") {
 				info = pluginPathMap['YYB']
 			}
-			let path = ''
-			if (payDeps.api.requireMiniAppPay || payDeps.api.requireCustomServicePay) {
-				path = info.thirdApp
-				data.state = 1
-
-				if (!path) {
-					console.error(`充值配置不正确，生成参数异常，检查 requireMiniAppPay 值是否正确，当前值：${payDeps.api.requireMiniAppPay}`)
-					path = info.normal
-				}
-			} else {
-				path = info.normal
-			}
+			let path = info.normal
 
 			this.client.request(path, data, (data) => {
 				// if (true) {

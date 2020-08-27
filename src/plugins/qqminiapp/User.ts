@@ -8,7 +8,7 @@ namespace QQMiniAppGDK {
 			return MServer.inst
 		}
 
-		async initWithConfig(info: GDK.GDKConfig) {
+		async initWithConfig(info: GDK.GDKConfigV2) {
 			this.api.userData.userId = info.qqminiapp.userId
 		}
 

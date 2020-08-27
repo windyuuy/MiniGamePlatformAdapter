@@ -6,17 +6,22 @@ namespace AppGDK {
 		api?: GDK.UserAPI
 		async initWithConfig?(_info: GDK.GDKConfigV2) {
 
-			let info = _info //as GDK.GDKAPPConfig
-
-			info.app.advertPlatforms = info.app.advertPlatforms || []
-			if (info.app.advertPlatforms.length == 0) {
-				info.app.advertPlatform = info.app.advertPlatform || 'ironsource'
+			let advertPlatforms=[]
+			let strAdvertPlatforms=this.api.getAppInfoString(AppInfoKeys.advertPlatforms,null)
+			if(strAdvertPlatforms!=null){
+				advertPlatforms=strAdvertPlatforms.split("|")
 			}
-			if (info.app.advertPlatform) {
-				info.app.advertPlatforms.remove(info.app.advertPlatform)
-				info.app.advertPlatforms.push(info.app.advertPlatform)
+			let advertPlatform = this.api.getAppInfoString(AppInfoKeys.advertPlatform, null)
+			
+			advertPlatforms = advertPlatforms || []
+			if (advertPlatforms.length == 0) {
+				advertPlatform = advertPlatform || 'ironsource'
 			}
-			for (let key of info.app.advertPlatforms) {
+			if (advertPlatform) {
+				advertPlatforms.remove(advertPlatform)
+				advertPlatforms.push(advertPlatform)
+			}
+			for (let key of advertPlatforms) {
 				// 选择广告平台
 				await SDKProxy.nativeAdvert.advertPlatformSelect(key)
 

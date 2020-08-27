@@ -349,7 +349,7 @@ namespace OPPOGDK {
 	export class Advert implements GDK.IAdvert {
 
 		api?: GDK.UserAPI
-		async initWithConfig?(_info: GDK.GDKConfig) {
+		async initWithConfig?(_info: GDK.GDKConfigV2) {
 			devlog.info("gdk oppo advert initConfig");
 			devlog.info(_info);
 
