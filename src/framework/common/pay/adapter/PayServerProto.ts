@@ -35,4 +35,20 @@ namespace GDK.PayFlow {
 		purchaseToken: string //订单唯一消耗标志
 		payWay?: PayFlow.PayWay
 	}
+
+	/**
+	 * 订单信息
+	 */
+	export interface NetOrderInfo {
+		outTradeNo: string //订单号,以此为准,例如: "20002_1_1530164811210"
+		state: OrderState //状态(0:未知,1:成功,2:失败)
+		goodsId: number //商品id
+		time: number //订单生成时间
+		purchaseToken: string //订单唯一消耗标志
+		payWay?: PayFlow.PayWay
+		platOrderNo?: string
+		timeStamp?: string
+		createTime?: string
+		notifyUrl?: string
+	}
 }

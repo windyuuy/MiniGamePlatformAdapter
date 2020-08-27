@@ -133,6 +133,23 @@ namespace AppShare.PayFlow.AliPayPayFlow {
         }
     }
 
+    /**
+     * 自定义订单信息
+     */
+    export interface CustomNetOrderInfo extends GDK.PayFlow.NetOrderInfo {
+        alipayOrderInfo: any;
+        sign?: string;
+        accessKey?: string;
+        vivoOrderNumber?: string;
+        prepayId?: string;
+        appid?: string;
+        mch_id?: string;
+        nonce_str?: string;
+        accountId?: string;
+        amount?: string;
+        game_sign?: string;
+    }
+
 	/**
 	 * AliPay 渠道
      * - 针对 AliPay 渠道支付在安卓平台特有的一些问题等进行定制
@@ -148,7 +165,7 @@ namespace AppShare.PayFlow.AliPayPayFlow {
 		 * @param config 
 		 * @param orderInfo 
 		 */
-        protected wrapPayAPICallParams(config: PaymentParams, orderInfo: any): GDK.PayItemInfo {
+        protected wrapPayAPICallParams(config: PaymentParams, orderInfo: CustomNetOrderInfo): GDK.PayItemInfo {
             const item: RechargeConfigRow = config
 
             let extraStr = orderInfo.alipayOrderInfo

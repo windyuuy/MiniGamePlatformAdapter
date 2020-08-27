@@ -8,6 +8,57 @@ namespace GamepindGDK.PayFlow.PayOutsideGamepind {
     export type wxPayState = GDK.PayFlow.wxPayState
 
 	/**
+	 * 自定义原生支付请求参数
+	 */
+    export interface CustomNativeAppPayParams extends GDK.PayItemInfo {
+        /** oppo包名 */
+        pkgName?: string
+        /** oppo登录返回的token */
+        token?: string
+        /** 支付签名 */
+        paySign?: string
+        /** 游戏在oppo快游戏的id */
+        oppoId?: string
+        /** 游戏在该平台的appid */
+        channelAppId?: string
+        merchantId?: string
+        /** 手q后台生成的预支付id */
+        prepayId?: string
+
+        /** 商户id */
+        partnerId?: string
+        /** 随机字符串 */
+        nonceStr?: string
+        /** vivo订单信息 */
+        vivoOrderInfo?: string
+        /** 支付宝支付特有 */
+        extraStr: string
+        /** aligame accountId */
+        accountId?: string;
+        /** aligame aliamount */
+        aliamount?: string;
+        /** xiao7 game sign */
+        gameSign?: string;
+    }
+
+    /**
+     * 自定义订单信息
+     */
+    export interface CustomNetOrderInfo extends GDK.PayFlow.NetOrderInfo {
+        payInfo: any
+        sign?: string;
+        accessKey?: string;
+        vivoOrderNumber?: string;
+        prepayId?: string;
+        appid?: string;
+        mch_id?: string;
+        nonce_str?: string;
+        accountId?: string;
+        amount?: string;
+        game_sign?: string;
+    }
+
+	/**
 	 * 这种流程需要提前生成第三方订单号，并且只通过后台切回补单事件通知来完成充值，不存在直接payment充值成功回调
 	 */
     export class PayFlow extends APayBase.PayFlow {
@@ -23,6 +74,43 @@ namespace GamepindGDK.PayFlow.PayOutsideGamepind {
 
         get requireIndiaSPSPay() {
             return payDeps.api.getAppInfoBoolean(AppInfoKeys.requireIndiaSPSPay)
+        }
+
+		/**
+		 * 包装调起原生支付的参数
+		 * @param config 
+		 * @param orderInfo 
+		 */
+        protected wrapPayAPICallParams(config: PaymentParams, orderInfo: CustomNetOrderInfo): CustomNativeAppPayParams {
+            const item: RechargeConfigRow = config
+
+            let extraStr = orderInfo.payInfo
+
+            const params: CustomNativeAppPayParams = {
+                goodsId: item.id,
+                coinId: item.coinId,
+                productId: item.productId,
+                money: item.money,
+                price: item.price,
+                amount: item.amount,
+                title: item.title,
+                gleeOrderNo: orderInfo.outTradeNo,
+                paySign: orderInfo.sign || orderInfo.accessKey,
+                orderNo: orderInfo.platOrderNo || orderInfo.vivoOrderNumber,
+                timestamp: orderInfo.timeStamp || orderInfo.createTime,
+                prepayId: orderInfo.prepayId,
+                channelAppId: orderInfo.appid,
+                partnerId: orderInfo.mch_id,
+                nonceStr: orderInfo.nonce_str,
+                extraStr: extraStr,
+                vivoOrderInfo: orderInfo.vivoOrderNumber,
+                accountId: orderInfo.accountId,
+                notifyUrl: orderInfo.notifyUrl,
+                aliamount: orderInfo.amount,
+                gameSign: orderInfo.game_sign
+            }
+
+            return params
         }
 
 		/**
