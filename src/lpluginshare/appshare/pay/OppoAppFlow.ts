@@ -177,5 +177,5 @@ namespace AppShare.PayFlow.OppoAppFlow {
 
     }
 
-    payFlowManager.registerPayFlow("OppoAppFlow", PayFlow)
+    payFlowManager.registerPayFlow("OppoAppPayFlow", PayFlow)
 }
