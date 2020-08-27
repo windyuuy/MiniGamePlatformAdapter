@@ -133,6 +133,22 @@ namespace AppShare.PayFlow.YYBPayFlow {
         }
     }
 
+    /**
+     * 自定义订单信息
+     */
+    export interface CustomNetOrderInfo extends GDK.PayFlow.NetOrderInfo {
+        sign?: string;
+        accessKey?: string;
+        vivoOrderNumber?: string;
+        prepayId?: string;
+        appid?: string;
+        mch_id?: string;
+        nonce_str?: string;
+        accountId?: string;
+        amount?: string;
+        game_sign?: string;
+    }
+
 	/**
 	 * 应用宝app渠道
      * - 针对 YYB 渠道支付在安卓平台特有的一些问题等进行定制
@@ -149,10 +165,10 @@ namespace AppShare.PayFlow.YYBPayFlow {
 		 * @param config 
 		 * @param orderInfo 
 		 */
-        protected wrapPayAPICallParams(config: PaymentParams, orderInfo: any): GDK.PayItemInfo {
+        protected wrapPayAPICallParams(config: PaymentParams, orderInfo: CustomNetOrderInfo): GDK.PayItemInfo {
             const item: RechargeConfigRow = config
 
-            let extraStr = orderInfo.alipayOrderInfo
+            let extraStr = ""
             const params: CustomNativeAppPayParams = {
                 goodsId: item.id,
                 coinId: item.coinId,

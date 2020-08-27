@@ -520,21 +520,10 @@ namespace GDK.PayFlow.APayBase {
 		 * @param config 
 		 * @param orderInfo 
 		 */
-		protected wrapPayAPICallParams(config: PaymentParams, orderInfo: any): PayItemInfo {
+		protected wrapPayAPICallParams(config: PaymentParams, orderInfo: NetOrderInfo): PayItemInfo {
 			const item: RechargeConfigRow = config
 
-			let extraStr = ""
-			if (config.payWay == "meituAppPay") {
-				extraStr = orderInfo.payInfo
-			} else if (payDeps.api.pluginName == "gamepind") {
-				extraStr = orderInfo.payInfo
-			} else if (config.payWay == "UnifiedSdk") {
-				extraStr = JSON.stringify({ outTradeNo: orderInfo.outTradeNo })
-			} else {
-				extraStr = orderInfo.alipayOrderInfo
-			}
-
-			const params: GDK.PayItemInfoExt = {
+			const params: GDK.PayItemInfo = {
 				goodsId: item.id,
 				coinId: item.coinId,
 				productId: item.productId,
@@ -543,19 +532,9 @@ namespace GDK.PayFlow.APayBase {
 				amount: item.amount,
 				title: item.title,
 				gleeOrderNo: orderInfo.outTradeNo,
-				paySign: orderInfo.sign || orderInfo.accessKey,
-				orderNo: orderInfo.platOrderNo || orderInfo.vivoOrderNumber,
+				orderNo: orderInfo.platOrderNo,
 				timestamp: orderInfo.timeStamp || orderInfo.createTime,
-				prepayId: orderInfo.prepayId,
-				channelAppId: orderInfo.appid,
-				partnerId: orderInfo.mch_id,
-				nonceStr: orderInfo.nonce_str,
-				extraStr: extraStr,
-				vivoOrderInfo: orderInfo.vivoOrderNumber,
-				accountId: orderInfo.accountId,
 				notifyUrl: orderInfo.notifyUrl,
-				aliamount: orderInfo.amount,
-				gameSign: orderInfo.game_sign
 			}
 			return params
 		}
@@ -600,7 +579,7 @@ namespace GDK.PayFlow.APayBase {
 				log.info('ApiPay call payPurchase', JSON.stringify(item))
 				log.info('ApiPay call orderInfo', JSON.stringify(orderInfo))
 
-				const params: PayItemInfo = this.wrapPayAPICallParams(config, orderInfo)
+				const params: PayItemInfo = this.wrapPayAPICallParams(config, orderInfo as any)
 
 				log.info("ApiPay payWay", config.payWay);
 				payDeps.api.payPurchase(params, nativePayInfo).then((data) => {

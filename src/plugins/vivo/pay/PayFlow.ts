@@ -16,7 +16,7 @@ namespace VIVOGDK.PayFlow {
 		/** 游戏在该平台的appid */
 		channelAppId?: string
 		merchantId?: string
-		/** 手q后台生成的预支付id */
+		/** vivo、手q后台生成的预支付id */
 		prepayId?: string
 
 		/** 商户id */
@@ -25,14 +25,22 @@ namespace VIVOGDK.PayFlow {
 		nonceStr?: string
 		/** vivo订单信息 */
 		vivoOrderInfo?: string
-		/** 支付宝支付特有 */
-		extraStr: string
-		/** aligame accountId */
+	}
+
+    /**
+     * 自定义订单信息
+     */
+	export interface CustomNetOrderInfo extends GDK.PayFlow.NetOrderInfo {
+		sign?: string;
+		accessKey?: string;
+		vivoOrderNumber?: string;
+		prepayId?: string;
+		appid?: string;
+		mch_id?: string;
+		nonce_str?: string;
 		accountId?: string;
-		/** aligame aliamount */
-		aliamount?: string;
-		/** xiao7 game sign */
-		gameSign?: string;
+		amount?: string;
+		game_sign?: string;
 	}
 
 	/**
@@ -51,10 +59,10 @@ namespace VIVOGDK.PayFlow {
 		 * @param config 
 		 * @param orderInfo 
 		 */
-		protected wrapPayAPICallParams(config: PaymentParams, orderInfo: any): GDK.PayItemInfo {
+		protected wrapPayAPICallParams(config: PaymentParams, orderInfo: CustomNetOrderInfo): GDK.PayItemInfo {
 			const item: RechargeConfigRow = config
 
-			let extraStr = orderInfo.alipayOrderInfo
+			let extraStr = ""
 			const params: CustomNativeAppPayParams = {
 				goodsId: item.id,
 				coinId: item.coinId,
@@ -71,12 +79,8 @@ namespace VIVOGDK.PayFlow {
 				channelAppId: orderInfo.appid,
 				partnerId: orderInfo.mch_id,
 				nonceStr: orderInfo.nonce_str,
-				extraStr: extraStr,
 				vivoOrderInfo: orderInfo.vivoOrderNumber,
-				accountId: orderInfo.accountId,
 				notifyUrl: orderInfo.notifyUrl,
-				aliamount: orderInfo.amount,
-				gameSign: orderInfo.game_sign
 			}
 			return params
 		}
