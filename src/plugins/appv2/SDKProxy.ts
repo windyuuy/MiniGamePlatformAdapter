@@ -607,9 +607,7 @@ namespace AppV2GDK {
 			if (this.gdkjsbExist()) {
 				this.appInfo = {} as any;
 				let info : any = JSON.parse(this.getGdkjsb().makeAppInfo());
-				for (let key of info.parameters) {
-					this.appInfo[key] = info.parameters[key];
-				}
+				this.appInfo = info.parameters;
 			} else {
 				this.appInfo = {};
 			}
