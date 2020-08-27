@@ -1,4 +1,4 @@
-/// <reference path="./PayFlowStatus.ts" />
+/// <reference path="./flows/basic/PayFlowStatus.ts" />
 
 namespace GDK.PayFlow {
 	const mdebug = (window as any)['wdebug'] && true
@@ -35,7 +35,7 @@ namespace GDK.PayFlow {
 
 		init(api: UserAPI) {
 			payDeps.api = api
-			this._rechargeBlockLayerIndex = [payNetClient.client.getLoadingIndex(), 'payflow://index.html']
+			this._rechargeBlockLayerIndex = [payDeps.gameClient.getLoadingIndex(), 'payflow://index.html']
 			return this
 		}
 

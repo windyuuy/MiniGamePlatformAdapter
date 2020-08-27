@@ -16,7 +16,7 @@ namespace GDK.PayFlow.PayOutsideGamepind {
 
         // 请求服务器创建并回发订单信息
         genOrder(config: RechargeConfigRow, extra: any, successCallback: (orderInfo: OrderInfo) => void, failCallback?: Function) {
-            payNetClient.orderGenOrder({
+            this.payNetClient.orderGenOrder({
                 payWay: config.payWay,
                 price: config.price,
                 priceCNY: config.priceCNY,

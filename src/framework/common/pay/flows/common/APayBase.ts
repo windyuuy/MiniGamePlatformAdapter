@@ -1,4 +1,4 @@
-/// <reference path="../PayFlowStatus.ts" />
+/// <reference path="../basic/PayFlowStatus.ts" />
 
 namespace GDK.PayFlow.APayBase {
 	const mdebug = window['wdebug'] && true
@@ -43,13 +43,15 @@ namespace GDK.PayFlow.APayBase {
 			this.init()
 		}
 
-		init(){
-			this._rechargeBlockLayerIndex = [payNetClient.client.getLoadingIndex(), 'payflow://index.html']
+		init() {
+			this._rechargeBlockLayerIndex = [payDeps.gameClient.getLoadingIndex(), 'payflow://index.html']
 		}
 
 		initConfig(parent: Parent) {
 			this._parent = parent
 		}
+
+		payNetClient = new PayRequestsNormal()
 
 		/**
 		 * 初始化前后台切换侦听
@@ -87,10 +89,10 @@ namespace GDK.PayFlow.APayBase {
 			}
 			this._isRecharging = true
 
-			if (!payNetClient.client.showModalCallback) {
+			if (!this.payNetClient.client.showModalCallback) {
 				console.error('no such showModalCallback set!!!')
 			}
-			payNetClient.client.showModalCallback(...this._rechargeBlockLayerIndex)
+			this.payNetClient.client.showModalCallback(...this._rechargeBlockLayerIndex)
 			return true
 		}
 		/**
@@ -99,10 +101,10 @@ namespace GDK.PayFlow.APayBase {
 		disableRechargeBlock() {
 			this._isRecharging = false
 
-			if (!payNetClient.client.showModalCallback) {
+			if (!this.payNetClient.client.showModalCallback) {
 				console.error('no such showModalCallback set!!!')
 			}
-			payNetClient.client.closeModalCallback(...this._rechargeBlockLayerIndex)
+			this.payNetClient.client.closeModalCallback(...this._rechargeBlockLayerIndex)
 		}
 
 		/**
@@ -428,9 +430,15 @@ namespace GDK.PayFlow.APayBase {
 			return itemId
 		}
 
-		// 请求服务器创建并回发订单信息
+		/**
+		 * 请求服务器创建并回发订单信息
+		 * @param config 
+		 * @param extra 
+		 * @param successCallback 
+		 * @param failCallback 
+		 */
 		genOrder(config: RechargeConfigRow, extra: any, successCallback: (orderInfo: OrderInfo) => void, failCallback?: Function) {
-			payNetClient.orderGenOrder({
+			this.payNetClient.orderGenOrder({
 				payWay: config.payWay,
 				price: config.price,
 				priceCNY: config.priceCNY,
@@ -470,6 +478,10 @@ namespace GDK.PayFlow.APayBase {
 			})
 		}
 
+		/**
+		 * 转换某些错误码为错误提示字符串
+		 * @param errCode 
+		 */
 		hintPayAPIErrorCode(errCode: number) {
 			let msgMap = {
 				35308: "道具没有配置",
@@ -488,7 +500,12 @@ namespace GDK.PayFlow.APayBase {
 			}
 		}
 
-		// 提交充值日志
+		/**
+		 * 提交充值日志
+		 * @param key 
+		 * @param config 
+		 * @param orderInfo 
+		 */
 		commitPayLog(key: string, config: PaymentParams, orderInfo: OrderInfo) {
 			try {
 				payStatistic.commitLog(key, config, orderInfo)
@@ -497,9 +514,57 @@ namespace GDK.PayFlow.APayBase {
 			}
 		}
 
-		// 调起gdk中充值api
-		payAPICall(config: PaymentParams, orderInfo: any, successCallback: (res: wxPayState) => void, failCallback: (res: wxPayState) => void) {
+		/**
+		 * 包装调起原生支付的参数
+		 * @param config 
+		 * @param orderInfo 
+		 */
+		protected wrapPayAPICallParams(config: PaymentParams, orderInfo: any): PayItemInfo {
 			const item: RechargeConfigRow = config
+
+			let extraStr = ""
+			if (config.payWay == "meituAppPay") {
+				extraStr = orderInfo.payInfo
+			} else if (payDeps.api.pluginName == "gamepind") {
+				extraStr = orderInfo.payInfo
+			} else if (config.payWay == "UnifiedSdk") {
+				extraStr = JSON.stringify({ outTradeNo: orderInfo.outTradeNo })
+			} else {
+				extraStr = orderInfo.alipayOrderInfo
+			}
+
+			const params: GDK.PayItemInfoExt = {
+				goodsId: item.id,
+				coinId: item.coinId,
+				productId: item.productId,
+				money: item.money,
+				price: item.price,
+				amount: item.amount,
+				title: item.title,
+				gleeOrderNo: orderInfo.outTradeNo,
+				paySign: orderInfo.sign || orderInfo.accessKey,
+				orderNo: orderInfo.platOrderNo || orderInfo.vivoOrderNumber,
+				timestamp: orderInfo.timeStamp || orderInfo.createTime,
+				prepayId: orderInfo.prepayId,
+				channelAppId: orderInfo.appid,
+				partnerId: orderInfo.mch_id,
+				nonceStr: orderInfo.nonce_str,
+				extraStr: extraStr,
+				vivoOrderInfo: orderInfo.vivoOrderNumber,
+				accountId: orderInfo.accountId,
+				notifyUrl: orderInfo.notifyUrl,
+				aliamount: orderInfo.amount,
+				gameSign: orderInfo.game_sign
+			}
+			return params
+		}
+
+		/**
+		 * 包装调起原生支付时需要的一些定制选项
+		 * @param config 
+		 * @param orderInfo 
+		 */
+		protected wrapPayAPICallOptions(config: PaymentParams, orderInfo: any): PayOptions {
 			const options = config.options || {}
 			const gleeZoneId = options.gleeZoneId
 			const subTitle = options.subTitle
@@ -508,65 +573,43 @@ namespace GDK.PayFlow.APayBase {
 			const payUrl: string = slib.defaultValue(options.payUrl, options.payUrl)
 			const customExtra: string = slib.defaultValue(options.customExtra, null)
 
+			let channelType: GDK.ChannelType
+			if (payDeps.api.gameInfo.requireCustomServicePay) {
+				channelType = "customer_service"
+			} else if (payDeps.api.gameInfo.requireMiniAppPay) {
+				channelType = "miniapp"
+			} else if (payDeps.api.gameInfo.requireIndiaSPSPay) {
+				channelType = "gamepind"
+			} else {
+				channelType = "origion"
+			}
+
+			var nativePayInfo: PayOptions = {
+				gameOrientation: gameOrientation,
+				payWay: config.payWay,
+				channelType: channelType,
+				gleeZoneId: gleeZoneId,
+				payUrl: payUrl,
+				subTitle: subTitle,
+				imagePath: imagePath,
+				customExtra: customExtra,
+			}
+
+			return nativePayInfo
+		}
+
+		// 调起gdk中充值api
+		payAPICall(config: PaymentParams, orderInfo: OrderInfo | {}, successCallback: (res: wxPayState) => void, failCallback: (res: wxPayState) => void) {
+			const item: RechargeConfigRow = config
+
+			const nativePayInfo: PayOptions = this.wrapPayAPICallOptions(config, orderInfo)
+
 			try {
 				log.info('ApiPay call payPurchase', JSON.stringify(item))
 				log.info('ApiPay call orderInfo', JSON.stringify(orderInfo))
-				let extraStr = ""
-				if (config.payWay == "meituAppPay") {
-					extraStr = orderInfo.payInfo
-				} else if (payDeps.api.pluginName == "gamepind") {
-					extraStr = orderInfo.payInfo
-				} else if (config.payWay == "UnifiedSdk") {
-					extraStr = JSON.stringify({ outTradeNo: orderInfo.outTradeNo })
-				} else {
-					extraStr = orderInfo.alipayOrderInfo
-				}
 
-				const params: GDK.PayItemInfo = {
-					goodsId: item.id,
-					coinId: item.coinId,
-					productId: item.productId,
-					money: item.money,
-					price: item.price,
-					amount: item.amount,
-					title: item.title,
-					currencyUnit: "CNY",
-					gleeOrderNo: orderInfo.outTradeNo,
-					paySign: orderInfo.sign || orderInfo.accessKey,
-					orderNo: orderInfo.platOrderNo || orderInfo.vivoOrderNumber,
-					timestamp: orderInfo.timeStamp || orderInfo.createTime,
-					prepayId: orderInfo.prepayId,
-					channelAppId: orderInfo.appid,
-					partnerId: orderInfo.mch_id,
-					nonceStr: orderInfo.nonce_str,
-					extraStr: extraStr,
-					vivoOrderInfo: orderInfo.vivoOrderNumber,
-					accountId: orderInfo.accountId,
-					notifyUrl: orderInfo.notifyUrl,
-					aliamount: orderInfo.amount,
-					gameSign: orderInfo.game_sign
-				}
-				let channelType: GDK.ChannelType
-				if (payDeps.api.gameInfo.requireCustomServicePay) {
-					channelType = "customer_service"
-				} else if (payDeps.api.gameInfo.requireMiniAppPay) {
-					channelType = "miniapp"
-				} else if (payDeps.api.gameInfo.requireIndiaSPSPay) {
-					channelType = "gamepind"
-				} else {
-					channelType = "origion"
-				}
+				const params: PayItemInfo = this.wrapPayAPICallParams(config, orderInfo)
 
-				var nativePayInfo = {
-					gameOrientation: gameOrientation,
-					payWay: config.payWay,
-					channelType: channelType,
-					gleeZoneId: gleeZoneId,
-					payUrl: payUrl,
-					subTitle: subTitle,
-					imagePath: imagePath,
-					customExtra: customExtra,
-				}
 				log.info("ApiPay payWay", config.payWay);
 				payDeps.api.payPurchase(params, nativePayInfo).then((data) => {
 					log.info("ApiPay充值结果", 0, item);
@@ -650,7 +693,7 @@ namespace GDK.PayFlow.APayBase {
 		// 检查订单状态
 		checkOrderState({ orderno, extra, config }: { orderno: string, extra: wxPayState, config: RechargeConfigRow }, successCallback: (state: number) => void, failCallback?: Function) {
 			let nativePayData: { purchaseData?: string, dataSignature?: string } = {}
-			if (payDeps.api.pluginName == "app" || payDeps.api.pluginName == "appv2") {
+			if (payDeps.api.isNativePlugin) {
 				try {
 					nativePayData = typeof (extra.extra.data) == 'string' ? JSON.parse(extra.extra.data) : extra.extra.data
 					log.info('原生支付订单验证信息:', nativePayData.purchaseData, nativePayData.dataSignature)
@@ -659,7 +702,7 @@ namespace GDK.PayFlow.APayBase {
 				}
 			}
 
-			payNetClient.orderCheckOrderState({
+			this.payNetClient.orderCheckOrderState({
 				payWay: config.payWay,
 				outTradeNo: orderno,
 				errCode: extra.errCode,
@@ -690,7 +733,7 @@ namespace GDK.PayFlow.APayBase {
 		// 请求订单清单
 		reqDiffOrderList({ time }: { time: number }, successCallback: (result: OrderInfo[]) => void, failCallback?: Function) {
 			log.info("[APayBase]reqDiffOrderList:")
-			payNetClient.orderReqDiffOrderList({
+			this.payNetClient.orderReqDiffOrderList({
 				time: time,
 				gameId: payDeps.api.gameInfo.gameId,
 				openKey: payDeps.api.userData.openKey,
@@ -816,7 +859,7 @@ namespace GDK.PayFlow.APayBase {
 		 * @param failCallback 
 		 */
 		mergeOrderList(infos: OrderInfo[], options: PaymentMergeOptions, successCallback: (result: OrderInfo[], diffExist: boolean, needSync: boolean) => void, failCallback?: Function) {
-			let { result, diffExist, needSync } = this.diffOrderList(infos, this.paysdk.orderRecordList,this._parent.chargeconfig)
+			let { result, diffExist, needSync } = this.diffOrderList(infos, this.paysdk.orderRecordList, this._parent.chargeconfig)
 			this.applyOrderList(result, options)
 			log.info('订单合并完成,开始充值回调')
 			payStatistic.commitGSDevLog({ index: 3, eventName: "mergeOrderList sync: " + needSync });

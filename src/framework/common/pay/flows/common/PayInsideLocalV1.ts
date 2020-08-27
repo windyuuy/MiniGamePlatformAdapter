@@ -29,7 +29,6 @@ namespace GDK.PayFlow.PayInsideLocalV1 {
 		// 			money: item.money,
 		// 			amount: item.amount,
 		// 			title: item.title,
-		// 			currencyUnit: "CNY",
 		// 		}
 		// 		let channelType: GDK.ChannelType
 		// 		if (payDeps.api.gameInfo.requireCustomServicePay) {

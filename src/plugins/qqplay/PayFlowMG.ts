@@ -1,5 +1,5 @@
 
-namespace WebGDK.PayFlow {
+namespace QQPlayGDK.PayFlow {
 	const mdebug = (window as any)['wdebug'] && true
 
 	type Parent = GDK.PayFlow.Parent

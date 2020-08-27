@@ -6,7 +6,7 @@ namespace GamepindGDK {
 		name: 'gamepind',
 		version: '1.0.1',
 		platform: "gamepind",
-		platformLocale: "gampind",
+		platformLocale: "印度支付宝",
 		register: RegisterList,
 	})
 }

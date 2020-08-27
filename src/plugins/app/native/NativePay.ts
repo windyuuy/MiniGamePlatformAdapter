@@ -19,6 +19,73 @@ namespace AppGDK {
 		data: string
 		message: string
 	}
+
+	/**
+	 * 原生支付公共字段定义
+	 */
+	export interface NativePayParams {
+		/**
+		 * 标题
+		 */
+		title: string,
+		/** 商品id，即productId */
+		sku: string,
+		/** 价格 */
+		price: number,
+		/** 数量 */
+		count: number,
+		/** 货币单位 */
+		currency: string,
+		/** 时间戳 */
+		timestamp: string,
+		/**
+		 * 原生平台支付方式
+		 */
+		payWay: string,
+		/** 商品id，即productId */
+		productId: string,
+		/**
+		 * glee自己的订单号
+		 */
+		gleeOrderNo?: string,
+		/**
+		 * 支付服务器地址
+		 */
+		payUrl: string,
+		/** 第三方支付平台的订单号 */
+		orderNo: string,
+		/** 服务器通知地址 */
+		notifyUrl?: string;
+	}
+
+	/**
+	 * 原生支付公共字段定义
+	 * - 请基于 PayItemInfo 定义各自渠道所需的字段
+	 * @deprecated
+	 */
+	export interface NativePayParamsExt extends NativePayParams {
+
+		/** 合作商id */
+		partnerId: string,
+		/** 预付款订单 */
+		prepayId: string,
+		/** 包名 */
+		packageValue: string,
+		/** 随机字符串 */
+		nonceStr: string,
+		/** 支付签名 */
+		paySign: string,
+		/** 渠道appid */
+		channelAppId: string,
+		extraStr: string,
+		/** aligame accountId */
+		accountId?: string;
+		/** aligame aliamount */
+		aliamount?: string;
+		/** xiao7 game sign */
+		gameSign?: string
+	}
+
 	export class NativePay {
 		/**
 		 * @param sku: 商品id
@@ -30,59 +97,7 @@ namespace AppGDK {
 		/**
 		 * @param sku: 商品id
 		 */
-		async requestPay(params: {
-			productId: string,
-			/** 商品id，即productId */
-			sku: string,
-			/** 价格 */
-			price: number,
-			/** 数量 */
-			count: number,
-			/** 货币单位 */
-			currency: string,
-
-			/** 合作商id */
-			partnerId: string,
-			/** 预付款订单 */
-			prepayId: string,
-			/** 包名 */
-			packageValue: string,
-			/** 随机字符串 */
-			nonceStr: string,
-			/** 事件戳 */
-			timestamp: string,
-			/** 支付签名 */
-			paySign: string,
-			/** 渠道appid */
-			channelAppId: string,
-			/**
-			 * 原生平台支付方式
-			 */
-			payWay: string,
-			extraStr: string,
-			/**
-			 * 标题
-			 */
-			title: string,
-			/** 第三方支付平台的订单号 */
-			orderNo: string,
-			/**
-			 * 支付服务器地址
-			 */
-			payUrl: string,
-			/**
-			 * glee自己的订单号
-			 */
-			gleeOrderNo?: string,
-			/** aligame accountId */
-			accountId?: string;
-			/** aligame aliamount */
-			aliamount?: string;
-			/** 服务器通知地址 */
-			notifyUrl?: string;
-			/** xiao7 game sign */
-			gameSign?: string
-		}): Promise<NativePayResult> {
+		async requestPay(params: NativePayParams): Promise<NativePayResult> {
 			return nativeHelper.callAction("paywrapper:requestPay", params)
 		}
 

@@ -28,30 +28,35 @@ namespace AppGDK {
 				}))
 				return ret.promise
 			}
-			SDKProxy.nativePay.requestPay({
+
+			let payParams: NativePayParams = {
 				productId: sku,
 				sku: sku,
 				price: config.money,
 				count: config.amount,
-				currency: "dollar",
-				channelAppId: config.channelAppId,
-				packageValue: "Sign=WXPay",
-				nonceStr: config.nonceStr,
-				partnerId: config.partnerId,
-				paySign: config.paySign,
-				prepayId: config.prepayId,
-				timestamp: config.timestamp,
+				// 默认用 "dollor" 仅仅为了兼容历史遗留问题
+				currency: config.currencyUnit || "dollor",
+				gleeOrderNo: config.gleeOrderNo,
+				payUrl: options.payUrl,
 				payWay: options.payWay,
-				extraStr: config.extraStr,
+				notifyUrl: config.notifyUrl,
+				timestamp: config.timestamp,
 				title: config.title,
 				orderNo: config.orderNo,
-				payUrl: options.payUrl,
-				gleeOrderNo: config.gleeOrderNo,
-				accountId: config.accountId,
-				notifyUrl: config.notifyUrl,
-				aliamount: config.aliamount,
-				gameSign: config.gameSign
-			}).then((payret) => {
+			}
+			for (let key in config) {
+				if (payParams[key] == null) {
+					payParams[key] = config[key]
+				}
+			}
+			for (let key in options) {
+				if (payParams[key] == null) {
+					payParams[key] = options[key]
+				}
+			}
+
+
+			SDKProxy.nativePay.requestPay(payParams).then((payret) => {
 				if (payret.code == 0) {
 					paylog.info("原生充值成功", config)
 					ret.success({
@@ -76,93 +81,7 @@ namespace AppGDK {
 			}, (payret) => {
 				ret.fail(payret)
 			})
-			/*
-			// 1. do wechat pay
-			if (options.payWay == "WechatPay") {
-				SDKProxy.nativePay.requestPay({
-					sku: sku,
-					price: config.money,
-					count: 1,
-					currency: "dollar",
-
-					channelAppId: config.channelAppId,
-					packageValue: "Sign=WXPay",
-					nonceStr: config.nonceStr,
-					partnerId: config.partnerId,
-					paySign: config.paySign,
-					prepayId: config.prepayId,
-					timestamp: config.timestamp,
-				}).then((payret) => {
-					if (payret.code == 0) {
-						paylog.info("原生充值成功", config)
-						ret.success({
-							result: {
-								errCode: 0,
-							},
-							extra: payret,
-						})
-					} else {
-						if (payret.code == AppGDK.PayErrorCode.PURCHASE_CANCELLED) {
-							paylog.info("原生充值取消", payret, config)
-							ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_PAY_CANCEL))
-						} else {
-							paylog.warn("原生充值失败", payret, config)
-							ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_PAY_FAILED, {
-								data: {
-									extra: payret
-								}
-							}))
-						}
-					}
-				}, (payret) => {
-					ret.fail(payret)
-				})
-			}
-
-			// 2. aliPay
-			else if (options.payWay == "AliPay") {
-				paylog.info("alipay_requestPay")
-				SDKProxy.nativePay.alipay_requestPay({
-					sku: sku,
-					price: config.price,
-					count: 1,
-					currency: "dollar",
-					channelAppId: config.channelAppId,
-					packageValue: "AliPay",
-					nonceStr: config.nonceStr,
-					partnerId: config.partnerId,
-					paySign: config.paySign,
-					prepayId: config.prepayId,
-					timestamp: config.timestamp,
-					aliOrderInfo: config.aliOrderInfo
-				}).then((payret) => {
-					if (payret.code == 0) {
-						paylog.info("原生充值成功", config)
-						ret.success({
-							result: {
-								errCode: 0,
-							},
-							extra: payret,
-						})
-					} else {
-						if (payret.code == AppGDK.PayErrorCode.PURCHASE_CANCELLED) {
-							paylog.info("原生充值取消", payret, config)
-							ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_PAY_CANCEL))
-						} else {
-							paylog.warn("原生充值失败", payret, config)
-							ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_PAY_FAILED, {
-								data: {
-									extra: payret
-								}
-							}))
-						}
-					}
-				}, (payret) => {
-					ret.fail(payret)
-				})
-			}
-			*/
-
+			
 			return ret.promise
 		}
 

@@ -3,13 +3,9 @@ namespace GDK.PayFlow {
 	const mdebug = (window as any)['wdebug'] && true
 
 	type IPayFlow = GDK.PayFlow.IPayFlow
-	type PayFlowStatus = GDK.PayFlow.PayFlowStatus
 	type Parent = GDK.PayFlow.Parent
 	type PayWay = GDK.PayFlow.PayWay
 	const PayInApp = GDK.PayFlow.PayInApp
-	const PayInAppWithAutoMakeup = GDK.PayFlow.PayInAppWithAutoMakeup
-	const YYBPayFlow = GDK.PayFlow.YYBPayFlow
-	const PayInsideLocalV2 = GDK.PayFlow.PayInsideLocalV2
 	const PayOutside = GDK.PayFlow.PayOutside
 
 	const payDeps = GDK.PayFlow.payDeps

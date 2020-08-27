@@ -9,6 +9,6 @@
 	"include": [
 		"../../libs/**.ts",
 		"../../framework",
-		"./**/*.ts"
+		"./**/*.ts", "../app/pay/YYBPayFlow.ts"
 	]
 }

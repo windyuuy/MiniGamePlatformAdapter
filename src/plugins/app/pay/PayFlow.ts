@@ -3,15 +3,12 @@ namespace AppGDK.PayFlow {
 	const mdebug = (window as any)['wdebug'] && true
 
 	type IPayFlow = GDK.PayFlow.IPayFlow
-	type PayFlowStatus = GDK.PayFlow.PayFlowStatus
 	type Parent = GDK.PayFlow.Parent
 	type PayWay = GDK.PayFlow.PayWay
-	const PayInApp = GDK.PayFlow.PayInApp
-	const PayInAppWithAutoMakeup = GDK.PayFlow.PayInAppWithAutoMakeup
-	const YYBPayFlow = GDK.PayFlow.YYBPayFlow
 	const PayInsideLocalV2 = GDK.PayFlow.PayInsideLocalV2
 
 	const payDeps = GDK.PayFlow.payDeps
+	const payFlowManager = AppShare.PayFlow.payFlowManager
 
 	type PaymentParamsOptions = GDK.PayFlow.PaymentParamsOptions
 	type PaymentParams = GDK.PayFlow.PaymentParams
@@ -23,28 +20,22 @@ namespace AppGDK.PayFlow {
 
 	export class PayFlowMG extends GDK.PayFlow.PayFlowMGBase {
 
-		get payFlowName() {
-			let payFlow = this.getPayFlow("WechatPay")
-			return payFlow.payFlowName
-		}
-
-		protected _payFlow!: IPayFlow
-		protected _appPayFlowMap: { [index: string]: IPayFlow } = {}
-		getPayFlow(payWay: string = "WechatPay"): IPayFlow {
-			if (gdk.pluginName == "app" || gdk.pluginName == "appv2") {
-				if (gdk.nativeVersion <= 0) {
-					return this._appPayFlowMap["NativeVersionLessThan0"];
-				} else {
-					return this._appPayFlowMap[payWay]
-				}
-			} else {
-				return this._payFlow
-			}
-		}
-
-		get isPayCallbackValid(): boolean {
-			let payFlow = this.getPayFlow()
-			return payFlow.isPayCallbackValid
+		/**
+		 * 根据 PayWay 获取对应 PayFlow 的 map
+		 */
+		protected payWay2PayFlowMap = {
+			WechatPay: "WechatPayFlow",
+			AliPay: "AliPayPayFlow",
+			AliGameAppPay: "AliGameAppPayFlow",
+			BaiduAppPay: "BaiduAppPayFlow",
+			VivoAppPay: "VivoAppPayFlow",
+			YYBPay: "YYBPayFlow",
+			meituAppPay: "MeituAppPayFlow",
+			GooglePay: "GooglePayFlow",
+			IosPay: "IosPayFlow",
+			UnifiedSdk: "UnifiedSdkPayFlow",
+			xiao7: "Xiao7PayFlow",
+			OppoApp: "OppoAppPayFlow",
 		}
 
 		initConfig(parent: Parent) {
@@ -78,25 +69,52 @@ namespace AppGDK.PayFlow {
 			{
 				console.log("nativeVersion:", gdk.nativeVersion)
 
-				this._appPayFlowMap["WechatPay"] = new PayInApp.PayFlow()
-				this._appPayFlowMap["AliPay"] = new PayInAppWithAutoMakeup.PayFlow()
+				// this._appPayFlowMap["WechatPay"] = new PayInApp.PayFlow()
+				// this._appPayFlowMap["AliPay"] = new PayInAppWithAutoMakeup.PayFlow()
+				// this._appPayFlowMap["AliGameAppPay"] = new PayInAppWithAutoMakeup.PayFlow()
+				// this._appPayFlowMap["BaiduAppPay"] = new PayInApp.PayFlow()
+				// this._appPayFlowMap["VivoAppPay"] = new PayInApp.PayFlow()
+				// this._appPayFlowMap["YYBPay"] = new YYBPayFlow.PayFlow()
+				// this._appPayFlowMap["meituAppPay"] = new PayInApp.PayFlow()
+				// this._appPayFlowMap["GooglePay"] = new PayInsideLocalV2.PayFlow()
+				// this._appPayFlowMap["IosPay"] = new PayInsideLocalV2.PayFlow()
+				// this._appPayFlowMap["UnifiedSdk"] = new PayInAppWithAutoMakeup.PayFlow()
+				// this._appPayFlowMap["xiao7"] = new PayInAppWithAutoMakeup.PayFlow()
+				// this._appPayFlowMap["OppoApp"] = new PayInApp.PayFlow()
+				for (let key in this.payWay2PayFlowMap) {
+					this._appPayFlowMap[key] = payFlowManager.createPayFlow(this.payWay2PayFlowMap[key])
+				}
 
-				this._appPayFlowMap["AliGameAppPay"] = new PayInAppWithAutoMakeup.PayFlow()
-				this._appPayFlowMap["BaiduAppPay"] = new PayInApp.PayFlow()
-				this._appPayFlowMap["VivoAppPay"] = new PayInApp.PayFlow()
-				this._appPayFlowMap["YYBPay"] = new YYBPayFlow.PayFlow()
-				this._appPayFlowMap["meituAppPay"] = new PayInApp.PayFlow()
-				this._appPayFlowMap["GooglePay"] = new PayInsideLocalV2.PayFlow()
-				this._appPayFlowMap["IosPay"] = new PayInsideLocalV2.PayFlow()
-				this._appPayFlowMap["UnifiedSdk"] = new PayInAppWithAutoMakeup.PayFlow()
-				this._appPayFlowMap["xiao7"] = new PayInAppWithAutoMakeup.PayFlow()
-				this._appPayFlowMap["OppoApp"] = new PayInApp.PayFlow()
 				for (let k in this._appPayFlowMap) {
 					let payFlow = this._appPayFlowMap[k]
 					payFlow.initConfig(this._parent)
 					payFlow['_status'] = this._status
 				}
 			}
+		}
+
+		get payFlowName() {
+			let payFlow = this.getPayFlow("WechatPay")
+			return payFlow.payFlowName
+		}
+
+		protected _payFlow!: IPayFlow
+		protected _appPayFlowMap: { [index: string]: IPayFlow } = {}
+		getPayFlow(payWay: string = "WechatPay"): IPayFlow {
+			if (gdk.pluginName == "app" || gdk.pluginName == "appv2") {
+				if (gdk.nativeVersion <= 0) {
+					return this._appPayFlowMap["NativeVersionLessThan0"];
+				} else {
+					return this._appPayFlowMap[payWay]
+				}
+			} else {
+				return this._payFlow
+			}
+		}
+
+		get isPayCallbackValid(): boolean {
+			let payFlow = this.getPayFlow()
+			return payFlow.isPayCallbackValid
 		}
 
 		initListener(onShow?: (callback: Function) => void) {

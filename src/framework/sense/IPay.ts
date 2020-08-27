@@ -6,37 +6,51 @@ namespace GDK {
 		unknown = 0,
 	}
 
-	export class PayItemInfo {
+	/**
+	 * 公共支付参数字段
+	 */
+	export interface PayItemInfo {
 		/** 我们的商品ID */
-		goodsId: number = 0
+		goodsId: number
 		/** 后台二级货币ID */
-		coinId?: number = 0
+		coinId?: number
+		/** 支付金额 */
+		money: number
+		/** 支付金额 */
+		price: number
+		/** 购买商品数量 */
+		amount: number
+		/** 商品名称/标题 */
+		title: string
 		/** 第三方后台商品id，原生app版该项必传 */
 		productId?: string
-		/** 支付金额 */
-		money: number = 0
-		/** 支付金额 */
-		price: number = 0
-		/** 购买商品数量 */
-		amount: number = 0
-		/** 商品名称/标题 */
-		title: string = ''
-		/** 支付货币单位 */
-		currencyUnit?: "CNY" | "USD" = "CNY"
-		/** oppo包名 */
-		pkgName?: string
-		/** oppo登录返回的token */
-		token?: string
-		/** 订单创建时间 */
-		timestamp?: string
-		/** 支付签名 */
-		paySign?: string
-		/** 第三方支付平台的订单号 */
-		orderNo?: string
 		/**
 		 * glee自己的订单号
 		 */
 		gleeOrderNo?: string
+		/** 支付货币单位 */
+		currencyUnit?: "CNY" | "USD"
+		/** 服务器通知地址 */
+		notifyUrl?: string;
+		/** 第三方支付平台的订单号 */
+		orderNo?: string
+		/** 订单创建时间 */
+		timestamp?: string
+	}
+
+	/**
+	 * 扩展公共支付参数字段
+	 * - 请基于 PayItemInfo 定义各自渠道所需的字段
+	 * @deprecated
+	 */
+	export interface PayItemInfoExt extends PayItemInfo {
+
+		/** oppo包名 */
+		pkgName?: string
+		/** oppo登录返回的token */
+		token?: string
+		/** 支付签名 */
+		paySign?: string
 		/** 游戏在oppo快游戏的id */
 		oppoId?: string
 		/** 游戏在该平台的appid */
@@ -57,8 +71,6 @@ namespace GDK {
 		accountId?: string;
 		/** aligame aliamount */
 		aliamount?: string;
-		/** 服务器通知地址 */
-		notifyUrl?: string;
 		/** xiao7 game sign */
 		gameSign?: string;
 	}
@@ -207,7 +219,7 @@ namespace GDK {
 		 */
 		queryItemInfo?(params: PayQueryItemInfoParams): Promise<PayQueryItemInfoResult>
 
-		getUserPayFlow?():PayFlow.IPayFlow
+		getUserPayFlow?(): PayFlow.IPayFlow
 	}
 
 }

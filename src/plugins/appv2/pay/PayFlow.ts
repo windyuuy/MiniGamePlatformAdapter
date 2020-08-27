@@ -6,9 +6,6 @@ namespace UnityAppGDK.PayFlow {
 	type PayFlowStatus = GDK.PayFlow.PayFlowStatus
 	type Parent = GDK.PayFlow.Parent
 	type PayWay = GDK.PayFlow.PayWay
-	const PayInApp = GDK.PayFlow.PayInApp
-	const PayInAppWithAutoMakeup = GDK.PayFlow.PayInAppWithAutoMakeup
-	const YYBPayFlow = GDK.PayFlow.YYBPayFlow
 	const PayInsideLocalV2 = GDK.PayFlow.PayInsideLocalV2
 
 	const payDeps = GDK.PayFlow.payDeps
@@ -19,10 +16,31 @@ namespace UnityAppGDK.PayFlow {
 	type RechargeConfigRow = GDK.PayFlow.RechargeConfigRow
 	type OrderRecordExported = GDK.PayFlow.OrderRecordExported
 
+	const payFlowManager = AppShare.PayFlow.payFlowManager
+
 	const log = new slib.Log({ time: false, tags: ['[PayFlow]'] })
 
 	export class PayFlowMG extends GDK.PayFlow.PayFlowMGBase {
-		get payFlowName(): string{
+
+		/**
+		 * 根据 PayWay 获取对应 PayFlow 的 map
+		 */
+		protected payWay2PayFlowMap = {
+			WechatPay: "WechatPayFlow",
+			AliPay: "AliPayPayFlow",
+			AliGameAppPay: "AliGameAppPayFlow",
+			BaiduAppPay: "BaiduAppPayFlow",
+			VivoAppPay: "VivoAppPayFlow",
+			YYBPay: "YYBPayFlow",
+			meituAppPay: "MeituAppPayFlow",
+			GooglePay: "GooglePayFlow",
+			IosPay: "IosPayFlow",
+			UnifiedSdk: "UnifiedSdkPayFlow",
+			xiao7: "Xiao7PayFlow",
+			OppoApp: "OppoAppPayFlow",
+		}
+
+		get payFlowName(): string {
 			return this.getPayFlow().payFlowName
 		}
 
@@ -65,20 +83,22 @@ namespace UnityAppGDK.PayFlow {
 			}
 
 			{
+				// this._appPayFlowMap["WechatPay"] = payFlowManager.createPayFlow("WechatPayFlow")
+				// this._appPayFlowMap["AliPay"] = payFlowManager.createPayFlow("AliPayFlow")
+				// this._appPayFlowMap["AliGameAppPay"] = payFlowManager.createPayFlow("AliGameAppPayFlow")
+				// this._appPayFlowMap["BaiduAppPay"] = payFlowManager.createPayFlow("BaiduAppPayFlow")
+				// this._appPayFlowMap["VivoAppPay"] = payFlowManager.createPayFlow("VivoAppPayFlow")
+				// this._appPayFlowMap["YYBPay"] = payFlowManager.createPayFlow("YYBPayFlow")
+				// this._appPayFlowMap["meituAppPay"] = payFlowManager.createPayFlow("MeituAppPayFlow")
+				// this._appPayFlowMap["GooglePay"] = payFlowManager.createPayFlow("GooglePayFlow")
+				// this._appPayFlowMap["IosPay"] = payFlowManager.createPayFlow("IosPayFlow")
+				// this._appPayFlowMap["UnifiedSdk"] = payFlowManager.createPayFlow("UnifiedSdkPayFlow")
+				// this._appPayFlowMap["xiao7"] = payFlowManager.createPayFlow("Xiao7PayFlow")
+				// this._appPayFlowMap["OppoApp"] = payFlowManager.createPayFlow("OppoAppPayFlow")
+				for (let key in this.payWay2PayFlowMap) {
+					this._appPayFlowMap[key] = payFlowManager.createPayFlow(this.payWay2PayFlowMap[key])
+				}
 
-				this._appPayFlowMap["WechatPay"] = new PayInApp.PayFlow()
-				this._appPayFlowMap["AliPay"] = new PayInAppWithAutoMakeup.PayFlow()
-
-				this._appPayFlowMap["AliGameAppPay"] = new PayInAppWithAutoMakeup.PayFlow()
-				this._appPayFlowMap["BaiduAppPay"] = new PayInApp.PayFlow()
-				this._appPayFlowMap["VivoAppPay"] = new PayInApp.PayFlow()
-				this._appPayFlowMap["YYBPay"] = new YYBPayFlow.PayFlow()
-				this._appPayFlowMap["meituAppPay"] = new PayInApp.PayFlow()
-				this._appPayFlowMap["GooglePay"] = new PayInsideLocalV2.PayFlow()
-				this._appPayFlowMap["IosPay"] = new PayInsideLocalV2.PayFlow()
-				this._appPayFlowMap["UnifiedSdk"] = new PayInAppWithAutoMakeup.PayFlow()
-				this._appPayFlowMap["xiao7"] = new PayInAppWithAutoMakeup.PayFlow()
-				this._appPayFlowMap["OppoApp"] = new PayInApp.PayFlow()
 				for (let k in this._appPayFlowMap) {
 					let payFlow = this._appPayFlowMap[k]
 					payFlow.initConfig(this._parent)
