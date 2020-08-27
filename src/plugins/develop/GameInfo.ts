@@ -1,6 +1,6 @@
 
 namespace DevelopGDK {
-	export var AppInfoKeys={
+	export const AppInfoKeys={
 	}
 
 	export class GameInfo extends GDK.GameInfoBase {

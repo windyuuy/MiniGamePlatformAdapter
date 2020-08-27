@@ -3,7 +3,7 @@ namespace AppShare.PayFlow.AliGameAppPayFlow {
 
     const log = new slib.Log({ time: false, tags: ['[PayFlow]'] })
 
-    export interface CustomNativeAppPayParams extends GDK.PayItemInfo{
+    export interface CustomNativeAppPayParams extends GDK.PayItemInfo {
         /** oppo包名 */
         pkgName?: string
         /** oppo登录返回的token */
@@ -173,6 +173,44 @@ namespace AppShare.PayFlow.AliGameAppPayFlow {
                 gameSign: orderInfo.game_sign
             }
             return params
+        }
+
+        protected get gameId() {
+            return payDeps.api.getAppInfoNumber(AppInfoKeys.gameId, -1)
+        }
+
+        protected wrapCheckOrderStateParams(orderno: string, extra: wxPayState, config: RechargeConfigRow): CheckOrderStateParams {
+            let nativePayData: { purchaseData?: string, dataSignature?: string } = {}
+            if (payDeps.api.isNativePlugin) {
+                try {
+                    nativePayData = typeof (extra.extra.data) == 'string' ? JSON.parse(extra.extra.data) : extra.extra.data
+                    log.info('原生支付订单验证信息:', nativePayData.purchaseData, nativePayData.dataSignature)
+                } catch (e) {
+                    log.warn('获取原生支付订单验证信息失败', extra)
+                }
+            }
+
+            return {
+                gameId: this.gameId,
+                payWay: config.payWay,
+                outTradeNo: orderno,
+                errCode: extra.errCode,
+                state: extra.state,
+                goodsId: config.id,
+                openKey: payDeps.api.userData.openKey,
+                purchaseData: nativePayData && nativePayData.purchaseData,
+                signature: nativePayData && nativePayData.dataSignature,
+            }
+        }
+
+        protected wrapReqDiffOrderListParams(paras: { time: number }): ReqDiffOrderListParams {
+            return {
+                time: paras.time,
+                gameId: this.gameId,
+                openKey: payDeps.api.userData.openKey,
+                // purchaseData: {},
+                purchaseData: null,
+            }
         }
 
     }

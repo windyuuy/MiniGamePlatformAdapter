@@ -1,6 +1,6 @@
 
 namespace QQMiniAppGDK {
-	export var AppInfoKeys={
+	export const AppInfoKeys={
 		shareProxyUrl:"mini.qqmini.shareProxyUrl"
 	}
 

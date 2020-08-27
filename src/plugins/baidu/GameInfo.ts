@@ -1,6 +1,6 @@
 
 namespace BaiduGDK {
-	export var AppInfoKeys={
+	export const AppInfoKeys={
 		shareProxyUrl: "mini.baidu.shareProxyUrl",
 		miniAppOfferId:"mini.baidu.miniAppOfferId",
 		payAppEnvVersion:"mini.baidu.payAppEnvVersion",

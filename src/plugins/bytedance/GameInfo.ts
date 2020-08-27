@@ -1,6 +1,6 @@
 
 namespace BytedanceGDK {
-	export var AppInfoKeys={
+	export const AppInfoKeys={
 		shareProxyUrl: "mini.bytedance.shareProxyUrl",
 		
 		/** boolean */

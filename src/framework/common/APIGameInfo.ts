@@ -1,7 +1,7 @@
 
 namespace GDK {
 
-	export var AppInfoKeys={
+	export const AppInfoKeys={
         /**
          * AppId
          */

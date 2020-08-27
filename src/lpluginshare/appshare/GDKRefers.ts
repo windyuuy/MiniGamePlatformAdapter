@@ -20,5 +20,6 @@ namespace AppShare.PayFlow {
 	export type GenOrderParams = GDK.PayFlow.GenOrderParams
 	export type CheckOrderStateParams = GDK.PayFlow.CheckOrderStateParams
 	export type ReqDiffOrderListParams = GDK.PayFlow.ReqDiffOrderListParams
+	export type wxPayState = GDK.PayFlow.wxPayState
 
 }
