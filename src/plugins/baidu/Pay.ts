@@ -30,6 +30,38 @@ namespace BaiduGDK {
 		customExtra?: string,
 	}
 
+	export interface PayItemInfoExt extends GDK.PayItemInfo {
+
+		/** oppo包名 */
+		pkgName?: string
+		/** oppo登录返回的token */
+		token?: string
+		/** 支付签名 */
+		paySign?: string
+		/** 游戏在oppo快游戏的id */
+		oppoId?: string
+		/** 游戏在该平台的appid */
+		channelAppId?: string
+		merchantId?: string
+		/** 手q后台生成的预支付id */
+		prepayId?: string
+
+		/** 商户id */
+		partnerId?: string
+		/** 随机字符串 */
+		nonceStr?: string
+		/** vivo订单信息 */
+		vivoOrderInfo?: string
+		/** 支付宝支付特有 */
+		extraStr: string
+		/** aligame accountId */
+		accountId?: string;
+		/** aligame aliamount */
+		aliamount?: string;
+		/** xiao7 game sign */
+		gameSign?: string;
+	}
+
 	export class Pay extends GDK.PayBase {
 		api!: GDK.UserAPI
 
@@ -44,13 +76,11 @@ namespace BaiduGDK {
 		}
 
 
-		payOrigion(config: GDK.PayItemInfo, options: GDK.PayOptions): Promise<GDK.PayResult> {
+		payOrigion(config: PayItemInfoExt, options: GDK.PayOptions): Promise<GDK.PayResult> {
 			const ret = new GDK.RPromise<GDK.PayResult>()
 
 			const info = this.api.gameInfo
-			const env = info.isPayInSandbox ? 1 : 0
 			const successCode = 999999
-			const zoneId = slib.defaultValue(options.wxZoneId, "1")
 			const orderInfo: swan.BaiduOrderParams = {
 				dealId: config.partnerId,
 				appKey: info.appId,//		百度电商开放平台 appKey，用以表示应用身份的唯一 ID	
@@ -90,6 +120,14 @@ namespace BaiduGDK {
 			return ret.promise
 		}
 
+		protected get miniAppOfferId(){
+			return this.api.getAppInfoString(AppInfoKeys.miniAppOfferId, "")
+		}
+
+		protected get payAppEnvVersion() {
+			return this.api.getAppInfoString(AppInfoKeys.payAppEnvVersion, "")
+		}
+
 		protected _miniPayListener: Function
 		payMiniApp(config: GDK.PayItemInfo, options: GDK.PayOptions): Promise<GDK.PayResult> {
 			const ret = new GDK.RPromise<GDK.PayResult>()
@@ -97,7 +135,7 @@ namespace BaiduGDK {
 			const successCode = 0
 
 			const myAppId = this.api.gameInfo.appId
-			const miniAppOfferId = this.api.gameInfo.miniAppOfferId
+			const miniAppOfferId = this.miniAppOfferId
 			const userId = this.api.userData.userId
 			const goodsId = config.goodsId
 			const quantity = config.amount
@@ -136,8 +174,8 @@ namespace BaiduGDK {
 			if (info.mode == 'develop') {
 				envVersion = 'develop'
 			}
-			if (info.payAppEnvVersion) {
-				envVersion = info.payAppEnvVersion
+			if (this.payAppEnvVersion) {
+				envVersion = this.payAppEnvVersion
 			}
 
 			devlog.info(`navigateToMiniProgram: { path: ${jpPath}, miniAppId: ${miniAppOfferId}, envVersion:${envVersion} }`, extraData)
@@ -173,7 +211,7 @@ namespace BaiduGDK {
 			const successCode = 0
 
 			const myAppId = this.api.gameInfo.appId
-			const miniAppOfferId = this.api.gameInfo.miniAppOfferId
+			const miniAppOfferId = this.miniAppOfferId
 			const userId = this.api.userData.userId
 			const goodsId = config.goodsId
 			const quantity = config.amount
@@ -207,8 +245,8 @@ namespace BaiduGDK {
 			if (info.mode == 'develop') {
 				envVersion = 'develop'
 			}
-			if (info.payAppEnvVersion) {
-				envVersion = info.payAppEnvVersion
+			if (this.payAppEnvVersion) {
+				envVersion = this.payAppEnvVersion
 			}
 
 			devlog.info(`openCustomerServiceConversation: { path: ${jpPath}, miniAppId: ${miniAppOfferId}, envVersion:${envVersion} }`, subTitle, imagePath, extraData)
@@ -240,7 +278,7 @@ namespace BaiduGDK {
 			return ret.promise
 		}
 
-		payPurchase(config: GDK.PayItemInfo, options: GDK.PayOptions): Promise<GDK.PayResult> {
+		payPurchase(config: PayItemInfoExt, options: GDK.PayOptions): Promise<GDK.PayResult> {
 			if (options && options.channelType == 'miniapp') {
 				return this.payMiniApp(config, options)
 			} else if (options && options.channelType == 'customer_service') {

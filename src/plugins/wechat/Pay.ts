@@ -43,17 +43,33 @@ namespace WechatGDK {
 			return this.payFlow
 		}
 
+		get isPayInSandbox() {
+			return this.api.getAppInfoBoolean(AppInfoKeys.isPayInSandbox)
+		}
+		
+		get offerId() {
+			return this.api.getAppInfoString(AppInfoKeys.offerId,"")
+		}
+
+		get miniAppOfferId() {
+			return this.api.getAppInfoString(AppInfoKeys.miniAppOfferId, "")
+		}
+
+		get payAppEnvVersion() {
+			return this.api.getAppInfoString(AppInfoKeys.payAppEnvVersion, "")
+		}
+		
 		payOrigion(config: GDK.PayItemInfo, options: GDK.PayOptions): Promise<GDK.PayResult> {
 			const ret = new GDK.RPromise<GDK.PayResult>()
 
 			const info = this.api.gameInfo
-			const env = info.isPayInSandbox ? 1 : 0
+			const env = this.isPayInSandbox ? 1 : 0
 			const successCode = 999999
 			const zoneId = slib.defaultValue(options.wxZoneId, "1")
 			const mp: wx.MidasPaymentParams = {
 				mode: "game",
 				env: env,
-				offerId: info.offerId,
+				offerId: this.offerId,
 				currencyType: config.currencyUnit || "CNY",
 				platform: 'android',
 				zoneId: zoneId,
@@ -102,7 +118,7 @@ namespace WechatGDK {
 			const successCode = 0
 
 			const myAppId = this.api.gameInfo.appId
-			const miniAppOfferId = this.api.gameInfo.miniAppOfferId
+			const miniAppOfferId = this.miniAppOfferId
 			const userId = this.api.userData.userId
 			const goodsId = config.goodsId
 			const quantity = config.amount
@@ -141,8 +157,8 @@ namespace WechatGDK {
 			if (info.mode == 'develop') {
 				envVersion = 'develop'
 			}
-			if (info.payAppEnvVersion) {
-				envVersion = info.payAppEnvVersion
+			if (this.payAppEnvVersion) {
+				envVersion = this.payAppEnvVersion
 			}
 
 			devlog.info(`navigateToMiniProgram: { path: ${jpPath}, miniAppId: ${miniAppOfferId}, envVersion:${envVersion} }`, extraData)
@@ -179,7 +195,7 @@ namespace WechatGDK {
 			const successCode = 0
 
 			const myAppId = this.api.gameInfo.appId
-			const miniAppOfferId = this.api.gameInfo.miniAppOfferId
+			const miniAppOfferId = this.miniAppOfferId
 			const userId = this.api.userData.userId
 			const goodsId = config.goodsId
 			const quantity = config.amount
@@ -213,8 +229,8 @@ namespace WechatGDK {
 			if (info.mode == 'develop') {
 				envVersion = 'develop'
 			}
-			if (info.payAppEnvVersion) {
-				envVersion = info.payAppEnvVersion
+			if (this.payAppEnvVersion) {
+				envVersion = this.payAppEnvVersion
 			}
 
 			devlog.info(`openCustomerServiceConversation: { path: ${jpPath}, miniAppId: ${miniAppOfferId}, envVersion:${envVersion} }`, subTitle, imagePath, extraData)

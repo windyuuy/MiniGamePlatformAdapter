@@ -5,6 +5,37 @@ namespace GamepindGDK {
 
 	const devlog = Common.paylog
 
+	export interface PayItemInfoExt extends GDK.PayItemInfo{
+		/** oppo包名 */
+		pkgName?: string
+		/** oppo登录返回的token */
+		token?: string
+		/** 支付签名 */
+		paySign?: string
+		/** 游戏在oppo快游戏的id */
+		oppoId?: string
+		/** 游戏在该平台的appid */
+		channelAppId?: string
+		merchantId?: string
+		/** 手q后台生成的预支付id */
+		prepayId?: string
+
+		/** 商户id */
+		partnerId?: string
+		/** 随机字符串 */
+		nonceStr?: string
+		/** vivo订单信息 */
+		vivoOrderInfo?: string
+		/** 支付宝支付特有 */
+		extraStr: string
+		/** aligame accountId */
+		accountId?: string;
+		/** aligame aliamount */
+		aliamount?: string;
+		/** xiao7 game sign */
+		gameSign?: string;
+	}
+
 	export class Pay extends GDK.PayBase {
 		api!: GDK.UserAPI
 
@@ -19,12 +50,12 @@ namespace GamepindGDK {
 		}
 
 		static ret: GDK.RPromise<GDK.PayResult>
-		payPurchase(config: GDK.PayItemInfo, options: GDK.PayOptions): Promise<GDK.PayResult> {
+		payPurchase(config: PayItemInfoExt, options: GDK.PayOptions): Promise<GDK.PayResult> {
 			devlog.warn("gamepind payPurchase:", config)
 			return this.pay_gamepind(config, options)
 		}
 
-		pay_gamepind(config: GDK.PayItemInfo, options: GDK.PayOptions): Promise<GDK.PayResult> {
+		pay_gamepind(config: PayItemInfoExt, options: GDK.PayOptions): Promise<GDK.PayResult> {
 			Pay.ret = new GDK.RPromise<GDK.PayResult>()
 			const payInfo = JSON.parse(config.extraStr)
 			const successCode = 0
