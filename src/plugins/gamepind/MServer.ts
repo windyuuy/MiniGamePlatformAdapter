@@ -83,7 +83,7 @@ namespace GamepindGDK {
 		private _gamepindAuthClient: slib.HttpClient = null;
 
 		get gameClient() {
-			return Common.httpClient
+			return GDK.CommonServer.httpClient
 		}
 
 		get gamepindAuthClient() {

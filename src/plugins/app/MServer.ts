@@ -89,7 +89,7 @@ namespace AppGDK {
 		static readonly inst: MServer = new MServer()
 
 		get gameClient() {
-			return Common.httpClient
+			return GDK.CommonServer.httpClient
 		}
 
 		/**
