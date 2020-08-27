@@ -1,4 +1,4 @@
-declare let gdk: GDK.UserAPI
+
 namespace GDK {
 
 	export class GDKManager {

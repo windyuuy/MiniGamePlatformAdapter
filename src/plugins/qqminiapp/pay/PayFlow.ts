@@ -1,6 +1,9 @@
 
 namespace QQMiniAppGDK.PayFlow {
 
+	/**
+	 * 自定义原生支付请求参数
+	 */
 	export interface CustomNativeAppPayParams extends GDK.PayItemInfo {
 		/** oppo包名 */
 		pkgName?: string
@@ -40,6 +43,7 @@ namespace QQMiniAppGDK.PayFlow {
 			return false
 		}
 
+		/** 重载支付网络请求 */
 		payNetClient = new CustomPayRequests()
 
         /**
