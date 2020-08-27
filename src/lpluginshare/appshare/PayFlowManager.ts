@@ -4,7 +4,7 @@ namespace AppShare.PayFlow {
 	export class PayFlowManager {
 		payFlowList: { [key: string]: PayFlowCls } = {}
 
-		registerPayFlow(name, cls: PayFlowCls) {
+		registerPayFlow(name, cls: PayFlowCls):void {
 			this.payFlowList[name] = cls
 		}
 
