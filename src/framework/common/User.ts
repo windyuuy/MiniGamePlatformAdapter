@@ -16,11 +16,9 @@ namespace GDK {
 		setAccountChangeListener?(f: () => void): void {
 			throw new Error("Method not implemented.")
 		}
-		init?(data?: any): void {
-			throw new Error("Method not implemented.")
+		init(data?: any): void {
 		}
-		initWithConfig?(info: GDKConfigV2): Promise<void> {
-			throw new Error("Method not implemented.")
+		async initWithConfig(info: GDKConfigV2): Promise<void> {
 		}
 		setLoginSupport(loginSupport: { google: boolean; visitor: boolean; facebook: boolean; wechat: boolean; gamecenter: boolean; account: boolean }): void {
 		}
