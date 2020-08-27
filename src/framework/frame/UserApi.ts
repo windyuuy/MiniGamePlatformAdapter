@@ -23,8 +23,13 @@ namespace GDK {
 			devlog.warn("redundant init for gdk, skipped");
 		}
 
-		initConfig(config: GDKConfigV2) {
-			devlog.warn("redundant initConfig for gdk, skipped");
+		protected beInitConfigOnce = false;
+		async initConfig(config: GDKConfigV2) {
+			if (this.beInitConfigOnce) {
+				devlog.warn("redundant initConfig for gdk, skipped");
+			} else {
+				return await gdkManager.initWithGDKConfig(config);
+			}
 		}
 
 		/**
