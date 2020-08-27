@@ -12,10 +12,10 @@
 		"declaration": true,
 		"composite": true,
 		"skipLibCheck": true,
-		"rootDir": "./",
 		"rootDirs": [
+			"./",
 			"../../framework",
-			"../appshare",
+			"../../lpluginshare/appshare"
 		]
 	},
 	"compileOnSave": true,
@@ -23,7 +23,7 @@
 	"include": [
 		"../../libs/**/*.ts",
 		"../../framework/**/*.ts",
-		"../appshare/**/*.ts",
+		"../../lpluginshare/appshare/**/*.ts",
 		"./**/*.ts"
 	],
 	"typelua": {

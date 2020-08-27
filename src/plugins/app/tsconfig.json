@@ -9,7 +9,7 @@
 	"include": [
 		"../../libs/**.ts",
 		"../../framework",
-		"../appshare/**/*.ts",
+		"../../lpluginshare/appshare/**/*.ts",
 		"./**/*.ts"
 	]
 }
