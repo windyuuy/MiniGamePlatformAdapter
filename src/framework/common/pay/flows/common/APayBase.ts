@@ -51,6 +51,7 @@ namespace GDK.PayFlow.APayBase {
 			this._parent = parent
 		}
 
+		/** 重载支付网络请求 */
 		payNetClient = new PayRequestsNormal()
 
 		/**

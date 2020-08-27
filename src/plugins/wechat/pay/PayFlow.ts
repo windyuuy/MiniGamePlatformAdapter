@@ -1,6 +1,9 @@
 
 namespace WechatGDK.PayFlow {
 
+	/**
+	 * 自定义原生支付请求参数
+	 */
 	export interface CustomNativeAppPayParams extends GDK.PayItemInfo {
 		/** oppo包名 */
 		pkgName?: string
@@ -48,6 +51,7 @@ namespace WechatGDK.PayFlow {
 			return payDeps.api.getAppInfoBoolean(AppInfoKeys.requireMiniAppPay)
 		}
 
+		/** 重载支付网络请求 */
 		payNetClient = new CustomPayRequests()
 
         /**

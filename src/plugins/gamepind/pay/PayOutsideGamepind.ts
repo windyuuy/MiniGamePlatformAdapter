@@ -14,6 +14,7 @@ namespace GamepindGDK.PayFlow.PayOutsideGamepind {
 
         payFlowName = "PayOutsideWithOrder"
 
+        /** 重载支付网络请求 */
         payNetClient = new CustomPayRequests()
 
         get isPayCallbackValid(): boolean {

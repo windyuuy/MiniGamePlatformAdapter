@@ -3,6 +3,9 @@ namespace AppShare.PayFlow.VivoAppPayFlow {
 
     const log = new slib.Log({ time: false, tags: ['[PayFlow]'] })
 
+    /**
+     * 自定义原生支付请求参数
+     */
     export interface CustomNativeAppPayParams extends GDK.PayItemInfo {
         /** oppo包名 */
         pkgName?: string
