@@ -8,7 +8,7 @@
 ├─docs             文档
 ├─src              源码
 │  ├─framework     框架
-│  │  ├─common     定义一些公共模块基类
+│  │  ├─common     定义一些公共基类
 │  │  ├─export     声明一些全局命名
 │  │  ├─frame      实现gdk插件加载流程
 │  │  └─sense      接口
@@ -28,3 +28,4 @@
 ├─tools            构建工具等
 └─dist             构建发布路径
 ```
+
