@@ -19,8 +19,12 @@ namespace GDK {
 			return this.metaInfo.version;
 		}
 
+		init() {
+			devlog.warn("redundant init for gdk, skipped");
+		}
+
 		initConfig(config: GDKConfigV2) {
-			devlog.warn("redundant init for gdk, ignored");
+			devlog.warn("redundant initConfig for gdk, skipped");
 		}
 
 		/**

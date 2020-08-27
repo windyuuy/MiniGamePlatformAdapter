@@ -132,6 +132,5 @@ namespace GDK {
 
 	const fakeGdk = new FakeUserApi()
 	window['gdk'] = fakeGdk
-	fakeGdk.init()
 	
 }
