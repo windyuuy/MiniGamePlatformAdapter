@@ -432,7 +432,7 @@ declare namespace GDK.PayFlow {
     }
 }
 declare namespace GDK.PayFlow {
-    class PayFlowMG implements IPayFlow {
+    class PayFlowProxy implements IPayFlow {
         _status: PayFlowStatus;
         protected get _parent(): Parent;
         protected set _parent(value: Parent);
@@ -468,7 +468,7 @@ declare namespace GDK.PayFlow {
     }
 }
 declare namespace GDK.PayFlow {
-    abstract class PayFlowMGBase implements IPayFlow {
+    abstract class PayFlowProxyBase implements IPayFlow {
         _status: PayFlowStatus;
         protected get _parent(): Parent;
         protected set _parent(value: Parent);
@@ -499,7 +499,7 @@ declare namespace GDK.PayFlow {
     /**
      * 针对小游戏平台
      */
-    export class PayFlowMGForMiniApp extends GDK.PayFlow.PayFlowMGBase {
+    export class PayFlowProxyForMiniApp extends GDK.PayFlow.PayFlowProxyBase {
         get payFlowName(): string;
         protected _payFlow: IPayFlow;
         getPayFlow(payWay?: string): IPayFlow;

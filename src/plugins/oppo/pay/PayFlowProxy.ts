@@ -1,11 +1,11 @@
 
-namespace BaiduGDK.PayFlow {
+namespace OPPOGDK.PayFlow {
 	const mdebug = (window as any)['wdebug'] && true
 
 	/**
 	 * 针对小游戏平台
 	 */
-	export class PayFlowMG extends GDK.PayFlow.PayFlowMGForMiniApp {
+	export class PayFlowProxy extends GDK.PayFlow.PayFlowProxyForMiniApp {
 
 		initConfig(parent: GDK.PayFlow.Parent) {
 			this._parent = parent

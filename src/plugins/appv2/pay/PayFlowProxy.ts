@@ -20,7 +20,7 @@ namespace AppV2GDK.PayFlow {
 
 	const log = new slib.Log({ time: false, tags: ['[PayFlow]'] })
 
-	export class PayFlowMG extends GDK.PayFlow.PayFlowMGBase {
+	export class PayFlowProxy extends GDK.PayFlow.PayFlowProxyBase {
 
 		/**
 		 * 根据 PayWay 获取对应 PayFlow 的 map

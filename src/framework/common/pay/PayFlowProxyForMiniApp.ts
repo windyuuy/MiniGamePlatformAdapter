@@ -21,7 +21,7 @@ namespace GDK.PayFlow {
 	/**
 	 * 针对小游戏平台
 	 */
-	export class PayFlowMGForMiniApp extends GDK.PayFlow.PayFlowMGBase {
+	export class PayFlowProxyForMiniApp extends GDK.PayFlow.PayFlowProxyBase {
 
 		get payFlowName() {
 			let payFlow = this.getPayFlow()

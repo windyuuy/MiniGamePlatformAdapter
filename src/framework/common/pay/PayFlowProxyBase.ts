@@ -8,7 +8,7 @@ namespace GDK.PayFlow {
 	/**
 	 * 支付主流程管理
 	 */
-	export abstract class PayFlowMGBase implements IPayFlow {
+	export abstract class PayFlowProxyBase implements IPayFlow {
 
 		_status: PayFlowStatus = new PayFlowStatus()
 

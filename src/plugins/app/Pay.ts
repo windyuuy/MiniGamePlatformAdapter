@@ -4,14 +4,14 @@ namespace AppGDK {
 	const paylog = Common.paylog
 
 	export class Pay extends GDK.PayBase {
-		protected payFlow: PayFlow.PayFlowMG
+		protected payFlow: PayFlow.PayFlowProxy
 
 		getUserPayFlow(): GDK.PayFlow.IPayFlow {
 			if (this.payFlow != null) {
 				return this.payFlow
 			}
 
-			this.payFlow = new PayFlow.PayFlowMG().init(this.api)
+			this.payFlow = new PayFlow.PayFlowProxy().init(this.api)
 			return this.payFlow
 		}
 

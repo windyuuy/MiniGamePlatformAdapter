@@ -10,7 +10,7 @@ namespace WechatGDK.PayFlow {
 	/**
 	 * 针对小游戏平台
 	 */
-	export class PayFlowMG extends GDK.PayFlow.PayFlowMGForMiniApp {
+	export class PayFlowProxy extends GDK.PayFlow.PayFlowProxyForMiniApp {
 
 		get isPayCallbackValid(): boolean {
 			/**
