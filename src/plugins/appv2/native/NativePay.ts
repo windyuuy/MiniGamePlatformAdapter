@@ -1,6 +1,6 @@
 /// <reference path="./NativeHelper.ts" />
 
-namespace UnityAppGDK {
+namespace AppV2GDK {
 	export enum PayErrorCode {
 		BIND_GOOGLE_SERVICE_FAILED,
 		SEND_PAY_REQUEST_FAILED,

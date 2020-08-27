@@ -1,5 +1,5 @@
 /// <reference path="Common.ts" />
-namespace UnityAppGDK {
+namespace AppV2GDK {
     const devlog = Common.devlog
 
     export class AdvertV2 implements GDK.IAdvertV2 {

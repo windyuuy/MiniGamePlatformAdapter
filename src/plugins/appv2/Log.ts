@@ -1,4 +1,4 @@
-namespace UnityAppGDK {
+namespace AppV2GDK {
 	export class Log implements GDK.ILog {
 
 		/**

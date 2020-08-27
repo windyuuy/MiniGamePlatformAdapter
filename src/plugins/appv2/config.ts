@@ -1,5 +1,5 @@
 
-namespace UnityAppGDK {
+namespace AppV2GDK {
 
 	// default config
 	GDK.gdkManager.registPluginConfig({

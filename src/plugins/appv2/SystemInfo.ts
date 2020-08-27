@@ -1,5 +1,5 @@
 
-namespace UnityAppGDK {
+namespace AppV2GDK {
 	export class SystemInfo extends GDK.SystemInfoBase {
 
 		api!: GDK.UserAPI

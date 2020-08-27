@@ -1,4 +1,4 @@
-namespace UnityAppGDK {
+namespace AppV2GDK {
 	const devlog = Common.devlog
 
 	export class InterstitialAd implements GDK.IInterstitialAd {

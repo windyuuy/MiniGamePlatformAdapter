@@ -1,5 +1,5 @@
 
-namespace UnityAppGDK {
+namespace AppV2GDK {
     export class AnyParams {
         public static readonly defaultValue: AnyParams = new AnyParams();
     }

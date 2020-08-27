@@ -1,5 +1,5 @@
 
-namespace UnityAppGDK {
+namespace AppV2GDK {
 	export class UserData implements GDK.IUserData {
 		get openId(): string {
 			return '0999999'

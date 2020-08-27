@@ -1,4 +1,4 @@
-namespace UnityAppGDK {
+namespace AppV2GDK {
 
 	export type LoginCallbackData = {
 		succeed: boolean,

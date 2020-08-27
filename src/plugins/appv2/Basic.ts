@@ -1,4 +1,4 @@
-namespace UnityAppGDK {
+namespace AppV2GDK {
 	type ReqResult = any
 
 	export class RReqPromise<T, F = undefined> extends GDK.RPromise<ReqResult>{

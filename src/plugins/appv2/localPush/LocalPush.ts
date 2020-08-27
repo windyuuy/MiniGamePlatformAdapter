@@ -1,5 +1,5 @@
 
-namespace UnityAppGDK {
+namespace AppV2GDK {
 
 	const devlog = Common.devlog
 
@@ -24,7 +24,7 @@ namespace UnityAppGDK {
 		 */
 		async addLocalNotices?(params: GDK.LocalPushBundle[]): Promise<void> {
 			let ret = new GDK.RPromise<void>();
-			let info = {notices:[]} as UnityAppGDK.AddNotifiesParams;
+			let info = {notices:[]} as AppV2GDK.AddNotifiesParams;
 
 			params.forEach((data) => {
 				info.notices.push(new NotifyTemplate(data));
@@ -47,7 +47,7 @@ namespace UnityAppGDK {
 		 */
 		async removeLocalNoticeWithID?(params: { identifier: string, identifiers:string[] }): Promise<void> {
 			let ret = new GDK.RPromise<void>();
-			let info = {} as UnityAppGDK.RemoveLocalNotifiesParams;
+			let info = {} as AppV2GDK.RemoveLocalNotifiesParams;
 			info.identifiers = params.identifiers;
 			this.getAddon().RemovePushesByID(info, new TaskCallback<AnyResult>({
 				onSuccess: (p) => {
@@ -65,7 +65,7 @@ namespace UnityAppGDK {
 		 */
 		async removeAllLocalNotices?(): Promise<void> {
 			let ret = new GDK.RPromise<void>();
-			let info = new UnityAppGDK.RemoveAllLocalNotifiesParams();
+			let info = new AppV2GDK.RemoveAllLocalNotifiesParams();
 			this.getAddon().RemoveAllPushes(info, new TaskCallback<AnyResult>({
 				onSuccess: (p) => {
                     ret.success(undefined)

@@ -1,5 +1,5 @@
 
-namespace UnityAppGDK {
+namespace AppV2GDK {
 	export class LogBridge {
 
 		protected static getAnalytics(): CS.Glee.Bridge.AnalyticsAddonWrapper {

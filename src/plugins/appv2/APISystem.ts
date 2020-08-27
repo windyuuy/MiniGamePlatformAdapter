@@ -1,5 +1,5 @@
 /// <reference path="./SDKProxy.ts" />
-namespace UnityAppGDK {
+namespace AppV2GDK {
 
 	export class APISystem extends GDK.APISystemBase {
 

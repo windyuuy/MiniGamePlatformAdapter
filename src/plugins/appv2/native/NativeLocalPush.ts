@@ -1,6 +1,6 @@
 /// <reference path="./NativeHelper.ts" />
 
-namespace UnityAppGDK {
+namespace AppV2GDK {
 	export class NativeLocalPushStyle extends GDK.LocalPushBundle {
 
 	}

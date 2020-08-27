@@ -1,6 +1,6 @@
 
 
-namespace UnityAppGDK {
+namespace AppV2GDK {
 
 	const paylog = Common.paylog
 

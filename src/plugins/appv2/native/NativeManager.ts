@@ -1,4 +1,4 @@
-namespace UnityAppGDK {
+namespace AppV2GDK {
 	export class NativeManager {
 
 		protected _nativeAdvert!: CS.Glee.Bridge.AdvertAddonWrapper;

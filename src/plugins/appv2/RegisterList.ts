@@ -1,4 +1,4 @@
-namespace UnityAppGDK {
+namespace AppV2GDK {
 	export class RegisterList extends GDK.ModuleClassMap {
 		Advert = Advert
 		GameInfo = GameInfo

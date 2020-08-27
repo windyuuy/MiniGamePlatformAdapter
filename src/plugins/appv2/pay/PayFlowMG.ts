@@ -1,5 +1,5 @@
 
-namespace UnityAppGDK.PayFlow {
+namespace AppV2GDK.PayFlow {
 	const mdebug = (window as any)['wdebug'] && true
 
 	type IPayFlow = GDK.PayFlow.IPayFlow

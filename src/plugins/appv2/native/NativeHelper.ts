@@ -1,5 +1,5 @@
 
-namespace UnityAppGDK {
+namespace AppV2GDK {
 	export class NativeHelper {
 
 		checkActionExist(key: string): boolean {

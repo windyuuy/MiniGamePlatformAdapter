@@ -1,5 +1,5 @@
 
-namespace UnityAppGDK {
+namespace AppV2GDK {
 	/** 客服 */
 	export class Customer implements GDK.ICustomer {
 		api!: GDK.UserAPI

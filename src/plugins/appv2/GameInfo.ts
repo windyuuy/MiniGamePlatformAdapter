@@ -1,5 +1,5 @@
 
-namespace UnityAppGDK {
+namespace AppV2GDK {
 	export const AppInfoKeys = {
 		advertPlatforms: "app.v2.advertPlatforms",
 		advertPlatform: "app.v2.advertPlatform",

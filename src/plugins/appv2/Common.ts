@@ -1,4 +1,4 @@
-namespace UnityAppGDK.Common {
+namespace AppV2GDK.Common {
 	/**
 	 * 服务器对象
 	 */

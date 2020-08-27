@@ -3,7 +3,7 @@
 /// <reference path="./native/NativeLocalPush.ts" />
 
 
-namespace UnityAppGDK {
+namespace AppV2GDK {
 	/**
 	 * 用户信息本地存储的key
 	 */
@@ -676,9 +676,9 @@ namespace UnityAppGDK {
 			return this.callAction("hideLaunchingView", "{}");
 		}
 
-		static nativeAdvert: UnityAppGDK.NativeAdvert = new UnityAppGDK.NativeAdvert()
-		static nativePay: UnityAppGDK.NativePay = new UnityAppGDK.NativePay()
-		static nativeLocalPush: UnityAppGDK.NativeLocalPush = new UnityAppGDK.NativeLocalPush()
+		static nativeAdvert: AppV2GDK.NativeAdvert = new AppV2GDK.NativeAdvert()
+		static nativePay: AppV2GDK.NativePay = new AppV2GDK.NativePay()
+		static nativeLocalPush: AppV2GDK.NativeLocalPush = new AppV2GDK.NativeLocalPush()
 
 	}
 }

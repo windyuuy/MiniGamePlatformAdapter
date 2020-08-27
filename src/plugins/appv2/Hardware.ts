@@ -1,5 +1,5 @@
 
-namespace UnityAppGDK {
+namespace AppV2GDK {
 	const devlog = Common.devlog
 	class Vibration implements GDK.IVibration {
 		async vibrateLong() {
