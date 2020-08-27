@@ -195,7 +195,7 @@ gulp.task("uploadVersion", async () => {
 gulp.task("uploadDocs", async () => {
 	let client = getOssClient();
 
-	let docdir = "../docs/_book/"
+	let docdir = "../docs/apidoc/_book/"
 	let list = glob.sync(docdir + '**/*')
 	await Promise.all(list.map(n => {
 		n = n.substring(docdir.length)
@@ -213,7 +213,7 @@ gulp.task('gendoc', genDoc)
 
 gulp.task("build", gulp.series("buildapi", "compile", "mini", "makeVersion"));
 gulp.task("convdoc", async () => {
-	execon("../docs/", () => exec("gitbook build"))
+	execon("../docs/apidoc/", () => exec("gitbook build"))
 });
 gulp.task('builddoc', gulp.series("gendoc", "convdoc"))
 

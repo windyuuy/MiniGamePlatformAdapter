@@ -374,7 +374,7 @@ const scanInterfacesInProject = (folder) => {
 async function genDoc() {
 
 	const srcfile = baseDir + '/framework/frame/UserApi.ts'
-	const destdir = baseDir + '/../docs/'
+	const destdir = baseDir + '/../docs/apidoc/'
 
 	const moduleMapFile = baseDir + '/framework/sense/IModuleMap.ts'
 
