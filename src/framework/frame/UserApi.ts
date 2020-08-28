@@ -1358,7 +1358,10 @@ namespace GDK {
 			}
 			return this._m.advertV2.createAdvertUnit(createInfo);
 		}
-
+		/**
+		 * 是否支持该类型广告
+		 * @param advertType 广告类型
+		 */
 		isAdvertTypeSupported(advertType: AdvertType): boolean {
 			if (
 				!this.checkModuleAttr("advertV2", "isAdvertTypeSupported", "function")

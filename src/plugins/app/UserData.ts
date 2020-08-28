@@ -1,6 +1,6 @@
 
 namespace AppGDK {
-	export class UserData implements GDK.IUserData {
+	export class UserData extends GDK.UserDataBase {
 		get openId(): string {
 			return '0999999'
 		}

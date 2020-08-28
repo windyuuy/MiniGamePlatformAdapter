@@ -3,7 +3,7 @@ namespace WebGDK {
 
 	const devlog = Common.devlog
 
-	export class Auth implements GDK.IAuth {
+	export class Auth extends GDK.AuthBase {
 		createUserInfoButton(obj: GDK.IUserInfoButton): GDK.UserInfoButton {
 			devlog.info("createUserInfoButton")
 			return null;

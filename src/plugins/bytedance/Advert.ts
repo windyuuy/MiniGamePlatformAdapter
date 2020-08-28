@@ -1,6 +1,6 @@
 
 namespace BytedanceGDK {
-	export class Advert implements GDK.IAdvert {
+	export class Advert extends GDK.AdvertBase {
 
 		createRewardedVideoAd(params: {
 			/** 广告单元 id */

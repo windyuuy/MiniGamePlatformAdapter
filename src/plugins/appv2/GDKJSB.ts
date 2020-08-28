@@ -1,6 +1,6 @@
 
 namespace AppV2GDK {
-	export class HotUpdate implements GDK.IHotUpdate {
+	export class HotUpdate extends GDK.HotUpdateBase {
 
 		/**
 		 * 游戏热更新功能

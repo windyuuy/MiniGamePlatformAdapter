@@ -346,7 +346,7 @@ namespace OPPOGDK {
 		isAvailable?: boolean;
 	}
 
-	export class Advert implements GDK.IAdvert {
+	export class Advert extends GDK.AdvertBase {
 
 		api?: GDK.UserAPI
 		async initWithConfig?(_info: GDK.GDKConfigV2) {

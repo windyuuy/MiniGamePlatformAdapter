@@ -2,7 +2,7 @@ namespace WebGDK {
 
 	const devlog = Common.devlog
 
-	export class Share implements GDK.IShare {
+	export class Share extends GDK.ShareBase {
 		api?: GDK.UserAPI
 
 		async share(data: GDK.ShareData): Promise<GDK.ShareResult> {

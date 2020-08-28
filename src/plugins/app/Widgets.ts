@@ -9,7 +9,7 @@ namespace AppGDK {
 		}
 	}
 
-	export class Widgets implements GDK.IWidgets {
+	export class Widgets extends GDK.WidgetsBase {
 
 		api?: GDK.UserAPI
 

@@ -178,7 +178,7 @@ namespace DevelopGDK {
 		}
 	}
 
-	export class Advert implements GDK.IAdvert {
+	export class Advert extends GDK.AdvertBase {
 
 		api?: GDK.UserAPI
 

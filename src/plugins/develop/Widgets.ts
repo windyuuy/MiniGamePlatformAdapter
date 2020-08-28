@@ -9,7 +9,7 @@ namespace DevelopGDK {
 		}
 	}
 
-	export class Widgets implements GDK.IWidgets {
+	export class Widgets extends GDK.WidgetsBase {
 		keyboard = new KeyBoard()
 		async showLoading(object: GDK.ShowLoadingParams) {
 			devlog.info("showLoading")

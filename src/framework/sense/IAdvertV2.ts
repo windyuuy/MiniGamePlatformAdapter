@@ -58,6 +58,10 @@ namespace GDK {
 		 * 创建激励视频广告对象
 		 */
         createAdvertUnit(createInfo: AdCreateInfo): Promise<IAdvertUnit>
+        /**
+         * 是否支持该类型广告
+         * @param advertType 广告类型
+         */
         isAdvertTypeSupported(advertType: AdvertType): boolean
     }
 }

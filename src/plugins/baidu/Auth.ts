@@ -1,6 +1,6 @@
 
 namespace BaiduGDK {
-	export class Auth implements GDK.IAuth {
+	export class Auth extends GDK.AuthBase {
 		createUserInfoButton(obj: GDK.IUserInfoButton): GDK.UserInfoButton {
 			return swan.createUserInfoButton(obj)
 		}

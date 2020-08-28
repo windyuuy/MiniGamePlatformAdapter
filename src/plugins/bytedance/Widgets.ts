@@ -7,7 +7,7 @@ namespace BytedanceGDK {
 		}
 	}
 
-	export class Widgets implements GDK.IWidgets {
+	export class Widgets extends GDK.WidgetsBase {
 		keyboard = new KeyBoard()
 		showLoading(object: GDK.ShowLoadingParams) {
 			return wrapReq<void>((obj) => { return wx.showLoading(obj) }, object, GDK.GDKErrorCode.API_SHOW_LOADING_FAILED)

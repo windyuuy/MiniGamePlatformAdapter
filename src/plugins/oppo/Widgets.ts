@@ -6,7 +6,7 @@ namespace OPPOGDK {
 		}
 	}
 
-	export class Widgets implements GDK.IWidgets {
+	export class Widgets extends GDK.WidgetsBase {
 		keyboard = new KeyBoard()
 		showLoading(object: GDK.ShowLoadingParams) {
 			return wrapReq((obj) => { return /*BK.UI.showLoading(obj)*/ }, object, GDK.GDKErrorCode.API_SHOW_LOADING_FAILED)

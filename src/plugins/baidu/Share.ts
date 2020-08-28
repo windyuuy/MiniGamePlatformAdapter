@@ -48,7 +48,7 @@ namespace BaiduGDK {
 		}
 	}
 
-	export class Share implements GDK.IShare {
+	export class Share extends GDK.ShareBase {
 		api?: GDK.UserAPI
 
 		/**

@@ -1,7 +1,7 @@
 
 namespace OPPOGDK {
 
-	export class UserData implements GDK.IUserData {
+	export class UserData extends GDK.UserDataBase {
 		openId: string
 		openKey: string
 		password?: string

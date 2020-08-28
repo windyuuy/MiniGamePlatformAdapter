@@ -3,7 +3,7 @@ namespace WebViewGDK {
 
 	const devlog = Common.devlog
 
-	export class LocalPush implements GDK.ILocalPush {
+	export class LocalPush extends GDK.LocalPushBase {
 		api?: GDK.UserAPI
 
 		init() {

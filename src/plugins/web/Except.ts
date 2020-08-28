@@ -1,5 +1,5 @@
 namespace WebGDK {
-	export class Except implements GDK.IExcept {
+	export class Except extends GDK.ExceptBase {
 		protected _errorCallback: (err: { message: string, stack: string }) => void
 		protected _isListener: boolean = false;
 

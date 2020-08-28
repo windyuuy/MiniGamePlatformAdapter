@@ -57,7 +57,7 @@ namespace BytedanceGDK {
 		}
 	}
 
-	export class Share implements GDK.IShare {
+	export class Share extends GDK.ShareBase {
 		api?: GDK.UserAPI
 
 		launchOptions: { scene: number, query: any, path?: string, isSticky: boolean, shareTicket: string, referrerInfo: { appId: string, extraData: any } }
