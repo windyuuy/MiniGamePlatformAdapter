@@ -76,7 +76,7 @@ namespace GDK {
 		}
 
 		/**
-		 * 传入配置并初始化
+		 * 初始化
 		 */
 		init() {
 			for (let k in this._pluginMap) {
@@ -117,6 +117,7 @@ namespace GDK {
 	class FakeUserApi {
 		init() {
 			gdkManager.instantiateGDKInstance()
+			gdkManager.init()
 			gdkManager.setDefaultGdk(defaultGDKName)
 			return this
 		}
@@ -132,5 +133,5 @@ namespace GDK {
 
 	const fakeGdk = new FakeUserApi()
 	window['gdk'] = fakeGdk
-	
+
 }
