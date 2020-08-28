@@ -9,7 +9,7 @@ namespace AppGDK {
 			if (!this._isListener) {
 				this._isListener = true;
 
-				// window.onerror = (res) => {
+				// window.onerror = (rees) => {
 				// 	//检查该错误是否提交过
 				// 	this._errorCallback({ message: res.toString(), stack: new Error().stack });
 				// }
