@@ -15,7 +15,8 @@ const tempDir = './temp'
 const ossFolderLibTest = 'libs-test'
 const ossFolderLibNext = 'libs-next'
 const ossFolderLibPub = 'libs'
-const ossFolderGDKDocs = 'gdk'
+const ossFolderGDKAPIDocs = 'gdk'
+const ossFolderGDKDevDocs = 'gdk_dev_doc'
 
 const execon = (dir, fn) => {
 	const pwd = path.resolve(process.cwd())
@@ -192,7 +193,7 @@ gulp.task("uploadVersion", async () => {
 	console.log("上传完成", "../dist/", list)
 })
 
-gulp.task("uploadDocs", async () => {
+gulp.task("uploadAPIDocs", async () => {
 	let client = getOssClient();
 
 	let docdir = "../docs/apidoc/_book/"
@@ -202,8 +203,29 @@ gulp.task("uploadDocs", async () => {
 		if (fs.statSync(docdir + n).isDirectory()) {
 			return
 		}
-		console.log(`${ossFolderGDKDocs}/` + n, "<-", docdir + n)
-		return client.put(`${ossFolderGDKDocs}/` + n, docdir + n)
+		console.log(`${ossFolderGDKAPIDocs}/` + n, "<-", docdir + n)
+		return client.put(`${ossFolderGDKAPIDocs}/` + n, docdir + n)
+	}))
+	console.log("上传完成", docdir, list)
+})
+
+gulp.task("buildDevDocs", async () => {
+	let docdir = "../docs/devdoc/"
+	execon(docdir,()=>exec("gitbook build"))
+})
+
+gulp.task("uploadDevDocs", async () => {
+	let client = getOssClient();
+
+	let docdir = "../docs/devdoc/_book/"
+	let list = glob.sync(docdir + '**/*')
+	await Promise.all(list.map(n => {
+		n = n.substring(docdir.length)
+		if (fs.statSync(docdir + n).isDirectory()) {
+			return
+		}
+		console.log(`${ossFolderGDKDevDocs}/` + n, "<-", docdir + n)
+		return client.put(`${ossFolderGDKDevDocs}/` + n, docdir + n)
 	}))
 	console.log("上传完成", docdir, list)
 })
@@ -219,7 +241,8 @@ gulp.task('builddoc', gulp.series("gendoc", "convdoc"))
 
 gulp.task("publish", gulp.series("build", "uploadVersion"));
 gulp.task("pubOne", gulp.series("publish", "pubNext", "pubPub", "verifyUpload"))
-gulp.task("pubDocs", gulp.series("builddoc", "uploadDocs"))
+gulp.task("pubDocs", gulp.series("builddoc", "uploadAPIDocs"))
+gulp.task("pubDevDocs", gulp.series("buildDevDocs", "uploadDevDocs"))
 
 gulp.task('ccfupdate', async () => {
 	execon('src/framework/ccfcfg', () => exec("ccf install slib-interface --to ../../libs"))
