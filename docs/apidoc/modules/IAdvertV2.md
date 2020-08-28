@@ -4,5 +4,6 @@
 
 
 ### ** * isAdvertTypeSupported(advertType: AdvertType): void**
-- isAdvertTypeSupported(advertType: AdvertType): void
+是否支持该类型广告
+- @param advertType 广告类型
 

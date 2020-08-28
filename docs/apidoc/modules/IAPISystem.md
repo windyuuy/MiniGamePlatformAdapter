@@ -115,6 +115,11 @@ set native sdk language
 - @param params
 
 
+### ** * initAppinfo(appInfo: AppInfo): void**
+初始化appinfo
+最终的参数优先从 优先从外层parameters加载，如果找不到则从sdk模块中加载。
+
+
 ### ** * setAppInfo(key: string,value: string | number | boolean): void**
 动态修改appInfo的值，仅在内存中生效，不会影响磁盘中的配置
 - @param key

@@ -1,3 +1,21 @@
+### ** * launchOptions: {
+      scene: number
+      query: any
+      path?: string
+      isSticky: boolean
+      shareTicket: string
+      referrerInfo: { appId: string; extraData: any }
+    }**
+- launchOptions: {
+      scene: number
+      query: any
+      path?: string
+      isSticky: boolean
+      shareTicket: string
+      referrerInfo: { appId: string; extraData: any }
+    }
+
+
 ### ** * share(data: ShareData): Promise**
 分享到聊天窗口
 * 如果目标平台没有明确的聊天窗口，则进行社会化分享。
