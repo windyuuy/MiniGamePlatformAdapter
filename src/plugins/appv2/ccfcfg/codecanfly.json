@@ -1,14 +1,15 @@
 {
 	"name": "gdk-appv2",
-	"version": "1.0.21",
+	"version": "1.0.0",
 	"files": [
 		"**/*"
 	],
 	"fileRoot": "../../../../dist/appv2",
 	"tags": [
 		"gdk",
-		"unity"
+		"appv2"
 	],
 	"commands": [],
-	"uses": []
+	"uses": [],
+	"readmeFile": "../../../../docs/devdoc/"
 }

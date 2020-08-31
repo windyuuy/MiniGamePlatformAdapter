@@ -1,0 +1,1 @@
+[feature] 兼容新版gssdk

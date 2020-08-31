@@ -4,7 +4,7 @@ namespace AppV2GDK {
 	// default config
 	GDK.gdkManager.registPluginConfig({
 		name: 'appv2',
-		version: '1.0.21',
+		version: '1.0.0',
 		platform: "native",
 		platformLocale: "原生APP",
 		register: RegisterList,

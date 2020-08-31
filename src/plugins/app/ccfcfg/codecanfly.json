@@ -1,6 +1,6 @@
 {
 	"name": "gdk-app",
-	"version": "1.0.1",
+	"version": "1.0.3",
 	"files": [
 		"**/*"
 	],
