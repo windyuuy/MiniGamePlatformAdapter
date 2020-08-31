@@ -146,26 +146,27 @@ gulp.task("mini", () => {
 
 gulp.task("compile", async () => {
 
-	let execCompile = () => {
+	let execCompile = (cmd) => {
 		updateVersion()
-		exec("tsc")
+		exec(cmd||"tsc")
 	}
 	execon("../src", () => {
 		execon("./framework", () => execCompile())
+		execon("./plugins/appv2", () => execCompile("ccf type2lua --build luaconfig.json"))
 		execon("./plugins/appv2", () => execCompile())
-		// execon("./plugins/bytedance", () => execCompile())
-		// execon("./plugins/qqminiapp", () => execCompile())
-		// execon("./plugins/wechat", () => execCompile())
+		execon("./plugins/bytedance", () => execCompile())
+		execon("./plugins/qqminiapp", () => execCompile())
+		execon("./plugins/wechat", () => execCompile())
 		execon("./plugins/app", () => execCompile())
-		// execon("./plugins/baidu", () => execCompile())
-		// execon("./plugins/develop", () => execCompile())
-		// execon("./plugins/gamepind", () => execCompile())
-		// execon("./plugins/web", () => execCompile())
-		// execon("./plugins/oppo", () => execCompile())
-		// execon("./plugins/vivo", () => execCompile())
-		// execon("./plugins/webview", () => execCompile())
+		execon("./plugins/baidu", () => execCompile())
+		execon("./plugins/develop", () => execCompile())
+		execon("./plugins/gamepind", () => execCompile())
+		execon("./plugins/web", () => execCompile())
+		execon("./plugins/oppo", () => execCompile())
+		execon("./plugins/vivo", () => execCompile())
+		execon("./plugins/webview", () => execCompile())
 
-		execon("./test", () => execCompile())
+		// execon("./test", () => execCompile())
 	})
 
 })
@@ -260,6 +261,11 @@ gulp.task("pubccfAllLibs", async () => {
 			execon(dir, () => exec("ccf publish"))
 		} else {
 			console.warn(`warn: ${targetfolder} 未构建，无法发布ccf`)
+		}
+
+		let luaDir= '../src/plugins/' + targetfolder + '/ccfcfg-lua'
+		if(fs.existsSync(luaDir)){
+			execon(luaDir, () => exec("ccf publish"))
 		}
 	})
 })

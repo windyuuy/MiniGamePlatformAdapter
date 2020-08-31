@@ -1,0 +1,16 @@
+{
+	"name": "gdk-luaappv2",
+	"version": "1.0.0",
+	"files": [
+		"**/*"
+	],
+	"fileRoot": "../../../../dist/luaappv2",
+	"tags": [
+		"lua",
+		"gdk",
+		"unity",
+		"appv2"
+	],
+	"commands": [],
+	"uses": []
+}

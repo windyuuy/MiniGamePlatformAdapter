@@ -66,7 +66,7 @@ namespace AppV2GDK {
 			this.deviceId = info.deviceId
 			this.uuid = info.uuid
 			this.gameDeviceId = info.gameDeviceId
-			this.system = info.platform + info.systemVersion
+			this.system = info.platform as string + info.systemVersion
 			this.platform = info.platform
 			this.brand = info.brand
 			this.model = info.model
