@@ -1,5 +1,7 @@
 
 namespace AppV2GDK {
+	window["gdkjsb"] = window["gdkjsb"] || CS.Glee.Bridge.GDKJSB.inst
+
 	export class NativeHelper {
 
 		checkActionExist(key: string): boolean {

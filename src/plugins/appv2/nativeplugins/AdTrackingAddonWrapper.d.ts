@@ -1,5 +1,8 @@
 
 declare namespace CS.Glee.Bridge {
+
+    export var GDKJSB : any;
+
    export class AdTrackingAddonWrapper {
 
         public LogCustomEvent (info: LogCustomEventParams, callbacks: TaskCallback<LogEventResult>):void;

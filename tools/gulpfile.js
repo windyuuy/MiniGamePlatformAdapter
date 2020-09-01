@@ -287,6 +287,9 @@ const updateVersion = () => {
 		return;
 	}
 	const file = path.join("", "config.ts");
+	if (!fs.existsSync(file)) {
+		file = path.join("", "baseConfig.ts");
+	}
 	let read = fs.readFileSync(file, 'utf8');
 	let codecanfly = JSON.parse(fs.readFileSync(fileName, 'utf8'));
 	console.log("更新GDK版本号 ===> " + codecanfly.version);

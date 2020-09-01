@@ -16,7 +16,8 @@
 		"composite": true,
 		"rootDir": "./",
 		"rootDirs": [
-			"../../framework"
+			"../../framework",
+			"../../lpluginshare/appshare"
 		]
 	},
 	"compileOnSave": true,
@@ -24,6 +25,7 @@
 	"include": [
 		"../../libs/**/*.ts",
 		"../../framework/**/*.ts",
+		"../../lpluginshare/appshare/**/*.ts",
 		"./**/*.ts"
 	],
 	"typelua": {
