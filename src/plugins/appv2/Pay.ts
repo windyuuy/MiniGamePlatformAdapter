@@ -19,6 +19,11 @@ namespace AppV2GDK {
 		api!: GDK.UserAPI
 
 		payPurchase(config: GDK.PayItemInfo, options: GDK.PayOptions): Promise<GDK.PayResult> {
+			if (!this.isSupport()) {
+				const ret = new GDK.RPromise<GDK.PayResult>()
+				ret.fail("当前模式不支持支付")
+				return ret.promise;
+			}
 			const ret = new GDK.RPromise<GDK.PayResult>()
 			let sku = config.productId
 			if (!sku) {
@@ -76,6 +81,11 @@ namespace AppV2GDK {
 		 * 消耗商品
 		 */
 		async consumePurchase?(params: GDK.ConsumePurchaseParams): Promise<GDK.ConsumePurchaseResult> {
+			if (!this.isSupport()) {
+				const ret = new GDK.RPromise<GDK.ConsumePurchaseResult>();
+				ret.fail("当前模式不支持支付")
+				return ret.promise;
+			}
 			const ret = new GDK.RPromise<GDK.ConsumePurchaseResult>();
 			let info = {} as CS.Glee.Bridge.ConsumePurchaseInfo;
 			info.payWay = params.payWay;
@@ -94,7 +104,11 @@ namespace AppV2GDK {
 		 * 获取未消耗商品列表
 		 */
 		async queryItemInfo?(params: GDK.PayQueryItemInfoParams): Promise<GDK.PayQueryItemInfoResult> {
-
+			if (!this.isSupport()) {
+				const ret = new GDK.RPromise<GDK.PayQueryItemInfoResult>()
+				ret.fail("当前模式不支持支付")
+				return ret.promise;
+			}
 			let sku = params.productId
 			if (!sku) {
 				const msg = 'queryItemInfo: productId 为空， 原生app需要传入productId'
@@ -125,5 +139,12 @@ namespace AppV2GDK {
 		protected getAddon(): CS.Glee.Bridge.ShopAddonWrapper {
 			return nativeManager.getWrapper().shop;
 		}
+        public isSupport() : boolean {
+            if (SDKProxy.getAppInfo(AppInfoKeys.unityEnv) == "UNITY_EDITOR") {
+                console.log("编辑器环境不支持支付")
+                return false
+            }
+            return nativeManager.isSupport();
+        }
 	}
 }

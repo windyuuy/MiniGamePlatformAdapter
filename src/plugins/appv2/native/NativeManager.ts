@@ -17,7 +17,7 @@ namespace AppV2GDK {
 					console.warn("bus模块不存在")
 				}
 			} else {
-				console.error("CS.Glee不存在")
+				console.log("CS.Glee不存在")
 			}
 			return this._nativeAdvert;
 		}
@@ -35,7 +35,7 @@ namespace AppV2GDK {
 					console.warn("bus模块不存在")
 				}
 			} else {
-				console.error("CS.Glee不存在")
+				console.log("CS.Glee不存在")
 			}
 			return this._channelWrapper;
 		}

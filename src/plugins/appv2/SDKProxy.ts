@@ -546,9 +546,20 @@ namespace AppV2GDK {
 		}
 
 		static webAction(str : string, callback : (isOk : boolean)=>void) {
-			console.error("webAction 模拟事件 : ", str);
-			let isOk = confirm(str)
-			callback && callback(isOk);
+			if (this.gdkjsbExist()) {
+				return new Promise<GDK.ShowConfirmResult>((resolve, reject) => {
+					this.getGdkjsb().showConfirm(str, "提示", "ok", "cancel", isOk => {
+						let r = new GDK.ShowConfirmResult()
+						r.confirm = isOk == true
+						r.cancel = isOk == false
+						resolve(r);
+					})
+				})
+			} else {
+				console.log("webAction 模拟事件 : ", str);
+				let isOk = confirm(str)
+				callback && callback(isOk);
+			}
 		}
 
 		static logAction(str: string) {
@@ -630,6 +641,10 @@ namespace AppV2GDK {
 		*/
 		static getResVersion():number {
 			if (this.gdkjsbExist()) {
+				if (SDKProxy.getAppInfo(AppInfoKeys.unityEnv) == "UNITY_EDITOR") {
+					console.log("编辑器环境不支持getResVersion")
+					return -1
+				}
 				let num = parseInt(this.getGdkjsb().getResVersion());
 				if (num == NaN) {
 					return -1;

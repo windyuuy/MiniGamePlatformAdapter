@@ -100,6 +100,9 @@ namespace AppV2GDK {
 			loginInfo.loginNode = params.node!
 			let callbacks = new TaskCallback<LoginServerResult>({
 				onSuccess: (data) => {
+					if (window["type"] && type(data) == "userdata") {
+						data = JSON.parse(CS.Glee.Base.JSON.stringify(data));
+					}
 					let loginResult = new GDK.LoginResult();
 					loginResult.extra = data.serverData;
 					console.log("loginResult: " + JSON.stringify(loginResult))
@@ -132,7 +135,7 @@ namespace AppV2GDK {
 
 		async showUserCenter() {
 			if (!this.isSupport()) {
-				console.error("不支持User模块，跳过")
+				console.log("不支持User模块，跳过")
 				return;
 			}
 
@@ -154,10 +157,10 @@ namespace AppV2GDK {
 		bindUser() : Promise<{success : boolean, data : any}> {
 			const ret = new GDK.RPromise<{success : boolean, data : any}>()
 			if (!this.isSupport()) {
-				console.error("不支持User模块")
+				console.log("不支持User模块")
 				ret.success({success: false, data: {}})
 				setTimeout(() => {
-					console.error("模拟绑定，确定为绑定成功，取消为绑定失败")
+					console.log("模拟绑定，确定为绑定成功，取消为绑定失败")
 					let isOk = confirm("模拟绑定，确定为绑定成功，取消为绑定失败")
 					ret.success({success: isOk, data: {}})
 				}, 0);

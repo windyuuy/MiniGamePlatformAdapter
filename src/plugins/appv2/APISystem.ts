@@ -116,6 +116,9 @@ namespace AppV2GDK {
 		 */
 		setAppInfo(key: string, value: string | number | boolean) {
 			if (SDKProxy.gdkjsbExist()) {
+				if (SDKProxy.getAppInfo(AppInfoKeys.unityEnv) == "UNITY_EDITOR") {
+					super.setAppInfo(key, value);
+				}
 				SDKProxy.setAppInfo(key, value);
 			} else {
 				super.setAppInfo(key, value);
@@ -127,6 +130,9 @@ namespace AppV2GDK {
 		 */
 		getAppInfo(key: string):(string | number | boolean| null){
 			if (SDKProxy.gdkjsbExist()) {
+				if (SDKProxy.getAppInfo(AppInfoKeys.unityEnv) == "UNITY_EDITOR") {
+					return super.getAppInfo(key);
+				}
 				return SDKProxy.getAppInfo(key);
 			} else {
 				return super.getAppInfo(key);

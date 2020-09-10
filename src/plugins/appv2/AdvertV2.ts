@@ -17,6 +17,10 @@ namespace AppV2GDK {
          * 判断广告类型是否支持
         */
         isAdvertTypeSupported(advertType: GDK.AdvertType): boolean {
+            if (SDKProxy.getAppInfo(AppInfoKeys.unityEnv) == "UNITY_EDITOR") {
+                console.log("编辑器环境不支持广告")
+                return false
+            }
             return AdvertUnitRaw.isAdvertTypeSupported(advertType)
         }
     }

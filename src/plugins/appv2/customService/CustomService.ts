@@ -6,6 +6,10 @@ namespace AppV2GDK {
 			return nativeManager.getWrapper().customService;
 		}
         public isSupport() : boolean {
+            if (SDKProxy.getAppInfo(AppInfoKeys.unityEnv) == "UNITY_EDITOR") {
+                console.log("编辑器环境不支持客服")
+                return false
+            }
             return nativeManager.isSupport();
         }
 
