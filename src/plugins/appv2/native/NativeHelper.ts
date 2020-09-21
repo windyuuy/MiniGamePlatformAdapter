@@ -1,6 +1,8 @@
 
 namespace AppV2GDK {
-	window["gdkjsb"] = window["gdkjsb"] || CS.Glee.Bridge.GDKJSB.inst
+	if (window["CS"] && !window["gdkjsb"]) {
+		window["gdkjsb"] = CS.Glee.Bridge.GDKJSB.inst
+	}
 
 	export class NativeHelper {
 

@@ -1,0 +1,1 @@
+[bugfix] cocos不支持CS参数
