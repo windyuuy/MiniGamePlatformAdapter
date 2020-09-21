@@ -31,10 +31,15 @@ namespace AppV2GDK {
 
             return ret.promise
         }
-        show(): Promise<GDK.ShowAdUnityResult> {
+        show(opInfo?: GDK.IShowAdUnitOpInfo): Promise<GDK.ShowAdUnityResult> {
             let ret = new GDK.RPromise<GDK.ShowAdUnityResult>()
 
-            this.adUnitRaw.show(new TaskCallback<GDK.ShowAdUnityResult>({
+            let showOpInfo = new ShowAdUnitOpInfo()
+            if (opInfo != null && typeof (opInfo.scene) == "string") {
+                showOpInfo.scene = opInfo.scene
+            }
+
+            this.adUnitRaw.show(showOpInfo, new TaskCallback<GDK.ShowAdUnityResult>({
                 onSuccess: (p) => {
                     ret.success(p)
                 },

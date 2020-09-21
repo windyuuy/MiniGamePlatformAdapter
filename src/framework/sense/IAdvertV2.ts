@@ -44,19 +44,23 @@ namespace GDK {
         public isEnded: boolean = false;
     }
 
+    export interface IShowAdUnitOpInfo {
+        scene?: string;
+    }
+
     export interface IAdvertUnit {
         load(): Promise<void>
-        show(): Promise<ShowAdUnityResult>
+        show(opInfo?: IShowAdUnitOpInfo): Promise<ShowAdUnityResult>
         readonly isReady: boolean
         readonly isAlive: boolean
         destroy(): void
     }
 
     export interface IAdvertV2 extends IModule {
-		/**
-		 * 是个单例
-		 * 创建激励视频广告对象
-		 */
+        /**
+         * 是个单例
+         * 创建激励视频广告对象
+         */
         createAdvertUnit(createInfo: AdCreateInfo): Promise<IAdvertUnit>
         /**
          * 是否支持该类型广告
