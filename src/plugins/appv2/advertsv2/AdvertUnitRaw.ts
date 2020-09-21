@@ -44,22 +44,22 @@ namespace AppV2GDK {
         public load(callbacks: TaskCallback<AnyResult>) {
             if (!this.isSupport()) {
                 console.log("不支持广告模块")
-                SDKProxy.webAction("模拟广告load功能", (isOk)=> {
+                SDKProxy.webAction("模拟广告load功能", (isOk) => {
                     if (isOk) {
                         callbacks.onSuccess(new AnyResult())
                     } else {
                         callbacks.onFailed(undefined as any);
                     }
                 })
-                return 
+                return
             }
             this.getAddon().LoadAdUnit(new AdUnitOpInfo(this.nativeUnitInfo, new ShowAdUnitOpInfo()), callbacks);
         }
 
-        public show(callbacks: TaskCallback<ShowAdUnityResult>) {
+        public show(opInfo: ShowAdUnitOpInfo, callbacks: TaskCallback<ShowAdUnityResult>) {
             if (!this.isSupport()) {
                 console.log("不支持广告模块")
-                SDKProxy.webAction("模拟广告show功能", (isOk)=> {
+                SDKProxy.webAction("模拟广告show功能", (isOk) => {
                     if (isOk) {
                         let res = new ShowAdUnityResult();
                         res.couldReward = true;
@@ -69,9 +69,9 @@ namespace AppV2GDK {
                         callbacks.onFailed(undefined as any);
                     }
                 })
-                return 
+                return
             }
-            this.getAddon().ShowAdUnit(new AdUnitOpInfo(this.nativeUnitInfo, new ShowAdUnitOpInfo()), callbacks);
+            this.getAddon().ShowAdUnit(new AdUnitOpInfo(this.nativeUnitInfo, opInfo), callbacks);
         }
 
         get isReady(): boolean {
