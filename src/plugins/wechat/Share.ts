@@ -16,6 +16,21 @@ namespace WechatGDK {
 			let params = "?openId=" + openId + "&timeStamp=" + timeStamp + "&url=" + url;
 			let api = server + "/api/Client/SetValue" + params;
 			devlog.info("apiSetValue url=", api);
+			// return api;
+			// return await new Promise<string>((resolve, reject) => {
+			wx['request'] && wx['request']({
+				url: api,
+				method: 'get',
+				success: (res) => {
+					devlog.info("apiGetValue res=", res);
+					// resolve(url);
+				},
+				fail: (err) => {
+					devlog.error("apiGetValue res=", err);
+					// reject(err)
+				},
+			})
+			// })
 			return api;
 		}
 
@@ -130,6 +145,7 @@ namespace WechatGDK {
 				})
 				wx.shareAppMessage({
 					title: data.title,
+					desc: data.summary,
 					imageUrl: data.imageUrl,
 					query: query,
 				})
@@ -177,11 +193,13 @@ namespace WechatGDK {
 				}
 				devlog.info("share", {
 					title: data.title,
+					desc: data.summary,
 					imageUrl: imageUrl,
 					query: query,
 				})
 				wx.shareAppMessage({
 					title: data.title,
+					desc: data.summary,
 					imageUrl: imageUrl,
 					query: query,
 				})
@@ -307,6 +325,7 @@ namespace WechatGDK {
 				})
 				wx.shareAppMessage({
 					title: data.title,
+					desc: data.summary,
 					imageUrl: imageUrl,
 					query: query,
 					cancel: () => {
@@ -396,6 +415,7 @@ namespace WechatGDK {
 				// 	})
 				// 	wx.shareAppMessage({
 				// 		title: data.title,
+				// desc: data.summary,
 				// 		imageUrl: imageUrl,
 				// 		query: query,
 				// 		cancel: () => {

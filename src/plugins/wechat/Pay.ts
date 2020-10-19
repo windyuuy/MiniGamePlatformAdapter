@@ -43,22 +43,22 @@ namespace WechatGDK {
 			return this.payFlow
 		}
 
-		get isPayInSandbox() {
+		protected get isPayInSandbox() {
 			return this.api.getAppInfoBoolean(AppInfoKeys.isPayInSandbox)
 		}
-		
-		get offerId() {
-			return this.api.getAppInfoString(AppInfoKeys.offerId,"")
+
+		protected get offerId() {
+			return this.api.getAppInfoString(AppInfoKeys.offerId, "")
 		}
 
-		get miniAppOfferId() {
+		protected get miniAppOfferId() {
 			return this.api.getAppInfoString(AppInfoKeys.miniAppOfferId, "")
 		}
 
-		get payAppEnvVersion() {
+		protected get payAppEnvVersion() {
 			return this.api.getAppInfoString(AppInfoKeys.payAppEnvVersion, "")
 		}
-		
+
 		payOrigion(config: GDK.PayItemInfo, options: GDK.PayOptions): Promise<GDK.PayResult> {
 			const ret = new GDK.RPromise<GDK.PayResult>()
 

@@ -2,7 +2,7 @@
 namespace BytedanceGDK {
 	const devlog = Common.devlog
 
-	export class User extends GDK.UserBase {
+	export class User extends WechatGDK.User {
 		api?: GDK.UserAPI
 		get server(): MServer {
 			return MServer.inst
@@ -46,9 +46,10 @@ namespace BytedanceGDK {
 									gameToken: data.gametoken,
 								}
 
+								this.api.systemInfo.tableConf = resp.data.tableConf;//记录登录时传入的表格信息
+
 								//添加openId日志
 								this.api.systemInfo.deviceId = data.openId;
-								this.api.systemInfo.tableConf = resp.data.tableConf;//记录登录时传入的表格信息
 
 								const userdata = this.api.userData
 								for (let key in newdata) {
@@ -75,75 +76,5 @@ namespace BytedanceGDK {
 			return ret.promise
 		}
 
-		async showUserCenter() {
-		}
-		async showBindDialog() {
-		}
-
-		checkSession() {
-			return wrapReq((obj: wx.CheckSessionOptions) => {
-				return wx.checkSession(obj)
-			}, {}, GDK.GDKErrorCode.API_LOGIN_SESSION_OUTDATE)
-		}
-
-		update(): Promise<GDK.UserDataUpdateResult> {
-			const ret = new GDK.RPromise<GDK.UserDataUpdateResult>()
-			wx.getUserInfo({
-				openIdList: ["selfOpenId"],
-				lang: "zh_CN",
-				success: (params) => {
-					const { userInfo, rawData, signature, encryptData } = params
-
-					for (let key in userInfo) {
-						this.api.userData[key] = userInfo[key]
-					}
-					this.api.userData.sex = userInfo.gender
-
-					ret.success({
-						extra: params
-					})
-				},
-				fail: () => {
-					ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_UPDATE_USERDATA_FAILED))
-				}
-			})
-			return ret.promise
-		}
-
-		getFriendCloudStorage(obj: { keyList: string[], typeIndex: string[] }): Promise<{ data: GDK.UserGameData[] }> {
-			const ret = new GDK.RPromise<{ data: GDK.UserGameData[] }>()
-			wx.getFriendCloudStorage({
-				keyList: obj.keyList,
-				success: (res) => {
-					ret.success(res)
-				},
-				fail: () => {
-					ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_GET_FRIEND_CLOUD_STORAGE_FAILED))
-				}
-			})
-			return ret.promise
-		}
-
-		setUserCloudStorage(obj: { KVDataList: wx.KVData[], typeIndex: string[] }): Promise<void> {
-			const ret = new GDK.RPromise<void>()
-			wx.setUserCloudStorage({
-				KVDataList: obj.KVDataList,
-				success: () => {
-					ret.success(undefined)
-				},
-				fail: () => {
-					ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_SET_USER_CLOUD_STORAGE_FAILED))
-				}
-			})
-			return ret.promise
-		}
-
-		/**
-		 * 判断userId对应的用户是否绑定过社交账号
-		 * @param userId 登录时服务器返回的userId
-		 */
-		checkIsUserBind(userId: number): boolean {
-			return false;
-		}
 	}
 }

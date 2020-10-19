@@ -1,8 +1,8 @@
-
+﻿
 namespace BytedanceGDK {
-	export const AppInfoKeys={
+	export const AppInfoKeys = {
 		shareProxyUrl: "mini.bytedance.shareProxyUrl",
-		
+
 		/** boolean */
 		isPayInSandbox: "mini.bytedance.isPayInSandbox",
 
@@ -14,8 +14,9 @@ namespace BytedanceGDK {
 		payAppEnvVersion: "mini.bytedance.payAppEnvVersion",
 	}
 
-	export class GameInfo extends GDK.GameInfoBase {
+	GDK.Tools.mergeObject(WechatGDK.AppInfoKeys, AppInfoKeys)
 
+	export class GameInfo extends GDK.GameInfoBase {
 
 		init() {
 		}

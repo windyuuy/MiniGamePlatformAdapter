@@ -1994,6 +1994,11 @@ interface Array<T> {
      */
     unpack(): T;
 
+    /**
+     * 兼容es5浏览器
+     * @param callback 
+     */
+    find(callback: (a: T) => boolean): T
 }
 
 
@@ -2124,7 +2129,8 @@ declare namespace slib {
         static get instance(): Log;
         protected time?: boolean;
         protected tags?: string[];
-        constructor({ time, tags }?: LogParam);
+        constructor(x?: LogParam);
+        setLogParams({ time, tags }?: LogParam): void;
         /**
          * 将消息打印到控制台，不存储至日志文件
          */
@@ -2197,6 +2203,12 @@ declare namespace slib {
             creator: () => Object;
         }[];
     }
+    /**@noSelf */
+    function setDynamicDecodeKey(key?: number, userId?: number): void;
+    /**@noSelf */
+    function dynamicDecode(value: any, valueName: string): any;
+    /**@noSelf */
+    function dynamicEncode(value: any, valueName: string, userId?: number, dynamicKey?: number): any;
     /**
      * 安全数据修饰符，被修饰的类的属性会被加密
      * @param className 类名 由于代码混淆后无法拿到准确的类名，因此需要手动传入
@@ -2340,6 +2352,170 @@ declare namespace slib {
     };
 }
 declare namespace slib {
+    /**
+     * 数据传输类型
+     */
+    type BusinessContentType = "json" | "protobuf";
+    /**
+     * 支持的协议
+     */
+    type BusinessProtocol = "http" | "https" | "ws" | "wss";
+    type BusinessRequestData = {
+        /**
+         * 访问的api
+         */
+        action: string;
+        /**
+         * 发送的数据
+         */
+        data: any;
+        /**
+         * 请求的数据类型类型
+         */
+        requestType: string;
+        /**
+         * 响应的数据类型
+         */
+        responseType: string;
+        /**
+         * 是否展示请求菊花，默认flase
+         */
+        modal?: boolean;
+        /**
+         * 错误处理回调，如果不关心可以不传，将自动走全局错误处理逻辑
+         * @noSelf
+         */
+        errorCallback?: (error: any, retry: () => void) => void;
+        /**
+         * 控制超时时间
+         */
+        timeout?: number;
+    };
+    type BusinessRequestingData = BusinessRequestData & {
+        /**
+         * 当前请求的模态窗口id
+         */
+        requestIndex: number;
+        /**
+         * 当前是否为重试
+         */
+        isRetry: boolean;
+        /**
+         * 当前第几次重试
+         */
+        retryCount: number;
+    };
+    export class BusinessClient {
+        /**
+         * 服务器地址 支持 http https ws wss 协议
+         * * 例如：http://sb.mosoga.net:8080/
+         */
+        readonly url: string;
+        readonly protocol: BusinessProtocol;
+        readonly hostname: string;
+        readonly port: number;
+        /**
+         * 访问服务器的版本号，必须为整数
+         */
+        version?: string;
+        /**
+         * 访问服务器的所使用的数据类型
+         */
+        readonly contentType: BusinessContentType;
+        /**
+         * 访问token
+         * * 每次http https 请求时都会携带
+         * * 第一次 ws 或 wss 请求时会携带
+         */
+        readonly token: string;
+        /**
+         * 默认超时时间
+         */
+        readonly timeout: number;
+        /**
+         * 所有请求都会+1
+         */
+        protected _requestIndex: number;
+        /**
+         * 当前所加载的协议
+         */
+        protected _protocolContent: string | undefined;
+        /**
+         * 协议的包名
+         */
+        protected _packageName: string | undefined;
+        /**
+         * 全局错误处理函数
+         * @noSelf
+         */
+        errorCallback?: (error: any, retry: () => void) => void;
+        /**
+         * 显示模态层会掉
+         * @noSelf
+         */
+        showLoadingModalCallback?: (index: number, url: string) => void;
+        /**
+         * 隐藏模态遮挡层
+         * @noSelf
+         */
+        closeLoadingModalCallback?: (index: number, url: string) => void;
+        /**
+         * http客户端
+         */
+        protected _httpClient?: HttpClient;
+        constructor(data: {
+            /**
+             * 服务器地址
+             */
+            url: string;
+            /**
+             * 数据传输类型
+             */
+            contentType: BusinessContentType;
+            /**
+             * 身份token，从账号服获取
+             */
+            token: string;
+            /**
+             * 服务器版本号
+             */
+            version?: string;
+            /**
+             * 默认超过时时间
+             */
+            timeout?: number;
+        });
+        /**
+         * 从业务服加载协议
+         */
+        loadProtocol(proto: string): void;
+        /**
+         * 请求一个api
+         */
+        request(data: BusinessRequestData): Promise<unknown>;
+        /**
+         * 请求过程中的逻辑
+         */
+        protected requesting(data: BusinessRequestingData): Promise<unknown>;
+        /**
+         * 序列化请求数据
+         * @param data 请求数据（对象）
+         * @param type 目标类型
+         * @returns 返回字符串或二进制
+         */
+        protected serializeRequest(data: any, type: string): any;
+        /**
+         * 反序列化响应数据
+         * @param data 响应数据（二进制或字符串）
+         * @param type 目标类型
+         */
+        protected deserializationResponse(data: any, type: string): any;
+        protected httpRequesting(requestingData: BusinessRequestingData): Promise<unknown>;
+        protected websocketRequesting(data: BusinessRequestingData): void;
+    }
+    export {};
+}
+declare namespace slib {
     abstract class GameClient {
         protected _protocol: string;
         protected _host: string;
@@ -2398,8 +2574,8 @@ declare namespace slib {
         headMap?: {
             [key: string]: string;
         };
-        onDone?: (data: any) => void;
-        onError?: (error: any) => void;
+        onDone?: (data: any, code?: number) => void;
+        onError?: (error: any, code?: number) => void;
         onTimeout?: () => void;
         onProgress?: (loaded: number, total: number) => void;
         onUploadProgress?: (loaded: number, total: number) => void;
@@ -2419,6 +2595,10 @@ declare namespace slib {
         code: 0 | number;
         message: "success" | string;
         ts: number;
+        map_min_v: {
+            min: string;
+            max: string;
+        };
         errorcode: string;
         data: any;
     };
@@ -2437,6 +2617,11 @@ declare namespace slib {
         searchExt: () => string;
         debugURL: string;
         constructor();
+        /**
+         * 统计服务器请求时间，返回接口名称和毫秒数
+         * @noSelf
+         */
+        static timeStatisticsCallback: (name: string, millisecond: number) => void;
         connect(): void;
         /**
          * 获取是否添加日志测试标记

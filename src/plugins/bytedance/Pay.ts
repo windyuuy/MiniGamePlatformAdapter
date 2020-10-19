@@ -30,14 +30,8 @@ namespace BytedanceGDK {
 		customExtra?: string,
 	}
 
-	export class A {
-		static prefix = "mini.bytedance"
-		miniAppOfferId: number=0
-		offerId: string=""
-	}
-	
 	export class Pay extends GDK.PayBase {
-		api?: GDK.UserAPI
+		api!: GDK.UserAPI
 
 		protected payFlow: PayFlow.PayFlowProxy
 		getUserPayFlow(): GDK.PayFlow.IPayFlow {
@@ -49,16 +43,20 @@ namespace BytedanceGDK {
 			return this.payFlow
 		}
 
+		protected get isPayInSandbox() {
+			return this.api.getAppInfoBoolean(AppInfoKeys.isPayInSandbox)
+		}
+
+		protected get offerId() {
+			return this.api.getAppInfoString(AppInfoKeys.offerId, "")
+		}
+
 		protected get miniAppOfferId() {
 			return this.api.getAppInfoString(AppInfoKeys.miniAppOfferId, "")
 		}
 
 		protected get payAppEnvVersion() {
 			return this.api.getAppInfoString(AppInfoKeys.payAppEnvVersion, "")
-		}
-
-		get isPayInSandbox(){
-			return this.api.getAppInfoBoolean(AppInfoKeys.isPayInSandbox)
 		}
 
 		payOrigion(config: GDK.PayItemInfo, options: GDK.PayOptions): Promise<GDK.PayResult> {
@@ -71,7 +69,7 @@ namespace BytedanceGDK {
 			const mp: wx.MidasPaymentParams = {
 				mode: "game",
 				env: env,
-				offerId: this.api.getAppInfoString(AppInfoKeys.offerId, ""),
+				offerId: this.offerId,
 				currencyType: config.currencyUnit || "CNY",
 				platform: 'android',
 				zoneId: zoneId,
@@ -120,7 +118,7 @@ namespace BytedanceGDK {
 			const successCode = 0
 
 			const myAppId = this.api.gameInfo.appId
-			const miniAppOfferId = this.api.getAppInfoString(AppInfoKeys.miniAppOfferId, "")
+			const miniAppOfferId = this.miniAppOfferId
 			const userId = this.api.userData.userId
 			const goodsId = config.goodsId
 			const quantity = config.amount

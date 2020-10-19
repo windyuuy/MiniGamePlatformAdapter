@@ -2036,16 +2036,16 @@ declare namespace wx {
 		offError(callback: Function);//取消监听banner 广告错误事件
 	}
 	/**
-     * 创建Banner 广告组件
-     * @param obj 
-     * @param adUnitId
-     * @param style
-     */
+	 * 创建Banner 广告组件
+	 * @param obj 
+	 * @param adUnitId
+	 * @param style
+	 */
 	export function createBannerAd(obj: { adUnitId: string, style: { left?: number, top?: number, width?: number, height?: number } }): BannerAd;
 	/**
-     * 创建激励视频广告组件
-     * @param obj 
-     */
+	 * 创建激励视频广告组件
+	 * @param obj 
+	 */
 	export function createRewardedVideoAd(obj: { adUnitId: string }): RewardedVideoAd;
 	/** 按钮的样式 */
 	export class UserInfoButtonStyle {
@@ -2108,61 +2108,61 @@ declare namespace wx {
 
 
 	/**
-     * 获取转发详细信息
-     * 
-     * @param obj 
-     *   shareTicket		shareTicket	
-     *   success	    	接口调用成功的回调函数	
-     *   fail				接口调用失败的回调函数	
-     *   complete		    接口调用结束的回调函数（调用成功、失败都会执行）
-     */
+	 * 获取转发详细信息
+	 * 
+	 * @param obj 
+	 *   shareTicket		shareTicket	
+	 *   success	    	接口调用成功的回调函数	
+	 *   fail				接口调用失败的回调函数	
+	 *   complete		    接口调用结束的回调函数（调用成功、失败都会执行）
+	 */
 	export function getShareInfo(obj: { shareTicket: string, success?: (res: { errMsg: string, encryptedData: string, iv: string }) => void, fail?: Function, complete?: Function });
 
 	/**
-     * 显示当前页面的转发按钮
-     * @param obj 
-     *  withShareTicket	boolean		是	是否使用带 shareTicket 若为false 通讯录界面不可多选 转发后长按没有反应
-        success	        function		    否	接口调用成功的回调函数	
-        fail	        unction		    否	接口调用失败的回调函数	
-        complete	    function		否	接口调用结束的回调函数（调用成功、失败都会执行）
-     */
+	 * 显示当前页面的转发按钮
+	 * @param obj 
+	 *  withShareTicket	boolean		是	是否使用带 shareTicket 若为false 通讯录界面不可多选 转发后长按没有反应
+		success	        function		    否	接口调用成功的回调函数	
+		fail	        unction		    否	接口调用失败的回调函数	
+		complete	    function		否	接口调用结束的回调函数（调用成功、失败都会执行）
+	 */
 	export function showShareMenu(obj: { withShareTicket: boolean, success?: Function, fail?: Function, complete?: Function });
 
-    /**
-     * 隐藏转发按钮
-     */
+	/**
+	 * 隐藏转发按钮
+	 */
 	export function hideShareMenu(obj: { success?: Function, fail?: Function, complete?: Function });
 
 	/**
-     * 取消监听用户点击右上角菜单的“转发”按钮时触发的事件
-     * @param callback 
-     */
+	 * 取消监听用户点击右上角菜单的“转发”按钮时触发的事件
+	 * @param callback 
+	 */
 	export function offShareAppMessage(callback);
 
 	/**
-     * 监听用户点击右上角菜单的“转发”按钮时触发的事件
-     * @param callback 
-     * 返回值 ShareOption
-     */
+	 * 监听用户点击右上角菜单的“转发”按钮时触发的事件
+	 * @param callback 
+	 * 返回值 ShareOption
+	 */
 	export function onShareAppMessage(callback: (obj: { title?: string, imageUrl?: string, query?: string }) => { title?: string, imageUrl?: string, query?: string });
 
 	/**
-     * 主动拉起转发，进入选择通讯录界面。
-     * @param obj 
-     *  title	string		否	转发标题，不传则默认使用当前小游戏的昵称。	
-        imageUrl	string		否	转发显示图片的链接，可以是网络图片路径或本地图片文件路径或相对代码包根目录的图片文件路径。	
-        query	string		否	查询字符串，从这条转发消息进入后，可通过 wx.onLaunch() 或 wx.onShow 获取启动参数中的 query。必须是 key1=val1&key2=val2 的格式。
-     */
+	 * 主动拉起转发，进入选择通讯录界面。
+	 * @param obj 
+	 *  title	string		否	转发标题，不传则默认使用当前小游戏的昵称。	
+		imageUrl	string		否	转发显示图片的链接，可以是网络图片路径或本地图片文件路径或相对代码包根目录的图片文件路径。	
+		query	string		否	查询字符串，从这条转发消息进入后，可通过 wx.onLaunch() 或 wx.onShow 获取启动参数中的 query。必须是 key1=val1&key2=val2 的格式。
+	 */
 	export function shareAppMessage(obj?: { title?: string, desc: string, imageUrl?: string, query?: string, success?: Function, fail?: Function, complete?: Function, cancel?: Function });
 
 	/**
-     * 更新转发属性
-     * @param obj 
-     *  withShareTicket	boolean		是	是否使用带 shareTicket 若为false 通讯录界面不可多选 转发后长按没有反应
-        success	function		否	接口调用成功的回调函数	
-        fail	function		否	接口调用失败的回调函数	
-        complete	function		否	接口调用结束的回调函数（调用成功、失败都会执行）
-     */
+	 * 更新转发属性
+	 * @param obj 
+	 *  withShareTicket	boolean		是	是否使用带 shareTicket 若为false 通讯录界面不可多选 转发后长按没有反应
+		success	function		否	接口调用成功的回调函数	
+		fail	function		否	接口调用失败的回调函数	
+		complete	function		否	接口调用结束的回调函数（调用成功、失败都会执行）
+	 */
 	export function updateShareMenu(obj: { withShareTicket: boolean, success?: Function, fail?: Function, complete?: Function });
 
 	/**
@@ -2174,10 +2174,10 @@ declare namespace wx {
 	export class OpenDataContext {
 
 
-        /**
-         * 向开放数据域发送消息
-         * @param message 要发送的消息，message 中及嵌套对象中 key 的 value 只能是 primitive value。即 number、string、boolean、null、undefined。
-         */
+		/**
+		 * 向开放数据域发送消息
+		 * @param message 要发送的消息，message 中及嵌套对象中 key 的 value 只能是 primitive value。即 number、string、boolean、null、undefined。
+		 */
 		postMessage(message);
 	}
 

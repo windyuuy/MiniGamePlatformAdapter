@@ -9,6 +9,10 @@
 	"include": [
 		"../../libs/**.ts",
 		"../../framework",
+		"../wechat",
 		"./**/*.ts"
+	],
+	"exclude": [
+		"../wechat/config.ts"
 	]
 }

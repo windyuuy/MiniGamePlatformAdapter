@@ -7,7 +7,7 @@
 	"uses": [
 		{
 			"name": "slib-interface",
-			"version": "1.0.1",
+			"version": "*1.0.13",
 			"path": "src/libs"
 		}
 	]
