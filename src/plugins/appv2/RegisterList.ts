@@ -19,5 +19,6 @@ namespace AppV2GDK {
 		Hardware = Hardware
 		AdvertV2 = AdvertV2
 		HotUpdate = HotUpdate
+		AppPay = AppPay
 	}
 }

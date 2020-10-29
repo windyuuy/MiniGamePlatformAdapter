@@ -40,5 +40,7 @@ namespace GDK {
 		localPush: ILocalPush
 		/** 热更 */
 		hotUpdate: IHotUpdate
+		/** 热更 */
+		appPay: IAppPay
 	}
 }

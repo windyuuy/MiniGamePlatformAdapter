@@ -131,6 +131,10 @@ namespace GDK {
 			return this._m.hotUpdate;
 		}
 
+		get appPay(): IAppPay {
+			return this._m.appPay;
+		}
+
 		/** 批量导出接口 */
 		// $batch_export() begin
 		/**
@@ -1963,6 +1967,27 @@ namespace GDK {
 				return undefined;
 			}
 			return this._m.hotUpdate.hotupdateCancel(tid);
+		}
+		/**
+		 * 调起支付
+		 * - 支付至少需要在code里返回 成功、取消、失败 三个代码来区分，尽量不要忽略 取消支付 的事件。
+		 */
+		payPurchaseApp(item: ServedPayInfo): Promise<ServedPayResult> {
+			if (!this.checkModuleAttr("appPay", "payPurchaseApp", "function")) {
+				return this.createNonePromise("[appPay.payPurchaseApp]");
+			}
+			return this._m.appPay.payPurchaseApp(item);
+		}
+		/**
+		 * 客户端校验
+		 */
+		checkOrderState?(
+			params: CheckOrderStateInfo
+		): Promise<CheckOrderStateResult> {
+			if (!this.checkModuleAttr("appPay", "checkOrderState", "function")) {
+				return this.createNonePromise("[appPay.checkOrderState]");
+			}
+			return this._m.appPay.checkOrderState(params);
 		}
 
 		// $batch_export() end

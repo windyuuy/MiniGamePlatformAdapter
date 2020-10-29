@@ -4,6 +4,8 @@
 		"outFile": "../../../dist/bytedance/bytedance.js"
 	},
 	"files": [
+		"../wechat/Common.ts",
+		"AAImport.ts",
 		"./Common.ts",
 	],
 	"include": [

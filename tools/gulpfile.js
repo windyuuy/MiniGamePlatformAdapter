@@ -36,7 +36,7 @@ const exec = (cmd) => {
 	})
 }
 
-function getOssClient() {
+function getOssClient () {
 	let accessKeyId = "LTAIkAAYUCjCkAzb"
 	let accessKeySecret = "fAmMWBJ85tt2DoWpIfuovPLQj8ZIGJ"
 	let bucket = "mrglee-it"
@@ -62,7 +62,7 @@ gulp.task("updateLibs", async function () {
 
 })
 
-function copyLibsTask(ossSrcDir, ossDestDir, tip) {
+function copyLibsTask (ossSrcDir, ossDestDir, tip) {
 	return async function () {
 		let client = getOssClient();
 
@@ -148,7 +148,7 @@ gulp.task("compile", async () => {
 
 	let execCompile = (cmd) => {
 		updateVersion()
-		exec(cmd||"tsc")
+		exec(cmd || "tsc")
 	}
 	execon("../src", () => {
 		execon("./framework", () => execCompile())
@@ -212,7 +212,7 @@ gulp.task("uploadAPIDocs", async () => {
 
 gulp.task("buildDevDocs", async () => {
 	let docdir = "../docs/devdoc/"
-	execon(docdir,()=>exec("gitbook build"))
+	execon(docdir, () => exec("gitbook build"))
 })
 
 gulp.task("uploadDevDocs", async () => {
@@ -263,8 +263,8 @@ gulp.task("pubccfAllLibs", async () => {
 			console.warn(`warn: ${targetfolder} 未构建，无法发布ccf`)
 		}
 
-		let luaDir= '../src/plugins/' + targetfolder + '/ccfcfg-lua'
-		if(fs.existsSync(luaDir)){
+		let luaDir = '../src/plugins/' + targetfolder + '/ccfcfg-lua'
+		if (fs.existsSync(luaDir)) {
 			execon(luaDir, () => exec("ccf publish"))
 		}
 	})

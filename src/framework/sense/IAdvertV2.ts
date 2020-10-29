@@ -47,6 +47,14 @@ namespace GDK {
     export interface IShowAdUnitOpInfo {
         scene?: string;
     }
+    export class AdUnitStyle {
+        public width!: number;
+        public top!: number;
+        public x!: number;
+        public y!: number;
+        public height!: number;
+        public bottom!: number;
+    }
 
     export interface IAdvertUnit {
         load(): Promise<void>
@@ -54,6 +62,8 @@ namespace GDK {
         readonly isReady: boolean
         readonly isAlive: boolean
         destroy(): void
+        setStyle(style: AdUnitStyle): void
+        hide(): void
     }
 
     export interface IAdvertV2 extends IModule {

@@ -23,5 +23,6 @@ namespace GDK {
 		LocalPush?: new () => ILocalPush
 		AdvertV2?: new () => IAdvertV2
 		HotUpdate?: new () => IHotUpdate
+		AppPay?: new () => IAppPay
 	}
 }

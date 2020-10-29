@@ -23,8 +23,36 @@ declare namespace CS.Glee.Bridge {
    }
 
    export class ServedPayResult {
-       public orderCreateTime: number;
-       public orderNo: string;
+
+		/**
+		 * glee的订单号
+		 */
+		public orderNo: string;
+
+		public orderCreateTime: number;
+
+    	//    支付返回代码，其中的值使用 PayErrorCode 中的枚举定义
+		public code: number;
+		//    sdk支付返回的附加字段
+		public data:PayResultRaw;
+		//    提示信息
+		public message:string;
+
+		public reason:string;
+
+		//    第三方后台配置的商品充值项id
+		public productId:string;
+		/**
+		 * 合作商户自定义订单号(30位以内）（此处 唯一标志下订单会话）
+		 */
+		public coopOrder:string;
+
+		/**
+		 * 支付方式
+		 */
+		public payWay:string;
+
+		public goodsId:string;
    }
 
    export class PayErrorInfo {

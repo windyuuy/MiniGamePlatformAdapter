@@ -40,6 +40,37 @@ namespace AppV2GDK {
             }
             return false
         }
+        public hide(): void {
+            if (!this.isSupport()) {
+                return
+            }
+            this.getAddon().HideAdUnit(new AdUnitOpInfo(this.nativeUnitInfo, new ShowAdUnitOpInfo()), new TaskCallback<AnyResult>({
+                onSuccess: (p) => {
+
+                },
+                onFailed: (e) => {
+
+                },
+            }));
+        }
+        public setStyle(style: AdUnitStyle): void {
+            if (!this.isSupport()) {
+                return
+            }
+
+            let info = new SetAdUnitStyleInfo();
+            info.styleInfo = style;
+            info.queryInfo = new AdUnitQueryInfo();
+
+            this.getAddon().SetAdUnitStyle(info, new TaskCallback<AnyResult>({
+                onSuccess: (p) => {
+
+                },
+                onFailed: (e) => {
+
+                },
+            }));
+        }
 
         public load(callbacks: TaskCallback<AnyResult>) {
             if (!this.isSupport()) {
@@ -104,7 +135,7 @@ namespace AppV2GDK {
                     }
                 }))
         }
-        public isSupport() : boolean {
+        public isSupport(): boolean {
             if (SDKProxy.getAppInfo(AppInfoKeys.unityEnv) == "UNITY_EDITOR") {
                 console.log("编辑器环境不支持广告")
                 return false

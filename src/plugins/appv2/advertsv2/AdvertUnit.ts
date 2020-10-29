@@ -51,6 +51,16 @@ namespace AppV2GDK {
             return ret.promise
         }
 
+        setStyle(style: AdUnitStyle): void {
+            this.adUnitRaw.setStyle(style);
+
+        }
+
+        hide(): void {
+            this.adUnitRaw.hide();
+        }
+
+
         get isReady(): boolean {
             return this.adUnitRaw.isReady
         }
