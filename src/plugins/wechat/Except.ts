@@ -9,7 +9,7 @@ namespace WechatGDK {
 			if (!this._isListener) {
 				this._isListener = true;
 
-				wx.onError(res => {
+				SDKProxy.onError(res => {
 					//检查该错误是否提交过
 					this._errorCallback(res);
 				})

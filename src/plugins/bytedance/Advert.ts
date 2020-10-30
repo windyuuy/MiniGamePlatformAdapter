@@ -13,7 +13,7 @@ namespace BytedanceGDK {
 				return null
 			}
 
-			return wx.createRewardedVideoAd(params)
+			return SDKProxy.createRewardedVideoAd(params)
 		}
 
 	}

@@ -75,7 +75,7 @@ namespace WechatGDK {
 
 		fetchNetworkInfo() {
 			const ret = new GDK.RPromise<void>()
-			wx.getNetworkType({
+			SDKProxy.getNetworkType({
 				success: (res) => {
 					this.networkType = res.networkType
 					ret.success(undefined)
@@ -102,9 +102,9 @@ namespace WechatGDK {
 
 		init() {
 
-			wx.getUserInfo({})
+			SDKProxy.getUserInfo({})
 
-			const info = wx.getSystemInfoSync()
+			const info = SDKProxy.getSystemInfoSync()
 			slib.JSHelper.merge(info, this)
 			this.fetchNetworkInfo()
 			this.updateNetworkInfo(this.networkType)
@@ -116,21 +116,21 @@ namespace WechatGDK {
 
 			devlog.info('wx systeminfo:', this)
 
-			wx.onNetworkStatusChange((res) => {
+			SDKProxy.onNetworkStatusChange((res) => {
 				this.updateNetworkInfo(res.networkType, res.isConnected)
 			})
 
-			var gameDeviceId = wx.getStorageSync("glee_systeminfo_gameDeviceId");
+			var gameDeviceId = SDKProxy.getStorageSync("glee_systeminfo_gameDeviceId");
 			if (gameDeviceId == null || gameDeviceId == "") {
 				gameDeviceId = new Date().getTime().toString(36) + (Math.random() * 2 ** 64).toString(36) + (Math.random() * 2 ** 64).toString(36);
-				wx.setStorageSync("glee_systeminfo_gameDeviceId", gameDeviceId);
+				SDKProxy.setStorageSync("glee_systeminfo_gameDeviceId", gameDeviceId);
 			}
 			this.gameDeviceId = gameDeviceId;
 
-			var installTime = wx.getStorageSync("glee_systeminfo_installTime");
+			var installTime = SDKProxy.getStorageSync("glee_systeminfo_installTime");
 			if (installTime == null || installTime == "") {
 				installTime = new Date().getTime().toString();
-				wx.setStorageSync("glee_systeminfo_installTime", installTime);
+				SDKProxy.setStorageSync("glee_systeminfo_installTime", installTime);
 			}
 			this.installTime = parseInt(installTime);
 		}

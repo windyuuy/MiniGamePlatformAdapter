@@ -6,7 +6,7 @@ namespace WechatGDK {
 	class Clipboard implements GDK.IClipboard {
 		getData(): Promise<GDK.ClipboardData> {
 			const ret = new GDK.RPromise<GDK.ClipboardData>()
-			wx.getClipboardData({
+			SDKProxy.getClipboardData({
 				success: (res) => {
 					ret.success(res)
 				},
@@ -16,7 +16,7 @@ namespace WechatGDK {
 		}
 		setData(res: GDK.ClipboardData): Promise<void> {
 			const ret = new GDK.RPromise<void>()
-			wx.setClipboardData({
+			SDKProxy.setClipboardData({
 				data: res.data,
 				success: () => {
 					ret.success(undefined)
@@ -35,7 +35,7 @@ namespace WechatGDK {
 
 		setEnableDebug(res: { enableDebug: boolean }) {
 			const ret = new GDK.RPromise<void>()
-			wx.setEnableDebug({
+			SDKProxy.setEnableDebug({
 				enableDebug: res.enableDebug,
 				success: () => {
 					ret.success(undefined)
@@ -56,13 +56,13 @@ namespace WechatGDK {
 					ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_CALL_UP_MINI_PROGRAM_FAILED))
 				}
 			}
-			devlog.info('wx.navigateToMiniProgram(params2)', params2)
-			wx.navigateToMiniProgram(params2)
+			devlog.info('SDKProxy.navigateToMiniProgram(params2)', params2)
+			SDKProxy.navigateToMiniProgram(params2)
 			return ret.promise
 		}
 		exitProgram(): Promise<void> {
 			const ret = new GDK.RPromise<void>()
-			wx.exitMiniProgram({
+			SDKProxy.exitMiniProgram({
 				success: () => {
 					ret.success(undefined)
 				},
@@ -75,25 +75,25 @@ namespace WechatGDK {
 
 		updateProgramForce(): Promise<void> {
 			return new Promise<void>((resolve, reject) => {
-				wx.showLoading({ title: "检查更新中...", mask: true })
-				let updateManager = wx.getUpdateManager()
+				SDKProxy.showLoading({ title: "检查更新中...", mask: true })
+				let updateManager = SDKProxy.getUpdateManager()
 				if (updateManager) {
 					updateManager.onCheckForUpdate((hasUpdate) => {
 						devlog.info("检查更新开始:")
 						if (hasUpdate.hasUpdate) {
 							devlog.info('有更新')
-							// wx.showLoading({title:"检查更新中...",mask:true})
+							// SDKProxy.showLoading({title:"检查更新中...",mask:true})
 						} else {
 							devlog.info('没有更新')
-							wx.hideLoading({})
+							SDKProxy.hideLoading({})
 							resolve()
 						}
 					})
 
 					updateManager.onUpdateReady(() => {
 						devlog.info("更新完成")
-						wx.hideLoading({})
-						wx.showModal(
+						SDKProxy.hideLoading({})
+						SDKProxy.showModal(
 							{
 								title: "提示",
 								content: "新版本已经下载完成！",
@@ -101,7 +101,7 @@ namespace WechatGDK {
 								cancelText: "重启游戏",
 								showCancel: false, success: (res) => {
 									if (res.confirm) {
-										wx.getUpdateManager().applyUpdate()
+										SDKProxy.getUpdateManager().applyUpdate()
 									}
 								}
 							}
@@ -110,8 +110,8 @@ namespace WechatGDK {
 
 					updateManager.onUpdateFailed(() => {
 						devlog.info("更新失败")
-						wx.hideLoading({})
-						wx.showModal(
+						SDKProxy.hideLoading({})
+						SDKProxy.showModal(
 							{
 								title: "提示",
 								content: "更新失败,请重启游戏",
@@ -119,7 +119,7 @@ namespace WechatGDK {
 								cancelText: "重启游戏",
 								showCancel: false, success: (res) => {
 									if (res.confirm) {
-										wx.getUpdateManager().applyUpdate()
+										SDKProxy.getUpdateManager().applyUpdate()
 									}
 								}
 							}
@@ -130,16 +130,16 @@ namespace WechatGDK {
 		}
 
 		onShow?(callback: (data: any) => void): void {
-			return wx.onShow(callback)
+			return SDKProxy.onShow(callback)
 		}
 		offShow?(callback: Function): void {
-			return wx.offShow(callback)
+			return SDKProxy.offShow(callback)
 		}
 		onHide?(callback: Function): void {
-			return wx.onHide(callback)
+			return SDKProxy.onHide(callback)
 		}
 		offHide?(callback: Function): void {
-			return wx.offHide(callback)
+			return SDKProxy.offHide(callback)
 		}
 
 	}

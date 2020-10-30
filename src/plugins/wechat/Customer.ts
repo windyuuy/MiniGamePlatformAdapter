@@ -10,7 +10,7 @@ namespace WechatGDK {
 			params.fail = () => {
 				ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_OPEN_FEEDBACK_FAILED))
 			}
-			wx.openCustomerServiceConversation(params)
+			SDKProxy.openCustomerServiceConversation(params)
 			return ret.promise
 		}
 	}

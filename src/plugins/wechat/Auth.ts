@@ -2,12 +2,12 @@
 namespace WechatGDK {
 	export class Auth extends GDK.AuthBase {
 		createUserInfoButton(obj: GDK.IUserInfoButton): GDK.UserInfoButton {
-			return wx.createUserInfoButton(obj)
+			return SDKProxy.createUserInfoButton(obj)
 		}
 
 		async isUserInfoAuthAlready() {
 			return new Promise<boolean>((resolve, reject) => {
-				wx.getSetting({
+				SDKProxy.getSetting({
 					success: (res) => {
 						resolve(res["scope.userInfo"])
 					},

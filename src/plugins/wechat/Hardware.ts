@@ -3,7 +3,7 @@ namespace WechatGDK {
 	class Vibration implements GDK.IVibration {
 		async vibrateLong() {
 			const ret = new GDK.RPromise<void>()
-			wx.vibrateLong({
+			SDKProxy.vibrateLong({
 				success: () => {
 					ret.success(undefined)
 				},
@@ -15,7 +15,7 @@ namespace WechatGDK {
 		}
 		async vibrateShort() {
 			const ret = new GDK.RPromise<void>()
-			wx.vibrateShort({
+			SDKProxy.vibrateShort({
 				success: () => {
 					ret.success(undefined)
 				},
@@ -28,22 +28,22 @@ namespace WechatGDK {
 	}
 
 	class Performance implements GDK.IPerformance {
-		_performance: wx.Performance = wx.getPerformance()
+		_performance: wx.Performance = SDKProxy.getPerformance()
 		getMicroTime(): GDK.TMicroSecond {
 			return this._performance.now()
 		}
 		tryGC(): void {
-			wx.triggerGC()
+			SDKProxy.triggerGC()
 		}
 		onMemoryWarning(callback: (res: GDK.MemoryWarningInfo) => void): void {
-			wx.onMemoryWarning(callback)
+			SDKProxy.onMemoryWarning(callback)
 		}
 	}
 
 	class Screen implements GDK.IScreen {
 		getBrightness(): Promise<GDK.BrightnessData> {
 			const ret = new GDK.RPromise<GDK.BrightnessData>()
-			wx.getScreenBrightness({
+			SDKProxy.getScreenBrightness({
 				success: (res) => {
 					ret.success(res)
 				},
@@ -53,7 +53,7 @@ namespace WechatGDK {
 		}
 		setBrightness(data: GDK.BrightnessData): Promise<void> {
 			const ret = new GDK.RPromise<void>()
-			wx.setScreenBrightness({
+			SDKProxy.setScreenBrightness({
 				value: data.value,
 				success: () => {
 					ret.success(undefined)
@@ -64,7 +64,7 @@ namespace WechatGDK {
 		}
 		setKeepScreenOn(res: { keepon: boolean }): Promise<void> {
 			const ret = new GDK.RPromise<void>()
-			wx.setKeepScreenOn({
+			SDKProxy.setKeepScreenOn({
 				keepScreenOn: res.keepon,
 				success: () => {
 					ret.success(undefined)

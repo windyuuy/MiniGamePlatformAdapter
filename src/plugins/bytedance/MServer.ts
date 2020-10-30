@@ -98,5 +98,19 @@ namespace BytedanceGDK {
 				callback(data);
 			}, { errorCallback: errorCallback })
 		}
+
+		loginTest(
+			data: {
+				loginCode: number
+				node?: string | null
+				clientSystemInfo: {
+					deviceId: string
+				}
+			},
+			callback: (data: LoginCallbackData) => void, errorCallback: ((error: any, retry: () => void) => void) | undefined = undefined) {
+			this.gameClient.request("user/loginTest", data, (data: any) => {
+				callback(data);
+			}, { modal: false, errorCallback: errorCallback })
+		}
 	}
 }

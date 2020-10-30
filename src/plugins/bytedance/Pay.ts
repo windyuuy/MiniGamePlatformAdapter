@@ -76,7 +76,7 @@ namespace BytedanceGDK {
 				buyQuantity: config.amount,
 			}
 			devlog.info("requestMidasPayment", mp)
-			wx.requestMidasPayment({
+			SDKProxy.requestMidasPayment({
 				mode: mp.mode,
 				env: mp.env,
 				offerId: mp.offerId,
@@ -162,7 +162,7 @@ namespace BytedanceGDK {
 			}
 
 			devlog.info(`navigateToMiniProgram: { path: ${jpPath}, miniAppId: ${miniAppOfferId}, envVersion:${envVersion} }`, extraData)
-			wx.navigateToMiniProgram({
+			SDKProxy.navigateToMiniProgram({
 				appId: miniAppOfferId,
 				path: jpPath,
 				envVersion: envVersion,
@@ -234,7 +234,7 @@ namespace BytedanceGDK {
 			}
 
 			devlog.info(`openCustomerServiceConversation: { path: ${jpPath}, miniAppId: ${miniAppOfferId}, envVersion:${envVersion} }`, subTitle, imagePath, extraData)
-			wx.openCustomerServiceConversation({
+			SDKProxy.openCustomerServiceConversation({
 				sessionFrom: myAppId,
 				showMessageCard: true,
 				sendMessagePath: jpPath,

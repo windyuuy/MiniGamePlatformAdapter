@@ -13,7 +13,7 @@ namespace WechatGDK {
 				return null
 			}
 
-			return wx.createRewardedVideoAd(params)
+			return SDKProxy.createRewardedVideoAd(params)
 		}
 
 		createBannerAd(params: {
@@ -28,7 +28,7 @@ namespace WechatGDK {
 			if (params.style.top != undefined) {
 				top = params.style.top
 			} else if (params.style.y != undefined) {
-				top = wx.getSystemInfoSync().screenHeight - (params.style.y + params.style.height)
+				top = SDKProxy.getSystemInfoSync().screenHeight - (params.style.y + params.style.height)
 			}
 
 			let left = 0
@@ -46,7 +46,7 @@ namespace WechatGDK {
 					left: left,
 				}
 			}
-			return wx.createBannerAd(params2)
+			return SDKProxy.createBannerAd(params2)
 		}
 
 
