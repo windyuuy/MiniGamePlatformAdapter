@@ -60,7 +60,7 @@ namespace AppV2GDK {
 
             let info = new SetAdUnitStyleInfo();
             info.styleInfo = style;
-            info.queryInfo = new AdUnitQueryInfo();
+            info.queryInfo = this.nativeUnitInfo;
 
             this.getAddon().SetAdUnitStyle(info, new TaskCallback<AnyResult>({
                 onSuccess: (p) => {
