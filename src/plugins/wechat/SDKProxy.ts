@@ -93,7 +93,18 @@ namespace WechatGDK {
 			if (SDKProxy.wx) {
 				SDKProxy.wx.showModal(options);
 			} else {
-				console.log("浏览器模式，跳过方法:showModal")
+				setTimeout(() => {
+					if (options.showCancel) {
+						let r = confirm("[" + options.title + "]" + options.content);
+						if (options.success) {
+							options.success({ confirm: r ? 1 : 0 });
+						}
+					} else {
+						alert("[" + options.title + "]" + options.content)
+						if (options.success)
+							options.success();
+					}
+				}, 1);
 			}
 
 		}
