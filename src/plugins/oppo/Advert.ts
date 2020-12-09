@@ -213,9 +213,14 @@ namespace OPPOGDK {
 			const ret = new GDK.RPromise<void>()
 			if (this._bannerAd) {
 				devlog.info("gdk oppo show banner");
-				this._bannerAd.show();
+				this._bannerAd.show().then(()=>{
+					ret.success(undefined)
+				},(err)=>{
+					ret.fail(undefined)
+				});
+			}else{
+				ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_SHOW_ADVERT_WITHOUT_LOADED, {}))
 			}
-			ret.success(undefined)
 			return ret.promise
 		}
 		async hide() {

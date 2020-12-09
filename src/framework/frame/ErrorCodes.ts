@@ -88,6 +88,10 @@ namespace GDK {
 		 * 请求打开并播放广告超时
 		 */
 		API_SHOW_ADVERT_TIMEOUT: 30304,
+		/**
+		 * 广告未加载就播放
+		 */
+		API_SHOW_ADVERT_WITHOUT_LOADED: 30305,
 
 	}
 
@@ -133,6 +137,7 @@ namespace GDK {
 		{ errCode: GDKErrorCode.API_SHARE_UNSUPPORTED_PLATFORM, message: '不支持的平台' },
 
 		{ errCode: GDKErrorCode.API_SHOW_ADVERT_TIMEOUT, message: '打开并播放广告超时' },
+		{ errCode: GDKErrorCode.API_SHOW_ADVERT_WITHOUT_LOADED, message: '广告未加载就播放' },
 	])
 
 
