@@ -1,1 +1,0 @@
-[bugfix] 广告style设置bug

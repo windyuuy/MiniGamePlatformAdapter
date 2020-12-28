@@ -178,5 +178,10 @@ namespace GDK {
 		 * 隐藏启动画面
 		 */
 		hideLaunchingView(): Promise<void>;
+
+		/**
+		 * 显示启动画面
+		 */
+		showLaunchingView(): void;
 	}
 }

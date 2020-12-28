@@ -1,0 +1,1 @@
+[step] restart时，调用showLaunchView，显示App的loading界面
