@@ -3,5 +3,7 @@
 	"editor.renderWhitespace": "boundary",
 	"editor.insertSpaces": false,
 	"vscode.tsc.compiler.alertOnError": "never",
-	"git.detectSubmodules": false
+	"git.detectSubmodules": false,
+	"editor.snippetSuggestions": "bottom",
+	"editor.suggest.snippetsPreventQuickSuggestions": false
 }

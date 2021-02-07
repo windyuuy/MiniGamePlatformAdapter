@@ -716,7 +716,7 @@ namespace GDK.PayFlow.APayBase {
 		// 请求订单清单
 		reqDiffOrderList({ time }: { time: number }, successCallback: (result: OrderInfo[]) => void, failCallback?: Function) {
 			log.info("[APayBase]reqDiffOrderList:")
-			
+
 			let reqParams = this.wrapReqDiffOrderListParams({ time })
 			this.payNetClient.orderReqDiffOrderList(reqParams, (data) => {
 				if (data.succeed) {

@@ -1,6 +1,8 @@
 
 namespace GDK.PayFlow {
 
+	const log = new slib.Log({ time: false, tags: ['[PayFlow]'] })
+
 	export type GenOrderParams = {
 		payWay: PayFlow.PayWay,
 		price?: number,//商品实际付款价格
@@ -143,9 +145,9 @@ namespace GDK.PayFlow {
 				data: 0 | 1//0未充值 1已充值
 			}) => void, modal: boolean = false, errorCallback: (error: any, retry: () => void) => void = null) {
 
-            /**
-             * 不同游戏平台 url path
-             */
+			/**
+			 * 不同游戏平台 url path
+			 */
 			const pluginPathMap = {
 				'develop': {
 					normal: "order/wx/synchronizeWxOrder"
@@ -189,9 +191,9 @@ namespace GDK.PayFlow {
 				}
 
 			}
-            /**
-             * app版细分不同渠道下 url path
-             */
+			/**
+			 * app版细分不同渠道下 url path
+			 */
 			const appChannelPathMap = {
 				'WechatPay': {
 					normal: 'order/getOrderStatus',
@@ -244,6 +246,7 @@ namespace GDK.PayFlow {
 					data.succeed = true
 					data.code = 0
 					data.data = Math.random() < 0.9 ? 1 : 2
+					log.warn(`develop版GDK模拟服务器订单状态判定: ${data.data}`)
 				}
 				callback(data);
 			}, { modal: modal, errorCallback: errorCallback })
