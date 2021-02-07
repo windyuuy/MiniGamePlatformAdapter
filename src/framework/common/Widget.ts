@@ -3,6 +3,13 @@ namespace GDK {
 	const devlog = new slib.Log({ tags: ["DEVELOP"] })
 
 	export abstract class WidgetsBase implements IWidgets {
+		/**
+		 * 显示启动画面
+		 */
+		showLaunchingView(): void {
+			devlog.info("showLaunchingView simulation not implemented.");
+		}
+
 		/** 系统键盘对象 */
 		abstract readonly keyboard: IKeyBoard
 
