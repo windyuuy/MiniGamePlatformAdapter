@@ -24,6 +24,8 @@ namespace GDK {
 
 		init() {
 			this._initEvents()
+
+			this.appAutoRestart();
 		}
 
 		get nativeVersion() {
@@ -148,70 +150,70 @@ namespace GDK {
 			return null
 		}
 
-		appInfo:{[key:string]:string | number | boolean}={}
+		appInfo: { [key: string]: string | number | boolean } = {}
 
-		initAppinfo(info:AppInfo):void{
-			if(info.sdkConfigs)for(let sdk of info.sdkConfigs){
-				if(sdk.parameters)for(let k in sdk.parameters){
-					this.appInfo[`${sdk.name}.${k}`]=sdk.parameters[k];
+		initAppinfo(info: AppInfo): void {
+			if (info.sdkConfigs) for (let sdk of info.sdkConfigs) {
+				if (sdk.parameters) for (let k in sdk.parameters) {
+					this.appInfo[`${sdk.name}.${k}`] = sdk.parameters[k];
 				}
 			}
-			if(info.parameters)for(let k in info.parameters){
-				this.appInfo[k]=info.parameters[k];
+			if (info.parameters) for (let k in info.parameters) {
+				this.appInfo[k] = info.parameters[k];
 			}
 		}
 
 		setAppInfo(key: string, value: string | number | boolean) {
-			this.appInfo[key]=value;
+			this.appInfo[key] = value;
 		}
 
-		getAppInfo(key: string):(string | number | boolean| null){
+		getAppInfo(key: string): (string | number | boolean | null) {
 			return this.appInfo[key];
 		}
 
-		getAppInfoBoolean(key: string,def:boolean=false):boolean{
-			let v=this.getAppInfo(key)
-			if(typeof v=="boolean"){
+		getAppInfoBoolean(key: string, def: boolean = false): boolean {
+			let v = this.getAppInfo(key)
+			if (typeof v == "boolean") {
 				return v;
-			}else if(typeof v=="string"){
-				return v.toLowerCase()=="true"
-			}else{
+			} else if (typeof v == "string") {
+				return v.toLowerCase() == "true"
+			} else {
 				return def;
 			}
-			
+
 		}
 
-		getAppInfoNumber(key: string,def:number):number{
-			let v=this.getAppInfo(key)
-			if(typeof v=="number"){
+		getAppInfoNumber(key: string, def: number): number {
+			let v = this.getAppInfo(key)
+			if (typeof v == "number") {
 				return v;
-			}else if(typeof v=="string" && !isNaN(parseFloat(v))){
+			} else if (typeof v == "string" && !isNaN(parseFloat(v))) {
 				return parseFloat(v);
-			}else{
+			} else {
 				return def;
 			}
 		}
 
-		getAppInfoString(key: string,def:string):string{
-			let v=this.getAppInfo(key);
-			if(v==null){
+		getAppInfoString(key: string, def: string): string {
+			let v = this.getAppInfo(key);
+			if (v == null) {
 				return def;
-			}else{
+			} else {
 				return v.toString();
 			}
 		}
-		
-		getResVersion():number{
-			if((window as any).remoteDownloader && (window as any).remoteDownloader.REMOTE_SERVER_ROOT){
+
+		getResVersion(): number {
+			if ((window as any).remoteDownloader && (window as any).remoteDownloader.REMOTE_SERVER_ROOT) {
 				//读取最后一位的版本号
-				let r=(window as any).remoteDownloader.REMOTE_SERVER_ROOT as string;
-				let versionList=r.split("/")
-				let a=versionList[versionList.length-1]
-				let b=versionList[versionList.length-2]
-				if(parseInt(a).toString()==a){
+				let r = (window as any).remoteDownloader.REMOTE_SERVER_ROOT as string;
+				let versionList = r.split("/")
+				let a = versionList[versionList.length - 1]
+				let b = versionList[versionList.length - 2]
+				if (parseInt(a).toString() == a) {
 					return parseInt(a)
 				}
-				if(parseInt(b).toString()==a){
+				if (parseInt(b).toString() == a) {
 					return parseInt(b)
 				}
 			}
@@ -219,6 +221,12 @@ namespace GDK {
 			return -1;
 		}
 
+		enableRestart: boolean = true;
+		/**
+		 * app项目，进入后台10分钟以后，重新进入前台，默认重启App，调用cc.restart方法
+		 */
+		appAutoRestart() {
 
+		}
 	}
 }

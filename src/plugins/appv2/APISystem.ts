@@ -11,13 +11,13 @@ namespace AppV2GDK {
 
 			SDKProxy.appShow((data: string) => {
 				let jsonData: any = null;
-					try {
-						jsonData = JSON.parse(data);
-					} catch (e) {
-					}
-					for (let f of this._showList.concat()) {
-						f(jsonData)
-					}
+				try {
+					jsonData = JSON.parse(data);
+				} catch (e) {
+				}
+				for (let f of this._showList.concat()) {
+					f(jsonData)
+				}
 			})
 			SDKProxy.appHide((data: string) => {
 				let jsonData: any = null;
@@ -128,7 +128,7 @@ namespace AppV2GDK {
 		/**
 		 * 获取Info属性
 		 */
-		getAppInfo(key: string):(string | number | boolean| null){
+		getAppInfo(key: string): (string | number | boolean | null) {
 			if (SDKProxy.gdkjsbExist()) {
 				if (SDKProxy.getAppInfo(AppInfoKeys.unityEnv) == "UNITY_EDITOR") {
 					return super.getAppInfo(key);
@@ -142,7 +142,7 @@ namespace AppV2GDK {
 		/**
 		 * 获取热更新版本号
 		*/
-		getResVersion():number {
+		getResVersion(): number {
 			if (SDKProxy.gdkjsbExist()) {
 				return SDKProxy.getResVersion();
 			} else {
@@ -150,5 +150,37 @@ namespace AppV2GDK {
 			}
 		}
 
+
+		private _backgroundTime: number = 0;
+		/**
+		 * app项目，进入后台10分钟以后，重新进入前台，默认重启App，调用cc.restart方法
+		 */
+		appAutoRestart() {
+			if (!this.enableRestart) return;
+			this.onHide((data: any) => {
+				if (!this.enableRestart) return;
+				this._backgroundTime = new Date().getTime() / 1000
+				console.log("App进入后台，开始计时：", this._backgroundTime);
+			})
+
+			this.onShow((data: any) => {
+				if (!this.enableRestart) return;
+				if (this._backgroundTime == 0) {
+					return
+				}
+				let date = new Date().getTime() / 1000;
+				console.log("App进入前台，结束计时：", date);
+				if (date - this._backgroundTime >= 10 * 60) {
+					console.log("进入后台时间超过10分钟，需要重启");
+					if (window["cc"]) {
+						gdk.showLaunchingView();
+						let cc = window["cc"] as any;
+						cc.game.restart();
+					}
+				} else {
+					console.log("进入后台时间小于10分钟，不用重启")
+				}
+			})
+		}
 	}
 }

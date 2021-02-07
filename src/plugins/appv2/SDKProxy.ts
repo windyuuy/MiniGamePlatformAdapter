@@ -55,13 +55,13 @@ namespace AppV2GDK {
 			gamecenter: boolean,
 		} = { google: true, visitor: true, facebook: true, wechat: true, gamecenter: true }
 
-		static appInfo : any
+		static appInfo: any
 
-		static getGdkjsb() : any {
+		static getGdkjsb(): any {
 			return window["gdkjsb"]
 		}
 
-		static getBridge() : any {
+		static getBridge(): any {
 			let gdkjsb_obj = window["gdkjsb"];
 			return gdkjsb_obj.bridge;
 		}
@@ -107,7 +107,7 @@ namespace AppV2GDK {
 				const onHidden = () => {
 					if (!hidden) {
 						hidden = true;
-						
+
 					}
 				}
 				const onShown = () => {
@@ -150,7 +150,7 @@ namespace AppV2GDK {
 					document.addEventListener('pageshow', onShown);
 				}
 			}
-			
+
 		}
 
 		static appHide(callback: (data: string) => void) {
@@ -278,8 +278,8 @@ namespace AppV2GDK {
 				calback("true");
 			}
 		}
-		
-		static exitProgram(){
+
+		static exitProgram() {
 			if (this.gdkjsbExist()) {
 				this.getGdkjsb().exitProgram()
 			} else {
@@ -288,7 +288,7 @@ namespace AppV2GDK {
 			}
 		}
 
-		static sdkFrameworkVersion () {
+		static sdkFrameworkVersion() {
 			if (this.gdkjsbExist()) {
 				return this.getBridge().sdkFrameworkVersion() || "2.0";
 			} else {
@@ -315,7 +315,7 @@ namespace AppV2GDK {
 				}
 				this.openURL(encodeURI(`https://ykf-webchat.7moor.com/wapchat.html?accessId=${accessId}&clientId=${id}&otherParams=${JSON.stringify(otherParams)}&fromUrl=${gdk.systemInfo.packageName}&urlTitle=${gdk.systemInfo.packageTag}&customField=${JSON.stringify(customField)}`))
 			}
-				
+
 		}
 
 		static hasNativeAssistantCenter() {
@@ -435,7 +435,7 @@ namespace AppV2GDK {
 			// }
 		}
 
-		static makeTestCertificate(qa : string) {
+		static makeTestCertificate(qa: string) {
 			if (this.gdkjsbExist()) {
 				this.getGdkjsb().makeTestCertificate && this.getGdkjsb().makeTestCertificate(qa);
 			} else {
@@ -545,7 +545,7 @@ namespace AppV2GDK {
 			})
 		}
 
-		static webAction(str : string, callback : (isOk : boolean)=>void) {
+		static webAction(str: string, callback: (isOk: boolean) => void) {
 			if (this.gdkjsbExist()) {
 				return new Promise<GDK.ShowConfirmResult>((resolve, reject) => {
 					this.getGdkjsb().showConfirm(str, "提示", "ok", "cancel", isOk => {
@@ -571,7 +571,7 @@ namespace AppV2GDK {
 		 * 游戏热更新功能
 		 * @returns tid 供暂停、恢复、取消使用
 		*/
-		static hotupdateInGame(json : string, callback : (cur : number, total : number)=>void) : string {
+		static hotupdateInGame(json: string, callback: (cur: number, total: number) => void): string {
 			if (this.gdkjsbExist()) {
 				return this.getGdkjsb().hotupdateInGame(json, callback);
 			} else {
@@ -580,7 +580,7 @@ namespace AppV2GDK {
 			}
 		}
 		// 暂停
-		static hotupdatePause(tid : string) : void {
+		static hotupdatePause(tid: string): void {
 			if (this.gdkjsbExist()) {
 				this.getGdkjsb().hotupdatePause(tid);
 			} else {
@@ -589,7 +589,7 @@ namespace AppV2GDK {
 
 		}
 		// 恢复
-		static hotupdateResume(tid : string) : void {
+		static hotupdateResume(tid: string): void {
 			if (this.gdkjsbExist()) {
 				this.getGdkjsb().hotupdateResume(tid);
 			} else {
@@ -598,7 +598,7 @@ namespace AppV2GDK {
 
 		}
 		// 取消
-		static hotupdateCancel(tid : string) : void {
+		static hotupdateCancel(tid: string): void {
 			if (this.gdkjsbExist()) {
 				this.getGdkjsb().hotupdateCancel(tid);
 			} else {
@@ -617,7 +617,7 @@ namespace AppV2GDK {
 			}
 			if (this.gdkjsbExist()) {
 				this.appInfo = {} as any;
-				let info : any = JSON.parse(this.getGdkjsb().makeAppInfo());
+				let info: any = JSON.parse(this.getGdkjsb().makeAppInfo());
 				this.appInfo = info.parameters;
 			} else {
 				this.appInfo = {};
@@ -625,7 +625,7 @@ namespace AppV2GDK {
 			return this.appInfo;
 		}
 
-		static getAppInfo(key : string) : (string | number | boolean| null) {
+		static getAppInfo(key: string): (string | number | boolean | null) {
 			if (!this.appInfo) {
 				// 没有数据，先去拿一次
 				this.makeAppInfo();
@@ -639,7 +639,7 @@ namespace AppV2GDK {
 		/**
 		 * 获取热更新版本号
 		*/
-		static getResVersion():number {
+		static getResVersion(): number {
 			if (this.gdkjsbExist()) {
 				if (SDKProxy.getAppInfo(AppInfoKeys.unityEnv) == "UNITY_EDITOR") {
 					console.log("编辑器环境不支持getResVersion")
@@ -656,7 +656,7 @@ namespace AppV2GDK {
 		}
 
 		// 设置appinfo的参数
-		static setAppInfo(key : string, value : string | number | boolean) : void {
+		static setAppInfo(key: string, value: string | number | boolean): void {
 			if (!this.appInfo) {
 				// 没有数据，先去拿一次
 				this.makeAppInfo();
@@ -679,14 +679,16 @@ namespace AppV2GDK {
 				return undefined;
 			}
 		}
-		
+
 
 		/**
 		 * 隐藏启动屏
 		 */
 		static hideLaunchingView() {
-			// console.log("hideLaunchingView已弃用. 在原生SDK内实现，不需要JS调用")
 			return this.callAction("hideLaunchingView", "{}");
+		}
+		static showLaunchingView() {
+			return this.callAction("showLaunchingView", "{}");
 		}
 
 		static nativeAdvert: AppV2GDK.NativeAdvert = new AppV2GDK.NativeAdvert()

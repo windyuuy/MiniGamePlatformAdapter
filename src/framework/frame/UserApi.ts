@@ -1633,6 +1633,15 @@ namespace GDK {
 			return this._m.widgets.hideLaunchingView();
 		}
 		/**
+		 * 显示启动画面
+		 */
+		showLaunchingView(): void {
+			if (!this.checkModuleAttr("widgets", "showLaunchingView", "function")) {
+				return undefined;
+			}
+			return this._m.widgets.showLaunchingView();
+		}
+		/**
 		 * 监听主域发送的消息
 		 */
 		onMessage(callback: (message: OpenDataContextMessage) => void) {
