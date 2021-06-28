@@ -60,8 +60,12 @@ namespace DevelopGDK {
 						for (let f of this._closeFuncList.concat()) {
 							f({ isEnded: r });
 						}
-						setTimeout(() => {
-							this.load()
+						setTimeout(async () => {
+							try {
+								await this.load()
+							} catch (e) {
+								console.error("加载广告失败:", e)
+							}
 						}, 1)
 					})
 				}, 100)
