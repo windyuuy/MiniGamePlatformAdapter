@@ -26,24 +26,24 @@ namespace DevelopGDK {
 			if (this._isLoad) {
 				return;
 			}
-			const ret = new GDK.RPromise<void>()
-			setTimeout(() => {
-				if (Math.random() > 0.9) {
-					const reason = { errCode: -1, errMsg: "10%的概率模拟广告加载失败" }
-					ret.fail(reason);
-					for (let f of this._errorFuncList.concat()) {
-						f(reason)
-					}
-				} else {
-					this._isLoad = true;
-					ret.success(undefined);
-					for (let f of this._loadFuncList.concat()) {
-						f()
-					}
-				}
-			}, 1000)
 
-			return ret.promise
+			return new Promise<void>((resolve, reject) => {
+				setTimeout(() => {
+					if (Math.random() > 0.9) {
+						const reason = { errCode: -1, errMsg: "10%的概率模拟广告加载失败" }
+						reject(reason);
+						for (let f of this._errorFuncList.concat()) {
+							f(reason)
+						}
+					} else {
+						this._isLoad = true;
+						resolve(undefined);
+						for (let f of this._loadFuncList.concat()) {
+							f()
+						}
+					}
+				}, 1000)
+			})
 		}
 
 		show(): Promise<void> {
