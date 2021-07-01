@@ -146,7 +146,11 @@ namespace DevelopGDK {
 				this._ad.style.height = "100px"
 				this._ad.src = "https://www.baidu.com/img/bd_logo1.png"
 
-				document.body.appendChild(this._ad)
+				let gameContainer = document.getElementById("GameDiv");
+				if (gameContainer == null) {
+					gameContainer = document.body;
+				}
+				gameContainer.appendChild(this._ad)
 
 				ret.success(undefined)
 			}

@@ -5,7 +5,15 @@ namespace WechatGDK {
 			return window["wx"] || window["tt"]
 		}
 
-		static createRewardedVideoAd(obj: { adUnitId: string }): any{
+		static createInterstitialAd(obj: { adUnitId: string }): any {
+			if (SDKProxy.wx) {
+				return SDKProxy.wx.createInterstitialAd(obj);
+			} else {
+				console.log("浏览器模式，跳过方法:createInterstitialAd")
+				return {};
+			}
+		}
+		static createRewardedVideoAd(obj: { adUnitId: string }): any {
 			if (SDKProxy.wx) {
 				return SDKProxy.wx.createRewardedVideoAd(obj);
 			} else {
@@ -261,7 +269,7 @@ namespace WechatGDK {
 				console.log("浏览器模式，跳过方法")
 			}
 		}
-		
+
 		static hideShareMenu(obj: { success?: Function, fail?: Function, complete?: Function }) {
 			if (SDKProxy.wx) {
 				SDKProxy.wx.hideShareMenu(obj);
@@ -374,7 +382,7 @@ namespace WechatGDK {
 				console.log("浏览器模式，跳过方法")
 			}
 		}
-	
+
 		static hideToast(object: Object): void {
 			if (SDKProxy.wx) {
 				SDKProxy.wx.hideToast(object);
@@ -396,14 +404,14 @@ namespace WechatGDK {
 			success?: Function//		否	接口调用成功的回调函数	
 			fail?: (res: { errMsg: string, errCode: number }) => void//		否	接口调用失败的回调函数	
 			complete?: Function//		否	接口调用结束的回调函数（调用成功、失败都会执行）
-		}): any{
+		}): any {
 			if (SDKProxy.wx) {
 				SDKProxy.wx.requestMidasPayment(req);
 			} else {
 				console.log("浏览器模式，跳过方法:requestMidasPayment")
 			}
 		}
-		static login(options: wx.LoginOptions){
+		static login(options: wx.LoginOptions) {
 			if (SDKProxy.wx) {
 				SDKProxy.wx.login(options);
 			} else {
@@ -413,7 +421,7 @@ namespace WechatGDK {
 			}
 		}
 
-		static getLaunchOptionsSync(): { scene: number, query: any, path?: string, isSticky: boolean, shareTicket: string, referrerInfo: { appId: string, extraData: any } }{
+		static getLaunchOptionsSync(): { scene: number, query: any, path?: string, isSticky: boolean, shareTicket: string, referrerInfo: { appId: string, extraData: any } } {
 			if (SDKProxy.wx) {
 				return SDKProxy.wx.getLaunchOptionsSync();
 			} else {

@@ -49,13 +49,29 @@ namespace WechatGDK {
 			return SDKProxy.createBannerAd(params2)
 		}
 
+		get supportInterstitialAd(): boolean {
+			if (!this.compareVersion(gdk.SDKVersion, "2.6.0")) {
+				//不是最新版本直接下发奖励
+				console.log("微信不是最新版本，请升级！(微信基础库 2.6.0 开始支持，低版本需做兼容处理。)")
+				return false
+			}
+			return true;
+		}
 
-        /**
-         * 对比版本
-         * - v1>v2 -> true
-         * - v2>v1 -> false
-         * - v1==v2 -> dv
-         */
+		createInterstitialAd?(params: GDK.InterstitialAdCreateParam): GDK.IInterstitialAd {
+			let params2 = {
+				adUnitId: params.adUnitId,
+			}
+			return SDKProxy.createInterstitialAd(params2);
+		}
+
+
+		/**
+		 * 对比版本
+		 * - v1>v2 -> true
+		 * - v2>v1 -> false
+		 * - v1==v2 -> dv
+		 */
 		protected compareVersion(v1: string, v2: string, dv: boolean = true) {
 			let v1s = v1.split('.')
 			let v2s = v2.split('.')
