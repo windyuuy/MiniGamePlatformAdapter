@@ -12,6 +12,8 @@ namespace GDK {
 		top?: number
 		/** banner 广告组件的左下角横坐标 */
 		left?: number
+		/** banner 广告组件的右上角横坐标 */
+		right?: number
 	}
 
 	export class BannerStyleAccessor {
@@ -56,6 +58,9 @@ namespace GDK {
 
 	export class RewardVideoAdLoadParams {
 		placementId?: string
+	}
+
+	export class InterstitialAdLoadParams extends RewardVideoAdLoadParams {
 	}
 
 	export class VideoAdSlot {
@@ -136,7 +141,7 @@ namespace GDK {
 		/** 销毁 banner 广告 */
 		destroy(): Promise<void>
 	}
-	
+
 	export interface IBannerAd {
 		//属性
 		/** 微信，广告单元ID，用于后台配置统计相关 */
@@ -328,10 +333,10 @@ namespace GDK {
 		/** banner 广告组件的样式 */
 		style: FeedAdStyle
 	}
-    export interface FloatIconAdCreateParam {
-        /** banner 广告组件的样式 */
-        style: BannerStyle;
-    }
+	export interface FloatIconAdCreateParam {
+		/** banner 广告组件的样式 */
+		style: BannerStyle;
+	}
 
 	export interface AdvertInitParams {
 		/**

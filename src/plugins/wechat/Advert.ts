@@ -36,6 +36,8 @@ namespace WechatGDK {
 				left = params.style.left
 			} else if (params.style.x != undefined) {
 				left = params.style.x
+			} else if (params.style.right != undefined) {
+				left = SDKProxy.getSystemInfoSync().screenWidth - (params.style.right + params.style.width)
 			}
 			const params2 = {
 				adUnitId: params.adUnitId,

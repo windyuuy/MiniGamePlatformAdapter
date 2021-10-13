@@ -411,6 +411,13 @@ namespace WechatGDK {
 				console.log("浏览器模式，跳过方法:requestMidasPayment")
 			}
 		}
+
+		/**
+		 * 登录
+		 * - https://developers.weixin.qq.com/minigame/dev/guide/open-ability/login.html
+		 * - https://developers.weixin.qq.com/minigame/dev/api/
+		 * @param options 
+		 */
 		static login(options: wx.LoginOptions) {
 			if (SDKProxy.wx) {
 				SDKProxy.wx.login(options);
