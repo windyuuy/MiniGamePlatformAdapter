@@ -80,39 +80,39 @@ namespace WechatGDK {
 	export class MServer extends GDK.APIServer {
 		static readonly inst: MServer = new MServer()
 
-		get gameClient() {
-			return GDK.CommonServer.httpClient
-		}
+		// get gameClient() {
+		// 	return GDK.CommonServer.httpClient
+		// }
 
-		userLogin(
-			data: {
-				code: string,
-				system: number,//系统类型 0:未知 1:android 2:ios
-				launchOptionsQuery?: any,//启动参数query 
-				launchOptionsPath?: any, //启动参数path
-				channelId?: number;//渠道id
-				clientSystemInfo: any;//系统信息
-				extraData?: any;
-			},
-			callback: (data: LoginCallbackData) => void,
-			errorCallback: (error: any, retry: () => void) => void = null) {
-			this.gameClient.request("user/login", data, (data) => {
-				callback(data);
-			}, { errorCallback: errorCallback })
-		}
+		// userLogin(
+		// 	data: {
+		// 		code: string,
+		// 		system: number,//系统类型 0:未知 1:android 2:ios
+		// 		launchOptionsQuery?: any,//启动参数query 
+		// 		launchOptionsPath?: any, //启动参数path
+		// 		channelId?: number;//渠道id
+		// 		clientSystemInfo: any;//系统信息
+		// 		extraData?: any;
+		// 	},
+		// 	callback: (data: LoginCallbackData) => void,
+		// 	errorCallback: (error: any, retry: () => void) => void = null) {
+		// 	this.gameClient.request("user/login", data, (data) => {
+		// 		callback(data);
+		// 	}, { errorCallback: errorCallback })
+		// }
 
-		loginTest(
-			data: {
-				loginCode: number
-				node?: string | null
-				clientSystemInfo: {
-					deviceId: string
-				}
-			},
-			callback: (data: LoginCallbackData) => void, errorCallback: ((error: any, retry: () => void) => void) | undefined = undefined) {
-			this.gameClient.request("user/loginTest", data, (data: any) => {
-				callback(data);
-			}, { modal: false, errorCallback: errorCallback })
-		}
+		// loginTest(
+		// 	data: {
+		// 		loginCode: number
+		// 		node?: string | null
+		// 		clientSystemInfo: {
+		// 			deviceId: string
+		// 		}
+		// 	},
+		// 	callback: (data: LoginCallbackData) => void, errorCallback: ((error: any, retry: () => void) => void) | undefined = undefined) {
+		// 	this.gameClient.request("user/loginTest", data, (data: any) => {
+		// 		callback(data);
+		// 	}, { modal: false, errorCallback: errorCallback })
+		// }
 	}
 }

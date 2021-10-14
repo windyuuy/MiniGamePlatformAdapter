@@ -6,6 +6,10 @@
 	"files": [
 		"./Common.ts",
 	],
+	"references": [
+		{ "path": "../../../../fsync/src/lang" },
+		{ "path": "../../../../fsync/src/fsync" },
+	],
 	"include": [
 		"../../libs/**.ts",
 		"../../framework",

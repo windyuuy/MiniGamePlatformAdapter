@@ -1,5 +1,5 @@
 namespace GDK {
-	const devlog = new slib.Log({ tags: ["DEVELOP"] });
+	const devlog = new lang.libs.Log({ tags: ["DEVELOP"] });
 	// 自动生成，成员使用register函数注册
 	export class UserAPI {
 		/**
@@ -70,7 +70,7 @@ namespace GDK {
 			attrName: string,
 			attrType: string = undefined
 		): boolean {
-			slib.assert(this._m, "api not init");
+			lang.assert(this._m, "api not init");
 			if (typeof this._m[moduleName] != "object") {
 				devlog.warn(`module unsupport: [gdk::${moduleName}]`);
 				return false;
@@ -448,7 +448,7 @@ namespace GDK {
 			}
 			return this._m.user.checkIsUserBind(userId);
 		}
-		// }
+
 		setLoginSupport(loginSupport: {
 			google: boolean;
 			visitor: boolean;

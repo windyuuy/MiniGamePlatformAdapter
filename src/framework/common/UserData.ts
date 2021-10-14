@@ -1,6 +1,6 @@
 
 namespace GDK {
-	const devlog = new slib.Log({ tags: ["DEVELOP"] })
+	const devlog = new lang.libs.Log({ tags: ["DEVELOP"] })
 
 	export abstract class UserDataBase implements IUserData {
 		abstract openId: string

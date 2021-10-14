@@ -33,13 +33,13 @@ namespace WechatGDK {
 	export class Pay extends GDK.PayBase {
 		api!: GDK.UserAPI
 
-		protected payFlow: PayFlow.PayFlowProxy
+		protected payFlow: GDK.PayFlow.IPayFlow
 		getUserPayFlow(): GDK.PayFlow.IPayFlow {
 			if (this.payFlow != null) {
 				return this.payFlow
 			}
 
-			this.payFlow = new PayFlow.PayFlowProxy().init(this.api)
+			// this.payFlow = new PayFlow.PayFlowProxy().init(this.api)
 			return this.payFlow
 		}
 
@@ -65,7 +65,7 @@ namespace WechatGDK {
 			const info = this.api.gameInfo
 			const env = this.isPayInSandbox ? 1 : 0
 			const successCode = 999999
-			const zoneId = slib.defaultValue(options.wxZoneId, "1")
+			const zoneId = lang.defaultValue(options.wxZoneId, "1")
 			const mp: wx.MidasPaymentParams = {
 				mode: "game",
 				env: env,
@@ -123,7 +123,7 @@ namespace WechatGDK {
 			const goodsId = config.goodsId
 			const quantity = config.amount
 			const title = config.title
-			const zoneId = slib.defaultValue(options.gleeZoneId, 1)
+			const zoneId = lang.defaultValue(options.gleeZoneId, 1)
 			const field = zoneId
 			const payUrl = options.payUrl || null
 
@@ -200,7 +200,7 @@ namespace WechatGDK {
 			const goodsId = config.goodsId
 			const quantity = config.amount
 			const title = config.title
-			const zoneId = slib.defaultValue(options.gleeZoneId, 1)
+			const zoneId = lang.defaultValue(options.gleeZoneId, 1)
 			const field = zoneId
 			const payUrl = options.payUrl || null
 			const subTitle = options.subTitle

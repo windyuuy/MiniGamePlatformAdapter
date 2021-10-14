@@ -7,6 +7,10 @@
 		"composite": true,
 		"experimentalDecorators": true,
 	},
+	"references": [
+		{ "path": "../../../fsync/src/fsync" },
+		{ "path": "../../../fsync/src/lang" },
+	],
 	"include": [
 		"../libs/*.ts",
 		"./**/*.ts"

@@ -4,51 +4,10 @@ namespace GDK {
 
 	/** 登录请求结果 */
 	export class LoginResult {
-		extra?: {
-			userId: number,
-			openId?: string,
-			serviceTimestamp: number
-			dataTimestamp: number//上次存档的时间戳
-			nickname: string,
-			profileImg: string,
-			backupTime: number//上传存档时间 秒
-			userNew: boolean,//是否为新用户
-			service24Timestamp: number,//下一天0点的时间戳
-			shareSwitch: {
-				[key: string]: string
-			},
-			followGzh: 0 | 1,//0 未关注,1 已关注
-			gameCurrency: {
-				gold: string,
-				diamond: string,
-				seed: string
-			},
-			createTime: number,//创建时间 毫秒
-			channelId: number,//渠道id
-
-			encryptKey: string,//存档加密key
-			token: string,//登陆token
-			heart: number,//心数量
-			gametoken: string,
-			qa?: string,//测试证书
-			ad?: string,//服务器需要日志附带的参数
-			verified?: boolean,
-			verifiedInfo?: { age: number, birthday: string, name: string, idCard: string };
-			holidays?: boolean,
-		}
+		openId?: string
+		code?: string
+		extra?: any
 	}
-
-	/** 登录错误码 */
-	// export const LoginErrorCode = {
-	// 	...ReqErrorCode,
-	// 	INVALID_OPENID: 10001,
-	// }
-
-	/** 登录结果模板 */
-	// export const LoginResultTemplates = new ResultTemplatesExtractor<ReqError>([
-	// 	...ReqResultTemplates.temps,
-	// 	{ errCode: LoginErrorCode.INVALID_OPENID, msg: '登录失败', reason: 'openId验证失败' },
-	// ])
 
 	/** 登录请求参数 */
 	export class LoginParams extends ReqParams {
@@ -58,24 +17,9 @@ namespace GDK {
 		 */
 		disableVisitor?: boolean = false;
 		/**
-		 * 是否允许Google登陆
-		 */
-		google?: boolean = false;
-
-		/**
-		 * 是否允许facebook登陆
-		 */
-		facebook?: boolean = false;
-
-		/**
 		 * 是否静默登陆
 		 */
 		silent?: boolean = false;
-
-        /**
-         * 是否允许账号注册和登陆
-         */
-		account?: boolean;
 
 		/**
 		 * 是否需要实名制
@@ -89,26 +33,13 @@ namespace GDK {
 		 */
 		autoLogin?: boolean = true;
 		/**
-        * gamepind 登录token
-        */
+		* gamepind 登录token
+		*/
 		token?: string;
 
-		/**
-		* server node 
-		*/
-		node?: string | null;
 	}
 
 	export class LoginPromise extends Promise<LoginResult>{ }
-
-	// export class LoginCallbacks extends ReqCallbacks {
-	// 	success?: (params: LoginResult) => void
-	// 	fail?: (params: LoginError) => void
-	// }
-
-	// export interface LoginDelegate {
-	// 	login(params: LoginParams, callbacks: LoginCallbacks): void;
-	// }
 
 	// 自动生成
 	/**
@@ -159,7 +90,7 @@ namespace GDK {
 		 */
 		showBindDialog(): Promise<void>;
 
-		bindUser() : Promise<{success : boolean, data : any}>;
+		bindUser(): Promise<{ success: boolean, data: any }>;
 
 		/** 检查登录态是否过期 */
 		checkSession?(params?: ReqParams): Promise<void>
@@ -198,14 +129,6 @@ namespace GDK {
 		 */
 		checkIsUserBind(userId: number): boolean;
 
-
-		// loginSupport?: {
-		// 	google: boolean,
-		// 	visitor: boolean,
-		// 	facebook: boolean,
-		// 	wechat: boolean,
-		// 	gamecenter: boolean,
-		// }
 		setLoginSupport(loginSupport: {
 			google: boolean,
 			visitor: boolean,

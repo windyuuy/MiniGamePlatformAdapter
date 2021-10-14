@@ -1,6 +1,6 @@
 
 namespace GDK {
-	const devlog = new slib.Log({ tags: ["DEVELOP"] })
+	const devlog = new lang.libs.Log({ tags: ["DEVELOP"] })
 	class Vibration implements IVibration {
 		async vibrateLong() {
 			devlog.info("vibrateLong")

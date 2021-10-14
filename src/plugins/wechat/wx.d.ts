@@ -1875,6 +1875,7 @@ declare namespace wx {
 		 * 接口调用成功的回调函数
 		 */
 		success?: (res?: LoginResult) => void;
+		fail?: (res?: LoginResult) => void;
 	}
 
 	/**

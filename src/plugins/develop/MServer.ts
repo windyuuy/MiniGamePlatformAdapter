@@ -80,39 +80,39 @@ namespace DevelopGDK {
 	export class MServer extends GDK.APIServer {
 		static readonly inst: MServer = new MServer()
 
-		get gameClient() {
-			return GDK.CommonServer.httpClient
-		}
+		// get gameClient() {
+		// 	return GDK.CommonServer.httpClient
+		// }
 
-		/**
-			 * 用户登录接口(用户首次进入游戏调用)
-			 */
-		loginTest(
-			data: {
-				loginCode: number,
-				node?: string,
-			},
-			callback: (data: LoginCallbackData) => void, errorCallback: (error: any, retry: () => void) => void = null) {
-			this.gameClient.request("user/loginTest", data, (data) => {
-				callback(data);
-			}, { modal: false, errorCallback: errorCallback })
-		}
+		// /**
+		// 	 * 用户登录接口(用户首次进入游戏调用)
+		// 	 */
+		// loginTest(
+		// 	data: {
+		// 		loginCode: number,
+		// 		node?: string,
+		// 	},
+		// 	callback: (data: LoginCallbackData) => void, errorCallback: (error: any, retry: () => void) => void = null) {
+		// 	this.gameClient.request("user/loginTest", data, (data) => {
+		// 		callback(data);
+		// 	}, { modal: false, errorCallback: errorCallback })
+		// }
 
-		userLogin(
-			data: {
-				code: string,
-				system: number,//系统类型  0:android  1:ios
-				launchOptionsQuery?: any,//启动参数query 
-				launchOptionsPath?: any, //启动参数path
-				channelId?: number;//渠道id
-				clientSystemInfo: any;//系统信息
-				extraData?: any;
-			},
-			callback: (data: LoginCallbackData) => void,
-			errorCallback: (error: any, retry: () => void) => void = null) {
-			this.gameClient.request("user/login", data, (data) => {
-				callback(data);
-			}, { errorCallback: errorCallback })
-		}
+		// userLogin(
+		// 	data: {
+		// 		code: string,
+		// 		system: number,//系统类型  0:android  1:ios
+		// 		launchOptionsQuery?: any,//启动参数query 
+		// 		launchOptionsPath?: any, //启动参数path
+		// 		channelId?: number;//渠道id
+		// 		clientSystemInfo: any;//系统信息
+		// 		extraData?: any;
+		// 	},
+		// 	callback: (data: LoginCallbackData) => void,
+		// 	errorCallback: (error: any, retry: () => void) => void = null) {
+		// 	this.gameClient.request("user/login", data, (data) => {
+		// 		callback(data);
+		// 	}, { errorCallback: errorCallback })
+		// }
 	}
 }

@@ -102,10 +102,10 @@ namespace WechatGDK {
 
 		init() {
 
-			SDKProxy.getUserInfo({})
+			// SDKProxy.getUserInfo({})
 
 			const info = SDKProxy.getSystemInfoSync()
-			slib.JSHelper.merge(info, this)
+			lang.ObjectUtils.merge(info, this)
 			this.fetchNetworkInfo()
 			this.updateNetworkInfo(this.networkType)
 

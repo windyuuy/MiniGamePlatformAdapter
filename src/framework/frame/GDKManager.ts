@@ -12,7 +12,7 @@ namespace GDK {
 		 */
 		registPluginConfig(config: PackConfig) {
 			const name = config.name
-			slib.assert(!this._configMap[name], `config name ${name} exists already!`)
+			lang.assert(!this._configMap[name], `config name ${name} exists already!`)
 			this._configMap[name] = config
 			defaultGDKName = name
 		}
@@ -63,16 +63,16 @@ namespace GDK {
 		 */
 		setDefaultGdk(name: string) {
 			const api: UserAPI = this._pluginMap[name]
-			slib.assert(!!api, `invalid api instance [${name}]`)
+			lang.assert(!!api, `invalid api instance [${name}]`)
 			if (gdk instanceof UserAPI) {
-				slib.assert(!gdk, '-[GDK] default gdk instance shall not be set twice')
+				lang.assert(!gdk, '-[GDK] default gdk instance shall not be set twice')
 			}
 			gdk = api
 			window["gdk"] = api
 		}
 
 		getPlugin(name: string): UserAPI {
-			return slib.assert(this._pluginMap[name], `plugin [${name}] not exist`)
+			return lang.assert(this._pluginMap[name], `plugin [${name}] not exist`)
 		}
 
 		/**

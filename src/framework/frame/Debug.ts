@@ -1,3 +1,3 @@
 namespace GDK {
-	export const devlog = new slib.Log({ tags: ["[gdk]", "[frame]"] });
+	export const devlog = new lang.libs.Log({ tags: ["[gdk]", "[frame]"] });
 }

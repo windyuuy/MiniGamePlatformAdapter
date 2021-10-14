@@ -20,33 +20,8 @@ namespace DevelopGDK {
 				nUserId = undefined
 			}
 
-			this.server.loginTest({ loginCode: nUserId, node: params.node }, (resp) => {
-				//玩家数据
-				if (resp.succeed) {
-					const data = resp.data
-					const userdata = this.api.userData
-					userdata.channelId = data.channelId
-					userdata.createTime = data.createTime
-					userdata.userId = data.userId
-					localStorage.setItem('sdk_glee_userId', `${data.userId}`)
-					userdata.followGzh = data.followGzh
-					userdata.nickName = data.nickname
-					userdata.isNewUser = data.userNew
-
-					this.api.systemInfo.tableConf = resp.data.tableConf;//记录登录时传入的表格信息
-
-					ret.success({
-						extra: data,
-					})
-				} else {
-					ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.UNKNOWN, {
-						data: {
-							extra: resp,
-						}
-					}))
-				}
-			}, () => {
-				ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.NETWORK_ERROR))
+			ret.success({
+				openId: `openid_${Date.now() - 1628240632608}`,
 			})
 
 			return ret.promise

@@ -136,7 +136,7 @@ gulp.task("mini", () => {
         }
     }
 
-    return gulp.src("../dist/*.js") //JS文件地址
+    return gulp.src("../dist/**/*.js") //JS文件地址
         .pipe(uglifyjs())
         .pipe(rename((path) => {
             path.basename = path.basename + ".mini";
@@ -154,17 +154,17 @@ gulp.task("compile", async() => {
         execon("./framework", () => execCompile())
         execon("./plugins/develop", () => execCompile())
         execon("./plugins/wechat", () => execCompile())
-        execon("./plugins/appv2", () => execCompile("ccf type2lua --build luaconfig.json"))
-        execon("./plugins/appv2", () => execCompile())
-        execon("./plugins/bytedance", () => execCompile())
-        execon("./plugins/qqminiapp", () => execCompile())
-        execon("./plugins/app", () => execCompile())
-        execon("./plugins/baidu", () => execCompile())
-        execon("./plugins/gamepind", () => execCompile())
-        execon("./plugins/web", () => execCompile())
-        execon("./plugins/oppo", () => execCompile())
-        execon("./plugins/vivo", () => execCompile())
-        execon("./plugins/webview", () => execCompile())
+        // execon("./plugins/appv2", () => execCompile("ccf type2lua --build luaconfig.json"))
+        // execon("./plugins/appv2", () => execCompile())
+        // execon("./plugins/bytedance", () => execCompile())
+        // execon("./plugins/qqminiapp", () => execCompile())
+        // execon("./plugins/app", () => execCompile())
+        // execon("./plugins/baidu", () => execCompile())
+        // execon("./plugins/gamepind", () => execCompile())
+        // execon("./plugins/web", () => execCompile())
+        // execon("./plugins/oppo", () => execCompile())
+        // execon("./plugins/vivo", () => execCompile())
+        // execon("./plugins/webview", () => execCompile())
 
         // execon("./test", () => execCompile())
     })

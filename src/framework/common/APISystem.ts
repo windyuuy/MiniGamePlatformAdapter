@@ -1,6 +1,6 @@
 
 namespace GDK {
-	const devlog = new slib.Log({ tags: ["DEVELOP"] })
+	const devlog = new lang.libs.Log({ tags: ["DEVELOP"] })
 
 	class Clipboard implements IClipboard {
 		_data: ClipboardData = null
@@ -114,19 +114,19 @@ namespace GDK {
 			}
 		}
 
-		_onShowEvent: slib.SimpleEvent<any> = new slib.SimpleEvent<any>()
+		_onShowEvent: fsync.event.SimpleEvent<any> = new fsync.event.SimpleEvent<any>()
 		onShow?(callback: (data: any) => void): void {
 			this._onShowEvent.on(callback)
 		}
 		offShow?(callback: Function): void {
-			this._onShowEvent.off(<slib.EventHandler<any>>callback)
+			this._onShowEvent.off(<fsync.event.EventHandler<any>>callback)
 		}
-		_onHideEvent: slib.SimpleEvent<void> = new slib.SimpleEvent<void>()
+		_onHideEvent: fsync.event.SimpleEvent<void> = new fsync.event.SimpleEvent<void>()
 		onHide?(callback: Function): void {
-			this._onHideEvent.on(<slib.EventHandler<void>>callback)
+			this._onHideEvent.on(<fsync.event.EventHandler<void>>callback)
 		}
 		offHide?(callback: Function): void {
-			this._onHideEvent.off(<slib.EventHandler<void>>callback)
+			this._onHideEvent.off(<fsync.event.EventHandler<void>>callback)
 		}
 
 		getSafeArea?(callback: (data: { left: number, right: number, top: number, bottom: number }) => void): void {
@@ -152,14 +152,23 @@ namespace GDK {
 
 		appInfo: { [key: string]: string | number | boolean } = {}
 
-		initAppinfo(info: AppInfo): void {
-			if (info.sdkConfigs) for (let sdk of info.sdkConfigs) {
-				if (sdk.parameters) for (let k in sdk.parameters) {
-					this.appInfo[`${sdk.name}.${k}`] = sdk.parameters[k];
+		initAppinfo(info?: AppInfo): void {
+			if (info) {
+				// 将所有sdk config中的key, 合并到自身同一个appInfo中
+				if (info.sdkConfigs) {
+					for (let sdkConfig of info.sdkConfigs) {
+						if (sdkConfig.parameters) {
+							for (let k in sdkConfig.parameters) {
+								this.appInfo[`${sdkConfig.name}.${k}`] = sdkConfig.parameters[k];
+							}
+						}
+					}
 				}
-			}
-			if (info.parameters) for (let k in info.parameters) {
-				this.appInfo[k] = info.parameters[k];
+				if (info.parameters) {
+					for (let k in info.parameters) {
+						this.appInfo[k] = info.parameters[k];
+					}
+				}
 			}
 		}
 

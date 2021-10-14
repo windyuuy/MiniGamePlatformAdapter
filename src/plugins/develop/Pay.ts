@@ -5,13 +5,13 @@ namespace DevelopGDK {
 
 	export class Pay extends GDK.PayBase {
 
-		protected payFlow: PayFlow.PayFlowProxy
+		protected payFlow: GDK.PayFlow.IPayFlow
 		getUserPayFlow(): GDK.PayFlow.IPayFlow {
 			if (this.payFlow != null) {
 				return this.payFlow
 			}
 
-			this.payFlow = new PayFlow.PayFlowProxy().init(this.api)
+			// this.payFlow = new PayFlow.PayFlowProxy().init(this.api)
 			return this.payFlow
 		}
 
