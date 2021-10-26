@@ -67,8 +67,9 @@ function copyLibsTask(ossSrcDir, ossDestDir, tip) {
         let client = getOssClient();
 
         const result = await client.list({
-            prefix: `${ossSrcDir}/`
-        })
+            prefix: `${ossSrcDir}/`,
+            "max-keys":100,
+        },{})
         await Promise.all(result.objects.map(info => {
             console.log(`${ossDestDir}/${path.basename(info.name)}`, '<-', `${info.name}`)
             return client.copy(`${ossDestDir}/${path.basename(info.name)}`, `${info.name}`)
@@ -108,12 +109,8 @@ gulp.task("verifyUpload", async() => {
     const unmatchedFiles = []
     sourcefiles.forEach((filepath) => {
         let name = path.basename(filepath)
-        let c1 = fs.readFileSync(`${tempDir}/${name}`, {
-            encoding: 'UTF-8'
-        })
-        let c2 = fs.readFileSync(`../dist/${name}`, {
-            encoding: 'UTF-8'
-        })
+        let c1 = fs.readFileSync(`${tempDir}/${name}`,"utf-8")
+        let c2 = fs.readFileSync(`../dist/${name}`, "utf-8")
         if (c1 != c2) {
             unmatchedFiles.push(name)
             console.error(`file unmatched: ${name}`, c1.length, c2.length)
@@ -129,12 +126,15 @@ gulp.task("verifyUpload", async() => {
 
 gulp.task("mini", () => {
 
-    let fileList = fs.readdirSync("../dist")
-    for (let f of fileList) {
-        if (f.endsWith(".mini.js")) {
-            fs.unlinkSync(path.join("../dist", f));
-        }
-    }
+    glob.sync("../dist/**/*.mini.js").forEach((filepath)=>{
+        fs.unlinkSync(filepath)
+    })
+    // let fileList = fs.readdirSync("../dist")
+    // for (let f of fileList) {
+    //     if (f.endsWith(".mini.js")) {
+    //         fs.unlinkSync(path.join("../dist", f));
+    //     }
+    // }
 
     return gulp.src("../dist/**/*.js") //JS文件地址
         .pipe(uglifyjs())
@@ -286,7 +286,7 @@ const updateVersion = () => {
     if (!fs.existsSync(fileName)) {
         return;
     }
-    const file = path.join("", "config.ts");
+    let file = path.join("", "config.ts");
     if (!fs.existsSync(file)) {
         file = path.join("", "baseConfig.ts");
     }
