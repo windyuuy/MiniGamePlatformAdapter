@@ -53,17 +53,31 @@ namespace GDK {
 				return;
 			}
 
-			var win = window, hiddenPropName;
-			if (typeof document.hidden !== 'undefined') {
-				hiddenPropName = 'hidden';
-			} else if (typeof document['mozHidden'] !== 'undefined') {
-				hiddenPropName = 'mozHidden';
-			} else if (typeof document['msHidden'] !== 'undefined') {
-				hiddenPropName = 'msHidden';
-			} else if (typeof document['webkitHidden'] !== 'undefined') {
-				hiddenPropName = 'webkitHidden';
+			let win = window, hiddenPropName: string;
+			let hiddenProp: string, visibilityChange: string;
+			if (typeof document.hidden !== "undefined") {
+				hiddenProp = "hidden";
+				visibilityChange = "visibilitychange";
+				hiddenPropName = "visibilityState";
+			} else if (typeof document["mozHidden"] !== "undefined") {
+				hiddenProp = "mozHidden";
+				visibilityChange = "mozvisibilitychange";
+				hiddenPropName = "mozVisibilityState";
+			} else if (typeof document["msHidden"] !== "undefined") {
+				hiddenProp = "msHidden";
+				visibilityChange = "msvisibilitychange";
+				hiddenPropName = "msVisibilityState";
+			} else if (typeof document["webkitHidden"] !== "undefined") {
+				hiddenProp = "webkitHidden";
+				visibilityChange = "webkitvisibilitychange";
+				hiddenPropName = "webkitVisibilityState";
+			} else {
+				console.error("invalid hidden listener")
+				hiddenProp = "hidden";
+				visibilityChange = "visibilitychange";
+				hiddenPropName = "visibilityState";
 			}
-			var hidden = false;
+			let hidden = false;
 			const onHidden = () => {
 				if (!hidden) {
 					hidden = true;
@@ -79,20 +93,16 @@ namespace GDK {
 				}
 			}
 			if (hiddenPropName) {
-				var changeList = [
-					'visibilitychange',
-					'mozvisibilitychange',
-					'msvisibilitychange',
-					'webkitvisibilitychange',
-					'qbrowserVisibilityChange'
-				];
+				let changeList = [
+					visibilityChange,
+				]
 				for (var i = 0; i < changeList.length; i++) {
 					document.addEventListener(changeList[i], function (event) {
 						var visible = document[hiddenPropName];
 						if (visible == undefined) {
 							visible = event['hidden'];
 						}
-						devlog.info('hidden:', visible)
+						devlog.info('document-hidden:', visible)
 						if (visible)
 							onHidden();
 						else
