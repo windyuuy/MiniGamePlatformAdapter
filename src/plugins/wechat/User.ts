@@ -112,7 +112,7 @@ namespace WechatGDK {
 							lang: 'zh_CN',
 							desc: "用于显示用户头像和昵称",
 							success: (res) => {
-								console.log("res", res)
+								console.log("getUserProfile-0 success:", res)
 								ret.success({
 									extra: res,
 								})
