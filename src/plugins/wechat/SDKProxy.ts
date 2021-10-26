@@ -319,6 +319,13 @@ namespace WechatGDK {
 			}
 		}
 
+		static authorize(options: wx.AuthorizeParams) {
+			if (SDKProxy.wx) {
+				SDKProxy.wx.authorize(options)
+			} else {
+				console.log("浏览器模式，跳过方法")
+			}
+		}
 		static getUserInfo(options: wx.GetUserInfoOptions): void {
 			if (SDKProxy.wx) {
 				SDKProxy.wx.getUserInfo(options);

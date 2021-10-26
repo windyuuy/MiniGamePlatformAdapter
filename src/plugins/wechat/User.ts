@@ -17,6 +17,7 @@ namespace WechatGDK {
 				success: (res) => {
 					let result = new GDK.LoginResult()
 					result.extra = res
+					result.code = res.code
 					ret.success(result)
 				},
 				fail: (res) => {
@@ -58,23 +59,77 @@ namespace WechatGDK {
 
 		update(): Promise<GDK.UserDataUpdateResult> {
 			const ret = new GDK.RPromise<GDK.UserDataUpdateResult>()
-			SDKProxy.getUserInfo({
-				openIdList: ["selfOpenId"],
-				lang: "zh_CN",
-				success: (params) => {
-					const { userInfo, rawData, signature, encryptData } = params
 
-					for (let key in userInfo) {
-						this.api.userData[key] = userInfo[key]
+			const auth = () => {
+				SDKProxy.getUserInfo({
+					openIdList: ["selfOpenId"],
+					lang: "zh_CN",
+					success: (paras) => {
+						console.log("getUserInfo success:", paras)
+						const { userInfo, rawData, signature, encryptData } = paras
+
+						for (let key in userInfo) {
+							this.api.userData[key] = userInfo[key]
+						}
+						this.api.userData.sex = userInfo.gender
+
+						ret.success({
+							extra: paras
+						})
+					},
+					fail: (res) => {
+						console.error("getUserInfo failed:", res)
+						wx.getUserProfile({
+							openIdList: ["selfOpenId"],
+							lang: "zh_CN",
+							desc: "用于显示用户头像和昵称",
+							success: (paras) => {
+								console.log("getUserProfile success:", paras)
+								const { userInfo, rawData, signature, encryptData } = paras
+
+								for (let key in userInfo) {
+									this.api.userData[key] = userInfo[key]
+								}
+								this.api.userData.sex = userInfo.gender
+
+								ret.success({
+									extra: paras
+								})
+							},
+							fail: (res) => {
+								console.log("getUserProfile failed:", res)
+								ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_UPDATE_USERDATA_FAILED))
+							}
+						})
+					},
+				})
+			}
+			wx.getSetting({
+				success: (res: any) => {
+					if (!res.authSetting['scope.userInfo']) {
+						wx.getUserProfile({
+							openIdList: ["selfOpenId"],
+							lang: 'zh_CN',
+							desc: "用于显示用户头像和昵称",
+							success: (res) => {
+								console.log("res", res)
+								ret.success({
+									extra: res,
+								})
+							},
+							fail: (res) => {
+								console.error("用户权鉴失败:", res)
+								ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_AUTHORIZE_FAILED))
+							},
+						})
+					} else {
+						console.warn("scope.userInfo 已授权")
+						auth()
 					}
-					this.api.userData.sex = userInfo.gender
-
-					ret.success({
-						extra: params
-					})
 				},
-				fail: () => {
-					ret.fail(GDK.GDKResultTemplates.make(GDK.GDKErrorCode.API_UPDATE_USERDATA_FAILED))
+				fail: (res) => {
+					console.warn("getSetting失败")
+					auth()
 				}
 			})
 			return ret.promise

@@ -1928,6 +1928,11 @@ declare namespace wx {
 
 	export interface GetUserInfoOptions extends BaseOptions {
 
+		/**
+		 * 是否带上登录态信息。当 withCredentials 为 true 时，要求此前有调用过 wx.login 且登录态尚未过期，此时返回的数据会包含 encryptedData, iv 等敏感信息；当 withCredentials 为 false 时，不要求有登录态，返回的数据不包含 encryptedData, iv 等敏感信息。
+		 */
+		withCredentials?: boolean
+
 		openIdList?: string[]
 
 		lang?: "en" | "zh_CN" | "zh_TW"
@@ -1936,12 +1941,56 @@ declare namespace wx {
 		 * 接口调用成功的回调函数
 		 */
 		success?: (res?: GetUserInfoResult) => void;
+		fail?: (res?: reason) => void;
 	}
 
 	/**
 	 * 获取用户信息，需要先调用 wx.login 接口。
 	 */
 	export function getUserInfo(options: GetUserInfoOptions): void;
+
+	export interface GetUserProfileResult {
+
+		/**
+		 * 用户信息对象，不包含 openid 等敏感信息
+		 */
+		userInfo: UserInfo;
+
+		/**
+		 * 不包括敏感信息的原始数据字符串，用于计算签名。
+		 */
+		rawData: string;
+
+		/**
+		 * 使用 sha1( rawData + sessionkey ) 得到字符串，用于校验用户信息。
+		 */
+		signature: string;
+
+		/**
+		 * 包括敏感数据在内的完整用户信息的加密数据，详细见加密数据解密算法
+		 */
+		encryptData: string;
+
+		iv: string
+
+		cloudID: string
+	}
+
+	export interface GetUserProfileOptions extends BaseOptions {
+
+		openIdList?: string[]
+
+		lang?: "en" | "zh_CN" | "zh_TW"
+
+		desc: string
+
+		/**
+		 * 接口调用成功的回调函数
+		 */
+		success?: (res?: GetUserProfileResult) => void;
+	}
+
+	export function getUserProfile(options: GetUserProfileOptions): void;
 
 	export interface RequestPaymentOptions extends BaseOptions {
 
@@ -2321,7 +2370,9 @@ declare namespace wx {
 	}
 	export function navigateToMiniProgram(res: AppCallUpParams)
 
-
+	/**
+	 * https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/authorize.html#scope-%E5%88%97%E8%A1%A8
+	 */
 	export class AuthSetting {
 		/**
 		 * 是否授权用户信息，对应接口 wx.getUserInfo
@@ -2344,6 +2395,24 @@ declare namespace wx {
 		"scope.writePhotosAlbum": boolean
 	}
 
+	export class AuthorizeParams {
+		/**
+		 * 		是	需要获取权限的 scope，详见 scope 列表
+		 */
+		scope: string
+		/**
+		 *  否	接口调用成功的回调函数
+		 */
+		success?: function
+		/**
+		 *  否	接口调用失败的回调函数
+		 */
+		fail?: function
+		/**
+		 *  否	接口调用结束的回调函数（调用成功、失败都会执行）
+		 */
+		complete?: function
+	}
 
 	/**
 	 * 获取用户的当前设置。返回值中只会出现小程序已经向用户请求过的权限。

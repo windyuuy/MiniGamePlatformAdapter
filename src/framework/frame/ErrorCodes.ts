@@ -37,6 +37,8 @@ namespace GDK {
 		API_PAY_QUERYITEMINFO_FAILED: 30021,
 
 		// /** API 更新用户数据 */
+		/** 权鉴失败 */
+		API_AUTHORIZE_FAILED: 30101,
 		/** API 更新用户数据失败 */
 		API_UPDATE_USERDATA_FAILED: 30102,
 
@@ -115,6 +117,7 @@ namespace GDK {
 		{ errCode: GDKErrorCode.API_PAY_FAILED, message: 'Api支付失败', reason: 'Api支付失败' },
 		{ errCode: GDKErrorCode.API_PAY_CANCEL, message: 'Api支付取消', reason: 'Api支付取消' },
 
+		{ errCode: GDKErrorCode.API_AUTHORIZE_FAILED, message: 'Api用户权鉴失败', reason: 'Api用户权鉴失败' },
 		{ errCode: GDKErrorCode.API_UPDATE_USERDATA_FAILED, message: 'Api更新用户数据失败', reason: 'Api更新用户数据失败' },
 
 		{ errCode: GDKErrorCode.API_GET_FRIEND_CLOUD_STORAGE_FAILED, message: '获取好友排行数据失败' },
