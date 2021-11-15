@@ -15,6 +15,12 @@ namespace GDK {
 	}
 
 	export class APISystemBase implements IAPISystem {
+		setFPS(fps: number): void {
+			throw new Error("Method not implemented.");
+		}
+		onMemoryWarning(call: (res: IOnMemoryWarningResult) => void): void {
+			throw new Error("Method not implemented.");
+		}
 
 		get sdkFrameworkVersion(): string {
 			return "-1.0"

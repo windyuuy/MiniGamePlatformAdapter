@@ -11,5 +11,14 @@ namespace DevelopGDK {
 			}
 			super.init()
 		}
+
+		setFPS(fps: number): void {
+			if ((window as any).cc) {
+				(window as any).cc.game.frameRate = fps
+			}
+		}
+
+		onMemoryWarning(call: (res: GDK.IOnMemoryWarningResult) => void): void {
+		}
 	}
 }

@@ -2430,6 +2430,7 @@ declare namespace wx {
 	export function getPerformance(): Performance
 	export function triggerGC(): void
 	export function onMemoryWarning(callback: (res: { level: number }) => void): void
+	export function setPreferredFramesPerSecond(fps: number): void
 	/**
 	 * 退出当前小游戏
 	 */

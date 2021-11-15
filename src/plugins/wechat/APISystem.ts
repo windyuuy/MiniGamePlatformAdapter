@@ -142,6 +142,13 @@ namespace WechatGDK {
 			return SDKProxy.offHide(callback)
 		}
 
+		setFPS(fps: number): void {
+			wx.setPreferredFramesPerSecond(fps)
+		}
+
+		onMemoryWarning(call: (res: GDK.IOnMemoryWarningResult) => void): void {
+			wx.onMemoryWarning(call)
+		}
 	}
 
 }

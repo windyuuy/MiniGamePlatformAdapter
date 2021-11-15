@@ -78,29 +78,29 @@ namespace GDK {
 		key: string,
 	}
 
-	export type AppInfo={
+	export type AppInfo = {
 		/**
 		 * sdk的相关配置
 		 */
-		sdkConfigs?:{
+		sdkConfigs?: {
 			/**
 			 * sdk名称
 			 */
-			name:string,
+			name: string,
 			/**
 			 * 需要禁用的功能
 			 */
-			disables?:{[key:string]:boolean},
+			disables?: { [key: string]: boolean },
 			/**
 			 * sdk中的参数列表
 			 */
-			parameters?:{[key:string]:string|number|boolean}
+			parameters?: { [key: string]: string | number | boolean }
 		}[]
 		/**
 		 * 全局参数，往往存放一些自定义参数
 		 */
-		parameters?:{[key:string]:string|number|boolean}
-	} 
+		parameters?: { [key: string]: string | number | boolean }
+	}
 
 	export interface ICheckPermissionResult {
 		/**
@@ -111,6 +111,22 @@ namespace GDK {
 			message?: string,
 			stack?: string,
 		}
+	}
+
+	/**
+	 * 内存警告等级
+	 */
+	export enum MemoryWarningLevel {
+		TRIM_MEMORY_RUNNING_MODERATE = 5,
+		TRIM_MEMORY_RUNNING_LOW = 10,
+		TRIM_MEMORY_RUNNING_CRITICAL = 15,
+	}
+
+	export interface IOnMemoryWarningResult {
+		/**
+		 * 内存告警等级，只有 Android 才有，对应系统宏定义
+		 */
+		level: MemoryWarningLevel
 	}
 
 	/**
@@ -161,7 +177,7 @@ namespace GDK {
 		 * - 设置帧率
 		 * 	- 可能和cocos的会冲突
 		 */
-		setFPS?(fps: number): void
+		setFPS(fps: number): void
 
 		/**
 		 * 剪切板
@@ -236,47 +252,51 @@ namespace GDK {
 		 * 初始化appinfo
 		 * 最终的参数优先从 优先从外层parameters加载，如果找不到则从sdk模块中加载。 
 		 */
-		initAppinfo(appInfo:AppInfo):void;
+		initAppinfo(appInfo: AppInfo): void;
 
 		/**
 		 * 动态修改appInfo的值，仅在内存中生效，不会影响磁盘中的配置
 		 * @param key 
 		 * @param value 
 		 */
-		setAppInfo(key: string, value: string | number | boolean):void ;
+		setAppInfo(key: string, value: string | number | boolean): void;
 
 		/**
 		 * 获取应用AppInfo
 		 * @param key 
 		 */
-		 getAppInfo(key: string):string | number | boolean| null;
+		getAppInfo(key: string): string | number | boolean | null;
 
-		 /**
-		  * 获取Boolean类型的数据，当遇到异常数据时，将返回默认值
-		  * @param key 
-		  * @param def 
-		  */
-		 getAppInfoBoolean(key: string,def?:boolean):boolean;
+		/**
+		 * 获取Boolean类型的数据，当遇到异常数据时，将返回默认值
+		 * @param key 
+		 * @param def 
+		 */
+		getAppInfoBoolean(key: string, def?: boolean): boolean;
 
 		/**
 		  * 获取Number类型的数据，当遇到异常数据时，将返回默认值
 		  * @param key 
 		  * @param def 
 		  */
-		 getAppInfoNumber(key: string,def:number):number
+		getAppInfoNumber(key: string, def: number): number
 
-		 /**
-		  * 获取String类型的数据，当遇到异常数据时，将返回默认值
-		  * @param key 
-		  * @param def 
-		  */
-		 getAppInfoString(key: string,def:string):string;
+		/**
+		 * 获取String类型的数据，当遇到异常数据时，将返回默认值
+		 * @param key 
+		 * @param def 
+		 */
+		getAppInfoString(key: string, def: string): string;
 
-		 /**
-		  * 获取资源版本号
-		  */
-		 getResVersion():number
+		/**
+		 * 获取资源版本号
+		 */
+		getResVersion(): number
 
+		/**
+		 * 监听内存不足告警事件。
+		 */
+		onMemoryWarning(call: (res: IOnMemoryWarningResult) => void): void
 	}
 
 }

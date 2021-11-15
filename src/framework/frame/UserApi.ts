@@ -967,7 +967,7 @@ namespace GDK {
 		 * - 设置帧率
 		 * 	- 可能和cocos的会冲突
 		 */
-		setFPS?(fps: number): void {
+		setFPS(fps: number): void {
 			if (!this.checkModuleAttr("apiSystem", "setFPS", "function")) {
 				return undefined;
 			}
@@ -1207,6 +1207,15 @@ namespace GDK {
 				return undefined;
 			}
 			return this._m.apiSystem.getResVersion();
+		}
+		/**
+		 * 监听内存不足告警事件。
+		 */
+		onMemoryWarning(call: (res: IOnMemoryWarningResult) => void): void {
+			if (!this.checkModuleAttr("apiSystem", "onMemoryWarning", "function")) {
+				return undefined;
+			}
+			return this._m.apiSystem.onMemoryWarning(call);
 		}
 
 		get launchOptions(): {
