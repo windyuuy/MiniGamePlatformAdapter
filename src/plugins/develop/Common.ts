@@ -5,7 +5,7 @@ namespace DevelopGDK.Common {
 	 */
 	export let getServerTime: () => Date;
 
-	export const devlog = new lang.libs.Log({ tags: ["[gdk]", "[develop]"] });
-	export const paylog = new lang.libs.Log({ tags: ["[gdk]", "[devpay]"] });
+	export const devlog = new lang.libs.Log({ tags: ["gdk", "develop"] });
+	export const paylog = new lang.libs.Log({ tags: ["gdk", "devpay"] });
 
 }

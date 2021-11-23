@@ -5,6 +5,6 @@ namespace WechatGDK.Common {
 	 */
 	export let getServerTime: () => Date;
 
-	export const devlog = new lang.libs.Log({ tags: ["[gdk]", "[wechat]"] });
-	export const paylog = new lang.libs.Log({ tags: ["[gdk]", "[wepay]"] });
+	export const devlog = new lang.libs.Log({ tags: ["gdk", "wechat"] });
+	export const paylog = new lang.libs.Log({ tags: ["gdk", "wepay"] });
 }
