@@ -157,7 +157,7 @@ namespace GDK {
 		channelType?: ChannelType
 		// 这个参数代表不同数据分区
 		/**
-		 * （正在弃用，用payUrl代替）每日给力支付app分区 ID
+		 * （正在弃用，用payUrl代替）支付app分区 ID
 		 * - 0 测试版
 		 * - 1 fox应用
 		 * - 2 海洋馆应用

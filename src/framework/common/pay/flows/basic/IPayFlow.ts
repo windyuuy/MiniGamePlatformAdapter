@@ -62,10 +62,10 @@ namespace GDK.PayFlow {
      */
     export interface PaymentParamsOptions {
         /**
-         * （正在弃用，用payUrl代替）每日给力支付app分区 ID
+         * （正在弃用，用payUrl代替）支付app分区 ID
          * - 0 测试版
          * - 1 fox应用
-		 * - 2 海洋馆应用
+         * - 2 海洋馆应用
          */
         gleeZoneId?: number
         /**
@@ -84,22 +84,22 @@ namespace GDK.PayFlow {
          */
         gameOrientation?: number
 
-		/**
-		 * - 副标题
-		 * - 客服跳转支付，会话内消息卡片标题
-		 */
+        /**
+         * - 副标题
+         * - 客服跳转支付，会话内消息卡片标题
+         */
         subTitle?: string
-		/**
-		 * - 客服跳转支付，会话内消息卡片图片路径
-		 */
+        /**
+         * - 客服跳转支付，会话内消息卡片图片路径
+         */
         imagePath?: string
         /**
-		 * 自定义附加参数
-		 */
+         * 自定义附加参数
+         */
         customExtra?: string
         /**
-		 * 自定义附加参数(JSON格式)
-		 */
+         * 自定义附加参数(JSON格式)
+         */
         customJsonExtra?: string
         /**
          * 自动补单重试次数
